@@ -27,7 +27,7 @@ define( [
                 console.log( event.target.textContent );
             },
             bindEvents: function() {
-                this.container.addEventListener( "click", this.clickHandler, false );
+                this.container.addEventListener( "click", this.clickHandler.bind( this ), false );
             },
             html: function() {
                 return this.options.text;

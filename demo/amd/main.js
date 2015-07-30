@@ -57,6 +57,7 @@ require( [
             UI.render.ALL();
         } else {
             console.log( "ALL RENDER COMPLETE " + ( Date.now() - start ) );
+            UI.render.off( "RenderComplete" );
         }
     } );
     UI.render.FORCE_ALL();
