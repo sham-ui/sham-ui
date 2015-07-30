@@ -1,6 +1,6 @@
 {
-  "name": "requirejs-library",
-  "version": "1.0.0",
+  "name": "shamUI",
+  "version": "0.0.1",
   "devDependencies": {
     "requirejs": "~2.1.10",
     "almond": "~0.2.9",
