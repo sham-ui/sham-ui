@@ -11,7 +11,13 @@ define( [
                 "#label-" + i,
                 "label-" + i,
                 {
-                    text: "Just text " + i,
+                    text: function() {
+                        return "Just text " + this.ID + " " + ( 100 * Math.random() )
+                    },
+                    renderAsync: true,
+                    renderAsyncWrapper: function( callback ) {
+                        shamUI.PackageRender.add( callback );
+                    },
                     beforeRegister: function() {
 
                         //console.log( "Before Register" + this.ID );

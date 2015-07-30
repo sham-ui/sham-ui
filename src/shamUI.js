@@ -8,8 +8,9 @@ define( [
   "./fsm",
   "./binding",
   "./widget",
+  "./packageRender",
   "./widgets/label/main"
-], function( Class, machina, fsm, binding, widget, LibraryLabel ) {
+], function( Class, machina, fsm, binding, widget, PackageRender, LibraryLabel ) {
     var ShamUI = Class(
         /** @lends ShamUI.prototype */
         {
@@ -72,6 +73,10 @@ define( [
          */
         Library: {
             Label: LibraryLabel
-        }
+        },
+        /**
+         * Пакетная отрисовка виджетов
+         */
+        PackageRender: PackageRender
     };
 } );

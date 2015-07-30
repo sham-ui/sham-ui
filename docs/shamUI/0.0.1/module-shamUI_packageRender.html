@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: widgets/label/main.js</title>
+    <title>JSDoc: Module: shamUI/packageRender</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,59 +17,134 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: widgets/label/main.js</h1>
+    <h1 class="page-title">Module: shamUI/packageRender</h1>
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Виджет для обычной строки текста
- * @module shamUI/widgets/label
- * @see WidgetLabel
- */
-define( [
-    "Class",
-    "../../widget"
-], function( Class, Widget ) {
-    var WidgetLabel = Class( Widget,
-        /** @lends WidgetLabel.prototype */
-        {
-            /**
-             * @constructs
-             * @extends Widget
-             * @classdesc Виджет для обычной строки текста
-             */
-            constructor: function() {
-                return WidgetLabel.$super.apply( this, arguments );
-            },
-            defaultOptions: {
-                text: function() { return "" },
-                actionSequence: [ "render", "bindEvents" ],
-                bindOnce: false
-            },
-            clickHandler: function( event ) {
-                console.log( event.target.textContent );
-            },
-            bindEvents: function() {
-                this.container.addEventListener( "click", this.clickHandler.bind( this ), false );
-            },
-            html: function() {
-                return this.options.text.call( this );
-            },
-            destroy: function() {
-                this.container.removeEventListener( "click", this.clickHandler );
-            }
-        }
-    );
-    return WidgetLabel;
-} );
-</code></pre>
-        </article>
-    </section>
+        
+            
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Пакетная отрисовка виджетов.
+Объединяет несколько виджетов в один пакет и отрисовывает его с помощью requestAnimationFrame</div>
+        
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="packageRender.js.html">packageRender.js</a>, <a href="packageRender.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="PackageRender.html">PackageRender</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

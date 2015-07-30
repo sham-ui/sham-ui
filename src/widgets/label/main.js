@@ -19,7 +19,7 @@ define( [
                 return WidgetLabel.$super.apply( this, arguments );
             },
             defaultOptions: {
-                text: "",
+                text: function() { return "" },
                 actionSequence: [ "render", "bindEvents" ],
                 bindOnce: false
             },
@@ -30,7 +30,7 @@ define( [
                 this.container.addEventListener( "click", this.clickHandler.bind( this ), false );
             },
             html: function() {
-                return this.options.text;
+                return this.options.text.call( this );
             },
             destroy: function() {
                 this.container.removeEventListener( "click", this.clickHandler );

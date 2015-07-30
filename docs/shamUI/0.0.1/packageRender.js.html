@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: widgets/label/main.js</title>
+    <title>JSDoc: Source: packageRender.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: widgets/label/main.js</h1>
+    <h1 class="page-title">Source: packageRender.js</h1>
 
     
 
@@ -27,45 +27,69 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * Виджет для обычной строки текста
- * @module shamUI/widgets/label
- * @see WidgetLabel
+ * Пакетная отрисовка виджетов.
+ * Объединяет несколько виджетов в один пакет и отрисовывает его с помощью requestAnimationFrame
+ * @module shamUI/packageRender
+ * @see PackageRender
  */
 define( [
-    "Class",
-    "../../widget"
-], function( Class, Widget ) {
-    var WidgetLabel = Class( Widget,
-        /** @lends WidgetLabel.prototype */
+    "Class"
+], function( Class ) {
+    var PackageRender = Class(
+        /** @lends PackageRender.prototype */
         {
             /**
              * @constructs
-             * @extends Widget
-             * @classdesc Виджет для обычной строки текста
+             * @classdesc Пакетная отрисовка виджетов
              */
-            constructor: function() {
-                return WidgetLabel.$super.apply( this, arguments );
+            constructor: function() {},
+
+            $singleton: true,
+
+            /**
+             * Отложенные до следующей отрисовки виджеты
+             * @member {Array}
+             */
+            deferred: new Array( 10 ),
+
+            /**
+             * Сколько отложенно
+             * @member {Number}
+             */
+            deferredCount: 0,
+
+            /**
+             * Добавить функцию отрисовки
+             * @param {Function} callback
+             */
+            add: function( callback ) {
+                this.deferred[ this.deferredCount ] = callback;
+                this.deferredCount += 1;
+                if ( this.deferredCount === 1 ) {
+                    window.requestAnimationFrame( this.renderBlock.bind( this ) );
+                }
             },
-            defaultOptions: {
-                text: function() { return "" },
-                actionSequence: [ "render", "bindEvents" ],
-                bindOnce: false
-            },
-            clickHandler: function( event ) {
-                console.log( event.target.textContent );
-            },
-            bindEvents: function() {
-                this.container.addEventListener( "click", this.clickHandler.bind( this ), false );
-            },
-            html: function() {
-                return this.options.text.call( this );
-            },
-            destroy: function() {
-                this.container.removeEventListener( "click", this.clickHandler );
+
+            /**
+             * Отрисовать блок виджетов в одном фрейме
+             */
+            renderBlock: function() {
+                console.log( "Count:" + this.deferredCount );
+                var i;
+                for ( i = 0; i &lt; this.deferredCount; i++ ) {
+                    this.deferred[ i ]();
+                    this.deferred[ i ] = null;
+                }
+                this.deferredCount = 0;
             }
         }
     );
-    return WidgetLabel;
+
+    /**
+     * Пакетная отрисовка виджетов
+     * @see PackageRender
+     */
+    return PackageRender;
 } );
 </code></pre>
         </article>

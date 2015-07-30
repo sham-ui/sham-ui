@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: RenderingState</title>
+    <title>JSDoc: Class: PackageRender</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: RenderingState</h1>
+    <h1 class="page-title">Class: PackageRender</h1>
 
     
 
@@ -29,10 +29,10 @@
 <header>
     
         <h2>
-        RenderingState
+        PackageRender
         </h2>
         
-            <div class="class-description">Класс для состояния "Отрисовываем виджеты"</div>
+            <div class="class-description">Пакетная отрисовка виджетов</div>
         
     
 </header>
@@ -46,7 +46,7 @@
     <h2>Constructor</h2>
     
 
-    <h4 class="name" id="RenderingState"><span class="type-signature"></span>new RenderingState<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="PackageRender"><span class="type-signature"></span>new PackageRender<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
@@ -93,7 +93,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fsm.js.html">fsm.js</a>, <a href="fsm.js.html#line268">line 268</a>
+        <a href="packageRender.js.html">packageRender.js</a>, <a href="packageRender.js.html#line17">line 17</a>
     </li></ul></dd>
     
 
@@ -133,6 +133,154 @@
     
 
     
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="deferred"><span class="type-signature"></span>deferred<span class="type-signature"> :Array</span></h4>
+
+
+
+
+<div class="description">
+    Отложенные до следующей отрисовки виджеты
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="packageRender.js.html">packageRender.js</a>, <a href="packageRender.js.html#line25">line 25</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="deferredCount"><span class="type-signature"></span>deferredCount<span class="type-signature"> :Number</span></h4>
+
+
+
+
+<div class="description">
+    Сколько отложенно
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Number</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="packageRender.js.html">packageRender.js</a>, <a href="packageRender.js.html#line31">line 31</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -142,260 +290,14 @@
 
     
 
-    <h4 class="name" id="%22*%22"><span class="type-signature"></span>"*"<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="add"><span class="type-signature"></span>add<span class="signature">(callback)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    Что делать с необрабатываемыми в этом состояния хэндлеры
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fsm.js.html">fsm.js</a>, <a href="fsm.js.html#line272">line 272</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="_onEnter"><span class="type-signature"></span>_onEnter<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    Вызывается при входе в это состояние
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fsm.js.html">fsm.js</a>, <a href="fsm.js.html#line278">line 278</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="_onExit"><span class="type-signature"></span>_onExit<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    Вызывается при выходе из этого состояни
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fsm.js.html">fsm.js</a>, <a href="fsm.js.html#line334">line 334</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="renderWidget"><span class="type-signature"></span>renderWidget<span class="signature">(widget, deferred)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    Отрисовать один виджет
+    Добавить функцию отрисовки
 </div>
 
 
@@ -431,13 +333,13 @@
 
         <tr>
             
-                <td class="name"><code>widget</code></td>
+                <td class="name"><code>callback</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">function</span>
 
 
             
@@ -447,30 +349,7 @@
 
             
 
-            <td class="description last">Виджет</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>deferred</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Отложенный объект для этого виджета</td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -511,19 +390,94 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="fsm.js.html">fsm.js</a>, <a href="fsm.js.html#line344">line 344</a>
+        <a href="packageRender.js.html">packageRender.js</a>, <a href="packageRender.js.html#line37">line 37</a>
     </li></ul></dd>
     
 
     
 
     
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="Widget.html">Widget</a></li>
-        </ul>
-    </dd>
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="renderBlock"><span class="type-signature"></span>renderBlock<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Отрисовать блок виджетов в одном фрейме
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="packageRender.js.html">packageRender.js</a>, <a href="packageRender.js.html#line48">line 48</a>
+    </li></ul></dd>
+    
+
+    
+
     
 
     
