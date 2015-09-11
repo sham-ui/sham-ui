@@ -6,7 +6,7 @@ define( function() {
      * Создать обертку для биндинга
      * @exports shamUI/binding
      * @param {Function} bindingFn  Функция создающая виджеты
-     * @param {Object}   shamUI   Инстанс shamUI
+     * @param {Object}   shamUI     Инстанс shamUI
      * @returns {Function} Обернутый binding
      */
     function bindingWrapper( bindingFn, shamUI ) {

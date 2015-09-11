@@ -1,20 +1,21 @@
 define( [
-    "shamUI"
+    "shamUI",
+    "./widgets/label/main"
 ], function(
-        shamUI
+        shamUI,
+        WidgetLabel
     ) {
     return function( UI, options ) {
         console.log( options.number );
         for ( var i = 0; i <= 20; i++ ) {
-            new shamUI.Library.Label(
-                UI,
+            new WidgetLabel(
                 "#label-" + i,
                 "label-" + i,
                 {
                     text: function() {
                         return "Just text " + this.ID + " " + ( 100 * Math.random() )
                     },
-                    renderAsync: true,
+                    renderAsync: false,
                     renderAsyncWrapper: function( callback ) {
                         shamUI.PackageRender.add( callback );
                     },

@@ -4,10 +4,9 @@
  * @see WidgetLabel
  */
 define( [
-    "Class",
-    "../../widget"
-], function( Class, Widget ) {
-    var WidgetLabel = Class( Widget,
+    "shamUI"
+], function( shamUI ) {
+    var WidgetLabel = shamUI.Class( shamUI.Widget,
         /** @lends WidgetLabel.prototype */
         {
             /**
