@@ -15865,29 +15865,36 @@ define( 'fsm',[
 
                 // Сортируем по renderDependence
                 this.changeWidgets.sort( function( a, b ) {
-                    var widgetA = self.byId[ a ],
-                        widgetB = self.byId[ b ];
-                    if ( !widgetA.options.renderDependence || !widgetA.options.renderDependence.length ) {
-                        if ( !widgetB.options.renderDependence || !widgetB.options.renderDependence.length ) {
+                    var widgetARD = self.byId[ a ].options.renderDependence,
+                        widgetBRD = self.byId[ b ].options.renderDependence;
+                    if ( !widgetARD || !widgetARD.length ) {
+                        if ( !widgetBRD || !widgetBRD.length ) {
+
                             // У обоих виджетов нет зависимостей
                             return 0;
                         } else {
+
                             // Зависит ли виджет B от виджета A
-                            return widgetB.options.renderDependence.indexOf( a ) !== -1 ? -1 : 0;
+                            return widgetBRD.indexOf( a ) !== -1 ? -1 : 0;
                         }
                     } else {
-                        if ( !widgetB.options.renderDependence || !widgetB.options.renderDependence.length ) {
+                        if ( !widgetBRD || !widgetBRD.length ) {
+
                             // Зависит ли виджет A от виджета B
-                            return widgetA.options.renderDependence.indexOf( b ) !== -1 ? 1 : 0;
+                            return widgetARD.indexOf( b ) !== -1 ? 1 : 0;
                         } else {
+
                             // У обоих виджетов есть зависимости
-                            if ( widgetA.options.renderDependence.indexOf( b ) !== -1 ) {
+                            if ( widgetARD.indexOf( b ) !== -1 ) {
+
                                 // Виджет A зависит от виджета B
                                 return 1;
-                            } else if ( widgetB.options.renderDependence.indexOf( a ) !== -1 ) {
+                            } else if ( widgetBRD.indexOf( a ) !== -1 ) {
+
                                 // Виджет B зависит от виджета A
                                 return -1;
                             } else {
+
                                 // Виджеты не зависят друг от друга
                                 return 0;
                             }
@@ -15906,8 +15913,11 @@ define( 'fsm',[
                             promises.push( deferred.promise );
                             promiseById[ this.changeWidgets[ i ] ] = deferred.promise;
 
-                            if ( current.options.renderDependence && current.options.renderDependence.length ) {
-                                widgetDependencePromise = new Array( current.options.renderDependence.length );
+                            if ( current.options.renderDependence &&
+                                current.options.renderDependence.length ) {
+                                widgetDependencePromise = new Array(
+                                    current.options.renderDependence.length
+                                );
                                 for ( j = 0; j < current.options.renderDependence.length; j++ ) {
                                     widgetDependencePromise[ j ] = promiseById[
                                         current.options.renderDependence[ j ]
@@ -15919,7 +15929,8 @@ define( 'fsm',[
 
                             ( function( widget, widgetDependencePromise, deferred ) {
 
-                                // Отрисовываем этот виджет только после того, как все как зависимости отрисовались
+                                // Отрисовываем этот виджет только после того, как
+                                // все зависимости отрисовались
                                 Q.allSettled( widgetDependencePromise )
                                     .then( function() {
                                         if ( widget.options.renderAsync ) {
@@ -15941,8 +15952,8 @@ define( 'fsm',[
                     .then( function() {
                         var i;
 
-                        promiseById = null;
                         // Все области отрисовались
+                        promiseById = null;
 
                         // Так же обрабатываем по отдельности
                         for ( i = 0; i < self.rendered.length; i++ ) {
@@ -16237,6 +16248,7 @@ define( 'widget',[
             $ready: function( clazz, parent, api ) {
                 var i;
                 if ( this !== clazz ) {
+
                     // Наследуем опции по-умолчнанию
                     for ( i = 0; i < parent.length; i++ ) {
                         clazz.prototype.defaultOptions = _.defaultsDeep(

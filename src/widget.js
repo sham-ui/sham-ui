@@ -89,6 +89,7 @@ define( [
             $ready: function( clazz, parent, api ) {
                 var i;
                 if ( this !== clazz ) {
+
                     // Наследуем опции по-умолчнанию
                     for ( i = 0; i < parent.length; i++ ) {
                         clazz.prototype.defaultOptions = _.defaultsDeep(
