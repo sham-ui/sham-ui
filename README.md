@@ -1,5 +1,7 @@
 # Library management UI widgets
 
+### Documentation
+http://shamcode.github.io/shamUI/
 
 ### License
 The MIT License (MIT)
