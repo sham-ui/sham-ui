@@ -1,6 +1,6 @@
 define( [
     "shamUI",
-    "./widgets/label/main"
+    "../widgets/label/main"
 ], function(
         shamUI,
         WidgetLabel
