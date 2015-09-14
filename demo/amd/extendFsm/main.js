@@ -1,6 +1,6 @@
 require.config( {
     paths: {
-        "shamUI": "../../../dist/shamUI"
+        "shamUI": "../../../shamUI"
     },
     packages: [
         {
