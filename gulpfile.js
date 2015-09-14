@@ -13,7 +13,7 @@ gulp.task( "requirejs", function() {
         baseUrl: "src",
 
         // Tells r.js that you want everything in one file.
-        out: "dist/shamUI.js",
+        out: "shamUI.js",
 
         // Set paths for modules (shortcut alias for "include").
         paths: {

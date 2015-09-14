@@ -20,12 +20,12 @@
     "type": "git",
     "url": "https://github.com/shamcode/shamUI.git"
   },
-  "main": "dist/shamUI.js",
+  "main": "shamUI.js",
   "ignore": [
       "demo",
       "docs",
       "src",
-      "gulpfile.src",
+      "gulpfile.js",
       "conf.json",
       "karma.conf.js",
       "test"
