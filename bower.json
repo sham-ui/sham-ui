@@ -19,5 +19,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/shamcode/shamUI.git"
-  }
+  },
+  "main": "dist/shamUI.js",
+  "ignore": []
 }
