@@ -1,6 +1,6 @@
 {
   "name": "shamui",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "devDependencies": {
     "requirejs": "~2.1.10",
     "almond": "~0.2.9",

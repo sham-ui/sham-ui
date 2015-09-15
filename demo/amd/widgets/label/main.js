@@ -1,6 +1,5 @@
 /**
  * Виджет для обычной строки текста
- * @module shamUI/widgets/label
  * @see WidgetLabel
  */
 define( [
@@ -23,6 +22,9 @@ define( [
                 bindOnce: false
             },
             clickHandler: function( event ) {
+                if ( this.options.onClick ) {
+                    this.options.onClick.apply( this, arguments );
+                }
                 console.log( event.target.textContent );
             },
             bindEvents: function() {

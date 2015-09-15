@@ -1,6 +1,6 @@
 {
   "name": "shamUI",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Library management UI widgets",
   "scripts": {
     "test": "karma start --single-run --browsers PhantomJS"
