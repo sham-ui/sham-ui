@@ -211,6 +211,59 @@ define( [
                         widget.options.afterBindEvents.call( widget );
                     }
                 }
+            },
+
+            /**
+             * Разрегистрировать виджет
+             * @param {String} widgetId Идентификатор виджета, который нужно разрегистрировать
+             */
+            unregister: function( widgetId ) {
+                var widget,
+                    types,
+                    index,
+                    i;
+
+                if ( this.idArray.indexOf( widgetId ) === -1 ) {
+                    return;
+                }
+
+                widget = this.byId[ widgetId ];
+
+                if ( widget.destroy  ) {
+                    if ( widget.options.beforeDestroy ) {
+                        widget.options.beforeDestroy.call( widget );
+                    }
+                    widget.destroy();
+                    if ( widget.options.afterDestroy ) {
+                        widget.options.afterDestroy.call( widget );
+                    }
+                }
+
+                // Если есть типы, то удаляем ссылки на этот виджет
+                if ( widget.options.types ) {
+                    types = widget.options.types;
+                    for ( i = 0; i &lt; types.length; i++ ) {
+                        this.byType[ types[ i ] ].splice(
+                            this.byType[ types[ i ] ].indexOf( widgetId ),
+                            1
+                        )
+                    }
+                }
+
+                // Удаляем запись из массива виджетов
+                for ( i = 0; i &lt; this.widgets.length; i++ ) {
+                    if ( this.widgets[ i ].ID === widgetId ) {
+                        index = i;
+                        break;
+                    }
+                }
+                this.widgets.splice( index, 1 );
+
+                // Удаляем из массива ID
+                this.idArray.splice( this.idArray.indexOf( widgetId ), 1 );
+
+                // И из объекта доступа по id
+                delete this.byId[ widgetId ];
             }
         }
     );
@@ -242,8 +295,8 @@ define( [
              * @param {Function} [widget.bind]                   Функция навешивающая обработчики
              * @param {Function} [widget.render]                 Функция отрисовки.
              * @param {Function} [widget.destroy]                Функция отвязывающая обработчики
-             * @param {Array}    [widget.types]                  Массив типов
              * @param {Object}   [widget.options]                Опции виджета
+             * @param {Array}    [widget.options.types]          Массив типов
              * @param {Function} [widget.options.beforeRegister] До регистрации
              * @param {Function} [widget.options.afterRegister]  После регистрации
              * @param {Function} [widget.options.beforeBind]     До навешивания обработчиков
@@ -266,12 +319,12 @@ define( [
                     this.byId[ widget.ID ] = widget;
 
                     // Если есть типы
-                    if ( widget.types ) {
-                        for ( var i = 0; i &lt; widget.types.length; i++ ) {
-                            if ( this.byType[ widget.types[ i ] ] === undefined ) {
-                                this.byType[ widget.types[ i ] ] = [];
+                    if ( widget.options.types ) {
+                        for ( var i = 0; i &lt; widget.options.types.length; i++ ) {
+                            if ( this.byType[ widget.options.types[ i ] ] === undefined ) {
+                                this.byType[ widget.options.types[ i ] ] = [];
                             }
-                            this.byType[ widget.types[ i ] ].push( widget.ID );
+                            this.byType[ widget.options.types[ i ] ].push( widget.ID );
                         }
                     }
 
@@ -572,8 +625,8 @@ define( [
          * @param {Function} [widget.bind]                   Функция навешивающая обработчики
          * @param {Function} [widget.render]                 Функция отрисовки.
          * @param {Function} [widget.destroy]                Функция отвязывающая обработчики
-         * @param {Array}    [widget.types]                  Массив типов
          * @param {Object}   [widget.options]                Опции виджета
+         * @param {Array}    [widget.options.types]          Массив типов
          * @param {Function} [widget.options.beforeRegister] До регистрации
          * @param {Function} [widget.options.afterRegister]  После регистрации
          * @param {Function} [widget.options.beforeBind]     До навешивания обработчиков
@@ -586,6 +639,13 @@ define( [
          */
         register: function( widget ) {
             this.handle( "register", widget );
+        },
+        /**
+         * Разрегистрировать виджет
+         * @param {String} widgetId Идентификатор виджета
+         */
+        unregister: function( widgetId ) {
+            this.handle( "unregister", widgetId );
         }
     } );
 
@@ -621,7 +681,7 @@ define( [
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Tue Sep 15 2015 23:01:21 GMT+0600 (OMST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Wed Sep 16 2015 16:52:35 GMT+0600 (OMST)
 </footer>
 
 <script> prettyPrint(); </script>
