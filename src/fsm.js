@@ -214,8 +214,8 @@ define( [
              * @param {Function} [widget.bind]                   Функция навешивающая обработчики
              * @param {Function} [widget.render]                 Функция отрисовки.
              * @param {Function} [widget.destroy]                Функция отвязывающая обработчики
-             * @param {Array}    [widget.types]                  Массив типов
              * @param {Object}   [widget.options]                Опции виджета
+             * @param {Array}    [widget.options.types]          Массив типов
              * @param {Function} [widget.options.beforeRegister] До регистрации
              * @param {Function} [widget.options.afterRegister]  После регистрации
              * @param {Function} [widget.options.beforeBind]     До навешивания обработчиков
@@ -238,12 +238,12 @@ define( [
                     this.byId[ widget.ID ] = widget;
 
                     // Если есть типы
-                    if ( widget.types ) {
-                        for ( var i = 0; i < widget.types.length; i++ ) {
-                            if ( this.byType[ widget.types[ i ] ] === undefined ) {
-                                this.byType[ widget.types[ i ] ] = [];
+                    if ( widget.options.types ) {
+                        for ( var i = 0; i < widget.options.types.length; i++ ) {
+                            if ( this.byType[ widget.options.types[ i ] ] === undefined ) {
+                                this.byType[ widget.options.types[ i ] ] = [];
                             }
-                            this.byType[ widget.types[ i ] ].push( widget.ID );
+                            this.byType[ widget.options.types[ i ] ].push( widget.ID );
                         }
                     }
 

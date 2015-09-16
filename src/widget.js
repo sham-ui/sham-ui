@@ -32,16 +32,17 @@ define( [
             container: null,
 
             /**
-             * Тип виджета
-             * @member {Array}
-             */
-            types: [],
-            /**
              * Опции по-умолчанию
              * @member {Object}
              * @namespace
              */
             defaultOptions: {
+
+                /**
+                * Тип виджета
+                * @member {Array}
+                */
+                types: [],
 
                 /**
                  * Сначала биндим обработчики событий, потом отрисовываем

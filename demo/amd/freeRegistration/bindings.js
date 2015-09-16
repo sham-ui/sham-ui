@@ -23,7 +23,7 @@ define( [
                             text: function() {
                                 return this.ID + " " + counter++;
                             },
-                            afterRegister: function () {
+                            afterRegister: function() {
                                 UI.render.ONLY( "label-1" );
                             }
                         }
