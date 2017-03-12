@@ -1,5 +1,5 @@
 {
-  "name": "shamUI",
+  "name": "sham-ui",
   "version": "1.0.0",
   "description": "Components managment library",
   "main": "lib/shamUI.js",
