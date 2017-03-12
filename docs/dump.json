@@ -1,0 +1,4268 @@
+[
+  {
+    "__docId__": 0,
+    "kind": "file",
+    "name": "src/DI.js",
+    "content": "/**\n * Bindings map\n * @type {Map}\n */\nconst bindings = new Map();\n\n/**\n * Simple DI implementation\n */\nexport default class DI {\n    /**\n     * Bind item by name\n     * @param {String} name\n     * @param {*} item\n     */\n    static bind( name, item ) {\n        bindings.set( name, item );\n    }\n\n    /**\n     * Get item from container by name\n     * @param {String} name\n     * @return {*}\n     */\n    static resolve( name ) {\n        if( bindings.has( name ) ) {\n            return bindings.get( name );\n        }\n    }\n}\n\n/**\n * Inject item by name\n * @param target\n * @param {String} key\n * @param descriptor\n */\nexport function inject( target, key, descriptor ) {\n    const name = descriptor.initializer();\n    descriptor.initializer = function() {\n        return DI.resolve( name )\n    };\n}\n",
+    "static": true,
+    "longname": "src/DI.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 1,
+    "kind": "variable",
+    "name": "bindings",
+    "memberof": "src/DI.js",
+    "static": true,
+    "longname": "src/DI.js~bindings",
+    "access": null,
+    "export": false,
+    "importPath": "shamUI/src/DI.js",
+    "importStyle": null,
+    "description": "Bindings map",
+    "lineNumber": 5,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Map"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 2,
+    "kind": "class",
+    "name": "DI",
+    "memberof": "src/DI.js",
+    "static": true,
+    "longname": "src/DI.js~DI",
+    "access": null,
+    "export": true,
+    "importPath": "shamUI/src/DI.js",
+    "importStyle": "DI",
+    "description": "Simple DI implementation",
+    "lineNumber": 10,
+    "interface": false
+  },
+  {
+    "__docId__": 3,
+    "kind": "method",
+    "name": "bind",
+    "memberof": "src/DI.js~DI",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/DI.js~DI.bind",
+    "access": null,
+    "description": "Bind item by name",
+    "lineNumber": 16,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "name",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "item",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 4,
+    "kind": "method",
+    "name": "resolve",
+    "memberof": "src/DI.js~DI",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/DI.js~DI.resolve",
+    "access": null,
+    "description": "Get item from container by name",
+    "lineNumber": 25,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "name",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 5,
+    "kind": "function",
+    "name": "inject",
+    "memberof": "src/DI.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/DI.js~inject",
+    "access": null,
+    "export": true,
+    "importPath": "shamUI/src/DI.js",
+    "importStyle": "{inject}",
+    "description": "Inject item by name",
+    "lineNumber": 38,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "target",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "key",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "descriptor",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 6,
+    "kind": "file",
+    "name": "src/decorators/options.js",
+    "content": "/**\n * Decorator for mark property as default value of options\n * @param target\n * @param name\n * @param descriptor\n * @return {*}\n */\nexport default function( target, name, descriptor ) {\n    target.defaultOptionProps = ( target.defaultOptionProps || [] ).concat( [ name ] );\n    return descriptor;\n}\n",
+    "static": true,
+    "longname": "src/decorators/options.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 7,
+    "kind": "function",
+    "name": "options",
+    "memberof": "src/decorators/options.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/decorators/options.js~options",
+    "access": null,
+    "export": true,
+    "importPath": "shamUI/src/decorators/options.js",
+    "importStyle": "options",
+    "description": "Decorator for mark property as default value of options",
+    "lineNumber": 8,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "target",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "name",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "descriptor",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 8,
+    "kind": "file",
+    "name": "src/fsm/fsm.js",
+    "content": "/**\n * Работа с конечным автоматом\n * @module shamUI/fsm\n */\n\nimport { inject } from '../DI';\nimport { Fsm } from '../utils/fsm';\nimport ReadyState from \"./states/ready\";\nimport RegistrationState from \"./states/registration\";\nimport RenderingState from \"./states/rendering\";\n\n/**\n * Default states\n * @type {\n *  {\n *    ready:         ReadyState,\n *    registration:  RegistrationState,\n *    rendering:     RenderingState\n *  }\n * }\n */\nexport const states = {\n    ready:         ReadyState,\n    registration:  RegistrationState,\n    rendering:     RenderingState\n};\n\n/**\n * Класс основного конечного атомата\n */\nexport class FSM extends Fsm {\n    @inject ready = 'state:ready';\n    @inject registration = 'state:registration';\n    @inject rendering = 'state:rendering';\n    @inject logger = 'logger';\n\n    constructor() {\n        super( ...arguments );\n        this.widgets = [];\n        this.idArray = [];\n        this.byType = {};\n        this.byId = {};\n    }\n\n    static initialState = \"ready\";\n\n    /**\n     * Перерисовать все\n     * @see {@link ReadyState#all}\n     */\n    ALL() {\n        this.handle( \"all\" );\n    }\n\n    /**\n     * Перерисовать только те, ID которых переданны в аргументах\n     * @see {@link ReadyState#only}\n     * @param {...String} args Список ID виджетов, которые нужно отрисовать\n     */\n    ONLY( ...args ) {\n        this.handle( \"only\", args );\n    }\n\n    /**\n     * Перерисовать все и переинициализировать\n     * @see {@link ReadyState#forceAll}\n     */\n    FORCE_ALL() {\n        this.handle( \"forceAll\" );\n    }\n\n    /**\n     * Отрисовать указанные виджеты. Помимо перерисовки еще и польностье перерегистриует\n     * указанные виджеты\n     * @see {@link ReadyState#forceOnly}\n     * @param {...String} args Список ID виджетов, которые нужно отрисовать\n     */\n    FORCE_ONLY( ...args ) {\n        this.handle( \"forceOnly\", args );\n    }\n\n    /**\n     * Перерисовать только с указанными типами\n     * @param {...String} args Список типов виджетов, которые нужно отрисовать\n     * @see {@link ReadyState#onlyType}\n     */\n    ONLY_TYPE( ...args ) {\n        this.handle( \"onlyType\", args );\n    }\n\n    /**\n     * Зарегистрировать виджет\n     * @param {*}         widget.ID                     Идентификатор\n     * @param {Function} [widget.bind]                   Функция навешивающая обработчики\n     * @param {Function} [widget.render]                 Функция отрисовки.\n     * @param {Function} [widget.destroy]                Функция отвязывающая обработчики\n     * @param {Object}   [widget.options]                Опции виджета\n     * @param {Array}    [widget.options.types]          Массив типов\n     * @param {Function} [widget.options.beforeRegister] До регистрации\n     * @param {Function} [widget.options.afterRegister]  После регистрации\n     * @param {Function} [widget.options.beforeBind]     До навешивания обработчиков\n     * @param {Function} [widget.options.afterBind]      После навешивания обработчиков\n     * @param {Function} [widget.options.beforeRender]   До отрисовки этого элемента\n     * @param {Function} [widget.options.afterRender]    После отрисовки этого элемента\n     * @param {Function} [widget.options.beforeDestroy]  До отвязки обработчиков\n     * @param {Function} [widget.options.afterDestroy]   После отвязки обработчиков\n     * @see {@link RegistrationState#register}\n     */\n    register( widget ) {\n        this.handle( \"register\", widget );\n    }\n\n    /**\n     * Разрегистрировать виджет\n     * @param {String} widgetId Идентификатор виджета\n     */\n    unregister( widgetId ) {\n        this.handle( \"unregister\", widgetId );\n    }\n\n    /**\n     * Hook for handle exception\n     * @param {Object} exception\n     * @private\n     */\n    handleException( exception ) {\n        this.logger.error( exception );\n        super.handleException( ...arguments );\n    }\n}",
+    "static": true,
+    "longname": "src/fsm/fsm.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 9,
+    "kind": "variable",
+    "name": "states",
+    "memberof": "src/fsm/fsm.js",
+    "static": true,
+    "longname": "src/fsm/fsm.js~states",
+    "access": null,
+    "export": true,
+    "importPath": "shamUI/src/fsm/fsm.js",
+    "importStyle": "{states}",
+    "description": "Default states",
+    "lineNumber": 22,
+    "type": {
+      "nullable": null,
+      "types": [
+        "\n {\n   ready:         ReadyState,\n   registration:  RegistrationState,\n   rendering:     RenderingState\n "
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 10,
+    "kind": "class",
+    "name": "FSM",
+    "memberof": "src/fsm/fsm.js",
+    "static": true,
+    "longname": "src/fsm/fsm.js~FSM",
+    "access": null,
+    "export": true,
+    "importPath": "shamUI/src/fsm/fsm.js",
+    "importStyle": "{FSM}",
+    "description": "Класс основного конечного атомата",
+    "lineNumber": 31,
+    "interface": false,
+    "extends": [
+      "src/utils/fsm.js~Fsm"
+    ]
+  },
+  {
+    "__docId__": 11,
+    "kind": "member",
+    "name": "ready",
+    "memberof": "src/fsm/fsm.js~FSM",
+    "static": false,
+    "longname": "src/fsm/fsm.js~FSM#ready",
+    "access": null,
+    "description": null,
+    "lineNumber": 32,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    },
+    "decorators": [
+      {
+        "name": "inject",
+        "arguments": null
+      }
+    ]
+  },
+  {
+    "__docId__": 12,
+    "kind": "member",
+    "name": "registration",
+    "memberof": "src/fsm/fsm.js~FSM",
+    "static": false,
+    "longname": "src/fsm/fsm.js~FSM#registration",
+    "access": null,
+    "description": null,
+    "lineNumber": 33,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    },
+    "decorators": [
+      {
+        "name": "inject",
+        "arguments": null
+      }
+    ]
+  },
+  {
+    "__docId__": 13,
+    "kind": "member",
+    "name": "rendering",
+    "memberof": "src/fsm/fsm.js~FSM",
+    "static": false,
+    "longname": "src/fsm/fsm.js~FSM#rendering",
+    "access": null,
+    "description": null,
+    "lineNumber": 34,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    },
+    "decorators": [
+      {
+        "name": "inject",
+        "arguments": null
+      }
+    ]
+  },
+  {
+    "__docId__": 14,
+    "kind": "member",
+    "name": "logger",
+    "memberof": "src/fsm/fsm.js~FSM",
+    "static": false,
+    "longname": "src/fsm/fsm.js~FSM#logger",
+    "access": null,
+    "description": null,
+    "lineNumber": 35,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    },
+    "decorators": [
+      {
+        "name": "inject",
+        "arguments": null
+      }
+    ]
+  },
+  {
+    "__docId__": 15,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/fsm/fsm.js~FSM",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fsm/fsm.js~FSM#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 37,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": []
+  },
+  {
+    "__docId__": 16,
+    "kind": "member",
+    "name": "widgets",
+    "memberof": "src/fsm/fsm.js~FSM",
+    "static": false,
+    "longname": "src/fsm/fsm.js~FSM#widgets",
+    "access": null,
+    "description": null,
+    "lineNumber": 39,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*[]"
+      ]
+    }
+  },
+  {
+    "__docId__": 17,
+    "kind": "member",
+    "name": "idArray",
+    "memberof": "src/fsm/fsm.js~FSM",
+    "static": false,
+    "longname": "src/fsm/fsm.js~FSM#idArray",
+    "access": null,
+    "description": null,
+    "lineNumber": 40,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*[]"
+      ]
+    }
+  },
+  {
+    "__docId__": 18,
+    "kind": "member",
+    "name": "byType",
+    "memberof": "src/fsm/fsm.js~FSM",
+    "static": false,
+    "longname": "src/fsm/fsm.js~FSM#byType",
+    "access": null,
+    "description": null,
+    "lineNumber": 41,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "{}"
+      ]
+    }
+  },
+  {
+    "__docId__": 19,
+    "kind": "member",
+    "name": "byId",
+    "memberof": "src/fsm/fsm.js~FSM",
+    "static": false,
+    "longname": "src/fsm/fsm.js~FSM#byId",
+    "access": null,
+    "description": null,
+    "lineNumber": 42,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "{}"
+      ]
+    }
+  },
+  {
+    "__docId__": 20,
+    "kind": "member",
+    "name": "initialState",
+    "memberof": "src/fsm/fsm.js~FSM",
+    "static": true,
+    "longname": "src/fsm/fsm.js~FSM.initialState",
+    "access": null,
+    "description": null,
+    "lineNumber": 45,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 21,
+    "kind": "method",
+    "name": "ALL",
+    "memberof": "src/fsm/fsm.js~FSM",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fsm/fsm.js~FSM#ALL",
+    "access": null,
+    "description": "Перерисовать все",
+    "see": [
+      "{@link ReadyState#all}"
+    ],
+    "lineNumber": 51,
+    "params": []
+  },
+  {
+    "__docId__": 22,
+    "kind": "method",
+    "name": "ONLY",
+    "memberof": "src/fsm/fsm.js~FSM",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fsm/fsm.js~FSM#ONLY",
+    "access": null,
+    "description": "Перерисовать только те, ID которых переданны в аргументах",
+    "see": [
+      "{@link ReadyState#only}"
+    ],
+    "lineNumber": 60,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "...String"
+        ],
+        "spread": true,
+        "optional": false,
+        "name": "args",
+        "description": "Список ID виджетов, которые нужно отрисовать"
+      }
+    ]
+  },
+  {
+    "__docId__": 23,
+    "kind": "method",
+    "name": "FORCE_ALL",
+    "memberof": "src/fsm/fsm.js~FSM",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fsm/fsm.js~FSM#FORCE_ALL",
+    "access": null,
+    "description": "Перерисовать все и переинициализировать",
+    "see": [
+      "{@link ReadyState#forceAll}"
+    ],
+    "lineNumber": 68,
+    "params": []
+  },
+  {
+    "__docId__": 24,
+    "kind": "method",
+    "name": "FORCE_ONLY",
+    "memberof": "src/fsm/fsm.js~FSM",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fsm/fsm.js~FSM#FORCE_ONLY",
+    "access": null,
+    "description": "Отрисовать указанные виджеты. Помимо перерисовки еще и польностье перерегистриует\nуказанные виджеты",
+    "see": [
+      "{@link ReadyState#forceOnly}"
+    ],
+    "lineNumber": 78,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "...String"
+        ],
+        "spread": true,
+        "optional": false,
+        "name": "args",
+        "description": "Список ID виджетов, которые нужно отрисовать"
+      }
+    ]
+  },
+  {
+    "__docId__": 25,
+    "kind": "method",
+    "name": "ONLY_TYPE",
+    "memberof": "src/fsm/fsm.js~FSM",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fsm/fsm.js~FSM#ONLY_TYPE",
+    "access": null,
+    "description": "Перерисовать только с указанными типами",
+    "see": [
+      "{@link ReadyState#onlyType}"
+    ],
+    "lineNumber": 87,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "...String"
+        ],
+        "spread": true,
+        "optional": false,
+        "name": "args",
+        "description": "Список типов виджетов, которые нужно отрисовать"
+      }
+    ]
+  },
+  {
+    "__docId__": 26,
+    "kind": "method",
+    "name": "register",
+    "memberof": "src/fsm/fsm.js~FSM",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fsm/fsm.js~FSM#register",
+    "access": null,
+    "description": "Зарегистрировать виджет",
+    "see": [
+      "{@link RegistrationState#register}"
+    ],
+    "lineNumber": 109,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "widget.ID",
+        "description": "Идентификатор"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "widget.bind",
+        "description": "Функция навешивающая обработчики"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "widget.render",
+        "description": "Функция отрисовки."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "widget.destroy",
+        "description": "Функция отвязывающая обработчики"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "widget.options",
+        "description": "Опции виджета"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Array"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "widget.options.types",
+        "description": "Массив типов"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "widget.options.beforeRegister",
+        "description": "До регистрации"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "widget.options.afterRegister",
+        "description": "После регистрации"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "widget.options.beforeBind",
+        "description": "До навешивания обработчиков"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "widget.options.afterBind",
+        "description": "После навешивания обработчиков"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "widget.options.beforeRender",
+        "description": "До отрисовки этого элемента"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "widget.options.afterRender",
+        "description": "После отрисовки этого элемента"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "widget.options.beforeDestroy",
+        "description": "До отвязки обработчиков"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "widget.options.afterDestroy",
+        "description": "После отвязки обработчиков"
+      }
+    ]
+  },
+  {
+    "__docId__": 27,
+    "kind": "method",
+    "name": "unregister",
+    "memberof": "src/fsm/fsm.js~FSM",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fsm/fsm.js~FSM#unregister",
+    "access": null,
+    "description": "Разрегистрировать виджет",
+    "lineNumber": 117,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "widgetId",
+        "description": "Идентификатор виджета"
+      }
+    ]
+  },
+  {
+    "__docId__": 28,
+    "kind": "method",
+    "name": "handleException",
+    "memberof": "src/fsm/fsm.js~FSM",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fsm/fsm.js~FSM#handleException",
+    "access": "private",
+    "description": "Hook for handle exception",
+    "lineNumber": 126,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "exception",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 29,
+    "kind": "file",
+    "name": "src/fsm/states/ready.js",
+    "content": "import { State } from '../../utils/fsm';\n\n/**\n * Класс для состояния \"Готов к работе\"\n */\nexport default class ReadyState extends State {\n    /**\n     * Вызывается при входе в состояние\n     */\n    _onEnter() {\n        this.emit( \"Ready\" );\n    }\n\n    /**\n     * Удалить все виджеты\n     */\n    clear() {\n        for ( let i = 0; i < this._fsm.widgets.length; i++ ) {\n            if ( this._fsm.widgets[ i ].destroy ) {\n                if ( this._fsm.widgets[ i ].options.beforeDestroy ) {\n                    this._fsm.widgets[ i ].options.beforeDestroy.call( this._fsm.widgets[ i ] );\n                }\n                this._fsm.widgets[ i ].destroy();\n                if ( this._fsm.widgets[ i ].options.afterDestroy ) {\n                    this._fsm.widgets[ i ].options.afterDestroy.call( this._fsm.widgets[ i ] );\n                }\n            }\n            this._fsm.widgets[ i ].isBinded = false;\n        }\n        this._fsm.widgets = [];\n        this._fsm.idArray = [];\n        this._fsm.byType = {};\n        this._fsm.byId = {};\n        this._fsm.renderCache = {};\n    }\n\n    /**\n     * Отрисовать все виджеты. Просто отрисовывает, не вызывает destroy\n     */\n    all() {\n        this._fsm.changeWidgets = this._fsm.idArray.slice( 0 );\n        this.transition( \"rendering\" );\n    }\n\n    /**\n     * Отрисовать только указанные виджеты. Просто отрисовывает, не вызывает destroy\n     * @param {Array} needRenderingWidgets Список виджетов, которые нужно отрисовать\n     */\n    only( needRenderingWidgets ) {\n        this._fsm.changeWidgets = needRenderingWidgets.slice( 0 );\n        this.transition( \"rendering\" );\n    }\n\n    /**\n     * Отрисовать все виджеты. Вызывает destroy, очищает список известных виджетов,\n     * переходит к регистрации\n     */\n    forceAll() {\n        this.handle( \"clear\" );\n        this.transition( \"registration\" );\n    }\n\n    /**\n     * Отрисовать указанные виджеты. Помимо перерисовки еще и польностье перерегистриует\n     * указанные виджеты\n     * @param {Array} needRenderingWidgets Список виджетов, которые нужно\n     *                                     перерегистривароть и отрисовать\n     */\n    forceOnly( needRenderingWidgets ) {\n        let index,\n            widget,\n            i;\n        for ( i = 0; i < this._fsm.widgets.length; i++ ) {\n            widget = this._fsm.widgets[ i ];\n            index = needRenderingWidgets.indexOf( widget );\n            if ( index > -1 ) {\n                if ( widget.destroy  ) {\n                    if ( widget.options.beforeDestroy ) {\n                        widget.options.beforeDestroy.call( widget );\n                    }\n                    widget.destroy();\n                    if ( widget.options.afterDestroy ) {\n                        widget.options.afterDestroy.call( widget );\n                    }\n                }\n                if ( widget.bindEvents ) {\n                    if ( widget.options.beforeBindEvents ) {\n                        widget.options.beforeBindEvents.call( widget );\n                    }\n                    widget.bind();\n                    if ( widget.options.afterBindEvents ) {\n                        widget.options.afterBindEvents.call( widget );\n                    }\n                }\n                widget.isBinded = false;\n            }\n        }\n        this._fsm.changeWidgets = needRenderingWidgets.slice( 0 );\n        this.transition( \"rendering\" );\n    }\n\n    /**\n     * Отрисовать виджеты с указанным типом\n     * @param {Array} needRenderingWidgetsWithType Список типов, которые нужно отрисовать\n     */\n    onlyType( needRenderingWidgetsWithType ) {\n        let argsTypes = needRenderingWidgetsWithType.slice( 0 ),\n            widgetID,\n            widgetsWithType,\n            i;\n        for ( i = 0; i < argsTypes.length; i++ ) {\n            widgetsWithType = this._fsm.byType[ argsTypes[ i ] ];\n            if ( widgetsWithType ) {\n                for ( let j = 0, l = widgetsWithType.length; j < l; j++ ) {\n                    widgetID = widgetsWithType[ j ];\n                    if ( this._fsm.changeWidgets.indexOf( widgetID ) === -1 ) {\n                        this._fsm.changeWidgets.push( widgetID );\n                    }\n                }\n            }\n        }\n        this.transition( \"rendering\" );\n    }\n\n    /**\n     * Зарегистрировать виджет (не из файла биндинга и конструкторов виджетов)\n     * @see {@link RegistrationState#register}\n     * @see Widget\n     * @see Widget#defaultOptions\n     */\n    register( widget ) {\n\n        // Регистрируем виджет\n        this._fsm._states.registration.register( widget );\n\n        // Если сначала биндим обработчики событий, а потом отрисовываем виджет\n        if ( \"bindEvents\" === widget.options.actionSequence[ 0 ] &&\n            widget.bindEvents ) {\n            if ( widget.options.beforeBindEvents ) {\n                widget.options.beforeBindEvents.call( widget );\n            }\n            widget.bindEvents();\n            if ( widget.options.afterBindEvents ) {\n                widget.options.afterBindEvents.call( widget );\n            }\n        }\n    }\n\n    /**\n     * Разрегистрировать виджет\n     * @param {String} widgetId Идентификатор виджета, который нужно разрегистрировать\n     */\n    unregister( widgetId ) {\n        let widget,\n            types,\n            index,\n            i;\n\n        if ( this._fsm.idArray.indexOf( widgetId ) === -1 ) {\n            return;\n        }\n\n        widget = this._fsm.byId[ widgetId ];\n\n        if ( widget.destroy  ) {\n            if ( widget.options.beforeDestroy ) {\n                widget.options.beforeDestroy.call( widget );\n            }\n            widget.destroy();\n            if ( widget.options.afterDestroy ) {\n                widget.options.afterDestroy.call( widget );\n            }\n        }\n\n        // Если есть типы, то удаляем ссылки на этот виджет\n        if ( widget.options.types ) {\n            types = widget.options.types;\n            for ( i = 0; i < types.length; i++ ) {\n                this._fsm.byType[ types[ i ] ].splice(\n                    this._fsm.byType[ types[ i ] ].indexOf( widgetId ),\n                    1\n                )\n            }\n        }\n\n        // Удаляем запись из массива виджетов\n        for ( i = 0; i < this._fsm.widgets.length; i++ ) {\n            if ( this._fsm.widgets[ i ].ID === widgetId ) {\n                index = i;\n                break;\n            }\n        }\n        this._fsm.widgets.splice( index, 1 );\n\n        // Удаляем из массива ID\n        this._fsm.idArray.splice( this._fsm.idArray.indexOf( widgetId ), 1 );\n\n        // И из объекта доступа по id\n        delete this._fsm.byId[ widgetId ];\n\n        delete this._fsm.renderCache[ widgetId ];\n    }\n}",
+    "static": true,
+    "longname": "src/fsm/states/ready.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 30,
+    "kind": "class",
+    "name": "ReadyState",
+    "memberof": "src/fsm/states/ready.js",
+    "static": true,
+    "longname": "src/fsm/states/ready.js~ReadyState",
+    "access": null,
+    "export": true,
+    "importPath": "shamUI/src/fsm/states/ready.js",
+    "importStyle": "ReadyState",
+    "description": "Класс для состояния \"Готов к работе\"",
+    "lineNumber": 6,
+    "interface": false,
+    "extends": [
+      "src/utils/fsm.js~State"
+    ]
+  },
+  {
+    "__docId__": 31,
+    "kind": "method",
+    "name": "_onEnter",
+    "memberof": "src/fsm/states/ready.js~ReadyState",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fsm/states/ready.js~ReadyState#_onEnter",
+    "access": null,
+    "description": "Вызывается при входе в состояние",
+    "lineNumber": 10,
+    "params": []
+  },
+  {
+    "__docId__": 32,
+    "kind": "method",
+    "name": "clear",
+    "memberof": "src/fsm/states/ready.js~ReadyState",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fsm/states/ready.js~ReadyState#clear",
+    "access": null,
+    "description": "Удалить все виджеты",
+    "lineNumber": 17,
+    "params": []
+  },
+  {
+    "__docId__": 33,
+    "kind": "method",
+    "name": "all",
+    "memberof": "src/fsm/states/ready.js~ReadyState",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fsm/states/ready.js~ReadyState#all",
+    "access": null,
+    "description": "Отрисовать все виджеты. Просто отрисовывает, не вызывает destroy",
+    "lineNumber": 40,
+    "params": []
+  },
+  {
+    "__docId__": 34,
+    "kind": "method",
+    "name": "only",
+    "memberof": "src/fsm/states/ready.js~ReadyState",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fsm/states/ready.js~ReadyState#only",
+    "access": null,
+    "description": "Отрисовать только указанные виджеты. Просто отрисовывает, не вызывает destroy",
+    "lineNumber": 49,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "needRenderingWidgets",
+        "description": "Список виджетов, которые нужно отрисовать"
+      }
+    ]
+  },
+  {
+    "__docId__": 35,
+    "kind": "method",
+    "name": "forceAll",
+    "memberof": "src/fsm/states/ready.js~ReadyState",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fsm/states/ready.js~ReadyState#forceAll",
+    "access": null,
+    "description": "Отрисовать все виджеты. Вызывает destroy, очищает список известных виджетов,\nпереходит к регистрации",
+    "lineNumber": 58,
+    "params": []
+  },
+  {
+    "__docId__": 36,
+    "kind": "method",
+    "name": "forceOnly",
+    "memberof": "src/fsm/states/ready.js~ReadyState",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fsm/states/ready.js~ReadyState#forceOnly",
+    "access": null,
+    "description": "Отрисовать указанные виджеты. Помимо перерисовки еще и польностье перерегистриует\nуказанные виджеты",
+    "lineNumber": 69,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "needRenderingWidgets",
+        "description": "Список виджетов, которые нужно\n                                    перерегистривароть и отрисовать"
+      }
+    ]
+  },
+  {
+    "__docId__": 37,
+    "kind": "method",
+    "name": "onlyType",
+    "memberof": "src/fsm/states/ready.js~ReadyState",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fsm/states/ready.js~ReadyState#onlyType",
+    "access": null,
+    "description": "Отрисовать виджеты с указанным типом",
+    "lineNumber": 106,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "needRenderingWidgetsWithType",
+        "description": "Список типов, которые нужно отрисовать"
+      }
+    ]
+  },
+  {
+    "__docId__": 38,
+    "kind": "method",
+    "name": "register",
+    "memberof": "src/fsm/states/ready.js~ReadyState",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fsm/states/ready.js~ReadyState#register",
+    "access": null,
+    "description": "Зарегистрировать виджет (не из файла биндинга и конструкторов виджетов)",
+    "see": [
+      "{@link RegistrationState#register}",
+      "Widget",
+      "Widget#defaultOptions"
+    ],
+    "lineNumber": 131,
+    "params": [
+      {
+        "name": "widget",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 39,
+    "kind": "method",
+    "name": "unregister",
+    "memberof": "src/fsm/states/ready.js~ReadyState",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fsm/states/ready.js~ReadyState#unregister",
+    "access": null,
+    "description": "Разрегистрировать виджет",
+    "lineNumber": 153,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "widgetId",
+        "description": "Идентификатор виджета, который нужно разрегистрировать"
+      }
+    ]
+  },
+  {
+    "__docId__": 40,
+    "kind": "file",
+    "name": "src/fsm/states/registration.js",
+    "content": "import { inject } from '../../DI';\nimport { State } from '../../utils/fsm';\n\n/**\n * Класс для состояния \"Регистрация виджетов\"\n */\nexport default class RegistrationState extends State {\n    @inject widgetBinder = 'widget-binder';\n\n    /**\n     * Что делать с необрабатываемыми в этом состояния хэндлерами\n     */\n    _anyEvents() {\n        this.deferUntilTransition();\n    }\n\n    /**\n     * Вызывается при входе в состояние\n     */\n    _onEnter() {\n        this.widgetBinder();\n        this.handle( \"registrationComplete\" )\n    }\n\n    /**\n     * Зарегистрировать виджет\n     * @param {*}         widget.ID                      Идентификатор\n     * @param {Function} [widget.bind]                   Функция навешивающая обработчики\n     * @param {Function} [widget.render]                 Функция отрисовки.\n     * @param {Function} [widget.destroy]                Функция отвязывающая обработчики\n     * @param {Object}   [widget.options]                Опции виджета\n     * @param {Array}    [widget.options.types]          Массив типов\n     * @param {Function} [widget.options.beforeRegister] До регистрации\n     * @param {Function} [widget.options.afterRegister]  После регистрации\n     * @param {Function} [widget.options.beforeBind]     До навешивания обработчиков\n     * @param {Function} [widget.options.afterBind]      После навешивания обработчиков\n     * @param {Function} [widget.options.beforeRender]   До отрисовки этого элемента\n     * @param {Function} [widget.options.afterRender]    После отрисовки этого элемента\n     * @param {Function} [widget.options.beforeDestroy]  До отвязки обработчиков\n     * @param {Function} [widget.options.afterDestroy]   После отвязки обработчиков\n     * @see Widget\n     * @see Widget#defaultOptions\n     */\n    register( widget ) {\n\n        // Добавляем только те, которых еще нет\n        if ( this._fsm.idArray.indexOf( widget.ID ) === -1 ) {\n            if ( widget.options.beforeRegister ) {\n                widget.options.beforeRegister.call( widget );\n            }\n            this._fsm.idArray.push( widget.ID );\n            this._fsm.byId[ widget.ID ] = widget;\n\n            // Если есть типы\n            if ( widget.options.types ) {\n                for ( let i = 0; i < widget.options.types.length; i++ ) {\n                    if ( this.byType[ widget.options.types[ i ] ] === undefined ) {\n                        this.byType[ widget.options.types[ i ] ] = [];\n                    }\n                    this.byType[ widget.options.types[ i ] ].push( widget.ID );\n                }\n            }\n\n            this._fsm.widgets.push( widget );\n            if ( widget.options.afterRegister ) {\n                widget.options.afterRegister.call( widget );\n            }\n        }\n    }\n\n    /**\n     * Все виджеты зарегисрированы\n     * Если нужно, то сначала биндим обработчики событий, а потом отрисовываем\n     */\n    registrationComplete() {\n        let widget;\n        this.emit( \"RegistrationComplete\" );\n        for ( let i = 0; i < this._fsm.widgets.length; i++ ) {\n            widget = this._fsm.widgets[ i ];\n\n            // Если сначала биндим обработчики событий, а потом отрисовываем виджет\n            if ( \"bindEvents\" === widget.options.actionSequence[ 0 ] &&\n                widget.bindEvents ) {\n                if ( widget.options.beforeBindEvents ) {\n                    widget.options.beforeBindEvents.call( widget );\n                }\n                widget.bindEvents();\n                if ( widget.options.afterBindEvents ) {\n                    widget.options.afterBindEvents.call( widget );\n                }\n            }\n        }\n        this._fsm.changeWidgets = this._fsm.idArray.slice( 0 );\n        this.transition( \"rendering\" );\n    }\n}\n",
+    "static": true,
+    "longname": "src/fsm/states/registration.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 41,
+    "kind": "class",
+    "name": "RegistrationState",
+    "memberof": "src/fsm/states/registration.js",
+    "static": true,
+    "longname": "src/fsm/states/registration.js~RegistrationState",
+    "access": null,
+    "export": true,
+    "importPath": "shamUI/src/fsm/states/registration.js",
+    "importStyle": "RegistrationState",
+    "description": "Класс для состояния \"Регистрация виджетов\"",
+    "lineNumber": 7,
+    "interface": false,
+    "extends": [
+      "src/utils/fsm.js~State"
+    ]
+  },
+  {
+    "__docId__": 42,
+    "kind": "member",
+    "name": "widgetBinder",
+    "memberof": "src/fsm/states/registration.js~RegistrationState",
+    "static": false,
+    "longname": "src/fsm/states/registration.js~RegistrationState#widgetBinder",
+    "access": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    },
+    "decorators": [
+      {
+        "name": "inject",
+        "arguments": null
+      }
+    ]
+  },
+  {
+    "__docId__": 43,
+    "kind": "method",
+    "name": "_anyEvents",
+    "memberof": "src/fsm/states/registration.js~RegistrationState",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fsm/states/registration.js~RegistrationState#_anyEvents",
+    "access": null,
+    "description": "Что делать с необрабатываемыми в этом состояния хэндлерами",
+    "lineNumber": 13,
+    "params": []
+  },
+  {
+    "__docId__": 44,
+    "kind": "method",
+    "name": "_onEnter",
+    "memberof": "src/fsm/states/registration.js~RegistrationState",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fsm/states/registration.js~RegistrationState#_onEnter",
+    "access": null,
+    "description": "Вызывается при входе в состояние",
+    "lineNumber": 20,
+    "params": []
+  },
+  {
+    "__docId__": 45,
+    "kind": "method",
+    "name": "register",
+    "memberof": "src/fsm/states/registration.js~RegistrationState",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fsm/states/registration.js~RegistrationState#register",
+    "access": null,
+    "description": "Зарегистрировать виджет",
+    "see": [
+      "Widget",
+      "Widget#defaultOptions"
+    ],
+    "lineNumber": 44,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "widget.ID",
+        "description": "Идентификатор"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "widget.bind",
+        "description": "Функция навешивающая обработчики"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "widget.render",
+        "description": "Функция отрисовки."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "widget.destroy",
+        "description": "Функция отвязывающая обработчики"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "widget.options",
+        "description": "Опции виджета"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Array"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "widget.options.types",
+        "description": "Массив типов"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "widget.options.beforeRegister",
+        "description": "До регистрации"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "widget.options.afterRegister",
+        "description": "После регистрации"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "widget.options.beforeBind",
+        "description": "До навешивания обработчиков"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "widget.options.afterBind",
+        "description": "После навешивания обработчиков"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "widget.options.beforeRender",
+        "description": "До отрисовки этого элемента"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "widget.options.afterRender",
+        "description": "После отрисовки этого элемента"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "widget.options.beforeDestroy",
+        "description": "До отвязки обработчиков"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "widget.options.afterDestroy",
+        "description": "После отвязки обработчиков"
+      }
+    ]
+  },
+  {
+    "__docId__": 46,
+    "kind": "method",
+    "name": "registrationComplete",
+    "memberof": "src/fsm/states/registration.js~RegistrationState",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fsm/states/registration.js~RegistrationState#registrationComplete",
+    "access": null,
+    "description": "Все виджеты зарегисрированы\nЕсли нужно, то сначала биндим обработчики событий, а потом отрисовываем",
+    "lineNumber": 75,
+    "params": []
+  },
+  {
+    "__docId__": 47,
+    "kind": "file",
+    "name": "src/fsm/states/rendering.js",
+    "content": "import { State } from '../../utils/fsm';\n\n/**\n * @classdesc Deferred на нативных Promise\n * todo: move to utils?\n * @returns {*}\n * @constructor\n * @class Deferred\n */\nfunction Deferred() {\n    this.promise = new Promise( function( resolve, reject ) {\n        this.resolve = resolve;\n        this.reject = reject;\n    }.bind( this ) );\n    return this;\n}\n\n/**\n * Класс для состояния \"Отрисовываем виджеты\"\n */\nexport default class RenderingState extends State {\n    /**\n     * Что делать с необрабатываемыми в этом состояния хэндлеры\n     */\n    _anyEvents() {\n        this.deferUntilTransition();\n    }\n\n    /**\n     * Вызывается при входе в это состояние\n     */\n    _onEnter() {\n        let self = this,\n            promises = [],\n            promiseById = {},\n            widgetDependencePromise;\n\n        this.cmpWidget = function( a, b ) {\n            const indexA = self._fsm.idArray.indexOf( a ),\n                indexB = self._fsm.idArray.indexOf( b );\n            if ( indexA > indexB ) {\n                return 1;\n            } else if ( indexA < indexB ) {\n                return -1;\n            } else {\n                return 0;\n            }\n        };\n\n        // Сортируем по renderDependence\n        this._fsm.changeWidgets.sort( function( a, b ) {\n            const widgetARD = self._fsm.byId[ a ].options.renderDependence,\n                widgetBRD = self._fsm.byId[ b ].options.renderDependence;\n            if ( !widgetARD || !widgetARD.length ) {\n                if ( !widgetBRD || !widgetBRD.length ) {\n\n                    // У обоих виджетов нет зависимостей\n                    return self.cmpWidget( a, b );\n                } else {\n\n                    // Зависит ли виджет B от виджета A\n                    return widgetBRD.indexOf( a ) !== -1 ? -1 : self.cmpWidget( a, b );\n                }\n            } else {\n                if ( !widgetBRD || !widgetBRD.length ) {\n\n                    // Зависит ли виджет A от виджета B\n                    return widgetARD.indexOf( b ) !== -1 ? 1 : self.cmpWidget( a, b );\n                } else {\n\n                    // У обоих виджетов есть зависимости\n                    if ( widgetARD.indexOf( b ) !== -1 ) {\n\n                        // Виджет A зависит от виджета B\n                        return 1;\n                    } else if ( widgetBRD.indexOf( a ) !== -1 ) {\n\n                        // Виджет B зависит от виджета A\n                        return -1;\n                    } else {\n\n                        // Виджеты не зависят друг от друга\n                        return self.cmpWidget( a, b );\n                    }\n                }\n            }\n        } );\n\n        this.rendered = [];\n\n        for ( let i = 0; i < this._fsm.changeWidgets.length; i++ ) {\n            let current = this._fsm.byId[ this._fsm.changeWidgets[ i ] ];\n            if ( current && current.render ) {\n                if ( !current.options.conditionRender ||\n                    current.options.conditionRender() ) {\n                    const deferred = new Deferred();\n                    promises.push( deferred.promise );\n                    promiseById[ this._fsm.changeWidgets[ i ] ] = deferred.promise;\n\n                    if ( current.options.renderDependence &&\n                        current.options.renderDependence.length ) {\n                        widgetDependencePromise = new Array(\n                            current.options.renderDependence.length\n                        );\n                        for ( let j = 0; j < current.options.renderDependence.length; j++ ) {\n                            widgetDependencePromise[ j ] = promiseById[\n                                current.options.renderDependence[ j ]\n                                ];\n                        }\n                    } else {\n                        widgetDependencePromise = [];\n                    }\n\n                    ( function( widget, widgetDependencePromise, deferred ) {\n\n                        // Отрисовываем этот виджет только после того, как\n                        // все зависимости отрисовались\n                        Promise.all( widgetDependencePromise )\n                            .then( function() {\n                                if ( widget.options.renderAsync ) {\n                                    widget.options.renderAsyncWrapper(\n                                        function() {\n                                            self.handle( \"renderWidget\", widget, deferred );\n                                        }\n                                    );\n                                } else {\n                                    self.handle( \"renderWidget\", widget, deferred );\n                                }\n                            }, self.handleException.bind( self ) );\n                    } )( current, widgetDependencePromise, deferred );\n                }\n            }\n        }\n\n        Promise.all( promises ).then( function() {\n            // Все области отрисовались\n            promiseById = null;\n\n            // Так же обрабатываем по отдельности\n            for ( let i = 0; i < self.rendered.length; i++ ) {\n                self.emit( [\n                               \"RenderComplete[\", self.rendered[ i ], \"]\"\n                           ].join( \"\" ) );\n            }\n\n            // И все сразу\n            self.emit( \"RenderComplete\", self.rendered );\n            self.transition( \"ready\" );\n        }, this.handleException.bind( this ) );\n    }\n\n    /**\n     * Вызывается при выходе из этого состояни\n     */\n    _onExit() {\n        this.rendered = [];\n        this._fsm.changeWidgets = [];\n    }\n\n    /**\n     * Отрисовать один виджет\n     * @param {Object} widget   Виджет\n     * @param {Object} deferred Отложенный объект для этого виджета\n     * @see Widget\n     */\n    renderWidget( widget, deferred ) {\n        if ( widget.options.beforeRender ) {\n            widget.options.beforeRender.call( widget );\n        }\n        this.rendered.push( widget.ID );\n\n        new Promise( ( resolve ) => {\n            const obj = widget.render();\n            if ( !obj ) {\n                resolve();\n                return;\n            }\n            if ( obj.html ) {\n                const newEl = obj.container.cloneNode( false );\n                newEl.innerHTML = obj.html;\n                obj.container.parentNode.replaceChild( newEl, obj.container );\n                widget.container = newEl;\n                resolve();\n            }\n\n        } ).then( () => {\n            if ( widget.options.afterRender ) {\n                widget.options.afterRender.call( widget );\n            }\n            if ( widget.options.actionSequence[ 0 ] === \"render\" &&\n                widget.bindEvents && !widget.isBinded ) {\n\n                // Если после отрисовки нужно биндить обработчики событий виджета или нет\n                if ( widget.options.beforeBindEvents ) {\n                    widget.options.beforeBindEvents.call( widget );\n                }\n                widget.bindEvents();\n                if ( widget.options.afterBindEvents ) {\n                    widget.options.afterBindEvents.call( widget );\n                }\n                if ( widget.options.bindOnce ) {\n                    widget.isBinded = true;\n                }\n            }\n            deferred.resolve();\n        } ).catch( this.handleException.bind( this ) );\n    }\n}",
+    "static": true,
+    "longname": "src/fsm/states/rendering.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 48,
+    "kind": "function",
+    "name": "Deferred",
+    "memberof": "src/fsm/states/rendering.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/fsm/states/rendering.js~Deferred",
+    "access": null,
+    "export": false,
+    "importPath": "shamUI/src/fsm/states/rendering.js",
+    "importStyle": null,
+    "description": "",
+    "lineNumber": 10,
+    "unknown": [
+      {
+        "tagName": "@classdesc",
+        "tagValue": "Deferred на нативных Promise\ntodo: move to utils?"
+      },
+      {
+        "tagName": "@returns",
+        "tagValue": "{*}"
+      },
+      {
+        "tagName": "@constructor",
+        "tagValue": ""
+      },
+      {
+        "tagName": "@class",
+        "tagValue": "Deferred"
+      }
+    ],
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 49,
+    "kind": "class",
+    "name": "RenderingState",
+    "memberof": "src/fsm/states/rendering.js",
+    "static": true,
+    "longname": "src/fsm/states/rendering.js~RenderingState",
+    "access": null,
+    "export": true,
+    "importPath": "shamUI/src/fsm/states/rendering.js",
+    "importStyle": "RenderingState",
+    "description": "Класс для состояния \"Отрисовываем виджеты\"",
+    "lineNumber": 21,
+    "interface": false,
+    "extends": [
+      "src/utils/fsm.js~State"
+    ]
+  },
+  {
+    "__docId__": 50,
+    "kind": "method",
+    "name": "_anyEvents",
+    "memberof": "src/fsm/states/rendering.js~RenderingState",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fsm/states/rendering.js~RenderingState#_anyEvents",
+    "access": null,
+    "description": "Что делать с необрабатываемыми в этом состояния хэндлеры",
+    "lineNumber": 25,
+    "params": []
+  },
+  {
+    "__docId__": 51,
+    "kind": "method",
+    "name": "_onEnter",
+    "memberof": "src/fsm/states/rendering.js~RenderingState",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fsm/states/rendering.js~RenderingState#_onEnter",
+    "access": null,
+    "description": "Вызывается при входе в это состояние",
+    "lineNumber": 32,
+    "params": []
+  },
+  {
+    "__docId__": 52,
+    "kind": "member",
+    "name": "rendered",
+    "memberof": "src/fsm/states/rendering.js~RenderingState",
+    "static": false,
+    "longname": "src/fsm/states/rendering.js~RenderingState#rendered",
+    "access": null,
+    "description": null,
+    "lineNumber": 89,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*[]"
+      ]
+    }
+  },
+  {
+    "__docId__": 53,
+    "kind": "method",
+    "name": "_onExit",
+    "memberof": "src/fsm/states/rendering.js~RenderingState",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fsm/states/rendering.js~RenderingState#_onExit",
+    "access": null,
+    "description": "Вызывается при выходе из этого состояни",
+    "lineNumber": 155,
+    "params": []
+  },
+  {
+    "__docId__": 54,
+    "kind": "member",
+    "name": "rendered",
+    "memberof": "src/fsm/states/rendering.js~RenderingState",
+    "static": false,
+    "longname": "src/fsm/states/rendering.js~RenderingState#rendered",
+    "access": null,
+    "description": null,
+    "lineNumber": 156,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*[]"
+      ]
+    }
+  },
+  {
+    "__docId__": 55,
+    "kind": "method",
+    "name": "renderWidget",
+    "memberof": "src/fsm/states/rendering.js~RenderingState",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fsm/states/rendering.js~RenderingState#renderWidget",
+    "access": null,
+    "description": "Отрисовать один виджет",
+    "see": [
+      "Widget"
+    ],
+    "lineNumber": 166,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "widget",
+        "description": "Виджет"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "deferred",
+        "description": "Отложенный объект для этого виджета"
+      }
+    ]
+  },
+  {
+    "__docId__": 56,
+    "kind": "file",
+    "name": "src/shamUI.js",
+    "content": "import { default as DIContainer, inject as DIInject } from './DI';\nimport { FSM, states } from './fsm/fsm';\nimport BaseWidget from './widget';\nimport decoratorOptions from './decorators/options';\nimport { State } from './utils/fsm';\n\nexport const DI = DIContainer;\nexport const inject = DIInject;\n\n/** @link {Widget} */\nexport const Widget = BaseWidget;\n\nexport const Fsm = FSM;\nexport const FsmStates = states;\nexport const FsmState = State;\n\nexport const options = decoratorOptions;\n\n// Default fsm binding\nDI.bind( 'fsm', FSM );\n\n// Default state binding\nDI.bind( 'state:ready', states.ready );\nDI.bind( 'state:registration', states.registration );\nDI.bind( 'state:rendering', states.rendering );\n\n// Default logger\nDI.bind( 'logger', console );\n\n/**\n * Фабрика для создания экземляров библиотеки\n *\n * @property {Object} render Доступ к конечному автомату {@link module:shamUI/fsm}\n */\nexport default class ShamUI {\n    /**\n     * Создать экземпляр\n     */\n    constructor() {\n        DI.bind( 'sham-ui', this );\n        const Fsm = DI.resolve( 'fsm' );\n        this.render = new Fsm();\n        this.render.run();\n    }\n}",
+    "static": true,
+    "longname": "src/shamUI.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 57,
+    "kind": "variable",
+    "name": "DI",
+    "memberof": "src/shamUI.js",
+    "static": true,
+    "longname": "src/shamUI.js~DI",
+    "access": null,
+    "export": true,
+    "importPath": "shamUI/src/shamUI.js",
+    "importStyle": "{DI}",
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 58,
+    "kind": "variable",
+    "name": "inject",
+    "memberof": "src/shamUI.js",
+    "static": true,
+    "longname": "src/shamUI.js~inject",
+    "access": null,
+    "export": true,
+    "importPath": "shamUI/src/shamUI.js",
+    "importStyle": "{inject}",
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 59,
+    "kind": "variable",
+    "name": "Widget",
+    "memberof": "src/shamUI.js",
+    "static": true,
+    "longname": "src/shamUI.js~Widget",
+    "access": null,
+    "export": true,
+    "importPath": "shamUI/src/shamUI.js",
+    "importStyle": "{Widget}",
+    "description": null,
+    "lineNumber": 11,
+    "unknown": [
+      {
+        "tagName": "@link",
+        "tagValue": "{Widget}"
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 60,
+    "kind": "variable",
+    "name": "Fsm",
+    "memberof": "src/shamUI.js",
+    "static": true,
+    "longname": "src/shamUI.js~Fsm",
+    "access": null,
+    "export": true,
+    "importPath": "shamUI/src/shamUI.js",
+    "importStyle": "{Fsm}",
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 61,
+    "kind": "variable",
+    "name": "FsmStates",
+    "memberof": "src/shamUI.js",
+    "static": true,
+    "longname": "src/shamUI.js~FsmStates",
+    "access": null,
+    "export": true,
+    "importPath": "shamUI/src/shamUI.js",
+    "importStyle": "{FsmStates}",
+    "description": null,
+    "lineNumber": 14,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 62,
+    "kind": "variable",
+    "name": "FsmState",
+    "memberof": "src/shamUI.js",
+    "static": true,
+    "longname": "src/shamUI.js~FsmState",
+    "access": null,
+    "export": true,
+    "importPath": "shamUI/src/shamUI.js",
+    "importStyle": "{FsmState}",
+    "description": null,
+    "lineNumber": 15,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 63,
+    "kind": "variable",
+    "name": "options",
+    "memberof": "src/shamUI.js",
+    "static": true,
+    "longname": "src/shamUI.js~options",
+    "access": null,
+    "export": true,
+    "importPath": "shamUI/src/shamUI.js",
+    "importStyle": "{options}",
+    "description": null,
+    "lineNumber": 17,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 64,
+    "kind": "class",
+    "name": "ShamUI",
+    "memberof": "src/shamUI.js",
+    "static": true,
+    "longname": "src/shamUI.js~ShamUI",
+    "access": null,
+    "export": true,
+    "importPath": "shamUI/src/shamUI.js",
+    "importStyle": "ShamUI",
+    "description": "Фабрика для создания экземляров библиотеки",
+    "lineNumber": 35,
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "render",
+        "description": "Доступ к конечному автомату {@link module:shamUI/fsm}"
+      }
+    ],
+    "interface": false
+  },
+  {
+    "__docId__": 65,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/shamUI.js~ShamUI",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/shamUI.js~ShamUI#constructor",
+    "access": null,
+    "description": "Создать экземпляр",
+    "lineNumber": 39,
+    "params": []
+  },
+  {
+    "__docId__": 66,
+    "kind": "member",
+    "name": "render",
+    "memberof": "src/shamUI.js~ShamUI",
+    "static": false,
+    "longname": "src/shamUI.js~ShamUI#render",
+    "access": null,
+    "description": null,
+    "lineNumber": 42,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 67,
+    "kind": "file",
+    "name": "src/utils/fsm.js",
+    "content": "const NEXT_TRANSITION = \"transition\";\nconst NEXT_HANDLER = \"handler\";\nconst HANDLING = \"handling\";\nconst HANDLED = \"handled\";\nconst NO_HANDLER = \"nohandler\";\nconst TRANSITION = \"transition\";\nconst INVALID_STATE = \"invalidstate\";\nconst DEFERRED = \"deferred\";\nconst ERROR = \"error\";\n\n\n/**\n * Finite State Machine\n */\nexport class Fsm {\n    constructor() {\n        this.targetReplayState = \"\";\n        this.state = undefined;\n        this.priorState = undefined;\n        this._priorAction = \"\";\n        this._currentAction = \"\";\n        this.eventListeners = {\n            _anyEvents: []\n        };\n        this.eventQueue = [];\n    }\n\n    /**\n     * Initial states\n     * @type {string}\n     */\n    static initialState = \"uninitialized\";\n\n    /**\n     * Initialize states\n     * Default resolve from injected\n     */\n    initStates() {\n        this._states = {};\n        for ( let key in this ) {\n            if ( this[ key ] && this[ key ].prototype instanceof State ) {\n                this._states[ key ] = new this[ key ]( this );\n            }\n        }\n    };\n\n    /**\n     * Transition FSM to initialState\n     */\n    run() {\n        this.initStates();\n        this.transition( this.constructor.initialState );\n    }\n\n    /**\n     * Fire event\n     * @param {string} eventName\n     */\n    emit( eventName ) {\n        if ( this.eventListeners._anyEvents ) {\n            this.eventListeners._anyEvents.forEach( callback => {\n                callback( ...arguments );\n            } );\n        }\n\n        if ( this.eventListeners[ eventName ] ) {\n            this.eventListeners[ eventName ].forEach( callback => {\n                callback( ...arguments );\n            } );\n        }\n    }\n\n    /**\n     * Call handler in state\n     * @param {string} inputType\n     */\n    handle( inputType ) {\n        if ( !this.inExitHandler ) {\n            const states = this._states,\n                current = this.state;\n\n            const args = Array.prototype.slice.call( arguments, 0 );\n            this.currentActionArgs = args;\n\n            if ( states[ current ][ inputType ] ||\n                states[ current ]._anyEvents ||\n                this._anyEvents ) {\n                const handlerName = states[ current ][ inputType ] ? inputType : \"_anyEvents\";\n                const catchAll = \"_anyEvents\" === handlerName;\n\n                let handler, action;\n                if ( states[ current ][ handlerName ] ) {\n                    handler = states[ current ][ handlerName ];\n                    action = `${current}.${handlerName}`;\n                } else {\n                    handler = this._anyEvents;\n                    action = \"_anyEvents\";\n                }\n                if ( !this._currentAction ) {\n                    this._currentAction = action;\n                }\n\n                this.emit( HANDLING, {\n                    inputType,\n                    args\n                } );\n                handler.apply( states[ current ], catchAll ? args : args.slice( 1 ) );\n                this.emit( HANDLED, {\n                    inputType,\n                    args\n                } );\n\n                this._priorAction = this._currentAction;\n                this._currentAction = \"\";\n                this.processQueue( NEXT_HANDLER );\n            } else {\n                this.emit( NO_HANDLER, {\n                    inputType,\n                    args\n                } );\n            }\n\n            this.currentActionArgs = undefined;\n        }\n    }\n\n    /**\n     * Transition to state\n     * @param {String} newState\n     */\n    transition( newState ) {\n        if ( !this.inExitHandler && newState !== this.state ) {\n            const curState = this.state;\n            if ( this._states[ newState ] ) {\n                if ( curState && this._states[ curState ] && this._states[ curState ]._onExit ) {\n                    this.inExitHandler = true;\n                    this._states[ curState ]._onExit();\n                    this.inExitHandler = false;\n                }\n                this.targetReplayState = newState;\n                this.priorState = curState;\n                this.state = newState;\n                this.emit( TRANSITION, {\n                    fromState: this.priorState,\n                    action: this._currentAction,\n                    toState: newState\n                } );\n                if ( this._states[ newState ]._onEnter ) {\n                    this._states[ newState ]._onEnter();\n                }\n                if ( this.targetReplayState === newState ) {\n                    this.processQueue( NEXT_TRANSITION );\n                }\n                return;\n            }\n            this.emit( INVALID_STATE, {\n                state: this.state,\n                attemptedState: newState\n            } );\n        }\n    }\n\n    /**\n     * Process events queue by type\n     * @param {String} type\n     */\n    processQueue( type ) {\n        const filterFn = NEXT_TRANSITION === type ?\n            item => NEXT_TRANSITION === item.type && (\n                (\n                    !item.untilState\n                ) || (\n                item.untilState === this.state\n                )\n            ) : item => NEXT_HANDLER === item.type;\n\n        let toProcess = [];\n\n        let counter = -1,\n            length = this.eventQueue.length,\n            index = 0,\n            item;\n        while ( ++counter < length ) {\n            item = this.eventQueue[ counter - index ];\n            if ( filterFn( item ) ) {\n                toProcess.push( this.eventQueue.splice( counter - index++ )[ 0 ] );\n            }\n        }\n\n        toProcess.forEach( item => {\n            this.handle( ...item.args );\n        } );\n    }\n\n    /**\n     * Defer current action from current state to destination state\n     * @param {string} stateName Destination state\n     */\n    deferUntilTransition( stateName ) {\n        if ( this.currentActionArgs ) {\n            const queued = {\n                type: NEXT_TRANSITION,\n                untilState: stateName,\n                args: this.currentActionArgs\n            };\n            this.eventQueue.push( queued );\n            this.emit.call( this, DEFERRED, {\n                state: this.state,\n                queuedArgs: queued\n            } );\n        }\n    }\n\n    /**\n     * Subscribe listener to event\n     * @param {String}   eventName\n     * @param {Function} callback\n     * @return {{eventName: string, callback: Function, off: Function}}\n     */\n    on( eventName, callback ) {\n        if ( !this.eventListeners[ eventName ] ) {\n            this.eventListeners[ eventName ] = [];\n        }\n        this.eventListeners[ eventName ].push( callback );\n        return {\n            eventName,\n            callback,\n            off: () => {\n                this.off( eventName, callback );\n            }\n        };\n    }\n\n    /**\n     * Un-subscribe listener\n     * @param {=string}   eventName\n     * @param {=Function} callback\n     */\n    off( eventName, callback ) {\n        if ( !eventName ) {\n            this.eventListeners = {};\n        } else {\n            if ( this.eventListeners[ eventName ] ) {\n                if ( callback ) {\n                    let index = 0,\n                        counter = -1,\n                        length = this.eventListeners[ eventName ].length,\n                        item;\n                    while ( ++counter < length ) {\n                        item = this.eventListeners[ eventName ][ counter - index ];\n                        if ( callback === item ) {\n                            this.eventListeners[ eventName ].splice( counter - index++ );\n                        }\n                    }\n                } else {\n                    this.eventListeners[ eventName ] = [];\n                }\n            }\n        }\n    }\n\n    /**\n     * Subscribe once event listener\n     * @param {String}   eventName\n     * @param {Function} callback\n     */\n    one( eventName, callback ) {\n        const off = this.on( eventName, () => {\n            callback( ...arguments );\n            off();\n        } ).off;\n    }\n\n    /**\n     * Hook for process error\n     * @param {Object} exception\n     */\n    handleException( exception ) {\n        this.emit( ERROR, {\n            exception,\n            state: this.state,\n            priorState: this.priorState,\n            _currentAction: this._currentAction,\n            _priorAction: this._priorAction,\n            currentActionArgs: this.currentActionArgs,\n        } );\n    }\n}\n\nexport class State {\n    constructor( fsmInstance ) {\n        this._fsm = fsmInstance;\n    }\n\n    /**\n     * Call handler in state\n     * @param {String} inputType\n     */\n    handle( inputType ) {\n        this._fsm.handle( ...arguments );\n    }\n\n    /**\n     * Transition to state\n     * @param {String} newState\n     */\n    transition( newState ) {\n        this._fsm.transition( ...arguments );\n    }\n\n    deferUntilTransition() {\n        this._fsm.deferUntilTransition( ...arguments );\n    }\n\n    emit() {\n        this._fsm.emit( ...arguments );\n    }\n\n    /**\n     * Hook for process errors\n     */\n    handleException() {\n        this._fsm.handleException( ...arguments )\n    }\n}\n",
+    "static": true,
+    "longname": "src/utils/fsm.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 68,
+    "kind": "variable",
+    "name": "NEXT_TRANSITION",
+    "memberof": "src/utils/fsm.js",
+    "static": true,
+    "longname": "src/utils/fsm.js~NEXT_TRANSITION",
+    "access": null,
+    "export": false,
+    "importPath": "shamUI/src/utils/fsm.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 69,
+    "kind": "variable",
+    "name": "NEXT_HANDLER",
+    "memberof": "src/utils/fsm.js",
+    "static": true,
+    "longname": "src/utils/fsm.js~NEXT_HANDLER",
+    "access": null,
+    "export": false,
+    "importPath": "shamUI/src/utils/fsm.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 70,
+    "kind": "variable",
+    "name": "HANDLING",
+    "memberof": "src/utils/fsm.js",
+    "static": true,
+    "longname": "src/utils/fsm.js~HANDLING",
+    "access": null,
+    "export": false,
+    "importPath": "shamUI/src/utils/fsm.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 71,
+    "kind": "variable",
+    "name": "HANDLED",
+    "memberof": "src/utils/fsm.js",
+    "static": true,
+    "longname": "src/utils/fsm.js~HANDLED",
+    "access": null,
+    "export": false,
+    "importPath": "shamUI/src/utils/fsm.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 72,
+    "kind": "variable",
+    "name": "NO_HANDLER",
+    "memberof": "src/utils/fsm.js",
+    "static": true,
+    "longname": "src/utils/fsm.js~NO_HANDLER",
+    "access": null,
+    "export": false,
+    "importPath": "shamUI/src/utils/fsm.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 73,
+    "kind": "variable",
+    "name": "TRANSITION",
+    "memberof": "src/utils/fsm.js",
+    "static": true,
+    "longname": "src/utils/fsm.js~TRANSITION",
+    "access": null,
+    "export": false,
+    "importPath": "shamUI/src/utils/fsm.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 74,
+    "kind": "variable",
+    "name": "INVALID_STATE",
+    "memberof": "src/utils/fsm.js",
+    "static": true,
+    "longname": "src/utils/fsm.js~INVALID_STATE",
+    "access": null,
+    "export": false,
+    "importPath": "shamUI/src/utils/fsm.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 75,
+    "kind": "variable",
+    "name": "DEFERRED",
+    "memberof": "src/utils/fsm.js",
+    "static": true,
+    "longname": "src/utils/fsm.js~DEFERRED",
+    "access": null,
+    "export": false,
+    "importPath": "shamUI/src/utils/fsm.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 76,
+    "kind": "variable",
+    "name": "ERROR",
+    "memberof": "src/utils/fsm.js",
+    "static": true,
+    "longname": "src/utils/fsm.js~ERROR",
+    "access": null,
+    "export": false,
+    "importPath": "shamUI/src/utils/fsm.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 77,
+    "kind": "class",
+    "name": "Fsm",
+    "memberof": "src/utils/fsm.js",
+    "static": true,
+    "longname": "src/utils/fsm.js~Fsm",
+    "access": null,
+    "export": true,
+    "importPath": "shamUI/src/utils/fsm.js",
+    "importStyle": "{Fsm}",
+    "description": "Finite State Machine",
+    "lineNumber": 15,
+    "interface": false
+  },
+  {
+    "__docId__": 78,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 16,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": []
+  },
+  {
+    "__docId__": 79,
+    "kind": "member",
+    "name": "targetReplayState",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#targetReplayState",
+    "access": null,
+    "description": null,
+    "lineNumber": 17,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 80,
+    "kind": "member",
+    "name": "state",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#state",
+    "access": null,
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 81,
+    "kind": "member",
+    "name": "priorState",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#priorState",
+    "access": null,
+    "description": null,
+    "lineNumber": 19,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 82,
+    "kind": "member",
+    "name": "_priorAction",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#_priorAction",
+    "access": null,
+    "description": null,
+    "lineNumber": 20,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 83,
+    "kind": "member",
+    "name": "_currentAction",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#_currentAction",
+    "access": null,
+    "description": null,
+    "lineNumber": 21,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 84,
+    "kind": "member",
+    "name": "eventListeners",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#eventListeners",
+    "access": null,
+    "description": null,
+    "lineNumber": 22,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "{\"_anyEvents\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 85,
+    "kind": "member",
+    "name": "eventQueue",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#eventQueue",
+    "access": null,
+    "description": null,
+    "lineNumber": 25,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*[]"
+      ]
+    }
+  },
+  {
+    "__docId__": 86,
+    "kind": "member",
+    "name": "initialState",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "static": true,
+    "longname": "src/utils/fsm.js~Fsm.initialState",
+    "access": null,
+    "description": "Initial states",
+    "lineNumber": 32,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 87,
+    "kind": "method",
+    "name": "initStates",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#initStates",
+    "access": null,
+    "description": "Initialize states\nDefault resolve from injected",
+    "lineNumber": 38,
+    "params": []
+  },
+  {
+    "__docId__": 88,
+    "kind": "member",
+    "name": "_states",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#_states",
+    "access": null,
+    "description": null,
+    "lineNumber": 39,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "{}"
+      ]
+    }
+  },
+  {
+    "__docId__": 89,
+    "kind": "method",
+    "name": "run",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#run",
+    "access": null,
+    "description": "Transition FSM to initialState",
+    "lineNumber": 50,
+    "params": []
+  },
+  {
+    "__docId__": 90,
+    "kind": "method",
+    "name": "emit",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#emit",
+    "access": null,
+    "description": "Fire event",
+    "lineNumber": 59,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "eventName",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 91,
+    "kind": "method",
+    "name": "handle",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#handle",
+    "access": null,
+    "description": "Call handler in state",
+    "lineNumber": 77,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "inputType",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 92,
+    "kind": "member",
+    "name": "currentActionArgs",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#currentActionArgs",
+    "access": null,
+    "description": null,
+    "lineNumber": 83,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 93,
+    "kind": "member",
+    "name": "_currentAction",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#_currentAction",
+    "access": null,
+    "description": null,
+    "lineNumber": 100,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 94,
+    "kind": "member",
+    "name": "_priorAction",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#_priorAction",
+    "access": null,
+    "description": null,
+    "lineNumber": 113,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 95,
+    "kind": "member",
+    "name": "_currentAction",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#_currentAction",
+    "access": null,
+    "description": null,
+    "lineNumber": 114,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 96,
+    "kind": "member",
+    "name": "currentActionArgs",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#currentActionArgs",
+    "access": null,
+    "description": null,
+    "lineNumber": 123,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 97,
+    "kind": "method",
+    "name": "transition",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#transition",
+    "access": null,
+    "description": "Transition to state",
+    "lineNumber": 131,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "newState",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 98,
+    "kind": "member",
+    "name": "inExitHandler",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#inExitHandler",
+    "access": null,
+    "description": null,
+    "lineNumber": 136,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 99,
+    "kind": "member",
+    "name": "inExitHandler",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#inExitHandler",
+    "access": null,
+    "description": null,
+    "lineNumber": 138,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 100,
+    "kind": "member",
+    "name": "targetReplayState",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#targetReplayState",
+    "access": null,
+    "description": null,
+    "lineNumber": 140,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 101,
+    "kind": "member",
+    "name": "priorState",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#priorState",
+    "access": null,
+    "description": null,
+    "lineNumber": 141,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 102,
+    "kind": "member",
+    "name": "state",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#state",
+    "access": null,
+    "description": null,
+    "lineNumber": 142,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 103,
+    "kind": "method",
+    "name": "processQueue",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#processQueue",
+    "access": null,
+    "description": "Process events queue by type",
+    "lineNumber": 167,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "type",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 104,
+    "kind": "method",
+    "name": "deferUntilTransition",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#deferUntilTransition",
+    "access": null,
+    "description": "Defer current action from current state to destination state",
+    "lineNumber": 199,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "stateName",
+        "description": "Destination state"
+      }
+    ]
+  },
+  {
+    "__docId__": 105,
+    "kind": "method",
+    "name": "on",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#on",
+    "access": null,
+    "description": "Subscribe listener to event",
+    "lineNumber": 220,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "eventName",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "callback",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "{eventName: string, callback: Function, off: Function}"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 106,
+    "kind": "method",
+    "name": "off",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#off",
+    "access": null,
+    "description": "Un-subscribe listener",
+    "lineNumber": 239,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "=string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "eventName",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "=Function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "callback",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 107,
+    "kind": "member",
+    "name": "eventListeners",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#eventListeners",
+    "access": null,
+    "description": null,
+    "lineNumber": 241,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "{}"
+      ]
+    }
+  },
+  {
+    "__docId__": 108,
+    "kind": "method",
+    "name": "one",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#one",
+    "access": null,
+    "description": "Subscribe once event listener",
+    "lineNumber": 267,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "eventName",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "callback",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 109,
+    "kind": "method",
+    "name": "handleException",
+    "memberof": "src/utils/fsm.js~Fsm",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/utils/fsm.js~Fsm#handleException",
+    "access": null,
+    "description": "Hook for process error",
+    "lineNumber": 278,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "exception",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 110,
+    "kind": "class",
+    "name": "State",
+    "memberof": "src/utils/fsm.js",
+    "static": true,
+    "longname": "src/utils/fsm.js~State",
+    "access": null,
+    "export": true,
+    "importPath": "shamUI/src/utils/fsm.js",
+    "importStyle": "{State}",
+    "description": null,
+    "lineNumber": 290,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "interface": false
+  },
+  {
+    "__docId__": 111,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/utils/fsm.js~State",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/utils/fsm.js~State#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 291,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "name": "fsmInstance",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 112,
+    "kind": "member",
+    "name": "_fsm",
+    "memberof": "src/utils/fsm.js~State",
+    "static": false,
+    "longname": "src/utils/fsm.js~State#_fsm",
+    "access": null,
+    "description": null,
+    "lineNumber": 292,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 113,
+    "kind": "method",
+    "name": "handle",
+    "memberof": "src/utils/fsm.js~State",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/utils/fsm.js~State#handle",
+    "access": null,
+    "description": "Call handler in state",
+    "lineNumber": 299,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "inputType",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 114,
+    "kind": "method",
+    "name": "transition",
+    "memberof": "src/utils/fsm.js~State",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/utils/fsm.js~State#transition",
+    "access": null,
+    "description": "Transition to state",
+    "lineNumber": 307,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "newState",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 115,
+    "kind": "method",
+    "name": "deferUntilTransition",
+    "memberof": "src/utils/fsm.js~State",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/utils/fsm.js~State#deferUntilTransition",
+    "access": null,
+    "description": null,
+    "lineNumber": 311,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": []
+  },
+  {
+    "__docId__": 116,
+    "kind": "method",
+    "name": "emit",
+    "memberof": "src/utils/fsm.js~State",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/utils/fsm.js~State#emit",
+    "access": null,
+    "description": null,
+    "lineNumber": 315,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "params": []
+  },
+  {
+    "__docId__": 117,
+    "kind": "method",
+    "name": "handleException",
+    "memberof": "src/utils/fsm.js~State",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/utils/fsm.js~State#handleException",
+    "access": null,
+    "description": "Hook for process errors",
+    "lineNumber": 322,
+    "params": []
+  },
+  {
+    "__docId__": 118,
+    "kind": "file",
+    "name": "src/widget.js",
+    "content": "import options from './decorators/options';\nimport { inject } from './DI';\n\n/**\n * Базовый класс для виджетов\n */\nexport default class Widget {\n    @inject UI = 'sham-ui'; // inject shamUI instance as this.UI\n\n    /**\n     * @param {String}  containerSelector CSS-селектор элемента, в который будет\n     *                                    происходить отрисовка\n     * @param {String}  ID                Уникальный идентификтор\n     * @param {Object} [options]          Опции\n     */\n    constructor( containerSelector, ID, options ) {\n\n        this.ID = ID;\n        /**\n         * @type {null|Node} Container of this widget\n         */\n        this.container = null;\n        this.containerSelector = containerSelector;\n        this.options = options;\n        this.UI.render.register( this )\n    }\n\n    /**\n     * Сначала биндим обработчики событий, потом отрисовываем\n     * @type {Array}\n     * @default [ \"bindEvents\", \"render\" ]\n     */\n    @options\n    actionSequence = [ \"bindEvents\", \"render\" ];\n\n    /**\n     * Тип виджета\n     * @type {Array}\n     */\n    @options\n    types = [];\n\n    /**\n     * Если биндим обработчики событий после отрисовки, то нужно ли перебиндиивать их\n     * после каждой отрисовки\n     * @member {Boolean}\n     * @default true\n     */\n    @options\n    bindOnce = true;\n\n    /**\n     * Нужно ли кэшировать родительский элемент для контейнера\n     * @type {Boolean}\n     * @default false\n     */\n    @options\n    cacheParentContainer = false;\n\n    /**\n     * Виджет отрисовывается ассинхронно\n     * @type {Boolean}\n     * @default false,\n     */\n    @options\n    renderAsync = false;\n\n    /**\n     * Обертка для ассинхроной отрисовки\n     * @deprecated\n     * @param {Function} renderCallback callback для рендера\n     */\n    @options\n    static renderAsyncWrapper( renderCallback ) {\n        window.requestAnimationFrame( renderCallback );\n    }\n\n    /**\n     * Массив виджетов, которые нужно отрисовать перед тем, как отрисовывать этот виджет\n     * @type {Array}\n     */\n    @options\n    renderDependence = [];\n\n    /**\n     * Опции виджета. Переопределяют опции по-умолчанию\n     * @see #Widget\n     * @return {Object}\n     */\n    get options() {\n        return this._options;\n    }\n\n    /**\n     * @param {Object} options\n     */\n    set options( options ) {\n\n        // Выставляем опции по-умолчанию\n        this._options = {};\n        const _options = options || {};\n        for ( let name in _options ) {\n            if ( !_options.hasOwnProperty( name ) ) {\n                continue;\n            }\n            this._options[ name ] = _options[ name ];\n        }\n\n        const optionsOwners = [\n            this.constructor, // Static options\n            this              // Instance options\n        ];\n        for ( let owner of optionsOwners ) {\n            const defaultStaticOptionProps = owner[ 'defaultOptionProps' ] || [];\n            for ( let name of defaultStaticOptionProps ) {\n                if ( !this._options.hasOwnProperty( name ) ) {\n                    this._options[ name ] = owner[ name ];\n                }\n            }\n        }\n    }\n\n    /**\n     * Функция возвращающая html для отрисовки\n     */\n    html() {};\n\n    /**\n     * Добавить обработчики событий\n     */\n    bindEvents() {};\n\n    /**\n     * Функция вызывающая при уничтожениии виджета\n     */\n    destroy() {};\n\n    /**\n     * Отрисовать виджет в контейнер\n     * @returns {{container: *, html: *}}\n     */\n    render() {\n        if ( this.options.cacheParentContainer ) {\n            if ( !this.containerParentNode ) {\n                this.containerParentNode = document.querySelector(\n                    this.containerSelector\n                ).parentNode;\n            }\n            this.container = this.containerParentNode.querySelector(\n                this.containerSelector\n            );\n        } else {\n            this.container = document.querySelector( this.containerSelector );\n        }\n        return {\n            container: this.container,\n            html: this.html()\n        }\n    }\n}\n",
+    "static": true,
+    "longname": "src/widget.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 119,
+    "kind": "class",
+    "name": "Widget",
+    "memberof": "src/widget.js",
+    "static": true,
+    "longname": "src/widget.js~Widget",
+    "access": null,
+    "export": true,
+    "importPath": "shamUI/src/widget.js",
+    "importStyle": "Widget",
+    "description": "Базовый класс для виджетов",
+    "lineNumber": 7,
+    "interface": false
+  },
+  {
+    "__docId__": 120,
+    "kind": "member",
+    "name": "UI",
+    "memberof": "src/widget.js~Widget",
+    "static": false,
+    "longname": "src/widget.js~Widget#UI",
+    "access": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "string"
+      ]
+    },
+    "decorators": [
+      {
+        "name": "inject",
+        "arguments": null
+      }
+    ]
+  },
+  {
+    "__docId__": 121,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/widget.js~Widget",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/widget.js~Widget#constructor",
+    "access": null,
+    "description": "",
+    "lineNumber": 16,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "containerSelector",
+        "description": "CSS-селектор элемента, в который будет\n                                   происходить отрисовка"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "ID",
+        "description": "Уникальный идентификтор"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "options",
+        "description": "Опции"
+      }
+    ]
+  },
+  {
+    "__docId__": 122,
+    "kind": "member",
+    "name": "ID",
+    "memberof": "src/widget.js~Widget",
+    "static": false,
+    "longname": "src/widget.js~Widget#ID",
+    "access": null,
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 123,
+    "kind": "member",
+    "name": "container",
+    "memberof": "src/widget.js~Widget",
+    "static": false,
+    "longname": "src/widget.js~Widget#container",
+    "access": null,
+    "description": "",
+    "lineNumber": 22,
+    "type": {
+      "nullable": null,
+      "types": [
+        "null",
+        "Node"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 124,
+    "kind": "member",
+    "name": "containerSelector",
+    "memberof": "src/widget.js~Widget",
+    "static": false,
+    "longname": "src/widget.js~Widget#containerSelector",
+    "access": null,
+    "description": null,
+    "lineNumber": 23,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 125,
+    "kind": "member",
+    "name": "options",
+    "memberof": "src/widget.js~Widget",
+    "static": false,
+    "longname": "src/widget.js~Widget#options",
+    "access": null,
+    "description": null,
+    "lineNumber": 24,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 126,
+    "kind": "member",
+    "name": "actionSequence",
+    "memberof": "src/widget.js~Widget",
+    "static": false,
+    "longname": "src/widget.js~Widget#actionSequence",
+    "access": null,
+    "description": "Сначала биндим обработчики событий, потом отрисовываем",
+    "lineNumber": 34,
+    "unknown": [
+      {
+        "tagName": "@default",
+        "tagValue": "[ \"bindEvents\", \"render\" ]"
+      }
+    ],
+    "type": {
+      "nullable": null,
+      "types": [
+        "Array"
+      ],
+      "spread": false,
+      "description": null
+    },
+    "decorators": [
+      {
+        "name": "options",
+        "arguments": null
+      }
+    ]
+  },
+  {
+    "__docId__": 127,
+    "kind": "member",
+    "name": "types",
+    "memberof": "src/widget.js~Widget",
+    "static": false,
+    "longname": "src/widget.js~Widget#types",
+    "access": null,
+    "description": "Тип виджета",
+    "lineNumber": 41,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Array"
+      ],
+      "spread": false,
+      "description": null
+    },
+    "decorators": [
+      {
+        "name": "options",
+        "arguments": null
+      }
+    ]
+  },
+  {
+    "__docId__": 128,
+    "kind": "member",
+    "name": "bindOnce",
+    "memberof": "src/widget.js~Widget",
+    "static": false,
+    "longname": "src/widget.js~Widget#bindOnce",
+    "access": null,
+    "description": "Если биндим обработчики событий после отрисовки, то нужно ли перебиндиивать их\nпосле каждой отрисовки",
+    "lineNumber": 50,
+    "unknown": [
+      {
+        "tagName": "@default",
+        "tagValue": "true"
+      }
+    ],
+    "type": {
+      "types": [
+        "boolean"
+      ]
+    },
+    "decorators": [
+      {
+        "name": "options",
+        "arguments": null
+      }
+    ]
+  },
+  {
+    "__docId__": 129,
+    "kind": "member",
+    "name": "cacheParentContainer",
+    "memberof": "src/widget.js~Widget",
+    "static": false,
+    "longname": "src/widget.js~Widget#cacheParentContainer",
+    "access": null,
+    "description": "Нужно ли кэшировать родительский элемент для контейнера",
+    "lineNumber": 58,
+    "unknown": [
+      {
+        "tagName": "@default",
+        "tagValue": "false"
+      }
+    ],
+    "type": {
+      "nullable": null,
+      "types": [
+        "Boolean"
+      ],
+      "spread": false,
+      "description": null
+    },
+    "decorators": [
+      {
+        "name": "options",
+        "arguments": null
+      }
+    ]
+  },
+  {
+    "__docId__": 130,
+    "kind": "member",
+    "name": "renderAsync",
+    "memberof": "src/widget.js~Widget",
+    "static": false,
+    "longname": "src/widget.js~Widget#renderAsync",
+    "access": null,
+    "description": "Виджет отрисовывается ассинхронно",
+    "lineNumber": 66,
+    "unknown": [
+      {
+        "tagName": "@default",
+        "tagValue": "false,"
+      }
+    ],
+    "type": {
+      "nullable": null,
+      "types": [
+        "Boolean"
+      ],
+      "spread": false,
+      "description": null
+    },
+    "decorators": [
+      {
+        "name": "options",
+        "arguments": null
+      }
+    ]
+  },
+  {
+    "__docId__": 131,
+    "kind": "method",
+    "name": "renderAsyncWrapper",
+    "memberof": "src/widget.js~Widget",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/widget.js~Widget.renderAsyncWrapper",
+    "access": null,
+    "description": "Обертка для ассинхроной отрисовки",
+    "lineNumber": 74,
+    "deprecated": true,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "renderCallback",
+        "description": "callback для рендера"
+      }
+    ],
+    "decorators": [
+      {
+        "name": "options",
+        "arguments": null
+      }
+    ]
+  },
+  {
+    "__docId__": 132,
+    "kind": "member",
+    "name": "renderDependence",
+    "memberof": "src/widget.js~Widget",
+    "static": false,
+    "longname": "src/widget.js~Widget#renderDependence",
+    "access": null,
+    "description": "Массив виджетов, которые нужно отрисовать перед тем, как отрисовывать этот виджет",
+    "lineNumber": 83,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Array"
+      ],
+      "spread": false,
+      "description": null
+    },
+    "decorators": [
+      {
+        "name": "options",
+        "arguments": null
+      }
+    ]
+  },
+  {
+    "__docId__": 133,
+    "kind": "get",
+    "name": "options",
+    "memberof": "src/widget.js~Widget",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/widget.js~Widget#options",
+    "access": null,
+    "description": "Опции виджета. Переопределяют опции по-умолчанию",
+    "see": [
+      "#Widget"
+    ],
+    "lineNumber": 90,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 134,
+    "kind": "set",
+    "name": "options",
+    "memberof": "src/widget.js~Widget",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/widget.js~Widget#options",
+    "access": null,
+    "description": "",
+    "lineNumber": 97,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "options",
+        "description": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 135,
+    "kind": "member",
+    "name": "_options",
+    "memberof": "src/widget.js~Widget",
+    "static": false,
+    "longname": "src/widget.js~Widget#_options",
+    "access": null,
+    "description": null,
+    "lineNumber": 100,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "{}"
+      ]
+    }
+  },
+  {
+    "__docId__": 136,
+    "kind": "method",
+    "name": "html",
+    "memberof": "src/widget.js~Widget",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/widget.js~Widget#html",
+    "access": null,
+    "description": "Функция возвращающая html для отрисовки",
+    "lineNumber": 126,
+    "params": []
+  },
+  {
+    "__docId__": 137,
+    "kind": "method",
+    "name": "bindEvents",
+    "memberof": "src/widget.js~Widget",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/widget.js~Widget#bindEvents",
+    "access": null,
+    "description": "Добавить обработчики событий",
+    "lineNumber": 131,
+    "params": []
+  },
+  {
+    "__docId__": 138,
+    "kind": "method",
+    "name": "destroy",
+    "memberof": "src/widget.js~Widget",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/widget.js~Widget#destroy",
+    "access": null,
+    "description": "Функция вызывающая при уничтожениии виджета",
+    "lineNumber": 136,
+    "params": []
+  },
+  {
+    "__docId__": 139,
+    "kind": "method",
+    "name": "render",
+    "memberof": "src/widget.js~Widget",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/widget.js~Widget#render",
+    "access": null,
+    "description": "Отрисовать виджет в контейнер",
+    "lineNumber": 142,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{{container: *, html: *}}"
+      }
+    ],
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "{container: *, html: *}"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 140,
+    "kind": "member",
+    "name": "containerParentNode",
+    "memberof": "src/widget.js~Widget",
+    "static": false,
+    "longname": "src/widget.js~Widget#containerParentNode",
+    "access": null,
+    "description": null,
+    "lineNumber": 145,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 141,
+    "kind": "member",
+    "name": "container",
+    "memberof": "src/widget.js~Widget",
+    "static": false,
+    "longname": "src/widget.js~Widget#container",
+    "access": null,
+    "description": null,
+    "lineNumber": 149,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 142,
+    "kind": "member",
+    "name": "container",
+    "memberof": "src/widget.js~Widget",
+    "static": false,
+    "longname": "src/widget.js~Widget#container",
+    "access": null,
+    "description": null,
+    "lineNumber": 153,
+    "undocument": true,
+    "unknown": [
+      {
+        "tagName": "@_undocument",
+        "tagValue": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 144,
+    "kind": "external",
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Infinity",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 145,
+    "kind": "external",
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~NaN",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 146,
+    "kind": "external",
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~undefined",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 147,
+    "kind": "external",
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~null",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 148,
+    "kind": "external",
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Object",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 149,
+    "kind": "external",
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~object",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 150,
+    "kind": "external",
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Function",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 151,
+    "kind": "external",
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~function",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 152,
+    "kind": "external",
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Boolean",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 153,
+    "kind": "external",
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~boolean",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 154,
+    "kind": "external",
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Symbol",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 155,
+    "kind": "external",
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Error",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 156,
+    "kind": "external",
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~EvalError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 157,
+    "kind": "external",
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~InternalError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 158,
+    "kind": "external",
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RangeError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 159,
+    "kind": "external",
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ReferenceError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 160,
+    "kind": "external",
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~SyntaxError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 161,
+    "kind": "external",
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~TypeError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 162,
+    "kind": "external",
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~URIError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 163,
+    "kind": "external",
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Number",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 164,
+    "kind": "external",
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~number",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 165,
+    "kind": "external",
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Date",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 166,
+    "kind": "external",
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~String",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 167,
+    "kind": "external",
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~string",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 168,
+    "kind": "external",
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RegExp",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 169,
+    "kind": "external",
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 170,
+    "kind": "external",
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int8Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 171,
+    "kind": "external",
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 172,
+    "kind": "external",
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8ClampedArray",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 173,
+    "kind": "external",
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int16Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 174,
+    "kind": "external",
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint16Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 175,
+    "kind": "external",
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int32Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 176,
+    "kind": "external",
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint32Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 177,
+    "kind": "external",
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float32Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 178,
+    "kind": "external",
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float64Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 179,
+    "kind": "external",
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Map",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 180,
+    "kind": "external",
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Set",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 181,
+    "kind": "external",
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakMap",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 182,
+    "kind": "external",
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakSet",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 183,
+    "kind": "external",
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ArrayBuffer",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 184,
+    "kind": "external",
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~DataView",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 185,
+    "kind": "external",
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~JSON",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 186,
+    "kind": "external",
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Promise",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 187,
+    "kind": "external",
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Generator",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 188,
+    "kind": "external",
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~GeneratorFunction",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 189,
+    "kind": "external",
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Reflect",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 190,
+    "kind": "external",
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Proxy",
+    "access": null,
+    "description": "",
+    "lineNumber": 193,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 192,
+    "kind": "external",
+    "name": "CanvasRenderingContext2D",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~CanvasRenderingContext2D",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 193,
+    "kind": "external",
+    "name": "DocumentFragment",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~DocumentFragment",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 194,
+    "kind": "external",
+    "name": "Element",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~Element",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 195,
+    "kind": "external",
+    "name": "Event",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~Event",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 196,
+    "kind": "external",
+    "name": "Node",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~Node",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 197,
+    "kind": "external",
+    "name": "NodeList",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~NodeList",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 198,
+    "kind": "external",
+    "name": "XMLHttpRequest",
+    "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~XMLHttpRequest",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 199,
+    "kind": "external",
+    "name": "AudioContext",
+    "externalLink": "https://developer.mozilla.org/en/docs/Web/API/AudioContext",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "static": true,
+    "longname": "BuiltinExternal/WebAPIExternal.js~AudioContext",
+    "access": null,
+    "description": "",
+    "lineNumber": 34,
+    "builtinExternal": true
+  }
+]

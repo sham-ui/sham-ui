@@ -1,0 +1,93 @@
+{
+  "coverage": "64.28%",
+  "expectCount": 98,
+  "actualCount": 63,
+  "files": {
+    "src/fsm/fsm.js": {
+      "expectCount": 19,
+      "actualCount": 9,
+      "undocumentLines": [
+        42,
+        41,
+        37,
+        40,
+        45,
+        35,
+        32,
+        33,
+        34,
+        39
+      ]
+    },
+    "src/DI.js": {
+      "expectCount": 4,
+      "actualCount": 4,
+      "undocumentLines": []
+    },
+    "src/shamUI.js": {
+      "expectCount": 10,
+      "actualCount": 3,
+      "undocumentLines": [
+        7,
+        13,
+        15,
+        14,
+        8,
+        17,
+        42
+      ]
+    },
+    "src/utils/fsm.js": {
+      "expectCount": 28,
+      "actualCount": 16,
+      "undocumentLines": [
+        290,
+        291,
+        16,
+        83,
+        311,
+        315,
+        22,
+        25,
+        136,
+        19,
+        18,
+        17
+      ]
+    },
+    "src/widget.js": {
+      "expectCount": 20,
+      "actualCount": 16,
+      "undocumentLines": [
+        18,
+        8,
+        145,
+        23
+      ]
+    },
+    "src/fsm/states/ready.js": {
+      "expectCount": 9,
+      "actualCount": 9,
+      "undocumentLines": []
+    },
+    "src/fsm/states/registration.js": {
+      "expectCount": 4,
+      "actualCount": 3,
+      "undocumentLines": [
+        8
+      ]
+    },
+    "src/fsm/states/rendering.js": {
+      "expectCount": 3,
+      "actualCount": 2,
+      "undocumentLines": [
+        89
+      ]
+    },
+    "src/decorators/options.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    }
+  }
+}

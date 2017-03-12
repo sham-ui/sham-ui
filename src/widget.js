@@ -1,162 +1,160 @@
+import options from './decorators/options';
+import { inject } from './DI';
+
 /**
- * Базовый класс для виджета
- * @module shamUI/widget
- * @see Widget
+ * Базовый класс для виджетов
  */
-define( [
-    "lodash",
-    "Class"
-], function( _,  Class ) {
-    var Widget = Class(
-        /** @lends Widget.prototype */
-        {
-            /**
-             * @constructs
-             * @classdesc Базовый класс для виджетов
-             * @param {String}  containerSelector CSS-селектор элемента, в который будет
-             *                                    происходить отрисовка
-             * @param {String}  ID                Уникальный идентификтор
-             * @param {Object} [options]          Опции
-             */
-            constructor: function( containerSelector, ID, options ) {
-                this.ID = ID;
-                this.containerSelector = containerSelector;
-                this.options = options || {};
-                this.UI.render.register( this )
-            },
+export default class Widget {
+    @inject UI = 'sham-ui'; // inject shamUI instance as this.UI
 
-            /**
-             * Элемент-контейнер для виджета
-             * @member {Node}
-             */
-            container: null,
-
-            /**
-             * Опции по-умолчанию
-             * @member {Object}
-             * @namespace
-             */
-            defaultOptions: {
-
-                /**
-                * Тип виджета
-                * @member {Array}
-                */
-                types: [],
-
-                /**
-                 * Сначала биндим обработчики событий, потом отрисовываем
-                 * @member {Array}
-                 * @default [ "bindEvents", "render" ]
-                 */
-                actionSequence: [ "bindEvents", "render" ],
-
-                /**
-                 * Если биндим обработчики собыйти после отрисовки, то нужно ли перебиндиивать их
-                 * после каждой отрисовки
-                 * @member {Boolean}
-                 * @default true
-                 */
-                bindOnce: true,
-
-                /**
-                 * Нужно ли кэшировать родительский элемент для контейнера
-                 * @member {Boolean}
-                 * @default false
-                 */
-                cacheParentContainer: false,
-
-                /**
-                 * Виджет отрисовывается ассинхронно
-                 * @member {Boolean}
-                 * @default false,
-                 */
-                renderAsync: false,
-
-                /**
-                 * Обертка для ассинхроной отрисовки
-                 * @param {Function} renderCallback callback для рендера
-                 */
-                renderAsyncWrapper: function( renderCallback ) {
-                    window.requestAnimationFrame( renderCallback );
-                },
-
-                /**
-                 * Массив виджетов, которые нужно отрисовать перед тем, как отрисовывать этот виджет
-                 * @member {Array}
-                 */
-                renderDependence: []
-            },
-            $ready: function( clazz ) {
-                if ( this !== clazz ) {
-
-                    // Наследуем опции по-умолчнанию
-                    clazz.prototype.defaultOptions = _.defaultsDeep(
-                        clazz.prototype.defaultOptions || {},
-                        clazz.$superp.defaultOptions
-                    );
-                }
-            },
-            /**
-             * Опции виджета. Переопределяют опции по-умолчанию
-             * @name Widget#options
-             * @type Object
-             * @see Widget#defaultOptions
-             */
-            options: {
-                get: function() {
-                    return this._options;
-                },
-                set: function( options ) {
-
-                    // Выставляем опции по-умолчанию
-                    this._options = _.defaultsDeep( options || {}, this.defaultOptions );
-                }
-            },
-            /**
-             * Добавить обработчики собыйти
-             * @type {Function|null}
-             */
-            bindEvents: null,
-            /**
-             * Отрисовать виджет в контейнер
-             * @returns {{container: *, html: *}}
-             */
-            render: function() {
-                if ( this.html ) {
-                    if ( this.options.cacheParentContainer ) {
-                        if ( !this.containerParentNode ) {
-                            this.containerParentNode = document.querySelector(
-                                this.containerSelector
-                            ).parentNode;
-                        }
-                        this.container = this.containerParentNode.querySelector(
-                            this.containerSelector
-                        );
-                    } else {
-                        this.container = document.querySelector( this.containerSelector );
-                    }
-                    return {
-                        container: this.container,
-                        html: this.html()
-                    }
-                }
-            },
-            /**
-             * Функция возвращающая html для отрисовки
-             * @type {Function|null}
-             */
-            html: null,
-            /**
-             * Функция вызывающая при уничтожениии виджета
-             * @type {Function|null}
-             */
-            destroy: null
-        }
-    );
     /**
-     * Базовый класс виджета
-     * @see Widget
+     * @param {String}  containerSelector CSS-селектор элемента, в который будет
+     *                                    происходить отрисовка
+     * @param {String}  ID                Уникальный идентификтор
+     * @param {Object} [options]          Опции
      */
-    return Widget;
-} );
+    constructor( containerSelector, ID, options ) {
+
+        this.ID = ID;
+        /**
+         * @type {null|Node} Container of this widget
+         */
+        this.container = null;
+        this.containerSelector = containerSelector;
+        this.options = options;
+        this.UI.render.register( this )
+    }
+
+    /**
+     * Сначала биндим обработчики событий, потом отрисовываем
+     * @type {Array}
+     * @default [ "bindEvents", "render" ]
+     */
+    @options
+    actionSequence = [ "bindEvents", "render" ];
+
+    /**
+     * Тип виджета
+     * @type {Array}
+     */
+    @options
+    types = [];
+
+    /**
+     * Если биндим обработчики событий после отрисовки, то нужно ли перебиндиивать их
+     * после каждой отрисовки
+     * @member {Boolean}
+     * @default true
+     */
+    @options
+    bindOnce = true;
+
+    /**
+     * Нужно ли кэшировать родительский элемент для контейнера
+     * @type {Boolean}
+     * @default false
+     */
+    @options
+    cacheParentContainer = false;
+
+    /**
+     * Виджет отрисовывается ассинхронно
+     * @type {Boolean}
+     * @default false,
+     */
+    @options
+    renderAsync = false;
+
+    /**
+     * Обертка для ассинхроной отрисовки
+     * @deprecated
+     * @param {Function} renderCallback callback для рендера
+     */
+    @options
+    static renderAsyncWrapper( renderCallback ) {
+        window.requestAnimationFrame( renderCallback );
+    }
+
+    /**
+     * Массив виджетов, которые нужно отрисовать перед тем, как отрисовывать этот виджет
+     * @type {Array}
+     */
+    @options
+    renderDependence = [];
+
+    /**
+     * Опции виджета. Переопределяют опции по-умолчанию
+     * @see #Widget
+     * @return {Object}
+     */
+    get options() {
+        return this._options;
+    }
+
+    /**
+     * @param {Object} options
+     */
+    set options( options ) {
+
+        // Выставляем опции по-умолчанию
+        this._options = {};
+        const _options = options || {};
+        for ( let name in _options ) {
+            if ( !_options.hasOwnProperty( name ) ) {
+                continue;
+            }
+            this._options[ name ] = _options[ name ];
+        }
+
+        const optionsOwners = [
+            this.constructor, // Static options
+            this              // Instance options
+        ];
+        for ( let owner of optionsOwners ) {
+            const defaultStaticOptionProps = owner[ 'defaultOptionProps' ] || [];
+            for ( let name of defaultStaticOptionProps ) {
+                if ( !this._options.hasOwnProperty( name ) ) {
+                    this._options[ name ] = owner[ name ];
+                }
+            }
+        }
+    }
+
+    /**
+     * Функция возвращающая html для отрисовки
+     */
+    html() {};
+
+    /**
+     * Добавить обработчики событий
+     */
+    bindEvents() {};
+
+    /**
+     * Функция вызывающая при уничтожениии виджета
+     */
+    destroy() {};
+
+    /**
+     * Отрисовать виджет в контейнер
+     * @returns {{container: *, html: *}}
+     */
+    render() {
+        if ( this.options.cacheParentContainer ) {
+            if ( !this.containerParentNode ) {
+                this.containerParentNode = document.querySelector(
+                    this.containerSelector
+                ).parentNode;
+            }
+            this.container = this.containerParentNode.querySelector(
+                this.containerSelector
+            );
+        } else {
+            this.container = document.querySelector( this.containerSelector );
+        }
+        return {
+            container: this.container,
+            html: this.html()
+        }
+    }
+}

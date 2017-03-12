@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">Widget | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/DI.js~DI.html">DI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/shamUI.js~ShamUI.html">ShamUI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/widget.js~Widget.html">Widget</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-inject">inject</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DI">DI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Fsm">Fsm</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FsmState">FsmState</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FsmStates">FsmStates</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Widget">Widget</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-inject">inject</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-options">options</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">decorators</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-options">options</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">fsm</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/fsm/fsm.js~FSM.html">FSM</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-states">states</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">fsm/states</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/fsm/states/ready.js~ReadyState.html">ReadyState</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/fsm/states/registration.js~RegistrationState.html">RegistrationState</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/fsm/states/rendering.js~RenderingState.html">RenderingState</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/fsm.js~Fsm.html">Fsm</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/fsm.js~State.html">State</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="header-notice">
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Widget from &apos;<span><a href="file/src/widget.js.html#lineNumber7">shamUI/src/widget.js</a></span>&apos;</code></pre></div>
+  <span data-ice="access">public</span>
+  <span data-ice="kind">class</span>
+  
+  
+  
+  <span data-ice="source">| <span><a href="file/src/widget.js.html#lineNumber7">source</a></span></span>
+</div>
+
+<div class="self-detail detail">
+  <h1 data-ice="name">Widget</h1>
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  <div class="description" data-ice="description"><p>&#x411;&#x430;&#x437;&#x43E;&#x432;&#x44B;&#x439; &#x43A;&#x43B;&#x430;&#x441;&#x441; &#x434;&#x43B;&#x44F; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;&#x43E;&#x432;</p>
+</div>
+  
+
+  
+
+  
+
+  
+
+  
+</div>
+
+
+<div data-ice="staticMethodSummary"><h2>Static Method Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Static Public Methods</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/widget.js~Widget.html#static-method-renderAsyncWrapper">renderAsyncWrapper</a></span></span><span data-ice="signature">(renderCallback: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">Function</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        <div class="deprecated" data-ice="deprecated">this method was deprecated.</div>
+        
+        <div data-ice="description"><p>&#x41E;&#x431;&#x435;&#x440;&#x442;&#x43A;&#x430; &#x434;&#x43B;&#x44F; &#x430;&#x441;&#x441;&#x438;&#x43D;&#x445;&#x440;&#x43E;&#x43D;&#x43E;&#x439; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x43A;&#x438;</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+<div data-ice="constructorSummary"><h2>Constructor Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Public Constructor</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/widget.js~Widget.html#instance-constructor-constructor">constructor</a></span></span><span data-ice="signature">(containerSelector: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, ID: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+<div data-ice="memberSummary"><h2>Member Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Public Members</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/widget.js~Widget.html#instance-member-ID">ID</a></span></span><span data-ice="signature">: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/widget.js~Widget.html#instance-member-UI">UI</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/widget.js~Widget.html#instance-member-actionSequence">actionSequence</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>&#x421;&#x43D;&#x430;&#x447;&#x430;&#x43B;&#x430; &#x431;&#x438;&#x43D;&#x434;&#x438;&#x43C; &#x43E;&#x431;&#x440;&#x430;&#x431;&#x43E;&#x442;&#x447;&#x438;&#x43A;&#x438; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x439;, &#x43F;&#x43E;&#x442;&#x43E;&#x43C; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x44B;&#x432;&#x430;&#x435;&#x43C;</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/widget.js~Widget.html#instance-member-bindOnce">bindOnce</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>&#x415;&#x441;&#x43B;&#x438; &#x431;&#x438;&#x43D;&#x434;&#x438;&#x43C; &#x43E;&#x431;&#x440;&#x430;&#x431;&#x43E;&#x442;&#x447;&#x438;&#x43A;&#x438; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x439; &#x43F;&#x43E;&#x441;&#x43B;&#x435; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x43A;&#x438;, &#x442;&#x43E; &#x43D;&#x443;&#x436;&#x43D;&#x43E; &#x43B;&#x438; &#x43F;&#x435;&#x440;&#x435;&#x431;&#x438;&#x43D;&#x434;&#x438;&#x438;&#x432;&#x430;&#x442;&#x44C; &#x438;&#x445;
+&#x43F;&#x43E;&#x441;&#x43B;&#x435; &#x43A;&#x430;&#x436;&#x434;&#x43E;&#x439; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x43A;&#x438;</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/widget.js~Widget.html#instance-member-cacheParentContainer">cacheParentContainer</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>&#x41D;&#x443;&#x436;&#x43D;&#x43E; &#x43B;&#x438; &#x43A;&#x44D;&#x448;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x440;&#x43E;&#x434;&#x438;&#x442;&#x435;&#x43B;&#x44C;&#x441;&#x43A;&#x438;&#x439; &#x44D;&#x43B;&#x435;&#x43C;&#x435;&#x43D;&#x442; &#x434;&#x43B;&#x44F; &#x43A;&#x43E;&#x43D;&#x442;&#x435;&#x439;&#x43D;&#x435;&#x440;&#x430;</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/widget.js~Widget.html#instance-member-container">container</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null">null</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/API/Node">Node</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/widget.js~Widget.html#instance-member-containerParentNode">containerParentNode</a></span></span><span data-ice="signature">: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/widget.js~Widget.html#instance-member-containerSelector">containerSelector</a></span></span><span data-ice="signature">: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      <span class="kind" data-ice="kind">get</span>
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/widget.js~Widget.html#instance-get-options">options</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>&#x41E;&#x43F;&#x446;&#x438;&#x438; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;&#x430;.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      <span class="kind" data-ice="kind">set</span>
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/widget.js~Widget.html#instance-set-options">options</a></span></span><span data-ice="signature">(options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/widget.js~Widget.html#instance-member-renderAsync">renderAsync</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>&#x412;&#x438;&#x434;&#x436;&#x435;&#x442; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x44B;&#x432;&#x430;&#x435;&#x442;&#x441;&#x44F; &#x430;&#x441;&#x441;&#x438;&#x43D;&#x445;&#x440;&#x43E;&#x43D;&#x43D;&#x43E;</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/widget.js~Widget.html#instance-member-renderDependence">renderDependence</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>&#x41C;&#x430;&#x441;&#x441;&#x438;&#x432; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;&#x43E;&#x432;, &#x43A;&#x43E;&#x442;&#x43E;&#x440;&#x44B;&#x435; &#x43D;&#x443;&#x436;&#x43D;&#x43E; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x43F;&#x435;&#x440;&#x435;&#x434; &#x442;&#x435;&#x43C;, &#x43A;&#x430;&#x43A; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x44B;&#x432;&#x430;&#x442;&#x44C; &#x44D;&#x442;&#x43E;&#x442; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/widget.js~Widget.html#instance-member-types">types</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>&#x422;&#x438;&#x43F; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;&#x430;</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+<div data-ice="methodSummary"><h2>Method Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Public Methods</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/widget.js~Widget.html#instance-method-bindEvents">bindEvents</a></span></span><span data-ice="signature">()</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>&#x414;&#x43E;&#x431;&#x430;&#x432;&#x438;&#x442;&#x44C; &#x43E;&#x431;&#x440;&#x430;&#x431;&#x43E;&#x442;&#x447;&#x438;&#x43A;&#x438; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x439;</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/widget.js~Widget.html#instance-method-destroy">destroy</a></span></span><span data-ice="signature">()</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>&#x424;&#x443;&#x43D;&#x43A;&#x446;&#x438;&#x44F; &#x432;&#x44B;&#x437;&#x44B;&#x432;&#x430;&#x44E;&#x449;&#x430;&#x44F; &#x43F;&#x440;&#x438; &#x443;&#x43D;&#x438;&#x447;&#x442;&#x43E;&#x436;&#x435;&#x43D;&#x438;&#x438;&#x438; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;&#x430;</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/widget.js~Widget.html#instance-method-html">html</a></span></span><span data-ice="signature">()</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>&#x424;&#x443;&#x43D;&#x43A;&#x446;&#x438;&#x44F; &#x432;&#x43E;&#x437;&#x432;&#x440;&#x430;&#x449;&#x430;&#x44E;&#x449;&#x430;&#x44F; html &#x434;&#x43B;&#x44F; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x43A;&#x438;</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/widget.js~Widget.html#instance-method-render">render</a></span></span><span data-ice="signature">(): {container: <span>*</span>, html: <span>*</span>}</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>&#x41E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442; &#x432; &#x43A;&#x43E;&#x43D;&#x442;&#x435;&#x439;&#x43D;&#x435;&#x440;</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+<div data-ice="staticMethodDetails"><h2 data-ice="title">Static Public Methods</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-renderAsyncWrapper">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    
+    
+    <span data-ice="name">renderAsyncWrapper</span><span data-ice="signature">(renderCallback: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">Function</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/widget.js.html#lineNumber74">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  <div class="deprecated" data-ice="deprecated">this method was deprecated.</div>
+  
+  <div data-ice="description"><p>&#x41E;&#x431;&#x435;&#x440;&#x442;&#x43A;&#x430; &#x434;&#x43B;&#x44F; &#x430;&#x441;&#x441;&#x438;&#x43D;&#x445;&#x440;&#x43E;&#x43D;&#x43E;&#x439; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x43A;&#x438;</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">renderCallback</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">Function</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>callback &#x434;&#x43B;&#x44F; &#x440;&#x435;&#x43D;&#x434;&#x435;&#x440;&#x430;</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="decorator"><h4>Decorators:</h4><ul><li><span><a href="function/index.html#static-function-options">options</a></span></li></ul></div>
+
+  
+
+  
+
+  
+  
+</div>
+</div>
+<div data-ice="constructorDetails"><h2 data-ice="title">Public Constructors</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-constructor-constructor">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">constructor</span><span data-ice="signature">(containerSelector: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, ID: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/widget.js.html#lineNumber16">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">containerSelector</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>CSS-&#x441;&#x435;&#x43B;&#x435;&#x43A;&#x442;&#x43E;&#x440; &#x44D;&#x43B;&#x435;&#x43C;&#x435;&#x43D;&#x442;&#x430;, &#x432; &#x43A;&#x43E;&#x442;&#x43E;&#x440;&#x44B;&#x439; &#x431;&#x443;&#x434;&#x435;&#x442;
+                                   &#x43F;&#x440;&#x43E;&#x438;&#x441;&#x445;&#x43E;&#x434;&#x438;&#x442;&#x44C; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x43A;&#x430;</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">ID</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>&#x423;&#x43D;&#x438;&#x43A;&#x430;&#x43B;&#x44C;&#x43D;&#x44B;&#x439; &#x438;&#x434;&#x435;&#x43D;&#x442;&#x438;&#x444;&#x438;&#x43A;&#x442;&#x43E;&#x440;</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">options</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>&#x41E;&#x43F;&#x446;&#x438;&#x438;</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+</div>
+<div data-ice="memberDetails"><h2 data-ice="title">Public Members</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-ID">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">ID</span><span data-ice="signature">: <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/widget.js.html#lineNumber18">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-UI">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">UI</span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/widget.js.html#lineNumber8">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="decorator"><h4>Decorators:</h4><ul><li><span><a href="function/index.html#static-function-inject">inject</a></span></li></ul></div>
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-actionSequence">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">actionSequence</span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/widget.js.html#lineNumber34">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>&#x421;&#x43D;&#x430;&#x447;&#x430;&#x43B;&#x430; &#x431;&#x438;&#x43D;&#x434;&#x438;&#x43C; &#x43E;&#x431;&#x440;&#x430;&#x431;&#x43E;&#x442;&#x447;&#x438;&#x43A;&#x438; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x439;, &#x43F;&#x43E;&#x442;&#x43E;&#x43C; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x44B;&#x432;&#x430;&#x435;&#x43C;</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="decorator"><h4>Decorators:</h4><ul><li><span><a href="function/index.html#static-function-options">options</a></span></li></ul></div>
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-bindOnce">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">bindOnce</span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/widget.js.html#lineNumber50">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>&#x415;&#x441;&#x43B;&#x438; &#x431;&#x438;&#x43D;&#x434;&#x438;&#x43C; &#x43E;&#x431;&#x440;&#x430;&#x431;&#x43E;&#x442;&#x447;&#x438;&#x43A;&#x438; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x439; &#x43F;&#x43E;&#x441;&#x43B;&#x435; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x43A;&#x438;, &#x442;&#x43E; &#x43D;&#x443;&#x436;&#x43D;&#x43E; &#x43B;&#x438; &#x43F;&#x435;&#x440;&#x435;&#x431;&#x438;&#x43D;&#x434;&#x438;&#x438;&#x432;&#x430;&#x442;&#x44C; &#x438;&#x445;
+&#x43F;&#x43E;&#x441;&#x43B;&#x435; &#x43A;&#x430;&#x436;&#x434;&#x43E;&#x439; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x43A;&#x438;</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="decorator"><h4>Decorators:</h4><ul><li><span><a href="function/index.html#static-function-options">options</a></span></li></ul></div>
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-cacheParentContainer">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">cacheParentContainer</span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/widget.js.html#lineNumber58">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>&#x41D;&#x443;&#x436;&#x43D;&#x43E; &#x43B;&#x438; &#x43A;&#x44D;&#x448;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x440;&#x43E;&#x434;&#x438;&#x442;&#x435;&#x43B;&#x44C;&#x441;&#x43A;&#x438;&#x439; &#x44D;&#x43B;&#x435;&#x43C;&#x435;&#x43D;&#x442; &#x434;&#x43B;&#x44F; &#x43A;&#x43E;&#x43D;&#x442;&#x435;&#x439;&#x43D;&#x435;&#x440;&#x430;</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="decorator"><h4>Decorators:</h4><ul><li><span><a href="function/index.html#static-function-options">options</a></span></li></ul></div>
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-container">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">container</span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null">null</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/API/Node">Node</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/widget.js.html#lineNumber22">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-containerParentNode">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">containerParentNode</span><span data-ice="signature">: <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/widget.js.html#lineNumber145">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-containerSelector">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">containerSelector</span><span data-ice="signature">: <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/widget.js.html#lineNumber23">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-get-options">
+    <span class="access" data-ice="access">public</span>
+    
+    <span class="kind" data-ice="kind">get</span>
+    
+    
+    
+    <span data-ice="name">options</span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>: <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/widget.js.html#lineNumber90">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>&#x41E;&#x43F;&#x446;&#x438;&#x438; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;&#x430;. &#x41F;&#x435;&#x440;&#x435;&#x43E;&#x43F;&#x440;&#x435;&#x434;&#x435;&#x43B;&#x44F;&#x44E;&#x442; &#x43E;&#x43F;&#x446;&#x438;&#x438; &#x43F;&#x43E;-&#x443;&#x43C;&#x43E;&#x43B;&#x447;&#x430;&#x43D;&#x438;&#x44E;</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><a href="#Widget">#Widget</a></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-set-options">
+    <span class="access" data-ice="access">public</span>
+    
+    <span class="kind" data-ice="kind">set</span>
+    
+    
+    
+    <span data-ice="name">options</span><span data-ice="signature">(options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/widget.js.html#lineNumber97">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-renderAsync">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">renderAsync</span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/widget.js.html#lineNumber66">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>&#x412;&#x438;&#x434;&#x436;&#x435;&#x442; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x44B;&#x432;&#x430;&#x435;&#x442;&#x441;&#x44F; &#x430;&#x441;&#x441;&#x438;&#x43D;&#x445;&#x440;&#x43E;&#x43D;&#x43D;&#x43E;</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="decorator"><h4>Decorators:</h4><ul><li><span><a href="function/index.html#static-function-options">options</a></span></li></ul></div>
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-renderDependence">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">renderDependence</span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/widget.js.html#lineNumber83">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>&#x41C;&#x430;&#x441;&#x441;&#x438;&#x432; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;&#x43E;&#x432;, &#x43A;&#x43E;&#x442;&#x43E;&#x440;&#x44B;&#x435; &#x43D;&#x443;&#x436;&#x43D;&#x43E; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x43F;&#x435;&#x440;&#x435;&#x434; &#x442;&#x435;&#x43C;, &#x43A;&#x430;&#x43A; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x44B;&#x432;&#x430;&#x442;&#x44C; &#x44D;&#x442;&#x43E;&#x442; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="decorator"><h4>Decorators:</h4><ul><li><span><a href="function/index.html#static-function-options">options</a></span></li></ul></div>
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-types">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">types</span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/widget.js.html#lineNumber41">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>&#x422;&#x438;&#x43F; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;&#x430;</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="decorator"><h4>Decorators:</h4><ul><li><span><a href="function/index.html#static-function-options">options</a></span></li></ul></div>
+
+  
+
+  
+
+  
+  
+</div>
+</div>
+<div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-bindEvents">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">bindEvents</span><span data-ice="signature">()</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/widget.js.html#lineNumber131">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>&#x414;&#x43E;&#x431;&#x430;&#x432;&#x438;&#x442;&#x44C; &#x43E;&#x431;&#x440;&#x430;&#x431;&#x43E;&#x442;&#x447;&#x438;&#x43A;&#x438; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x439;</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-destroy">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">destroy</span><span data-ice="signature">()</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/widget.js.html#lineNumber136">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>&#x424;&#x443;&#x43D;&#x43A;&#x446;&#x438;&#x44F; &#x432;&#x44B;&#x437;&#x44B;&#x432;&#x430;&#x44E;&#x449;&#x430;&#x44F; &#x43F;&#x440;&#x438; &#x443;&#x43D;&#x438;&#x447;&#x442;&#x43E;&#x436;&#x435;&#x43D;&#x438;&#x438;&#x438; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;&#x430;</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-html">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">html</span><span data-ice="signature">()</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/widget.js.html#lineNumber126">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>&#x424;&#x443;&#x43D;&#x43A;&#x446;&#x438;&#x44F; &#x432;&#x43E;&#x437;&#x432;&#x440;&#x430;&#x449;&#x430;&#x44E;&#x449;&#x430;&#x44F; html &#x434;&#x43B;&#x44F; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x43A;&#x438;</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-render">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">render</span><span data-ice="signature">(): {container: <span>*</span>, html: <span>*</span>}</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/widget.js.html#lineNumber142">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>&#x41E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442; &#x432; &#x43A;&#x43E;&#x43D;&#x442;&#x435;&#x439;&#x43D;&#x435;&#x440;</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType">{container: <span>*</span>, html: <span>*</span>}</td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
