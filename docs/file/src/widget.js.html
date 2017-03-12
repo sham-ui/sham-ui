@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/widget.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/DI.js~DI.html">DI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/shamUI.js~ShamUI.html">ShamUI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/widget.js~Widget.html">Widget</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-inject">inject</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DI">DI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Fsm">Fsm</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FsmState">FsmState</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FsmStates">FsmStates</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Widget">Widget</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-inject">inject</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-options">options</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">decorators</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-options">options</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">fsm</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/fsm/fsm.js~FSM.html">FSM</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-states">states</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">fsm/states</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/fsm/states/ready.js~ReadyState.html">ReadyState</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/fsm/states/registration.js~RegistrationState.html">RegistrationState</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/fsm/states/rendering.js~RenderingState.html">RenderingState</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/fsm.js~Fsm.html">Fsm</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/fsm.js~State.html">State</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/widget.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import options from &apos;./decorators/options&apos;;
+import { inject } from &apos;./DI&apos;;
+
+/**
+ * &#x411;&#x430;&#x437;&#x43E;&#x432;&#x44B;&#x439; &#x43A;&#x43B;&#x430;&#x441;&#x441; &#x434;&#x43B;&#x44F; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;&#x43E;&#x432;
+ */
+export default class Widget {
+    @inject UI = &apos;sham-ui&apos;; // inject shamUI instance as this.UI
+
+    /**
+     * @param {String}  containerSelector CSS-&#x441;&#x435;&#x43B;&#x435;&#x43A;&#x442;&#x43E;&#x440; &#x44D;&#x43B;&#x435;&#x43C;&#x435;&#x43D;&#x442;&#x430;, &#x432; &#x43A;&#x43E;&#x442;&#x43E;&#x440;&#x44B;&#x439; &#x431;&#x443;&#x434;&#x435;&#x442;
+     *                                    &#x43F;&#x440;&#x43E;&#x438;&#x441;&#x445;&#x43E;&#x434;&#x438;&#x442;&#x44C; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x43A;&#x430;
+     * @param {String}  ID                &#x423;&#x43D;&#x438;&#x43A;&#x430;&#x43B;&#x44C;&#x43D;&#x44B;&#x439; &#x438;&#x434;&#x435;&#x43D;&#x442;&#x438;&#x444;&#x438;&#x43A;&#x442;&#x43E;&#x440;
+     * @param {Object} [options]          &#x41E;&#x43F;&#x446;&#x438;&#x438;
+     */
+    constructor( containerSelector, ID, options ) {
+
+        this.ID = ID;
+        /**
+         * @type {null|Node} Container of this widget
+         */
+        this.container = null;
+        this.containerSelector = containerSelector;
+        this.options = options;
+        this.UI.render.register( this )
+    }
+
+    /**
+     * &#x421;&#x43D;&#x430;&#x447;&#x430;&#x43B;&#x430; &#x431;&#x438;&#x43D;&#x434;&#x438;&#x43C; &#x43E;&#x431;&#x440;&#x430;&#x431;&#x43E;&#x442;&#x447;&#x438;&#x43A;&#x438; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x439;, &#x43F;&#x43E;&#x442;&#x43E;&#x43C; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x44B;&#x432;&#x430;&#x435;&#x43C;
+     * @type {Array}
+     * @default [ &quot;bindEvents&quot;, &quot;render&quot; ]
+     */
+    @options
+    actionSequence = [ &quot;bindEvents&quot;, &quot;render&quot; ];
+
+    /**
+     * &#x422;&#x438;&#x43F; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;&#x430;
+     * @type {Array}
+     */
+    @options
+    types = [];
+
+    /**
+     * &#x415;&#x441;&#x43B;&#x438; &#x431;&#x438;&#x43D;&#x434;&#x438;&#x43C; &#x43E;&#x431;&#x440;&#x430;&#x431;&#x43E;&#x442;&#x447;&#x438;&#x43A;&#x438; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x439; &#x43F;&#x43E;&#x441;&#x43B;&#x435; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x43A;&#x438;, &#x442;&#x43E; &#x43D;&#x443;&#x436;&#x43D;&#x43E; &#x43B;&#x438; &#x43F;&#x435;&#x440;&#x435;&#x431;&#x438;&#x43D;&#x434;&#x438;&#x438;&#x432;&#x430;&#x442;&#x44C; &#x438;&#x445;
+     * &#x43F;&#x43E;&#x441;&#x43B;&#x435; &#x43A;&#x430;&#x436;&#x434;&#x43E;&#x439; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x43A;&#x438;
+     * @member {Boolean}
+     * @default true
+     */
+    @options
+    bindOnce = true;
+
+    /**
+     * &#x41D;&#x443;&#x436;&#x43D;&#x43E; &#x43B;&#x438; &#x43A;&#x44D;&#x448;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x440;&#x43E;&#x434;&#x438;&#x442;&#x435;&#x43B;&#x44C;&#x441;&#x43A;&#x438;&#x439; &#x44D;&#x43B;&#x435;&#x43C;&#x435;&#x43D;&#x442; &#x434;&#x43B;&#x44F; &#x43A;&#x43E;&#x43D;&#x442;&#x435;&#x439;&#x43D;&#x435;&#x440;&#x430;
+     * @type {Boolean}
+     * @default false
+     */
+    @options
+    cacheParentContainer = false;
+
+    /**
+     * &#x412;&#x438;&#x434;&#x436;&#x435;&#x442; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x44B;&#x432;&#x430;&#x435;&#x442;&#x441;&#x44F; &#x430;&#x441;&#x441;&#x438;&#x43D;&#x445;&#x440;&#x43E;&#x43D;&#x43D;&#x43E;
+     * @type {Boolean}
+     * @default false,
+     */
+    @options
+    renderAsync = false;
+
+    /**
+     * &#x41E;&#x431;&#x435;&#x440;&#x442;&#x43A;&#x430; &#x434;&#x43B;&#x44F; &#x430;&#x441;&#x441;&#x438;&#x43D;&#x445;&#x440;&#x43E;&#x43D;&#x43E;&#x439; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x43A;&#x438;
+     * @deprecated
+     * @param {Function} renderCallback callback &#x434;&#x43B;&#x44F; &#x440;&#x435;&#x43D;&#x434;&#x435;&#x440;&#x430;
+     */
+    @options
+    static renderAsyncWrapper( renderCallback ) {
+        window.requestAnimationFrame( renderCallback );
+    }
+
+    /**
+     * &#x41C;&#x430;&#x441;&#x441;&#x438;&#x432; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;&#x43E;&#x432;, &#x43A;&#x43E;&#x442;&#x43E;&#x440;&#x44B;&#x435; &#x43D;&#x443;&#x436;&#x43D;&#x43E; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x43F;&#x435;&#x440;&#x435;&#x434; &#x442;&#x435;&#x43C;, &#x43A;&#x430;&#x43A; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x44B;&#x432;&#x430;&#x442;&#x44C; &#x44D;&#x442;&#x43E;&#x442; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;
+     * @type {Array}
+     */
+    @options
+    renderDependence = [];
+
+    /**
+     * &#x41E;&#x43F;&#x446;&#x438;&#x438; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;&#x430;. &#x41F;&#x435;&#x440;&#x435;&#x43E;&#x43F;&#x440;&#x435;&#x434;&#x435;&#x43B;&#x44F;&#x44E;&#x442; &#x43E;&#x43F;&#x446;&#x438;&#x438; &#x43F;&#x43E;-&#x443;&#x43C;&#x43E;&#x43B;&#x447;&#x430;&#x43D;&#x438;&#x44E;
+     * @see #Widget
+     * @return {Object}
+     */
+    get options() {
+        return this._options;
+    }
+
+    /**
+     * @param {Object} options
+     */
+    set options( options ) {
+
+        // &#x412;&#x44B;&#x441;&#x442;&#x430;&#x432;&#x43B;&#x44F;&#x435;&#x43C; &#x43E;&#x43F;&#x446;&#x438;&#x438; &#x43F;&#x43E;-&#x443;&#x43C;&#x43E;&#x43B;&#x447;&#x430;&#x43D;&#x438;&#x44E;
+        this._options = {};
+        const _options = options || {};
+        for ( let name in _options ) {
+            if ( !_options.hasOwnProperty( name ) ) {
+                continue;
+            }
+            this._options[ name ] = _options[ name ];
+        }
+
+        const optionsOwners = [
+            this.constructor, // Static options
+            this              // Instance options
+        ];
+        for ( let owner of optionsOwners ) {
+            const defaultStaticOptionProps = owner[ &apos;defaultOptionProps&apos; ] || [];
+            for ( let name of defaultStaticOptionProps ) {
+                if ( !this._options.hasOwnProperty( name ) ) {
+                    this._options[ name ] = owner[ name ];
+                }
+            }
+        }
+    }
+
+    /**
+     * &#x424;&#x443;&#x43D;&#x43A;&#x446;&#x438;&#x44F; &#x432;&#x43E;&#x437;&#x432;&#x440;&#x430;&#x449;&#x430;&#x44E;&#x449;&#x430;&#x44F; html &#x434;&#x43B;&#x44F; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x43A;&#x438;
+     */
+    html() {};
+
+    /**
+     * &#x414;&#x43E;&#x431;&#x430;&#x432;&#x438;&#x442;&#x44C; &#x43E;&#x431;&#x440;&#x430;&#x431;&#x43E;&#x442;&#x447;&#x438;&#x43A;&#x438; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x439;
+     */
+    bindEvents() {};
+
+    /**
+     * &#x424;&#x443;&#x43D;&#x43A;&#x446;&#x438;&#x44F; &#x432;&#x44B;&#x437;&#x44B;&#x432;&#x430;&#x44E;&#x449;&#x430;&#x44F; &#x43F;&#x440;&#x438; &#x443;&#x43D;&#x438;&#x447;&#x442;&#x43E;&#x436;&#x435;&#x43D;&#x438;&#x438;&#x438; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;&#x430;
+     */
+    destroy() {};
+
+    /**
+     * &#x41E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442; &#x432; &#x43A;&#x43E;&#x43D;&#x442;&#x435;&#x439;&#x43D;&#x435;&#x440;
+     * @returns {{container: *, html: *}}
+     */
+    render() {
+        if ( this.options.cacheParentContainer ) {
+            if ( !this.containerParentNode ) {
+                this.containerParentNode = document.querySelector(
+                    this.containerSelector
+                ).parentNode;
+            }
+            this.container = this.containerParentNode.querySelector(
+                this.containerSelector
+            );
+        } else {
+            this.container = document.querySelector( this.containerSelector );
+        }
+        return {
+            container: this.container,
+            html: this.html()
+        }
+    }
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

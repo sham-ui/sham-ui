@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">src/fsm/states/ready.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/DI.js~DI.html">DI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/shamUI.js~ShamUI.html">ShamUI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/widget.js~Widget.html">Widget</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-inject">inject</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-DI">DI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Fsm">Fsm</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FsmState">FsmState</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-FsmStates">FsmStates</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Widget">Widget</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-inject">inject</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-options">options</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">decorators</div><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-options">options</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">fsm</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/fsm/fsm.js~FSM.html">FSM</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-states">states</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">fsm/states</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/fsm/states/ready.js~ReadyState.html">ReadyState</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/fsm/states/registration.js~RegistrationState.html">RegistrationState</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/fsm/states/rendering.js~RenderingState.html">RenderingState</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">utils</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/fsm.js~Fsm.html">Fsm</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/fsm.js~State.html">State</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/fsm/states/ready.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { State } from &apos;../../utils/fsm&apos;;
+
+/**
+ * &#x41A;&#x43B;&#x430;&#x441;&#x441; &#x434;&#x43B;&#x44F; &#x441;&#x43E;&#x441;&#x442;&#x43E;&#x44F;&#x43D;&#x438;&#x44F; &quot;&#x413;&#x43E;&#x442;&#x43E;&#x432; &#x43A; &#x440;&#x430;&#x431;&#x43E;&#x442;&#x435;&quot;
+ */
+export default class ReadyState extends State {
+    /**
+     * &#x412;&#x44B;&#x437;&#x44B;&#x432;&#x430;&#x435;&#x442;&#x441;&#x44F; &#x43F;&#x440;&#x438; &#x432;&#x445;&#x43E;&#x434;&#x435; &#x432; &#x441;&#x43E;&#x441;&#x442;&#x43E;&#x44F;&#x43D;&#x438;&#x435;
+     */
+    _onEnter() {
+        this.emit( &quot;Ready&quot; );
+    }
+
+    /**
+     * &#x423;&#x434;&#x430;&#x43B;&#x438;&#x442;&#x44C; &#x432;&#x441;&#x435; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;&#x44B;
+     */
+    clear() {
+        for ( let i = 0; i &lt; this._fsm.widgets.length; i++ ) {
+            if ( this._fsm.widgets[ i ].destroy ) {
+                if ( this._fsm.widgets[ i ].options.beforeDestroy ) {
+                    this._fsm.widgets[ i ].options.beforeDestroy.call( this._fsm.widgets[ i ] );
+                }
+                this._fsm.widgets[ i ].destroy();
+                if ( this._fsm.widgets[ i ].options.afterDestroy ) {
+                    this._fsm.widgets[ i ].options.afterDestroy.call( this._fsm.widgets[ i ] );
+                }
+            }
+            this._fsm.widgets[ i ].isBinded = false;
+        }
+        this._fsm.widgets = [];
+        this._fsm.idArray = [];
+        this._fsm.byType = {};
+        this._fsm.byId = {};
+        this._fsm.renderCache = {};
+    }
+
+    /**
+     * &#x41E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x432;&#x441;&#x435; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;&#x44B;. &#x41F;&#x440;&#x43E;&#x441;&#x442;&#x43E; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x44B;&#x432;&#x430;&#x435;&#x442;, &#x43D;&#x435; &#x432;&#x44B;&#x437;&#x44B;&#x432;&#x430;&#x435;&#x442; destroy
+     */
+    all() {
+        this._fsm.changeWidgets = this._fsm.idArray.slice( 0 );
+        this.transition( &quot;rendering&quot; );
+    }
+
+    /**
+     * &#x41E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x442;&#x43E;&#x43B;&#x44C;&#x43A;&#x43E; &#x443;&#x43A;&#x430;&#x437;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;&#x44B;. &#x41F;&#x440;&#x43E;&#x441;&#x442;&#x43E; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x44B;&#x432;&#x430;&#x435;&#x442;, &#x43D;&#x435; &#x432;&#x44B;&#x437;&#x44B;&#x432;&#x430;&#x435;&#x442; destroy
+     * @param {Array} needRenderingWidgets &#x421;&#x43F;&#x438;&#x441;&#x43E;&#x43A; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;&#x43E;&#x432;, &#x43A;&#x43E;&#x442;&#x43E;&#x440;&#x44B;&#x435; &#x43D;&#x443;&#x436;&#x43D;&#x43E; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x430;&#x442;&#x44C;
+     */
+    only( needRenderingWidgets ) {
+        this._fsm.changeWidgets = needRenderingWidgets.slice( 0 );
+        this.transition( &quot;rendering&quot; );
+    }
+
+    /**
+     * &#x41E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x432;&#x441;&#x435; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;&#x44B;. &#x412;&#x44B;&#x437;&#x44B;&#x432;&#x430;&#x435;&#x442; destroy, &#x43E;&#x447;&#x438;&#x449;&#x430;&#x435;&#x442; &#x441;&#x43F;&#x438;&#x441;&#x43E;&#x43A; &#x438;&#x437;&#x432;&#x435;&#x441;&#x442;&#x43D;&#x44B;&#x445; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;&#x43E;&#x432;,
+     * &#x43F;&#x435;&#x440;&#x435;&#x445;&#x43E;&#x434;&#x438;&#x442; &#x43A; &#x440;&#x435;&#x433;&#x438;&#x441;&#x442;&#x440;&#x430;&#x446;&#x438;&#x438;
+     */
+    forceAll() {
+        this.handle( &quot;clear&quot; );
+        this.transition( &quot;registration&quot; );
+    }
+
+    /**
+     * &#x41E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x443;&#x43A;&#x430;&#x437;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;&#x44B;. &#x41F;&#x43E;&#x43C;&#x438;&#x43C;&#x43E; &#x43F;&#x435;&#x440;&#x435;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x43A;&#x438; &#x435;&#x449;&#x435; &#x438; &#x43F;&#x43E;&#x43B;&#x44C;&#x43D;&#x43E;&#x441;&#x442;&#x44C;&#x435; &#x43F;&#x435;&#x440;&#x435;&#x440;&#x435;&#x433;&#x438;&#x441;&#x442;&#x440;&#x438;&#x443;&#x435;&#x442;
+     * &#x443;&#x43A;&#x430;&#x437;&#x430;&#x43D;&#x43D;&#x44B;&#x435; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;&#x44B;
+     * @param {Array} needRenderingWidgets &#x421;&#x43F;&#x438;&#x441;&#x43E;&#x43A; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;&#x43E;&#x432;, &#x43A;&#x43E;&#x442;&#x43E;&#x440;&#x44B;&#x435; &#x43D;&#x443;&#x436;&#x43D;&#x43E;
+     *                                     &#x43F;&#x435;&#x440;&#x435;&#x440;&#x435;&#x433;&#x438;&#x441;&#x442;&#x440;&#x438;&#x432;&#x430;&#x440;&#x43E;&#x442;&#x44C; &#x438; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x430;&#x442;&#x44C;
+     */
+    forceOnly( needRenderingWidgets ) {
+        let index,
+            widget,
+            i;
+        for ( i = 0; i &lt; this._fsm.widgets.length; i++ ) {
+            widget = this._fsm.widgets[ i ];
+            index = needRenderingWidgets.indexOf( widget );
+            if ( index &gt; -1 ) {
+                if ( widget.destroy  ) {
+                    if ( widget.options.beforeDestroy ) {
+                        widget.options.beforeDestroy.call( widget );
+                    }
+                    widget.destroy();
+                    if ( widget.options.afterDestroy ) {
+                        widget.options.afterDestroy.call( widget );
+                    }
+                }
+                if ( widget.bindEvents ) {
+                    if ( widget.options.beforeBindEvents ) {
+                        widget.options.beforeBindEvents.call( widget );
+                    }
+                    widget.bind();
+                    if ( widget.options.afterBindEvents ) {
+                        widget.options.afterBindEvents.call( widget );
+                    }
+                }
+                widget.isBinded = false;
+            }
+        }
+        this._fsm.changeWidgets = needRenderingWidgets.slice( 0 );
+        this.transition( &quot;rendering&quot; );
+    }
+
+    /**
+     * &#x41E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;&#x44B; &#x441; &#x443;&#x43A;&#x430;&#x437;&#x430;&#x43D;&#x43D;&#x44B;&#x43C; &#x442;&#x438;&#x43F;&#x43E;&#x43C;
+     * @param {Array} needRenderingWidgetsWithType &#x421;&#x43F;&#x438;&#x441;&#x43E;&#x43A; &#x442;&#x438;&#x43F;&#x43E;&#x432;, &#x43A;&#x43E;&#x442;&#x43E;&#x440;&#x44B;&#x435; &#x43D;&#x443;&#x436;&#x43D;&#x43E; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x430;&#x442;&#x44C;
+     */
+    onlyType( needRenderingWidgetsWithType ) {
+        let argsTypes = needRenderingWidgetsWithType.slice( 0 ),
+            widgetID,
+            widgetsWithType,
+            i;
+        for ( i = 0; i &lt; argsTypes.length; i++ ) {
+            widgetsWithType = this._fsm.byType[ argsTypes[ i ] ];
+            if ( widgetsWithType ) {
+                for ( let j = 0, l = widgetsWithType.length; j &lt; l; j++ ) {
+                    widgetID = widgetsWithType[ j ];
+                    if ( this._fsm.changeWidgets.indexOf( widgetID ) === -1 ) {
+                        this._fsm.changeWidgets.push( widgetID );
+                    }
+                }
+            }
+        }
+        this.transition( &quot;rendering&quot; );
+    }
+
+    /**
+     * &#x417;&#x430;&#x440;&#x435;&#x433;&#x438;&#x441;&#x442;&#x440;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442; (&#x43D;&#x435; &#x438;&#x437; &#x444;&#x430;&#x439;&#x43B;&#x430; &#x431;&#x438;&#x43D;&#x434;&#x438;&#x43D;&#x433;&#x430; &#x438; &#x43A;&#x43E;&#x43D;&#x441;&#x442;&#x440;&#x443;&#x43A;&#x442;&#x43E;&#x440;&#x43E;&#x432; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;&#x43E;&#x432;)
+     * @see {@link RegistrationState#register}
+     * @see Widget
+     * @see Widget#defaultOptions
+     */
+    register( widget ) {
+
+        // &#x420;&#x435;&#x433;&#x438;&#x441;&#x442;&#x440;&#x438;&#x440;&#x443;&#x435;&#x43C; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;
+        this._fsm._states.registration.register( widget );
+
+        // &#x415;&#x441;&#x43B;&#x438; &#x441;&#x43D;&#x430;&#x447;&#x430;&#x43B;&#x430; &#x431;&#x438;&#x43D;&#x434;&#x438;&#x43C; &#x43E;&#x431;&#x440;&#x430;&#x431;&#x43E;&#x442;&#x447;&#x438;&#x43A;&#x438; &#x441;&#x43E;&#x431;&#x44B;&#x442;&#x438;&#x439;, &#x430; &#x43F;&#x43E;&#x442;&#x43E;&#x43C; &#x43E;&#x442;&#x440;&#x438;&#x441;&#x43E;&#x432;&#x44B;&#x432;&#x430;&#x435;&#x43C; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;
+        if ( &quot;bindEvents&quot; === widget.options.actionSequence[ 0 ] &amp;&amp;
+            widget.bindEvents ) {
+            if ( widget.options.beforeBindEvents ) {
+                widget.options.beforeBindEvents.call( widget );
+            }
+            widget.bindEvents();
+            if ( widget.options.afterBindEvents ) {
+                widget.options.afterBindEvents.call( widget );
+            }
+        }
+    }
+
+    /**
+     * &#x420;&#x430;&#x437;&#x440;&#x435;&#x433;&#x438;&#x441;&#x442;&#x440;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;
+     * @param {String} widgetId &#x418;&#x434;&#x435;&#x43D;&#x442;&#x438;&#x444;&#x438;&#x43A;&#x430;&#x442;&#x43E;&#x440; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;&#x430;, &#x43A;&#x43E;&#x442;&#x43E;&#x440;&#x44B;&#x439; &#x43D;&#x443;&#x436;&#x43D;&#x43E; &#x440;&#x430;&#x437;&#x440;&#x435;&#x433;&#x438;&#x441;&#x442;&#x440;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x442;&#x44C;
+     */
+    unregister( widgetId ) {
+        let widget,
+            types,
+            index,
+            i;
+
+        if ( this._fsm.idArray.indexOf( widgetId ) === -1 ) {
+            return;
+        }
+
+        widget = this._fsm.byId[ widgetId ];
+
+        if ( widget.destroy  ) {
+            if ( widget.options.beforeDestroy ) {
+                widget.options.beforeDestroy.call( widget );
+            }
+            widget.destroy();
+            if ( widget.options.afterDestroy ) {
+                widget.options.afterDestroy.call( widget );
+            }
+        }
+
+        // &#x415;&#x441;&#x43B;&#x438; &#x435;&#x441;&#x442;&#x44C; &#x442;&#x438;&#x43F;&#x44B;, &#x442;&#x43E; &#x443;&#x434;&#x430;&#x43B;&#x44F;&#x435;&#x43C; &#x441;&#x441;&#x44B;&#x43B;&#x43A;&#x438; &#x43D;&#x430; &#x44D;&#x442;&#x43E;&#x442; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;
+        if ( widget.options.types ) {
+            types = widget.options.types;
+            for ( i = 0; i &lt; types.length; i++ ) {
+                this._fsm.byType[ types[ i ] ].splice(
+                    this._fsm.byType[ types[ i ] ].indexOf( widgetId ),
+                    1
+                )
+            }
+        }
+
+        // &#x423;&#x434;&#x430;&#x43B;&#x44F;&#x435;&#x43C; &#x437;&#x430;&#x43F;&#x438;&#x441;&#x44C; &#x438;&#x437; &#x43C;&#x430;&#x441;&#x441;&#x438;&#x432;&#x430; &#x432;&#x438;&#x434;&#x436;&#x435;&#x442;&#x43E;&#x432;
+        for ( i = 0; i &lt; this._fsm.widgets.length; i++ ) {
+            if ( this._fsm.widgets[ i ].ID === widgetId ) {
+                index = i;
+                break;
+            }
+        }
+        this._fsm.widgets.splice( index, 1 );
+
+        // &#x423;&#x434;&#x430;&#x43B;&#x44F;&#x435;&#x43C; &#x438;&#x437; &#x43C;&#x430;&#x441;&#x441;&#x438;&#x432;&#x430; ID
+        this._fsm.idArray.splice( this._fsm.idArray.indexOf( widgetId ), 1 );
+
+        // &#x418; &#x438;&#x437; &#x43E;&#x431;&#x44A;&#x435;&#x43A;&#x442;&#x430; &#x434;&#x43E;&#x441;&#x442;&#x443;&#x43F;&#x430; &#x43F;&#x43E; id
+        delete this._fsm.byId[ widgetId ];
+
+        delete this._fsm.renderCache[ widgetId ];
+    }
+}</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
