@@ -59,6 +59,7 @@ export default class Widget {
 
     /**
      * Виджет отрисовывается ассинхронно
+     * @deprecated
      * @type {Boolean}
      * @default false,
      */
@@ -122,6 +123,7 @@ export default class Widget {
 
     /**
      * Функция возвращающая html для отрисовки
+     * @return {String}
      */
     html() {};
 

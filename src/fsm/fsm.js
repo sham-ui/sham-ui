@@ -1,8 +1,3 @@
-/**
- * Работа с конечным автоматом
- * @module shamUI/fsm
- */
-
 import { inject } from '../DI';
 import { Fsm } from '../utils/fsm';
 import ReadyState from "./states/ready";

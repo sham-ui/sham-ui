@@ -2,7 +2,7 @@ import { default as DIContainer, inject as DIInject } from './DI';
 import { FSM, states } from './fsm/fsm';
 import BaseWidget from './widget';
 import decoratorOptions from './decorators/options';
-import { State } from './utils/fsm';
+import { Fsm as DefaultFsm, State } from './utils/fsm';
 
 export const DI = DIContainer;
 export const inject = DIInject;
@@ -10,9 +10,11 @@ export const inject = DIInject;
 /** @link {Widget} */
 export const Widget = BaseWidget;
 
+export const FsmDefault = DefaultFsm;
+export const FsmState = State;
+
 export const Fsm = FSM;
 export const FsmStates = states;
-export const FsmState = State;
 
 export const options = decoratorOptions;
 
