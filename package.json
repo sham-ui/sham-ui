@@ -2,8 +2,8 @@
   "name": "sham-ui",
   "version": "1.0.3",
   "description": "Components managment library",
-  "main": "lib/shamUI.js",
-  "browser": "lib/shamUI.js",
+  "main": "lib/shamUI.min.js",
+  "browser": "lib/shamUI.min.js",
   "scripts": {
     "test": "for f in test/*/index.html; do ./node_modules/mocha-phantomjs/bin/mocha-phantomjs $f; done",
     "dev": "WEBPACK_ENV=dev webpack --progress --colors",

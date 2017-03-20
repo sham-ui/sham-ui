@@ -43,7 +43,7 @@ export default class Widget {
     /**
      * Если биндим обработчики событий после отрисовки, то нужно ли перебиндиивать их
      * после каждой отрисовки
-     * @member {Boolean}
+     * @type {Boolean}
      * @default true
      */
     @options
