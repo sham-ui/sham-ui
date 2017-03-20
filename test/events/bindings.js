@@ -8,4 +8,5 @@ class Label extends Widget {
 
 export default function() {
     new Label( '#label-container', 'widget-text' );
+    new Widget( '#non-rendered', 'non-rendered' )
 };

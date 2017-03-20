@@ -7,7 +7,7 @@ const bindings = new Map();
 /**
  * Simple DI implementation
  */
-export default class DI {
+class DIContainer {
     /**
      * Bind item by name
      * @param {String} name
@@ -28,6 +28,12 @@ export default class DI {
         }
     }
 }
+
+// Cross lib support
+const DI = window.DI || DIContainer;
+window.DI = DI;
+
+export default DI;
 
 /**
  * Inject item by name
