@@ -164,6 +164,10 @@ export default class RenderingState extends State {
      * @see Widget
      */
     renderWidget( widget, deferred ) {
+        if ( widget.options.actionSequence[ 0 ] === "render" ) {
+            widget.queryContainer();
+        }
+
         if ( widget.options.beforeRender ) {
             widget.options.beforeRender.call( widget );
         }

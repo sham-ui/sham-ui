@@ -79,14 +79,16 @@ export default class RegistrationState extends State {
             widget = this._fsm.widgets[ i ];
 
             // Если сначала биндим обработчики событий, а потом отрисовываем виджет
-            if ( "bindEvents" === widget.options.actionSequence[ 0 ] &&
-                widget.bindEvents ) {
-                if ( widget.options.beforeBindEvents ) {
-                    widget.options.beforeBindEvents.call( widget );
-                }
-                widget.bindEvents();
-                if ( widget.options.afterBindEvents ) {
-                    widget.options.afterBindEvents.call( widget );
+            if ( "bindEvents" === widget.options.actionSequence[ 0 ] ) {
+                widget.resolveContainer();
+                if ( widget.bindEvents ) {
+                    if ( widget.options.beforeBindEvents ) {
+                        widget.options.beforeBindEvents.call( widget );
+                    }
+                    widget.bindEvents();
+                    if ( widget.options.afterBindEvents ) {
+                        widget.options.afterBindEvents.call( widget );
+                    }
                 }
             }
         }

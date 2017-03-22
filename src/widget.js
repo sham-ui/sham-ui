@@ -138,10 +138,9 @@ export default class Widget {
     destroy() {};
 
     /**
-     * Отрисовать виджет в контейнер
-     * @returns {{container: *, html: *}}
+     * Query current container by this.containerSelector and save node as this.container
      */
-    render() {
+    resolveContainer() {
         if ( this.options.cacheParentContainer ) {
             if ( !this.containerParentNode ) {
                 this.containerParentNode = document.querySelector(
@@ -154,6 +153,13 @@ export default class Widget {
         } else {
             this.container = document.querySelector( this.containerSelector );
         }
+    }
+
+    /**
+     * Отрисовать виджет в контейнер
+     * @returns {{container: *, html: *}}
+     */
+    render() {
         return {
             container: this.container,
             html: this.html()
