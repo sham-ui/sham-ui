@@ -122,12 +122,6 @@ export default class Widget {
     }
 
     /**
-     * Функция возвращающая html для отрисовки
-     * @return {String}
-     */
-    html() {};
-
-    /**
      * Добавить обработчики событий
      */
     bindEvents() {};
@@ -160,9 +154,16 @@ export default class Widget {
      * @returns {{container: *, html: *}}
      */
     render() {
+        if ( this.html === undefined ) {
+            return null;
+        }
+        let html = this.html;
+        if ( typeof html === 'function' ) {
+            html = this.html();
+        }
         return {
             container: this.container,
-            html: this.html()
+            html
         }
     }
 }

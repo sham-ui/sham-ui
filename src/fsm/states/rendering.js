@@ -179,9 +179,6 @@ export default class RenderingState extends State {
                 resolve();
                 return;
             }
-            if ( !obj.html ) {
-                resolve()
-            }
             const newEl = obj.container.cloneNode( false );
             newEl.innerHTML = obj.html;
             obj.container.parentNode.replaceChild( newEl, obj.container );

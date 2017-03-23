@@ -83,8 +83,8 @@ export default class ReadyState extends State {
                         widget.options.afterDestroy.call( widget );
                     }
                 }
+                widget.resolveContainer();
                 if ( widget.bindEvents ) {
-                    widget.resolveContainer();
                     if ( widget.options.beforeBindEvents ) {
                         widget.options.beforeBindEvents.call( widget );
                     }
