@@ -8,7 +8,6 @@ const INVALID_STATE = "invalidstate";
 const DEFERRED = "deferred";
 const ERROR = "error";
 
-
 /**
  * Finite State Machine
  */
@@ -20,7 +19,8 @@ export class Fsm {
         this._priorAction = "";
         this._currentAction = "";
         this.eventListeners = {
-            _anyEvents: []
+            _anyEvents: [],
+            __listenerUniqueIndex: 0
         };
         this.eventQueue = [];
     }
@@ -58,13 +58,13 @@ export class Fsm {
      */
     emit( eventName ) {
         if ( this.eventListeners._anyEvents ) {
-            this.eventListeners._anyEvents.forEach( callback => {
+            this.eventListeners._anyEvents.forEach( ( { callback } ) => {
                 callback( ...arguments );
             } );
         }
 
         if ( this.eventListeners[ eventName ] ) {
-            this.eventListeners[ eventName ].forEach( callback => {
+            this.eventListeners[ eventName ].forEach( ( { callback } ) => {
                 callback( ...arguments );
             } );
         }
@@ -221,13 +221,18 @@ export class Fsm {
         if ( !this.eventListeners[ eventName ] ) {
             this.eventListeners[ eventName ] = [];
         }
-        this.eventListeners[ eventName ].push( callback );
+        const callbackID = this.eventListeners.__listenerUniqueIndex++;
+        this.eventListeners[ eventName ].push( {
+            callbackID,
+            callback
+        } );
         return {
             eventName,
             callback,
+            callbackID,
             off: () => {
-                this.off( eventName, callback );
-            }
+                this.off( eventName, callback, callbackID );
+            },
         };
     }
 
@@ -235,8 +240,9 @@ export class Fsm {
      * Un-subscribe listener
      * @param {=string}   eventName
      * @param {=Function} callback
+     * @param {=Number} callbackID
      */
-    off( eventName, callback ) {
+    off( eventName, callback, callbackID ) {
         if ( !eventName ) {
             this.eventListeners = {};
         } else {
@@ -248,8 +254,10 @@ export class Fsm {
                         item;
                     while ( ++counter < length ) {
                         item = this.eventListeners[ eventName ][ counter - index ];
-                        if ( callback === item ) {
-                            this.eventListeners[ eventName ].splice( counter - index++ );
+                        if ( callback === item.callback && (
+                            callbackID === undefined || callbackID === item.callbackID
+                        ) ) {
+                            this.eventListeners[ eventName ].splice( counter - index++, 1 );
                         }
                     }
                 } else {
