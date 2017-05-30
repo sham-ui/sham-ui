@@ -34,7 +34,7 @@ export default class Widget {
      * @default [ "bindEvents", "render" ]
      */
     @options
-    actionSequence = [ "bindEvents", "render" ];
+    static actionSequence = [ "bindEvents", "render" ];
 
     /**
      * Тип виджета
@@ -50,7 +50,7 @@ export default class Widget {
      * @default true
      */
     @options
-    bindOnce = true;
+    static bindOnce = true;
 
     /**
      * Нужно ли кэшировать родительский элемент для контейнера
@@ -58,7 +58,7 @@ export default class Widget {
      * @default false
      */
     @options
-    cacheParentContainer = false;
+    static cacheParentContainer = false;
 
     /**
      * Виджет отрисовывается ассинхронно
@@ -143,22 +143,6 @@ export default class Widget {
                         !element
                     );
                 }
-                assert.error(
-                    inline`Widget "${this.ID}" use @handler decorator, but in actionSequence 
-                    first action is "bindEvents". With decorator @handler with Widget.html() method 
-                    you must use "render" as first action in actionSequence`,
-                    'bindEvents' === this.options.actionSequence[ 0 ] &&
-                    undefined !== this.html
-                );
-
-                assert.error(
-                    inline`Widget "${this.ID}" use @handler decorator with Widget.html() method
-                    & "render" as first action in actionSequence, but widget options "bindOnce" 
-                    is true.`,
-                    'render' === this.options.actionSequence[ 0 ] &&
-                    undefined !== this.html &&
-                    this.options.bindOnce
-                );
 
                 let handler;
                 if ( ( this.defaultOptionProps || [] ).includes( item.handlerName ) ) {
