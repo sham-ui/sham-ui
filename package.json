@@ -1,6 +1,6 @@
 {
   "name": "sham-ui",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Components managment library",
   "main": "lib/shamUI.min.js",
   "browser": "lib/shamUI.min.js",
