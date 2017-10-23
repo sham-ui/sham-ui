@@ -39,9 +39,9 @@ window.onload = function() {
             UI.render.on( 'error', ( eventType, error ) => {
                 expect( error.state ).to.be.equal( 'rendering' );
                 expect( error.priorState ).to.be.equal( 'registration' );
-                expect( error._currentAction ).to.be.equal( '' );
-                expect( error._priorAction ).to.be.equal( 'rendering.renderWidget' );
-                expect( error.currentActionArgs ).to.be.equal( undefined );
+                expect( error._currentAction ).to.be.equal( 'registration.registrationComplete' );
+                expect( error._priorAction ).to.be.equal( 'registration.register' );
+                expect( error.currentActionArgs[ 0 ] ).to.be.equal( 'renderWidget' );
                 expect( error.exception.message ).to.be.equal( 'Test error' );
                 done();
             } );
