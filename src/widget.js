@@ -138,7 +138,7 @@ export default class Widget {
                 if ( item.selector ) {
                     element = this.container.querySelector( item.selector );
                     assert.error(
-                        inline`Widget "${this.ID}" hasn't sub-element "${item.selector}" 
+                        inline`Widget "${this.ID}" hasn't sub-element "${item.selector}"
                         for bind event "${item.handlerName}."`,
                         !element
                     );

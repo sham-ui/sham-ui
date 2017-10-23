@@ -1,35 +1,98 @@
 import shamUI from '../../src/shamUI';
 import { DI } from '../../src/shamUI';
-import binding from './bindings';
+import { Widget } from '../../src/shamUI';
 
+class Label extends Widget {
+    html() {
+        return this.ID;
+    }
+}
 
-window.onload = function() {
-    mocha.ui( 'bdd' );
-    mocha.reporter( 'html' );
-    mocha.setup( {
-                     asyncOnly: true
-                 } );
+mocha.ui( 'bdd' );
+mocha.reporter( 'html' );
+mocha.setup( {
+                 asyncOnly: true
+             } );
 
-    const expect = chai.expect;
+const expect = chai.expect;
 
-    describe( 'Dynamic widget registration', function() {
-        it( 'Dynamic widget rendered', ( done ) => {
-            DI.bind( 'widget-binder', binding );
-            const UI = new shamUI();
-            UI.render.one( 'RenderComplete[label-2]', () => {
-                expect( document.querySelector( '#label-2' ).innerHTML ).to.be.equal(
-                    'label-2'
-                );
-                done();
-            } );
-
-            UI.render.FORCE_ALL();
-        } );
+describe( 'Dynamic widget registration', function() {
+    beforeEach( () => {
+        [
+            '#label-1',
+            '#label-2'
+        ].forEach( selector => {
+            document.querySelector( selector ).innerHTML = '';
+        } )
     } );
 
-    if ( window.mochaPhantomJS ) {
-        mochaPhantomJS.run();
-    } else {
-        mocha.run();
-    }
-};
+
+    it( 'Dynamic widget rendered', ( done ) => {
+        DI.bind( 'widget-binder', () => {
+            new Label( "#label-1", "label-1" );
+
+            setTimeout( () => {
+                new Label( "#label-2", "label-2", {
+                    afterRegister() {
+                        this.UI.render.ONLY( this.ID );
+                    }
+                } );
+            }, 500 );
+        } );
+        const UI = new shamUI();
+        UI.render.one( 'RenderComplete[label-2]', () => {
+            expect( document.querySelector( '#label-2' ).innerHTML ).to.be.equal(
+                'label-2'
+            );
+            done();
+        } );
+
+        UI.render.FORCE_ALL();
+    } );
+
+    it( 'Registration on rendering', ( done ) => {
+        DI.bind( 'widget-binder', () => {
+            class Container extends Widget {
+                html() {
+                    new Label( '#label-2', 'label-2', {
+                        afterRegister() {
+                            this.UI.render.ONLY( this.ID );
+                        }
+                    } );
+                    return this.ID;
+                }
+            }
+
+            new Container( '#label-1', 'label-1' );
+        } );
+
+        const UI = new shamUI();
+
+        UI.render.one( 'RenderComplete[label-2]', () => {
+            expect( document.querySelector( '#label-2' ).innerHTML ).to.be.equal(
+                'label-2'
+            );
+            expect( document.querySelector( '#label-1' ).innerHTML ).to.be.equal(
+                ''
+            );
+            done();
+        } );
+
+        UI.render.one( 'RenderComplete[label-1]', () => {
+            expect( document.querySelector( '#label-2' ).innerHTML ).to.be.equal(
+                ''
+            );
+            expect( document.querySelector( '#label-1' ).innerHTML ).to.be.equal(
+                'label-1'
+            );
+        } );
+
+        UI.render.FORCE_ALL();
+    } );
+} );
+
+if ( window.mochaPhantomJS ) {
+    mochaPhantomJS.run();
+} else {
+    mocha.run();
+}
