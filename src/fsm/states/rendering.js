@@ -40,6 +40,13 @@ export default class RenderingState extends State {
     }
 
     /**
+     * @param {Widget} widget
+     */
+    register( widget ) {
+        // TODO
+    }
+
+    /**
      * Отрисовать один виджет
      * @param {Object} widget   Виджет
      * @see Widget
@@ -57,6 +64,8 @@ export default class RenderingState extends State {
             const obj = widget.render();
             if ( !obj ) {
                 this.rendered.push( widget.ID );
+
+                // TODO: process widget.options.afterRender
                 return;
             }
 
@@ -71,6 +80,8 @@ export default class RenderingState extends State {
                 widget.options.afterRender.call( widget );
             }
 
+
+            // TODO: Extract
             if ( widget.options.actionSequence[ 0 ] === "render" &&
                 widget.bindEvents && !widget.isBinded ) {
 
