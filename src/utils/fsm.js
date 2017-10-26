@@ -274,8 +274,8 @@ export class Fsm {
      */
     one( eventName, callback ) {
         const off = this.on( eventName, () => {
-            callback( ...arguments );
             off();
+            callback( ...arguments );
         } ).off;
     }
 

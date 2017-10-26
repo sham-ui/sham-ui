@@ -81,6 +81,8 @@ window.onload = function() {
                                                 'afterBindEvents',
                                                 'beforeRender',
                                                 'afterRender',
+                                                'beforeBindEvents',
+                                                'afterBindEvents',
                                                 'beforeRender',
                                                 'afterRender'
                                             ] );
@@ -98,6 +100,8 @@ window.onload = function() {
                                                 'afterBindEvents',
                                                 'beforeRender',
                                                 'afterRender',
+                                                'beforeBindEvents',
+                                                'afterBindEvents',
                                                 'beforeRender',
                                                 'afterRender',
                                                 'beforeDestroy',
@@ -123,6 +127,8 @@ window.onload = function() {
                                                 'afterBindEvents',
                                                 'beforeRender',
                                                 'afterRender',
+                                                'beforeBindEvents',
+                                                'afterBindEvents',
                                                 'beforeRender',
                                                 'afterRender',
                                                 'beforeDestroy',
@@ -133,6 +139,8 @@ window.onload = function() {
                                                 'afterBindEvents',
                                                 'beforeRender',
                                                 'afterRender',
+                                                'beforeBindEvents',
+                                                'afterBindEvents',
                                                 'beforeRender',
                                                 'afterRender'
                                             ] );

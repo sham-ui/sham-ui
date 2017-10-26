@@ -37,7 +37,7 @@ describe( 'Dynamic widget registration', function() {
                         this.UI.render.ONLY( this.ID );
                     }
                 } );
-            }, 500 );
+            }, 20 );
         } );
         const UI = new shamUI();
         UI.render.one( 'RenderComplete[label-2]', () => {

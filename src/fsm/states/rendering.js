@@ -1,9 +1,9 @@
-import { State } from '../../utils/fsm';
+import BaseRegistrationState from './base-registration';
 
 /**
  * Класс для состояния "Отрисовываем виджеты"
  */
-export default class RenderingState extends State {
+export default class RenderingState extends BaseRegistrationState {
     /**
      * Что делать с необрабатываемыми в этом состояния хэндлеры
      */
@@ -20,6 +20,7 @@ export default class RenderingState extends State {
         for ( let i = 0; i < this._fsm.changeWidgets.length; i++ ) {
             const ID = this._fsm.changeWidgets[ i ];
             const widget = this._fsm.byId[ ID ];
+            this.bindWidgetEvent( widget );
             if ( widget && widget.render ) {
                 this.handle( "renderWidget", widget );
                 this.emit( `RenderComplete[${ID}]` );
@@ -40,10 +41,18 @@ export default class RenderingState extends State {
     }
 
     /**
-     * @param {Widget} widget
+     * Отрисовать только указанные виджеты. Просто отрисовывает, не вызывает destroy
+     * @param {Array} needRenderingWidgets Список виджетов, которые нужно отрисовать
      */
-    register( widget ) {
-        // TODO
+    only( ...needRenderingWidgets ) {
+        needRenderingWidgets.forEach( widgetID => {
+            const widget = this._fsm.byId[ widgetID ];
+            this.bindWidgetEvent( widget );
+            if ( widget && widget.render ) {
+                this.handle( "renderWidget", widget );
+                this.emit( `RenderComplete[${widgetID}]` );
+            }
+        } );
     }
 
     /**
