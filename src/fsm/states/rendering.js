@@ -17,15 +17,7 @@ export default class RenderingState extends BaseRegistrationState {
     _onEnter() {
         this.rendered = [];
 
-        for ( let i = 0; i < this._fsm.changeWidgets.length; i++ ) {
-            const ID = this._fsm.changeWidgets[ i ];
-            const widget = this._fsm.byId[ ID ];
-            this.bindWidgetEvent( widget );
-            if ( widget && widget.render ) {
-                this.handle( "renderWidget", widget );
-                this.emit( `RenderComplete[${ID}]` );
-            }
-        }
+        this._fsm.changeWidgets.forEach( this._bindAndRender.bind( this ) );
 
         // Все области отрисовались
         this.emit( "RenderComplete", this.rendered );
@@ -41,18 +33,24 @@ export default class RenderingState extends BaseRegistrationState {
     }
 
     /**
+     * @param {String} ID
+     * @private
+     */
+    _bindAndRender( ID ) {
+        const widget = this._fsm.byId[ ID ];
+        this.bindWidgetEvent( widget );
+        if ( widget && widget.render ) {
+            this.handle( "renderWidget", widget );
+            this.emit( `RenderComplete[${ID}]` );
+        }
+    }
+
+    /**
      * Отрисовать только указанные виджеты. Просто отрисовывает, не вызывает destroy
      * @param {Array} needRenderingWidgets Список виджетов, которые нужно отрисовать
      */
     only( ...needRenderingWidgets ) {
-        needRenderingWidgets.forEach( widgetID => {
-            const widget = this._fsm.byId[ widgetID ];
-            this.bindWidgetEvent( widget );
-            if ( widget && widget.render ) {
-                this.handle( "renderWidget", widget );
-                this.emit( `RenderComplete[${widgetID}]` );
-            }
-        } );
+        needRenderingWidgets.forEach( this._bindAndRender.bind( this ) );
     }
 
     /**
