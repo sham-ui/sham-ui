@@ -69,17 +69,12 @@ export default class RenderingState extends BaseRegistrationState {
 
         try {
             const obj = widget.render();
-            if ( !obj ) {
-                this.rendered.push( widget.ID );
-
-                // TODO: process widget.options.afterRender
-                return;
+            if ( obj ) {
+                const newEl = obj.container.cloneNode( false );
+                newEl.innerHTML = obj.html;
+                obj.container.parentNode.replaceChild( newEl, obj.container );
+                widget.container = newEl;
             }
-
-            const newEl = obj.container.cloneNode( false );
-            newEl.innerHTML = obj.html;
-            obj.container.parentNode.replaceChild( newEl, obj.container );
-            widget.container = newEl;
 
             this.rendered.push( widget.ID );
 

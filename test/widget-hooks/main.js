@@ -6,12 +6,14 @@ class Label extends Widget {
     html() {
         return this.ID;
     }
-    bindEvents() {
+    bindEvents() {}
+    destroy() {}
+}
 
-    }
-    destroy() {
-
-    }
+class Container extends Widget {
+    render() {}
+    bindEvents() {}
+    destroy() {}
 }
 
 window.onload = function() {
@@ -147,6 +149,54 @@ window.onload = function() {
                 done();
             } );
             UI.render.ALL();
+        } );
+
+        it( 'Empty render', function( done ) {
+            const callTrace = [];
+
+            DI.bind( 'widget-binder', function() {
+                new Container( '#label-container', 'container', {
+                    beforeRegister() {
+                        callTrace.push( 'beforeRegister' );
+                    },
+                    afterRegister() {
+                        callTrace.push( 'afterRegister' );
+                    },
+                    beforeRender() {
+                        callTrace.push( 'beforeRender' );
+                    },
+                    afterRender() {
+                        callTrace.push( 'afterRender' );
+                    },
+                    beforeBindEvents() {
+                        callTrace.push( 'beforeBindEvents' );
+                    },
+                    afterBindEvents() {
+                        callTrace.push( 'afterBindEvents' );
+                    },
+                    beforeDestroy() {
+                        callTrace.push( 'beforeDestroy' );
+                    },
+                    afterDestroy() {
+                        callTrace.push( 'afterDestroy' );
+                    }
+                } );
+            } );
+
+            const UI = new shamUI();
+
+            UI.render.one( 'RenderComplete', () => {
+                expect( callTrace ).to.eql( [
+                    'beforeRegister',
+                    'afterRegister',
+                    'beforeBindEvents',
+                    'afterBindEvents',
+                    'beforeRender',
+                    'afterRender'
+                ] );
+                done();
+            } );
+            UI.render.FORCE_ALL();
         } );
     } );
 
