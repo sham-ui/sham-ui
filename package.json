@@ -37,5 +37,19 @@
       "transform-class-properties",
       "transform-es2015-modules-amd"
     ]
-  }
+  },
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sham-ui/sham-ui.git"
+  },
+  "author": "Eugene Burnashov <shamcode@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sham-ui/sham-ui/issues"
+  },
+  "homepage": "https://github.com/sham-ui/sham-ui#readme"
 }
