@@ -24,7 +24,8 @@ export default class Widget {
          */
         this.container = null;
         this.containerSelector = containerSelector;
-        this.options = options;
+        this.constructorOptions = options;
+        this.configureOptions();
         this.UI.render.register( this )
     }
 
@@ -86,28 +87,16 @@ export default class Widget {
     @options
     renderDependence = [];
 
-    /**
-     * Опции виджета. Переопределяют опции по-умолчанию
-     * @see #Widget
-     * @return {Object}
-     */
-    get options() {
-        return this._options;
-    }
-
-    /**
-     * @param {Object} options
-     */
-    set options( options ) {
+    configureOptions() {
 
         // Выставляем опции по-умолчанию
-        this._options = {};
-        const _options = options || {};
-        for ( let name in _options ) {
-            if ( !_options.hasOwnProperty( name ) ) {
+        this.options = {};
+        const options = this.constructorOptions || {};
+        for ( let name in options ) {
+            if ( !options.hasOwnProperty( name ) ) {
                 continue;
             }
-            this._options[ name ] = _options[ name ];
+            this.options[ name ] = options[ name ];
         }
 
         const optionsOwners = [
@@ -117,13 +106,13 @@ export default class Widget {
         for ( let owner of optionsOwners ) {
             const defaultOptions = owner[ 'defaultOptionProps' ] || [];
             for ( let name of defaultOptions ) {
-                if ( !this._options.hasOwnProperty( name ) ) {
-                    this._options[ name ] = owner[ name ];
+                if ( !this.options.hasOwnProperty( name ) ) {
+                    this.options[ name ] = owner[ name ];
                 }
             }
         }
 
-        this.conflictResolver.resolve( this, this._options );
+        this.conflictResolver.resolve( this, this.options );
     }
 
     /**

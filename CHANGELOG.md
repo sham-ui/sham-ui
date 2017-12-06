@@ -1,3 +1,6 @@
+## 1.3.3
+* Move merge options to `Widget.configureOptions`
+
 ## 1.3.2
 * Change repository URL
 
