@@ -1,3 +1,6 @@
+## 1.3.4
+* `Widget.querySelector`
+
 ## 1.3.3
 * Move merge options to `Widget.configureOptions`
 

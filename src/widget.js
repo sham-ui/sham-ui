@@ -115,6 +115,10 @@ export default class Widget {
         this.conflictResolver.resolve( this, this.options );
     }
 
+    querySelector( selector ) {
+        return this.container.querySelector( selector );
+    }
+
     /**
      * Добавить обработчики событий
      */
@@ -125,7 +129,7 @@ export default class Widget {
             for ( let item of handlers ) {
                 let element = this.container;
                 if ( item.selector ) {
-                    element = this.container.querySelector( item.selector );
+                    element = this.querySelector( item.selector );
                     assert.error(
                         inline`Widget "${this.ID}" hasn't sub-element "${item.selector}"
                         for bind event "${item.handlerName}."`,
