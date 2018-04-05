@@ -38,10 +38,12 @@ export default class RenderingState extends BaseRegistrationState {
      */
     _bindAndRender( ID ) {
         const widget = this._fsm.byId[ ID ];
-        this.bindWidgetEvent( widget );
-        if ( widget && widget.render ) {
-            this.handle( "renderWidget", widget );
-            this.emit( `RenderComplete[${ID}]` );
+        if ( widget ) {
+            this.bindWidgetEvent( widget );
+            if ( widget.render ) {
+                this.handle( "renderWidget", widget );
+                this.emit( `RenderComplete[${ID}]` );
+            }
         }
     }
 
