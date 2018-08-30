@@ -19,7 +19,7 @@ export default class RegistrationState extends BaseRegistrationState {
      */
     _onEnter() {
         this.widgetBinder();
-        this.handle( "registrationComplete" )
+        this.handle( 'registrationComplete' );
     }
 
     /**
@@ -27,8 +27,8 @@ export default class RegistrationState extends BaseRegistrationState {
      * Если нужно, то сначала биндим обработчики событий, а потом отрисовываем
      */
     registrationComplete() {
-        this.emit( "RegistrationComplete" );
+        this.emit( 'RegistrationComplete' );
         this._fsm.changeWidgets = this._fsm.idArray.slice( 0 );
-        this.transition( "rendering" );
+        this.transition( 'rendering' );
     }
 }

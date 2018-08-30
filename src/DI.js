@@ -8,6 +8,7 @@ const bindings = new Map();
  * Simple DI implementation
  */
 class DIContainer {
+
     /**
      * Bind item by name
      * @param {String} name
@@ -23,7 +24,7 @@ class DIContainer {
      * @return {*}
      */
     static resolve( name ) {
-        if( bindings.has( name ) ) {
+        if ( bindings.has( name ) ) {
             return bindings.get( name );
         }
     }
@@ -44,6 +45,6 @@ export default DI;
 export function inject( target, key, descriptor ) {
     const name = descriptor.initializer();
     descriptor.initializer = function() {
-        return DI.resolve( name )
+        return DI.resolve( name );
     };
 }

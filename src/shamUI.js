@@ -48,6 +48,7 @@ DI.bind( 'logger', console );
  * @property {Object} render Доступ к конечному автомату {@link module:shamUI/fsm}
  */
 export default class ShamUI {
+
     /**
      * Создать экземпляр
      */

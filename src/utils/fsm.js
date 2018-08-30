@@ -1,23 +1,23 @@
-const NEXT_TRANSITION = "transition";
-const NEXT_HANDLER = "handler";
-const HANDLING = "handling";
-const HANDLED = "handled";
-const NO_HANDLER = "nohandler";
-const TRANSITION = "transition";
-const INVALID_STATE = "invalidstate";
-const DEFERRED = "deferred";
-const ERROR = "error";
+const NEXT_TRANSITION = 'transition';
+const NEXT_HANDLER = 'handler';
+const HANDLING = 'handling';
+const HANDLED = 'handled';
+const NO_HANDLER = 'nohandler';
+const TRANSITION = 'transition';
+const INVALID_STATE = 'invalidstate';
+const DEFERRED = 'deferred';
+const ERROR = 'error';
 
 /**
  * Finite State Machine
  */
 export class Fsm {
     constructor() {
-        this.targetReplayState = "";
+        this.targetReplayState = '';
         this.state = undefined;
         this.priorState = undefined;
-        this._priorAction = "";
-        this._currentAction = "";
+        this._priorAction = '';
+        this._currentAction = '';
         this.eventListeners = {
             _anyEvents: [],
             __listenerUniqueIndex: 0
@@ -29,7 +29,7 @@ export class Fsm {
      * Initial states
      * @type {string}
      */
-    static initialState = "uninitialized";
+    static initialState = 'uninitialized';
 
     /**
      * Initialize states
@@ -42,7 +42,7 @@ export class Fsm {
                 this._states[ key ] = new this[ key ]( this );
             }
         }
-    };
+    }
 
     /**
      * Transition FSM to initialState
@@ -85,8 +85,8 @@ export class Fsm {
             if ( states[ current ][ inputType ] ||
                 states[ current ]._anyEvents ||
                 this._anyEvents ) {
-                const handlerName = states[ current ][ inputType ] ? inputType : "_anyEvents";
-                const catchAll = "_anyEvents" === handlerName;
+                const handlerName = states[ current ][ inputType ] ? inputType : '_anyEvents';
+                const catchAll = '_anyEvents' === handlerName;
 
                 let handler, action;
                 if ( states[ current ][ handlerName ] ) {
@@ -94,7 +94,7 @@ export class Fsm {
                     action = `${current}.${handlerName}`;
                 } else {
                     handler = this._anyEvents;
-                    action = "_anyEvents";
+                    action = '_anyEvents';
                 }
                 if ( !this._currentAction ) {
                     this._currentAction = action;
@@ -111,7 +111,7 @@ export class Fsm {
                 } );
 
                 this._priorAction = this._currentAction;
-                this._currentAction = "";
+                this._currentAction = '';
                 this.processQueue( NEXT_HANDLER );
             } else {
                 this.emit( NO_HANDLER, {
@@ -170,7 +170,7 @@ export class Fsm {
                 (
                     !item.untilState
                 ) || (
-                item.untilState === this.state
+                    item.untilState === this.state
                 )
             ) : item => NEXT_HANDLER === item.type;
 
@@ -232,7 +232,7 @@ export class Fsm {
             callbackID,
             off: () => {
                 this.off( eventName, callback, callbackID );
-            },
+            }
         };
     }
 
@@ -290,7 +290,7 @@ export class Fsm {
             priorState: this.priorState,
             _currentAction: this._currentAction,
             _priorAction: this._priorAction,
-            currentActionArgs: this.currentActionArgs,
+            currentActionArgs: this.currentActionArgs
         } );
     }
 }
@@ -304,16 +304,16 @@ export class State {
      * Call handler in state
      * @param {String} inputType
      */
-    handle( inputType ) {
-        this._fsm.handle( ...arguments );
+    handle( inputType, ...rest ) {
+        this._fsm.handle( inputType, ...rest );
     }
 
     /**
      * Transition to state
      * @param {String} newState
      */
-    transition( newState ) {
-        this._fsm.transition( ...arguments );
+    transition( newState, ...rest ) {
+        this._fsm.transition(  newState, ...rest );
     }
 
     deferUntilTransition() {
@@ -328,6 +328,6 @@ export class State {
      * Hook for process errors
      */
     handleException() {
-        this._fsm.handleException( ...arguments )
+        this._fsm.handleException( ...arguments );
     }
 }

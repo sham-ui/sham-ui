@@ -5,6 +5,7 @@
  * @return {string}
  */
 export default function singleLineString( strings, ...values ) {
+
     // Interweave the strings with the
     // substitution vars first.
     let output = '';

@@ -4,11 +4,12 @@ import { State } from '../../utils/fsm';
  * Класс для состояния "Готов к работе"
  */
 export default class ReadyState extends State {
+
     /**
      * Вызывается при входе в состояние
      */
     _onEnter() {
-        this.emit( "Ready" );
+        this.emit( 'Ready' );
     }
 
     /**
@@ -39,7 +40,7 @@ export default class ReadyState extends State {
      */
     all() {
         this._fsm.changeWidgets = this._fsm.idArray.slice( 0 );
-        this.transition( "rendering" );
+        this.transition( 'rendering' );
     }
 
     /**
@@ -48,7 +49,7 @@ export default class ReadyState extends State {
      */
     only( needRenderingWidgets ) {
         this._fsm.changeWidgets = needRenderingWidgets.slice( 0 );
-        this.transition( "rendering" );
+        this.transition( 'rendering' );
     }
 
     /**
@@ -56,8 +57,8 @@ export default class ReadyState extends State {
      * переходит к регистрации
      */
     forceAll() {
-        this.handle( "clear" );
-        this.transition( "registration" );
+        this.handle( 'clear' );
+        this.transition( 'registration' );
     }
 
     /**
@@ -97,7 +98,7 @@ export default class ReadyState extends State {
             }
         }
         this._fsm.changeWidgets = needRenderingWidgets.slice( 0 );
-        this.transition( "rendering" );
+        this.transition( 'rendering' );
     }
 
     /**
@@ -120,7 +121,7 @@ export default class ReadyState extends State {
                 }
             }
         }
-        this.transition( "rendering" );
+        this.transition( 'rendering' );
     }
 
     /**
@@ -135,9 +136,9 @@ export default class ReadyState extends State {
         this._fsm._states.registration.register( widget );
 
         // Если сначала биндим обработчики событий, а потом отрисовываем виджет
-        if ( "bindEvents" === widget.options.actionSequence[ 0 ] ) {
+        if ( 'bindEvents' === widget.options.actionSequence[ 0 ] ) {
             widget.resolveContainer();
-            if ( widget.bindEvents ){
+            if ( widget.bindEvents ) {
                 if ( widget.options.beforeBindEvents ) {
                     widget.options.beforeBindEvents.call( widget );
                 }
@@ -182,7 +183,7 @@ export default class ReadyState extends State {
                 this._fsm.byType[ types[ i ] ].splice(
                     this._fsm.byType[ types[ i ] ].indexOf( widgetId ),
                     1
-                )
+                );
             }
         }
 

@@ -12,5 +12,5 @@ export default function( eventType, selector ) {
             handlerName: name
         } ] );
         return descriptor;
-    }
+    };
 }

@@ -11,7 +11,7 @@ export default class OptionsConflictResolverManager {
     resolve( widget, options ) {
         for ( let resolver of this.resolvers.values() ) {
             if ( resolver.predicate( widget, options ) ) {
-                resolver.resolve( options )
+                resolver.resolve( options );
             }
         }
     }

@@ -51,7 +51,7 @@ export default class BaseRegistrationState extends State {
     bindWidgetEvent( widget ) {
 
         // Если сначала биндим обработчики событий, а потом отрисовываем виджет
-        if ( "bindEvents" === widget.options.actionSequence[ 0 ] ) {
+        if ( 'bindEvents' === widget.options.actionSequence[ 0 ] ) {
             widget.resolveContainer();
             if ( widget.bindEvents ) {
                 if ( widget.options.beforeBindEvents ) {

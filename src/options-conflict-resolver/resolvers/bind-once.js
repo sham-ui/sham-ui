@@ -5,7 +5,7 @@ export default class BindOnceAndHandlerResolver extends OptionsConflictResolver 
         return widget.handlerProps &&
         'render' === options.actionSequence[ 0 ] &&
         ( undefined !== widget.html || undefined !== widget.constructor.html ) &&
-        options.bindOnce
+        options.bindOnce;
     }
 
     resolve( options ) {

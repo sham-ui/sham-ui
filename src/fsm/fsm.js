@@ -1,8 +1,8 @@
 import { inject } from '../DI';
 import { Fsm } from '../utils/fsm';
-import ReadyState from "./states/ready";
-import RegistrationState from "./states/registration";
-import RenderingState from "./states/rendering";
+import ReadyState from './states/ready';
+import RegistrationState from './states/registration';
+import RenderingState from './states/rendering';
 
 /**
  * Default states
@@ -37,14 +37,14 @@ export class FSM extends Fsm {
         this.byId = {};
     }
 
-    static initialState = "ready";
+    static initialState = 'ready';
 
     /**
      * Перерисовать все
      * @see {@link ReadyState#all}
      */
     ALL() {
-        this.handle( "all" );
+        this.handle( 'all' );
     }
 
     /**
@@ -53,7 +53,7 @@ export class FSM extends Fsm {
      * @param {...String} args Список ID виджетов, которые нужно отрисовать
      */
     ONLY( ...args ) {
-        this.handle( "only", args );
+        this.handle( 'only', args );
     }
 
     /**
@@ -61,7 +61,7 @@ export class FSM extends Fsm {
      * @see {@link ReadyState#forceAll}
      */
     FORCE_ALL() {
-        this.handle( "forceAll" );
+        this.handle( 'forceAll' );
     }
 
     /**
@@ -71,7 +71,7 @@ export class FSM extends Fsm {
      * @param {...String} args Список ID виджетов, которые нужно отрисовать
      */
     FORCE_ONLY( ...args ) {
-        this.handle( "forceOnly", args );
+        this.handle( 'forceOnly', args );
     }
 
     /**
@@ -80,7 +80,7 @@ export class FSM extends Fsm {
      * @see {@link ReadyState#onlyType}
      */
     ONLY_TYPE( ...args ) {
-        this.handle( "onlyType", args );
+        this.handle( 'onlyType', args );
     }
 
     /**
@@ -102,7 +102,7 @@ export class FSM extends Fsm {
      * @see {@link RegistrationState#register}
      */
     register( widget ) {
-        this.handle( "register", widget );
+        this.handle( 'register', widget );
     }
 
     /**
@@ -110,7 +110,7 @@ export class FSM extends Fsm {
      * @param {String} widgetId Идентификатор виджета
      */
     unregister( widgetId ) {
-        this.handle( "unregister", widgetId );
+        this.handle( 'unregister', widgetId );
     }
 
     /**

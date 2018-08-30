@@ -2,7 +2,7 @@ import DI from '../DI';
 
 const PREFIX = 'sham-ui';
 
-function AssertError( msg ) {
+function AssertError() {
     const err = Error.apply( this, arguments );
     err.name = 'AssertError';
     return err;
@@ -44,6 +44,7 @@ class Assert {
 }
 
 export default {
+
     /**
      * Error assertion
      * @param {String} message
@@ -57,4 +58,4 @@ export default {
      * @param {Boolean} condition
      */
     warn: Assert.warn
-}
+};

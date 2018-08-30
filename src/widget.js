@@ -26,7 +26,7 @@ export default class Widget {
         this.containerSelector = containerSelector;
         this.constructorOptions = options;
         this.configureOptions();
-        this.UI.render.register( this )
+        this.UI.render.register( this );
     }
 
     /**
@@ -35,7 +35,7 @@ export default class Widget {
      * @default [ "bindEvents", "render" ]
      */
     @options
-    static actionSequence = [ "bindEvents", "render" ];
+    static actionSequence = [ 'bindEvents', 'render' ];
 
     /**
      * Тип виджета
@@ -104,7 +104,7 @@ export default class Widget {
             this              // Instance options
         ];
         for ( let owner of optionsOwners ) {
-            const defaultOptions = owner[ 'defaultOptionProps' ] || [];
+            const defaultOptions = owner.defaultOptionProps || [];
             for ( let name of defaultOptions ) {
                 if ( !this.options.hasOwnProperty( name ) ) {
                     this.options[ name ] = owner[ name ];
@@ -164,7 +164,7 @@ export default class Widget {
             // Remove event listener bind from @handler decorator
             handlers.forEach(
                 ( { handler, element, eventType } ) => {
-                    element.removeEventListener( eventType, handler )
+                    element.removeEventListener( eventType, handler );
                 }
             );
         }
@@ -190,7 +190,7 @@ export default class Widget {
         assert.error(
             inline`Widget ${this.ID} doesn't resolve container. Check container selector`,
             undefined === this.container
-        )
+        );
     }
 
     /**
@@ -208,6 +208,6 @@ export default class Widget {
         return {
             container: this.container,
             html
-        }
+        };
     }
 }

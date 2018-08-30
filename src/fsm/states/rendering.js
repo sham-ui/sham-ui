@@ -4,6 +4,7 @@ import BaseRegistrationState from './base-registration';
  * Класс для состояния "Отрисовываем виджеты"
  */
 export default class RenderingState extends BaseRegistrationState {
+
     /**
      * Что делать с необрабатываемыми в этом состояния хэндлеры
      */
@@ -20,8 +21,8 @@ export default class RenderingState extends BaseRegistrationState {
         this._fsm.changeWidgets.forEach( this._bindAndRender.bind( this ) );
 
         // Все области отрисовались
-        this.emit( "RenderComplete", this.rendered );
-        this.transition( "ready" );
+        this.emit( 'RenderComplete', this.rendered );
+        this.transition( 'ready' );
     }
 
     /**
@@ -41,7 +42,7 @@ export default class RenderingState extends BaseRegistrationState {
         if ( widget ) {
             this.bindWidgetEvent( widget );
             if ( widget.render ) {
-                this.handle( "renderWidget", widget );
+                this.handle( 'renderWidget', widget );
                 this.emit( `RenderComplete[${ID}]` );
             }
         }
@@ -61,7 +62,7 @@ export default class RenderingState extends BaseRegistrationState {
      * @see Widget
      */
     renderWidget( widget ) {
-        if ( widget.options.actionSequence[ 0 ] === "render" ) {
+        if ( widget.options.actionSequence[ 0 ] === 'render' ) {
             widget.resolveContainer();
         }
 
@@ -86,7 +87,7 @@ export default class RenderingState extends BaseRegistrationState {
 
 
             // TODO: Extract
-            if ( widget.options.actionSequence[ 0 ] === "render" &&
+            if ( widget.options.actionSequence[ 0 ] === 'render' &&
                 widget.bindEvents && !widget.isBinded ) {
 
                 // Если после отрисовки нужно биндить обработчики событий виджета или нет
