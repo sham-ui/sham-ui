@@ -1,3 +1,6 @@
+## master
+* [#20](https://github.com/sham-ui/sham-ui/issues/20) inject as getter 
+
 ## 1.3.4
 * `Widget.querySelector`
 

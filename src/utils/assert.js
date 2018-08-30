@@ -41,6 +41,19 @@ class Assert {
             DI.resolve( 'logger' ).warn( Assert.getStack( `${PREFIX}: ${message}` ) );
         }
     }
+
+    /**
+     * Deprecation assertion
+     * @param {String} message
+     * @param {Boolean} condition
+     */
+    static deprecate( message, condition ) {
+        if ( condition ) {
+            DI.resolve( 'logger' ).warn(
+                Assert.getStack( `${PREFIX}: [DEPRECATION]: ${message}` )
+            );
+        }
+    }
 }
 
 export default {
@@ -57,5 +70,12 @@ export default {
      * @param {String} message
      * @param {Boolean} condition
      */
-    warn: Assert.warn
+    warn: Assert.warn,
+
+    /**
+     * Deprecation assertion
+     * @param {String} message
+     * @param {Boolean} condition
+     */
+    deprecate: Assert.deprecate
 };

@@ -6,6 +6,7 @@ beforeEach( () => {
     DI.bind( 'state:rendering', FsmStates.rendering );
     DI.bind( 'fsm', Fsm );
     DI.bind( 'logger', console );
+    DI.bind( 'service', undefined );
 } );
 
 function makeBinding( onRender ) {
@@ -125,4 +126,72 @@ it( 'inject', async() => {
     expect( fakeService.process ).toHaveBeenCalledTimes( 2 );
     expect( fakeService.process.mock.calls[ 0 ] ).toEqual( [ 'from constructor' ] );
     expect( fakeService.process.mock.calls[ 1 ] ).toEqual( [ 'from method' ] );
+} );
+
+it( 'new inject syntax (without arg)', async() => {
+    expect.assertions( 3 );
+    const fakeService = {
+        process: jest.fn()
+    };
+    DI.bind( 'service', fakeService );
+
+    class ServiceConsumer {
+        @inject service;
+        constructor() {
+            this.service.process( 'from constructor' );
+        }
+
+        method() {
+            this.service.process( 'from method' );
+        }
+    }
+    new ServiceConsumer().method();
+    expect( fakeService.process ).toHaveBeenCalledTimes( 2 );
+    expect( fakeService.process.mock.calls[ 0 ] ).toEqual( [ 'from constructor' ] );
+    expect( fakeService.process.mock.calls[ 1 ] ).toEqual( [ 'from method' ] );
+} );
+
+it( 'new inject syntax (with arg)', async() => {
+    expect.assertions( 3 );
+    const fakeService = {
+        process: jest.fn()
+    };
+    DI.bind( 'service', fakeService );
+
+    class ServiceConsumer {
+        @inject( 'service' ) service;
+        constructor() {
+            this.service.process( 'from constructor' );
+        }
+
+        method() {
+            this.service.process( 'from method' );
+        }
+    }
+    new ServiceConsumer().method();
+    expect( fakeService.process ).toHaveBeenCalledTimes( 2 );
+    expect( fakeService.process.mock.calls[ 0 ] ).toEqual( [ 'from constructor' ] );
+    expect( fakeService.process.mock.calls[ 1 ] ).toEqual( [ 'from method' ] );
+} );
+
+it( 'inject as getter', async() => {
+    expect.assertions( 2 );
+    const fakeService = {
+        process: jest.fn()
+    };
+    class ServiceConsumer {
+        @inject service;
+
+        constructor() {
+            expect( this.service ).toBe( undefined );
+        }
+
+        method() {
+            this.service.process();
+        }
+    }
+    const concusmer = new ServiceConsumer();
+    DI.bind( 'service', fakeService );
+    concusmer.method();
+    expect( fakeService.process ).toHaveBeenCalledTimes( 1 );
 } );

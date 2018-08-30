@@ -38,13 +38,39 @@ export default DI;
 
 /**
  * Inject item by name
+ */
+export function inject() {
+    if ( 1 === arguments.length ) {
+        const name = arguments[ 0 ];
+        return function() {
+            return _inject( ...arguments, name );
+        };
+    } else {
+        return _inject( ...arguments );
+    }
+
+}
+
+/**
  * @param target
  * @param {String} key
  * @param descriptor
+ * @param name
+ * @private
  */
-export function inject( target, key, descriptor ) {
-    const name = descriptor.initializer();
-    descriptor.initializer = function() {
-        return DI.resolve( name );
+function _inject( target, key, descriptor, name ) {
+    if ( undefined === name ) {
+        if ( typeof descriptor.initializer === 'function' ) {
+            name = descriptor.initializer();
+        } else {
+            name = key;
+        }
+    }
+    return {
+        enumerable: true,
+        configurable: true,
+        get() {
+            return DI.resolve( name );
+        }
     };
 }
