@@ -8,7 +8,6 @@ import inline from './utils/single-line-string';
  */
 export default class Widget {
     @inject UI = 'sham-ui'; // inject shamUI instance as this.UI
-    @inject conflictResolver = 'options-conflict-resolver:manager';
 
     /**
      * @param {String}  containerSelector CSS-селектор элемента, в который будет
@@ -111,8 +110,6 @@ export default class Widget {
                 }
             }
         }
-
-        this.conflictResolver.resolve( this, this.options );
     }
 
     querySelector( selector ) {

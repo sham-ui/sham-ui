@@ -2,12 +2,6 @@ import { default as DIContainer, inject as DIInject } from './DI';
 import { FSM, states } from './fsm/fsm';
 import BaseWidget from './widget';
 
-import _OptionsConflictResolverManager from './options-conflict-resolver/manager';
-export const OptionsConflictResolverManager = _OptionsConflictResolverManager;
-export { default as OptionsConflictResolver } from './options-conflict-resolver/base';
-import BindOnceConflict from './options-conflict-resolver/resolvers/bind-once';
-import ActionSequenceConflict from './options-conflict-resolver/resolvers/action-sequence';
-
 import decoratorOptions from './decorators/options';
 import decoratorHandler from './decorators/handler';
 import { Fsm as DefaultFsm, State } from './utils/fsm';
@@ -31,9 +25,6 @@ export const handler = decoratorHandler;
 // Default fsm binding
 DI.bind( 'fsm', FSM );
 
-// Options conflict resolver manager
-DI.bind( 'options-conflict-resolver:manager', new OptionsConflictResolverManager() );
-
 // Default state binding
 DI.bind( 'state:ready', states.ready );
 DI.bind( 'state:registration', states.registration );
@@ -54,14 +45,6 @@ export default class ShamUI {
      */
     constructor() {
         DI.bind( 'sham-ui', this );
-
-        // Registry options conflict resolver
-        const resolverManager = DI.resolve( 'options-conflict-resolver:manager' );
-        resolverManager
-            .registry( new ActionSequenceConflict() )
-            .registry( new BindOnceConflict() )
-        ;
-
         const Fsm = DI.resolve( 'fsm' );
         this.render = new Fsm();
         this.render.run();
