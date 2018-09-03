@@ -3,7 +3,6 @@ import { FSM, states } from './fsm/fsm';
 import BaseWidget from './widget';
 
 import decoratorOptions from './decorators/options';
-import decoratorHandler from './decorators/handler';
 import { Fsm as DefaultFsm, State } from './utils/fsm';
 export { default as assert } from './utils/assert';
 
@@ -20,7 +19,6 @@ export const Fsm = FSM;
 export const FsmStates = states;
 
 export const options = decoratorOptions;
-export const handler = decoratorHandler;
 
 // Default fsm binding
 DI.bind( 'fsm', FSM );

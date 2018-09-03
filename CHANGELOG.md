@@ -1,6 +1,7 @@
 ## master
+* [#18](https://github.com/sham-ui/sham-ui/issues/18) remove `@handler`
 * [#20](https://github.com/sham-ui/sham-ui/issues/20) inject as getter
- * Remove otpions conflict resolver
+* Remove options conflict resolver
 
 ## 1.3.4
 * `Widget.querySelector`

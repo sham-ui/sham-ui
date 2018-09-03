@@ -119,53 +119,12 @@ export default class Widget {
     /**
      * Добавить обработчики событий
      */
-    bindEvents() {
-        const handlers = this.handlerProps;
-        if ( handlers ) {
-            this._bindHandlers = [];
-            for ( let item of handlers ) {
-                let element = this.container;
-                if ( item.selector ) {
-                    element = this.querySelector( item.selector );
-                    assert.error(
-                        inline`Widget "${this.ID}" hasn't sub-element "${item.selector}"
-                        for bind event "${item.handlerName}."`,
-                        !element
-                    );
-                }
-
-                let handler;
-                if ( ( this.defaultOptionProps || [] ).includes( item.handlerName ) ) {
-                    handler = this.options[ item.handlerName ].bind( this );
-                } else {
-                    handler = this[ item.handlerName ].bind( this );
-                }
-
-                this._bindHandlers.push( {
-                    handler,
-                    element,
-                    eventType: item.eventType
-                } );
-                element.addEventListener( item.eventType, handler );
-            }
-        }
-    }
+    bindEvents() {}
 
     /**
      * Функция вызывающая при уничтожениии виджета
      */
-    destroy() {
-        const handlers = this._bindHandlers;
-        if ( handlers ) {
-
-            // Remove event listener bind from @handler decorator
-            handlers.forEach(
-                ( { handler, element, eventType } ) => {
-                    element.removeEventListener( eventType, handler );
-                }
-            );
-        }
-    }
+    destroy() {}
 
     /**
      * Query current container by this.containerSelector and save node as this.container
