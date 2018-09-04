@@ -26,7 +26,6 @@ export default class ReadyState extends State {
                     this._fsm.widgets[ i ].options.afterDestroy.call( this._fsm.widgets[ i ] );
                 }
             }
-            this._fsm.widgets[ i ].isBinded = false;
         }
         this._fsm.widgets = [];
         this._fsm.idArray = [];
@@ -94,7 +93,6 @@ export default class ReadyState extends State {
                         widget.options.afterBindEvents.call( widget );
                     }
                 }
-                widget.isBinded = false;
             }
         }
         this._fsm.changeWidgets = needRenderingWidgets.slice( 0 );

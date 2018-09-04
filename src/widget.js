@@ -44,40 +44,12 @@ export default class Widget {
     types = [];
 
     /**
-     * Если биндим обработчики событий после отрисовки, то нужно ли перебиндиивать их
-     * после каждой отрисовки
-     * @type {Boolean}
-     * @default true
-     */
-    @options
-    static bindOnce = true;
-
-    /**
      * Нужно ли кэшировать родительский элемент для контейнера
      * @type {Boolean}
      * @default false
      */
     @options
     static cacheParentContainer = false;
-
-    /**
-     * Виджет отрисовывается ассинхронно
-     * @deprecated
-     * @type {Boolean}
-     * @default false,
-     */
-    @options
-    renderAsync = false;
-
-    /**
-     * Обертка для ассинхроной отрисовки
-     * @deprecated
-     * @param {Function} renderCallback callback для рендера
-     */
-    @options
-    static renderAsyncWrapper( renderCallback ) {
-        window.requestAnimationFrame( renderCallback );
-    }
 
     /**
      * Массив виджетов, которые нужно отрисовать перед тем, как отрисовывать этот виджет

@@ -85,10 +85,8 @@ export default class RenderingState extends BaseRegistrationState {
                 widget.options.afterRender.call( widget );
             }
 
-
             // TODO: Extract
-            if ( widget.options.actionSequence[ 0 ] === 'render' &&
-                widget.bindEvents && !widget.isBinded ) {
+            if ( widget.options.actionSequence[ 0 ] === 'render' && widget.bindEvents ) {
 
                 // Если после отрисовки нужно биндить обработчики событий виджета или нет
                 if ( widget.options.beforeBindEvents ) {
@@ -97,9 +95,6 @@ export default class RenderingState extends BaseRegistrationState {
                 widget.bindEvents();
                 if ( widget.options.afterBindEvents ) {
                     widget.options.afterBindEvents.call( widget );
-                }
-                if ( widget.options.bindOnce ) {
-                    widget.isBinded = true;
                 }
             }
         } catch ( e ) {
