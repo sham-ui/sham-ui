@@ -1,7 +1,6 @@
 import options from './decorators/options';
 import { inject } from './DI';
 import assert from './utils/assert';
-import inline from './utils/single-line-string';
 
 /**
  * Базовый класс для виджетов
@@ -42,14 +41,6 @@ export default class Widget {
      */
     @options
     types = [];
-
-    /**
-     * Нужно ли кэшировать родительский элемент для контейнера
-     * @type {Boolean}
-     * @default false
-     */
-    @options
-    static cacheParentContainer = false;
 
     /**
      * Массив виджетов, которые нужно отрисовать перед тем, как отрисовывать этот виджет
@@ -102,21 +93,9 @@ export default class Widget {
      * Query current container by this.containerSelector and save node as this.container
      */
     resolveContainer() {
-        if ( this.options.cacheParentContainer ) {
-            if ( !this.containerParentNode ) {
-                this.containerParentNode = document.querySelector(
-                    this.containerSelector
-                ).parentNode;
-            }
-            this.container = this.containerParentNode.querySelector(
-                this.containerSelector
-            );
-        } else {
-            this.container = document.querySelector( this.containerSelector );
-        }
-
+        this.container = document.querySelector( this.containerSelector );
         assert.error(
-            inline`Widget ${this.ID} doesn't resolve container. Check container selector`,
+            `Widget ${this.ID} doesn't resolve container. Check container selector`,
             undefined === this.container
         );
     }

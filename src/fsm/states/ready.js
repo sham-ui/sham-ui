@@ -31,7 +31,6 @@ export default class ReadyState extends State {
         this._fsm.idArray = [];
         this._fsm.byType = {};
         this._fsm.byId = {};
-        this._fsm.renderCache = {};
     }
 
     /**
@@ -199,7 +198,5 @@ export default class ReadyState extends State {
 
         // И из объекта доступа по id
         delete this._fsm.byId[ widgetId ];
-
-        delete this._fsm.renderCache[ widgetId ];
     }
 }
