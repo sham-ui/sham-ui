@@ -1,6 +1,7 @@
 ## master
+* Remove `renderDependencies`
 * Remove `fsm.renderCache` & `widget.options.cacheParentContainer` 
-* Remove `bindOnce`, `renderAsync` & `renderAsyncWrapper`;
+* Remove `bindOnce`, `renderAsync` & `renderAsyncWrapper`
 * [#18](https://github.com/sham-ui/sham-ui/issues/18) remove `@handler`
 * [#20](https://github.com/sham-ui/sham-ui/issues/20) inject as getter
 * Remove options conflict resolver

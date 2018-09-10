@@ -6,7 +6,7 @@ import assert from './utils/assert';
  * Базовый класс для виджетов
  */
 export default class Widget {
-    @inject UI = 'sham-ui'; // inject shamUI instance as this.UI
+    @inject( 'sham-ui' ) UI; // inject shamUI instance as this.UI
 
     /**
      * @param {String}  containerSelector CSS-селектор элемента, в который будет
@@ -41,13 +41,6 @@ export default class Widget {
      */
     @options
     types = [];
-
-    /**
-     * Массив виджетов, которые нужно отрисовать перед тем, как отрисовывать этот виджет
-     * @type {Array}
-     */
-    @options
-    renderDependence = [];
 
     configureOptions() {
 
