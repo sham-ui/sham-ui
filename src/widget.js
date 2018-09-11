@@ -28,14 +28,6 @@ export default class Widget {
     }
 
     /**
-     * Сначала биндим обработчики событий, потом отрисовываем
-     * @type {Array}
-     * @default [ "bindEvents", "render" ]
-     */
-    @options
-    static actionSequence = [ 'bindEvents', 'render' ];
-
-    /**
      * Тип виджета
      * @type {Array}
      */

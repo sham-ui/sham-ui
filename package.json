@@ -71,6 +71,10 @@
         "collectCoverageFrom": [
           "src/**/*.js"
         ],
+        "testPathIgnorePatterns": [
+          "<rootDir>/node_modules/",
+          "<rootDir>/__tests__/helpers.js"
+        ],
         "testURL": "http://sham-ui.example.com"
       },
       {

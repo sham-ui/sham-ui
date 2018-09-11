@@ -1,4 +1,5 @@
-import ShamUI, { DI, Widget, FsmStates, Fsm, inject } from '../src/shamUI';
+import { DI, Widget, FsmStates, Fsm, inject } from '../src/shamUI';
+import { renderApp } from './helpers';
 
 beforeEach( () => {
     DI.bind( 'state:ready', FsmStates.ready );
@@ -21,14 +22,6 @@ function makeBinding( onRender ) {
         }
         new Label( 'body', 'simple-label-widget-text' );
     };
-}
-
-function renderApp() {
-    return new Promise( resolve => {
-        const UI = new ShamUI();
-        UI.render.one( 'RenderComplete', resolve );
-        UI.render.FORCE_ALL();
-    } );
 }
 
 it( 'widget-binder', async() => {

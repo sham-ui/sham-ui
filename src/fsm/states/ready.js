@@ -131,20 +131,6 @@ export default class ReadyState extends State {
 
         // Регистрируем виджет
         this._fsm._states.registration.register( widget );
-
-        // Если сначала биндим обработчики событий, а потом отрисовываем виджет
-        if ( 'bindEvents' === widget.options.actionSequence[ 0 ] ) {
-            widget.resolveContainer();
-            if ( widget.bindEvents ) {
-                if ( widget.options.beforeBindEvents ) {
-                    widget.options.beforeBindEvents.call( widget );
-                }
-                widget.bindEvents();
-                if ( widget.options.afterBindEvents ) {
-                    widget.options.afterBindEvents.call( widget );
-                }
-            }
-        }
     }
 
     /**

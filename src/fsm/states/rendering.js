@@ -40,7 +40,6 @@ export default class RenderingState extends BaseRegistrationState {
     _bindAndRender( ID ) {
         const widget = this._fsm.byId[ ID ];
         if ( widget ) {
-            this.bindWidgetEvent( widget );
             if ( widget.render ) {
                 this.handle( 'renderWidget', widget );
                 this.emit( `RenderComplete[${ID}]` );
@@ -62,9 +61,7 @@ export default class RenderingState extends BaseRegistrationState {
      * @see Widget
      */
     renderWidget( widget ) {
-        if ( widget.options.actionSequence[ 0 ] === 'render' ) {
-            widget.resolveContainer();
-        }
+        widget.resolveContainer();
 
         if ( widget.options.beforeRender ) {
             widget.options.beforeRender.call( widget );
@@ -85,10 +82,7 @@ export default class RenderingState extends BaseRegistrationState {
                 widget.options.afterRender.call( widget );
             }
 
-            // TODO: Extract
-            if ( widget.options.actionSequence[ 0 ] === 'render' && widget.bindEvents ) {
-
-                // Если после отрисовки нужно биндить обработчики событий виджета или нет
+            if ( widget.bindEvents ) {
                 if ( widget.options.beforeBindEvents ) {
                     widget.options.beforeBindEvents.call( widget );
                 }
