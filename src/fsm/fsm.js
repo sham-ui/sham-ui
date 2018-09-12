@@ -24,10 +24,10 @@ export const states = {
  * Класс основного конечного атомата
  */
 export class FSM extends Fsm {
-    @inject ready = 'state:ready';
-    @inject registration = 'state:registration';
-    @inject rendering = 'state:rendering';
-    @inject logger = 'logger';
+    @inject( 'state:ready' ) ready;
+    @inject( 'state:registration' ) registration;
+    @inject( 'state:rendering' ) rendering ;
+    @inject( 'logger' ) logger;
 
     constructor() {
         super( ...arguments );

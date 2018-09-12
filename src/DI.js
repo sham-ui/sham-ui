@@ -60,11 +60,7 @@ export function inject() {
  */
 function _inject( target, key, descriptor, name ) {
     if ( undefined === name ) {
-        if ( typeof descriptor.initializer === 'function' ) {
-            name = descriptor.initializer();
-        } else {
-            name = key;
-        }
+        name = key;
     }
     return {
         enumerable: true,

@@ -5,7 +5,7 @@ import BaseRegistrationState from './base-registration';
  * Класс для состояния "Регистрация виджетов"
  */
 export default class RegistrationState extends BaseRegistrationState {
-    @inject widgetBinder = 'widget-binder';
+    @inject( 'widget-binder' ) widgetBinder;
 
     /**
      * Что делать с необрабатываемыми в этом состояния хэндлерами
