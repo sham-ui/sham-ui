@@ -15,3 +15,14 @@ export function onRenderComplete( callback ) {
         callback( UI );
     } );
 }
+
+export function renderWidget( widgetConstructor, options = {} ) {
+    DI.bind( 'widget-binder', function() {
+        new widgetConstructor( 'body', 'dummy', options );
+    } );
+    return renderApp();
+}
+
+export function expectRenderedText( expected ) {
+    expect( document.querySelector( 'body' ).textContent ).toBe( expected );
+}
