@@ -31,33 +31,17 @@ export default class Widget {
      * Тип виджета
      * @type {Array}
      */
-    @options
-    types = [];
+    @options types = [];
 
     configureOptions() {
-
-        // Выставляем опции по-умолчанию
-        this.options = {};
-        const options = this.constructorOptions || {};
-        for ( let name in options ) {
-            if ( !options.hasOwnProperty( name ) ) {
-                continue;
-            }
-            this.options[ name ] = options[ name ];
-        }
-
-        const optionsOwners = [
-            this.constructor, // Static options
-            this              // Instance options
-        ];
-        for ( let owner of optionsOwners ) {
-            const defaultOptions = owner.defaultOptionProps || [];
-            for ( let name of defaultOptions ) {
-                if ( !this.options.hasOwnProperty( name ) ) {
-                    this.options[ name ] = owner[ name ];
-                }
-            }
-        }
+        const defaultOptions = Object.create(
+            this.options || {},
+            Object.getOwnPropertyDescriptors( this._options || {} )
+        );
+        this.options = Object.create(
+            defaultOptions,
+            Object.getOwnPropertyDescriptors( this.constructorOptions || {} )
+        );
     }
 
     querySelector( selector ) {

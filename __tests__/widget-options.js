@@ -13,7 +13,7 @@ class Label extends Widget {
 
 class OverrideDefaultOptions extends Label {
     @options
-    static text() {
+    text() {
         return 'override';
     }
 }
@@ -40,4 +40,29 @@ it( 'extend widget without override options', async() => {
     class ExtendWithoutOverride extends Label {}
     await renderWidget( ExtendWithoutOverride );
     expectRenderedText( 'dummy' );
+} );
+
+
+it( 'extend widget (two level)', async() => {
+    expect.assertions( 1 );
+    class ExtendTwoLevel extends OverrideDefaultOptions {
+        @options
+        text() {
+            return 'two level';
+        }
+    }
+    await renderWidget( ExtendTwoLevel );
+    expectRenderedText( 'two level' );
+} );
+
+it( 'call super (two level)', async() => {
+    expect.assertions( 1 );
+    class ExtendTwoLevel extends OverrideDefaultOptions {
+        @options
+        text() {
+            return super.text() + ' and extend';
+        }
+    }
+    await renderWidget( ExtendTwoLevel );
+    expectRenderedText( 'override and extend' );
 } );

@@ -1,4 +1,5 @@
 ## master
+* [#22](https://github.com/sham-ui/sham-ui/issues/22) Prototype based options 
 * [#21](https://github.com/sham-ui/sham-ui/issues/21) Remove `actionSequence` 
 * Remove `renderDependencies`
 * Remove `fsm.renderCache` & `widget.options.cacheParentContainer` 
