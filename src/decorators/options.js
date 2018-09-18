@@ -16,5 +16,9 @@ export default function( target, name, descriptor ) {
             configurable: true
         } );
     }
+    if ( descriptor.hasOwnProperty( 'initializer' ) ) {
+        descriptor.value = descriptor.initializer();
+        delete descriptor.initializer;
+    }
     Object.defineProperty( target._options, name, descriptor );
 }

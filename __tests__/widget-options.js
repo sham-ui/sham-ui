@@ -7,7 +7,11 @@ class Label extends Widget {
         return this.ID;
     }
     render() {
-        this.container.textContent = this.options.text.call( this );
+        let text = this.options.text;
+        if ( 'function' === typeof text ) {
+            text = text.call( this );
+        }
+        this.container.textContent = text;
     }
 }
 
@@ -65,4 +69,30 @@ it( 'call super (two level)', async() => {
     }
     await renderWidget( ExtendTwoLevel );
     expectRenderedText( 'override and extend' );
+} );
+
+it( 'throw error on static', async() => {
+    expect.assertions( 1 );
+    try {
+        class ThrowError extends Widget {
+            @options
+            static text() {
+                return 'text';
+            }
+        }
+        await renderWidget( ThrowError );
+    } catch ( e ) {
+        expect( e.message ).toEqual(
+            expect.stringContaining( 'static options don\'t allow. Name: text, target:' )
+        );
+    }
+} );
+
+it( 'ovveride method with instance prop', async() => {
+    expect.assertions( 1 );
+    class Dummy extends Label {
+        @options text = 'instance text';
+    }
+    await renderWidget( Dummy );
+    expectRenderedText( 'instance text' );
 } );
