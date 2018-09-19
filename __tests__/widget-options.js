@@ -96,3 +96,45 @@ it( 'ovveride method with instance prop', async() => {
     await renderWidget( Dummy );
     expectRenderedText( 'instance text' );
 } );
+
+it( 'context is a widget (getter)', async() => {
+    expect.assertions( 1 );
+    class Dummy extends Widget {
+        get age() {
+            return 27;
+        }
+
+        @options firstName = 'John';
+        @options lastName ='Smith';
+        @options
+        get fullName() {
+            return `${this.options.firstName} ${this.options.lastName} (${this.age})`;
+        }
+        render() {
+            this.container.textContent = this.options.fullName;
+        }
+    }
+    await renderWidget( Dummy );
+    expectRenderedText( 'John Smith (27)' );
+} );
+
+it( 'context is a widget (method)', async() => {
+    expect.assertions( 1 );
+    class Dummy extends Widget {
+        age() {
+            return 27;
+        }
+
+        @options firstName = 'John';
+        @options lastName ='Smith';
+        @options
+        fullName() {
+            return `${this.options.firstName} ${this.options.lastName} (${this.age()})`;
+        }
+        render() {
+            this.container.textContent = this.options.fullName();
+        }
+    }
+    await renderWidget( Dummy );
+    expectRenderedText( 'John Smith (27)' );
+} );

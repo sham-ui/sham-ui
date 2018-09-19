@@ -1,4 +1,5 @@
 ## master
+* Bind widget context to options getters & methods
 * Override options descriptor with initializer
 * [#22](https://github.com/sham-ui/sham-ui/issues/22) Prototype based options 
 * [#21](https://github.com/sham-ui/sham-ui/issues/21) Remove `actionSequence` 

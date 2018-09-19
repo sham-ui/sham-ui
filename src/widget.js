@@ -1,6 +1,7 @@
 import options from './decorators/options';
 import { inject } from './DI';
 import assert from './utils/assert';
+import bindOptionsDescriptors from './utils/bind-options-descriptors';
 
 /**
  * Базовый класс для виджетов
@@ -36,11 +37,11 @@ export default class Widget {
     configureOptions() {
         const defaultOptions = Object.create(
             this.options || {},
-            Object.getOwnPropertyDescriptors( this._options || {} )
+            bindOptionsDescriptors( this, this._options || {} )
         );
         this.options = Object.create(
             defaultOptions,
-            Object.getOwnPropertyDescriptors( this.constructorOptions || {} )
+            bindOptionsDescriptors( this, this.constructorOptions || {} )
         );
     }
 
