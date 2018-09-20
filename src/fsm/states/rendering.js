@@ -51,7 +51,7 @@ export default class RenderingState extends BaseRegistrationState {
      * Отрисовать только указанные виджеты. Просто отрисовывает, не вызывает destroy
      * @param {Array} needRenderingWidgets Список виджетов, которые нужно отрисовать
      */
-    only( ...needRenderingWidgets ) {
+    onlyIds( ...needRenderingWidgets ) {
         needRenderingWidgets.forEach( this._bindAndRender.bind( this ) );
     }
 

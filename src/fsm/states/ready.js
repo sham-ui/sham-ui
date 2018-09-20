@@ -34,18 +34,10 @@ export default class ReadyState extends State {
     }
 
     /**
-     * Отрисовать все виджеты. Просто отрисовывает, не вызывает destroy
-     */
-    all() {
-        this._fsm.changeWidgets = this._fsm.idArray.slice( 0 );
-        this.transition( 'rendering' );
-    }
-
-    /**
      * Отрисовать только указанные виджеты. Просто отрисовывает, не вызывает destroy
      * @param {Array} needRenderingWidgets Список виджетов, которые нужно отрисовать
      */
-    only( needRenderingWidgets ) {
+    onlyIds( needRenderingWidgets ) {
         this._fsm.changeWidgets = needRenderingWidgets.slice( 0 );
         this.transition( 'rendering' );
     }
@@ -54,55 +46,16 @@ export default class ReadyState extends State {
      * Отрисовать все виджеты. Вызывает destroy, очищает список известных виджетов,
      * переходит к регистрации
      */
-    forceAll() {
+    all() {
         this.handle( 'clear' );
         this.transition( 'registration' );
-    }
-
-    /**
-     * Отрисовать указанные виджеты. Помимо перерисовки еще и польностье перерегистриует
-     * указанные виджеты
-     * @param {Array} needRenderingWidgets Список виджетов, которые нужно
-     *                                     перерегистривароть и отрисовать
-     */
-    forceOnly( needRenderingWidgets ) {
-        let index,
-            widget,
-            i;
-        for ( i = 0; i < this._fsm.widgets.length; i++ ) {
-            widget = this._fsm.widgets[ i ];
-            index = needRenderingWidgets.indexOf( widget );
-            if ( index > -1 ) {
-                if ( widget.destroy  ) {
-                    if ( widget.options.beforeDestroy ) {
-                        widget.options.beforeDestroy.call( widget );
-                    }
-                    widget.destroy();
-                    if ( widget.options.afterDestroy ) {
-                        widget.options.afterDestroy.call( widget );
-                    }
-                }
-                widget.resolveContainer();
-                if ( widget.bindEvents ) {
-                    if ( widget.options.beforeBindEvents ) {
-                        widget.options.beforeBindEvents.call( widget );
-                    }
-                    widget.bind();
-                    if ( widget.options.afterBindEvents ) {
-                        widget.options.afterBindEvents.call( widget );
-                    }
-                }
-            }
-        }
-        this._fsm.changeWidgets = needRenderingWidgets.slice( 0 );
-        this.transition( 'rendering' );
     }
 
     /**
      * Отрисовать виджеты с указанным типом
      * @param {Array} needRenderingWidgetsWithType Список типов, которые нужно отрисовать
      */
-    onlyType( needRenderingWidgetsWithType ) {
+    onlyTypes( needRenderingWidgetsWithType ) {
         let argsTypes = needRenderingWidgetsWithType.slice( 0 ),
             widgetID,
             widgetsWithType,

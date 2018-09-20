@@ -1,4 +1,9 @@
 ## master
+* Change render API: 
+    1) rename `FORCE_ALL` to `ALL`
+    2) rename `ONLY` to `ONLY_IDS`
+    3) rename `ONLY_TYPE` to `ONLY_TYPES`
+    4) remove `ALL` & `FORCE_ONLY`
 * Bind widget context to options getters & methods
 * Override options descriptor with initializer
 * [#22](https://github.com/sham-ui/sham-ui/issues/22) Prototype based options 

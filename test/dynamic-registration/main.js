@@ -34,7 +34,7 @@ describe( 'Dynamic widget registration', function() {
             setTimeout( () => {
                 new Label( "#label-2", "label-2", {
                     afterRegister() {
-                        this.UI.render.ONLY( this.ID );
+                        this.UI.render.ONLY_IDS( this.ID );
                     }
                 } );
             }, 20 );
@@ -47,7 +47,7 @@ describe( 'Dynamic widget registration', function() {
             done();
         } );
 
-        UI.render.FORCE_ALL();
+        UI.render.ALL();
     } );
 
     it( 'Registration on rendering', ( done ) => {
@@ -56,7 +56,7 @@ describe( 'Dynamic widget registration', function() {
                 html() {
                     new Label( '#label-2', 'label-2', {
                         afterRegister() {
-                            this.UI.render.ONLY( this.ID );
+                            this.UI.render.ONLY_IDS( this.ID );
                         }
                     } );
                     return this.ID;
@@ -87,7 +87,7 @@ describe( 'Dynamic widget registration', function() {
             );
         } );
 
-        UI.render.FORCE_ALL();
+        UI.render.ALL();
     } );
 } );
 

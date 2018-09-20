@@ -77,9 +77,9 @@ it( 'fsm', async() => {
     DI.bind( 'widget-binder', makeBinding() );
     const mock = jest.fn();
     class ExtendedFSM extends Fsm {
-        FORCE_ALL() {
+        ALL() {
             mock();
-            super.FORCE_ALL( ...arguments );
+            super.ALL( ...arguments );
         }
     }
     DI.bind( 'fsm', ExtendedFSM );

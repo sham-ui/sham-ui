@@ -27,7 +27,7 @@ export class FSM extends Fsm {
     @inject( 'state:ready' ) ready;
     @inject( 'state:registration' ) registration;
     @inject( 'state:rendering' ) rendering ;
-    @inject( 'logger' ) logger;
+    @inject logger;
 
     constructor() {
         super( ...arguments );
@@ -40,6 +40,15 @@ export class FSM extends Fsm {
     static initialState = 'ready';
 
     /**
+     * Перерисовать только те, ID которых переданны в аргументах
+     * @see {@link ReadyState#onlyIds}
+     * @param {...String} args Список ID виджетов, которые нужно отрисовать
+     */
+    ONLY_IDS( ...args ) {
+        this.handle( 'onlyIds', args );
+    }
+
+    /**
      * Перерисовать все
      * @see {@link ReadyState#all}
      */
@@ -48,39 +57,12 @@ export class FSM extends Fsm {
     }
 
     /**
-     * Перерисовать только те, ID которых переданны в аргументах
-     * @see {@link ReadyState#only}
-     * @param {...String} args Список ID виджетов, которые нужно отрисовать
-     */
-    ONLY( ...args ) {
-        this.handle( 'only', args );
-    }
-
-    /**
-     * Перерисовать все и переинициализировать
-     * @see {@link ReadyState#forceAll}
-     */
-    FORCE_ALL() {
-        this.handle( 'forceAll' );
-    }
-
-    /**
-     * Отрисовать указанные виджеты. Помимо перерисовки еще и польностье перерегистриует
-     * указанные виджеты
-     * @see {@link ReadyState#forceOnly}
-     * @param {...String} args Список ID виджетов, которые нужно отрисовать
-     */
-    FORCE_ONLY( ...args ) {
-        this.handle( 'forceOnly', args );
-    }
-
-    /**
      * Перерисовать только с указанными типами
      * @param {...String} args Список типов виджетов, которые нужно отрисовать
-     * @see {@link ReadyState#onlyType}
+     * @see {@link ReadyState#onlyTypes}
      */
-    ONLY_TYPE( ...args ) {
-        this.handle( 'onlyType', args );
+    ONLY_TYPES( ...args ) {
+        this.handle( 'onlyTypes', args );
     }
 
     /**

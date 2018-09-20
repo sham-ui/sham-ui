@@ -25,7 +25,7 @@ window.onload = function() {
                 new NonRendered( '#non-rendered', 'non-rendered' );
             } );
             const UI = new shamUI();
-            UI.render.FORCE_ALL();
+            UI.render.ALL();
         } );
 
         it( 'Non bind', ( done ) => {
@@ -39,7 +39,7 @@ window.onload = function() {
                 new NonBind( '#non-bind', 'non-bind' );
             } );
             const UI = new shamUI();
-            UI.render.FORCE_ALL();
+            UI.render.ALL();
         } );
 
         it( 'Empty widget', ( done ) => {
@@ -55,7 +55,7 @@ window.onload = function() {
                 expect( widget.container.textContent ).to.be.equal( 'Empty widget' );
                 done();
             } );
-            UI.render.FORCE_ALL();
+            UI.render.ALL();
         } );
     } );
 

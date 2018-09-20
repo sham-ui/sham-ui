@@ -4,7 +4,7 @@ export function renderApp() {
     return new Promise( resolve => {
         const UI = new ShamUI();
         UI.render.one( 'RenderComplete', resolve );
-        UI.render.FORCE_ALL();
+        UI.render.ALL();
     } );
 }
 

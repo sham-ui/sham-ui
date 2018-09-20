@@ -22,15 +22,7 @@ window.onload = function() {
 
     describe( 'Label widget', function() {
 
-        it( 'First render (FORCE_ALL)', function( done ) {
-            UI.render.one( 'RenderComplete', function() {
-                itRendered();
-                done();
-            } );
-            UI.render.FORCE_ALL();
-        } );
-
-        it( 'Rerender (ALL)', function( done ) {
+        it( 'First render (ALL)', function( done ) {
             UI.render.one( 'RenderComplete', function() {
                 itRendered();
                 done();
@@ -38,20 +30,12 @@ window.onload = function() {
             UI.render.ALL();
         } );
 
-        it( 'Render ONLY', function( done ) {
+        it( 'Render ONLY_IDS', function( done ) {
             UI.render.one( 'RenderComplete[simple-label-widget-text]', function() {
                 itRendered();
                 done();
             } );
-            UI.render.ONLY( 'simple-label-widget-text' );
-        } );
-
-        it( 'Render FORCE_ONLY', function( done ) {
-            UI.render.one( 'RenderComplete[simple-label-widget-text]', function() {
-                itRendered();
-                done();
-            } );
-            UI.render.FORCE_ONLY( 'simple-label-widget-text' );
+            UI.render.ONLY_IDS( 'simple-label-widget-text' );
         } );
     } );
 

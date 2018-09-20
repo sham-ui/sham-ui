@@ -9,7 +9,7 @@ class Label extends Widget {
     }
 
     @options
-    static afterRender() {
+    afterRender() {
         throw new Error( 'Test error' );
     }
 }
@@ -45,7 +45,7 @@ window.onload = function() {
                 expect( error.exception.message ).to.be.equal( 'Test error' );
                 done();
             } );
-            UI.render.FORCE_ALL();
+            UI.render.ALL();
         } );
     } );
 

@@ -23,7 +23,7 @@ window.onload = function() {
                 callTrace.push( 'RenderComplete' );
                 done();
             } );
-            UI.render.FORCE_ALL();
+            UI.render.ALL();
         } );
 
         it( 'Ready', ( done ) => {
@@ -34,7 +34,7 @@ window.onload = function() {
                 callTrace.push( 'Ready' );
                 done();
             } );
-            UI.render.FORCE_ALL();
+            UI.render.ALL();
         } );
 
         it( 'RegistrationComplete', ( done ) => {
@@ -46,7 +46,7 @@ window.onload = function() {
                 callTrace.push( 'RegistrationComplete' );
                 done();
             } );
-            UI.render.FORCE_ALL();
+            UI.render.ALL();
         } );
 
         it( 'RenderComplete (only once widget)', ( done ) => {

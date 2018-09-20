@@ -39,32 +39,12 @@ it( 'first render', async() => {
     ] );
 } );
 
-it( 're-render', async() => {
-    expect.assertions( 1 );
-    const calledHooks = [];
-    DI.bind( 'widget-binder', makeBinding( calledHooks ) );
-    await renderApp();
-    await onRenderComplete( UI => UI.render.ALL() );
-    expect( calledHooks ).toEqual( [
-        'beforeRegister',
-        'afterRegister',
-        'beforeRender',
-        'afterRender',
-        'beforeBindEvents',
-        'afterBindEvents',
-        'beforeRender',
-        'afterRender',
-        'beforeBindEvents',
-        'afterBindEvents'
-    ] );
-} );
-
 it( 're-registry', async() => {
     expect.assertions( 1 );
     const calledHooks = [];
     DI.bind( 'widget-binder', makeBinding( calledHooks ) );
     await renderApp();
-    await onRenderComplete( UI => UI.render.FORCE_ALL() );
+    await onRenderComplete( UI => UI.render.ALL() );
     expect( calledHooks ).toEqual( [
         'beforeRegister',
         'afterRegister',
