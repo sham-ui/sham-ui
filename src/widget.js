@@ -41,7 +41,7 @@ export default class Widget {
         );
         this.options = Object.create(
             defaultOptions,
-            bindOptionsDescriptors( this, this.constructorOptions || {} )
+            Object.getOwnPropertyDescriptors( this.constructorOptions || {} )
         );
     }
 

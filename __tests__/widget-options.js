@@ -138,3 +138,24 @@ it( 'context is a widget (method)', async() => {
     await renderWidget( Dummy );
     expectRenderedText( 'John Smith (27)' );
 } );
+
+
+it( 'context is a not widget (pass as constructor argument)', async() => {
+    expect.assertions( 2 );
+    class Dummy extends Widget {
+        @options firstName = 'John';
+        @options lastName ='Smith';
+        @options fullName() {}
+
+        render() {
+            this.container.textContent = this.options.fullName();
+        }
+    }
+    await renderWidget( Dummy, {
+        fullName() {
+            expect( this instanceof Dummy ).toBe( false );
+            return 'Test';
+        }
+    } );
+    expectRenderedText( 'Test' );
+} );
