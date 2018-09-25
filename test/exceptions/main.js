@@ -36,7 +36,7 @@ window.onload = function() {
 
     describe( 'Exceptions', () => {
         it( 'Catch exception', ( done ) => {
-            UI.render.on( 'error', ( eventType, error ) => {
+            UI.render.on( 'error', ( error ) => {
                 expect( error.state ).to.be.equal( 'rendering' );
                 expect( error.priorState ).to.be.equal( 'registration' );
                 expect( error._currentAction ).to.be.equal( 'registration.registrationComplete' );

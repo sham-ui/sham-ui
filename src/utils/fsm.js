@@ -55,18 +55,19 @@ export class Fsm {
     /**
      * Fire event
      * @param {string} eventName
+     * @param args
      */
-    emit( eventName ) {
+    emit( eventName, ...args ) {
         if ( this.eventListeners._anyEvents ) {
-            this.eventListeners._anyEvents.forEach( ( { callback } ) => {
-                callback( ...arguments );
-            } );
+            this.eventListeners._anyEvents.forEach(
+                ( { callback } ) => callback( eventName, ...args )
+            );
         }
 
         if ( this.eventListeners[ eventName ] ) {
-            this.eventListeners[ eventName ].forEach( ( { callback } ) => {
-                callback( ...arguments );
-            } );
+            this.eventListeners[ eventName ].forEach(
+                ( { callback } ) => callback( ...args )
+            );
         }
     }
 
@@ -84,7 +85,8 @@ export class Fsm {
 
             if ( states[ current ][ inputType ] ||
                 states[ current ]._anyEvents ||
-                this._anyEvents ) {
+                this._anyEvents
+            ) {
                 const handlerName = states[ current ][ inputType ] ? inputType : '_anyEvents';
                 const catchAll = '_anyEvents' === handlerName;
 
@@ -273,7 +275,7 @@ export class Fsm {
      * @param {Function} callback
      */
     one( eventName, callback ) {
-        const off = this.on( eventName, () => {
+        const off = this.on( eventName, function() {
             off();
             callback( ...arguments );
         } ).off;

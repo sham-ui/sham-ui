@@ -21,7 +21,7 @@ export default class RenderingState extends BaseRegistrationState {
         this._fsm.changeWidgets.forEach( this._bindAndRender.bind( this ) );
 
         // Все области отрисовались
-        this.emit( 'RenderComplete', this.rendered );
+        this.emit( 'RenderComplete', this.rendered.slice( 0 ) );
         this.transition( 'ready' );
     }
 
@@ -42,7 +42,7 @@ export default class RenderingState extends BaseRegistrationState {
         if ( widget ) {
             if ( widget.render ) {
                 this.handle( 'renderWidget', widget );
-                this.emit( `RenderComplete[${ID}]` );
+                this.emit( `RenderComplete[${ID}]`, ID );
             }
         }
     }
