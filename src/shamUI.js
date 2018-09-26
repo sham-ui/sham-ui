@@ -40,11 +40,15 @@ export default class ShamUI {
 
     /**
      * Создать экземпляр
+     * @param {Boolean} autoStart
      */
-    constructor() {
+    constructor( autoStart = false ) {
         DI.bind( 'sham-ui', this );
         const Fsm = DI.resolve( 'fsm' );
         this.render = new Fsm();
         this.render.run();
+        if ( autoStart ) {
+            this.render.ALL();
+        }
     }
 }

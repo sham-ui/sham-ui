@@ -1,4 +1,5 @@
 ## master
+* [#23](https://github.com/sham-ui/sham-ui/issues/23) Auto start render (optional)
 * Change render API: 
     1) rename `FORCE_ALL` to `ALL`
     2) rename `ONLY` to `ONLY_IDS`
