@@ -1,4 +1,5 @@
-import ShamUI, { DI, Widget } from '../src/shamUI';
+import { DI, Widget } from '../src/shamUI';
+import { onEvent } from './helpers';
 
 beforeEach( () => {
     DI.bind( 'widget-binder', () => {
@@ -9,16 +10,6 @@ beforeEach( () => {
 afterEach( () => {
     DI.bind( 'widget-binder', () => {} );
 } );
-
-function onEvent( eventName ) {
-    return new Promise( resolve => {
-        const UI = new ShamUI();
-        UI.render.one( eventName, function() {
-            resolve( arguments );
-        } );
-        UI.render.ALL();
-    } );
-}
 
 it( 'RenderComplete', async() => {
     expect.assertions( 2 );

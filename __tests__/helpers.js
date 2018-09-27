@@ -16,6 +16,16 @@ export function onRenderComplete( callback ) {
     } );
 }
 
+export function onEvent( eventName ) {
+    return new Promise( resolve => {
+        const UI = new ShamUI();
+        UI.render.one( eventName, function() {
+            resolve( arguments );
+        } );
+        UI.render.ALL();
+    } );
+}
+
 export function renderWidget( widgetConstructor, options = {} ) {
     DI.bind( 'widget-binder', function() {
         new widgetConstructor( 'body', 'dummy', options );
