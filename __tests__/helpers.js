@@ -8,7 +8,7 @@ export function renderApp() {
     } );
 }
 
-export function onRenderComplete( callback ) {
+export function onRenderComplete( callback = () => {} ) {
     return new Promise( resolve => {
         const UI = DI.resolve( 'sham-ui' );
         UI.render.one( 'RenderComplete', resolve );
