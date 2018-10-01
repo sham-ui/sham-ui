@@ -1,4 +1,3 @@
-var fs = require( 'fs' );
 var webpack = require( 'webpack' );
 var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 var env = process.env.WEBPACK_ENV;
@@ -13,7 +12,7 @@ if ( env === 'build' ) {
     outputFile = libraryName + '.js';
 }
 
-var libraryConfig = {
+module.exports = {
     entry: __dirname + '/src/shamUI.js',
     devtool: 'source-map',
     output: {
@@ -37,38 +36,3 @@ var libraryConfig = {
     },
     plugins: plugins
 };
-
-function buildTestName( testName ) {
-    var entry = {};
-    entry[ testName ] = __dirname + '/test/' + testName + '/main.js';
-    return {
-        entry: entry,
-        devtool: 'source-map',
-        output: {
-            path:  __dirname + '/test/' + testName + '/assets',
-            filename: 'bundle.js',
-            umdNamedDefine: true
-        },
-        module: {
-            loaders: [
-                {
-                    test: /(\.js)$/,
-                    loader: 'babel-loader',
-                    exclude: /(node_modules|bower_components)/
-                }
-            ]
-        },
-        resolve: {
-            extensions: [ '.js' ]
-        },
-        plugins: plugins
-    };
-}
-
-var exports = [ libraryConfig ];
-var files = fs.readdirSync( './test/' );
-files.forEach( function( file ) {
-    exports.push( buildTestName( file ) );
-} );
-
-module.exports = exports;
