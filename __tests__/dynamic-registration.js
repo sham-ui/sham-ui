@@ -1,4 +1,4 @@
-import ShamUI, { DI, Widget } from '../src/shamUI';
+import ShamUI, { DI, Widget, options } from '../src/shamUI';
 import { onEvent } from './helpers';
 
 beforeEach( () => {
@@ -70,6 +70,46 @@ it( 'registration on rendering', async() => {
     } );
     const label2Rendered = onWidgetRenderComplete( 'label-2', () => {
         expectLabelText( '#label-2', 'label-2' );
+        expectLabelText( '#label-1', '' );
+    } );
+    UI.render.ALL();
+    await Promise.all( [ label1Rendered, label2Rendered ] );
+} );
+
+it( 'registration on rendering (render text from options)', async() => {
+    expect.assertions( 4 );
+    DI.bind( 'widget-binder', () => {
+        class InnerLabel extends Widget {
+            @options parentWidgetId = null;
+            html() {
+                return `${this.options.parentWidgetId} => ${this.ID}`;
+            }
+        }
+        class Container extends Widget {
+            @options get widgetID() {
+                return this.options.uniqID;
+            }
+            html() {
+                new InnerLabel( '#label-2', 'label-2', {
+                    parentWidgetId: this.options.widgetID,
+                    afterRegister() {
+                        this.UI.render.ONLY_IDS( this.ID );
+                    }
+                } );
+                return this.ID;
+            }
+        }
+        new Container( '#label-1', 'label-1', {
+            uniqID: 'label-1'
+        } );
+    } );
+    const UI = new ShamUI();
+    const label1Rendered = onWidgetRenderComplete( 'label-1', () => {
+        expectLabelText( '#label-2', 'label-1 => label-2' );
+        expectLabelText( '#label-1', 'label-1' );
+    } );
+    const label2Rendered = onWidgetRenderComplete( 'label-2', () => {
+        expectLabelText( '#label-2', 'label-1 => label-2' );
         expectLabelText( '#label-1', '' );
     } );
     UI.render.ALL();
