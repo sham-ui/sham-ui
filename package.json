@@ -7,9 +7,10 @@
   "scripts": {
     "test": "jest --coverage",
     "test:watch": "jest --watchAll",
+    "test:e2e": "jest --projects ./e2e/",
     "dev": "WEBPACK_ENV=dev webpack --progress --colors",
     "build": "WEBPACK_ENV=build webpack",
-    "prepublish": "npm run build",
+    "prepublish": "yarn test:e2e && yarn build",
     "doc": "esdoc"
   },
   "devDependencies": {
@@ -67,7 +68,8 @@
         ],
         "testPathIgnorePatterns": [
           "<rootDir>/node_modules/",
-          "<rootDir>/__tests__/helpers.js"
+          "<rootDir>/__tests__/helpers.js",
+          "<rootDir>/e2e/"
         ],
         "testURL": "http://sham-ui.example.com"
       },
@@ -76,7 +78,8 @@
         "displayName": "lint",
         "testMatch": [
           "<rootDir>/src/**/*.js",
-          "<rootDir>/__tests__/**/*.js"
+          "<rootDir>/__tests__/**/*.js",
+          "<rootDir>/e2e/**/*.js"
         ]
       }
     ]
