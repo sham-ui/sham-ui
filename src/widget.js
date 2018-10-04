@@ -1,6 +1,6 @@
 import options from './decorators/options';
 import { inject } from './DI';
-import assert from './utils/assert';
+import { assertError } from './utils/assert';
 import bindOptionsDescriptors from './utils/bind-options-descriptors';
 
 /**
@@ -64,7 +64,7 @@ export default class Widget {
      */
     resolveContainer() {
         this.container = document.querySelector( this.containerSelector );
-        assert.error(
+        assertError(
             `Widget ${this.ID} doesn't resolve container. Check container selector`,
             undefined === this.container
         );

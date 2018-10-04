@@ -4,7 +4,7 @@ import BaseWidget from './widget';
 
 import decoratorOptions from './decorators/options';
 import { Fsm as DefaultFsm, State } from './utils/fsm';
-export { default as assert } from './utils/assert';
+export * from './utils/assert';
 
 export const DI = DIContainer;
 export const inject = DIInject;
