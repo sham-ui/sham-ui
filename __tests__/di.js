@@ -188,3 +188,7 @@ it( 'inject as getter', async() => {
     concusmer.method();
     expect( fakeService.process ).toHaveBeenCalledTimes( 1 );
 } );
+
+it( 'container hasn\t item', () => {
+    expect( DI.resolve( 'foo' ) ).toBeUndefined();
+} );

@@ -7,28 +7,28 @@ const bindings = new Map();
 /**
  * Simple DI implementation
  */
-class DIContainer {
+const DIContainer = {
 
     /**
      * Bind item by name
      * @param {String} name
      * @param {*} item
      */
-    static bind( name, item ) {
+    bind( name, item ) {
         bindings.set( name, item );
-    }
+    },
 
     /**
      * Get item from container by name
      * @param {String} name
      * @return {*}
      */
-    static resolve( name ) {
+    resolve( name ) {
         if ( bindings.has( name ) ) {
             return bindings.get( name );
         }
     }
-}
+};
 
 // Cross lib support
 const DI = window.DI || DIContainer;
@@ -43,25 +43,19 @@ export function inject() {
     if ( 1 === arguments.length ) {
         const name = arguments[ 0 ];
         return function() {
-            return _inject( ...arguments, name );
+            return _inject( name );
         };
     } else {
-        return _inject( ...arguments );
+        return _inject( arguments[ 1 ] );
     }
 
 }
 
 /**
- * @param target
- * @param {String} key
- * @param descriptor
- * @param name
+ * @param {String} name
  * @private
  */
-function _inject( target, key, descriptor, name ) {
-    if ( undefined === name ) {
-        name = key;
-    }
+function _inject( name ) {
     return {
         enumerable: true,
         configurable: true,
