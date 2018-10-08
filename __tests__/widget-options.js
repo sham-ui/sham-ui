@@ -1,5 +1,9 @@
-import { Widget, options } from '../src/shamUI';
-import { renderWidget, expectRenderedText } from './helpers';
+import { Widget, options, DI } from '../src/shamUI';
+import { renderWidget, expectRenderedText, onRenderComplete } from './helpers';
+
+afterEach( () => {
+    document.querySelector( 'body' ).innerHTML = '';
+} );
 
 class Label extends Widget {
     @options
@@ -158,4 +162,31 @@ it( 'context is a not widget (pass as constructor argument)', async() => {
         }
     } );
     expectRenderedText( 'Test' );
+} );
+
+it( 'getter & setter together', async() => {
+    expect.assertions( 4 );
+    class Dummy extends Widget {
+        @options
+        get text() {
+            return this._text;
+        }
+
+        @options
+        set text( value ) {
+            this._text = value;
+        }
+
+        render() {
+            this.container.textContent = this.options.text;
+        }
+    }
+    await renderWidget( Dummy );
+    expectRenderedText( '' );
+    const widget = DI.resolve( 'sham-ui' ).render.byId.dummy;
+    widget.options.text = 'test text';
+    expect( widget._text ).toBe( 'test text' );
+    expect( widget.options.text ).toBe( 'test text' );
+    await onRenderComplete( UI => UI.render.ONLY_IDS( 'dummy' ) );
+    expect( document.querySelector( 'body' ).textContent ).toBe( 'test text' );
 } );
