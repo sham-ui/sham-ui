@@ -1,10 +1,6 @@
 import { DI, Widget, options } from '../src/shamUI';
 import { onEvent } from './helpers';
 
-afterEach( () => {
-    DI.bind( 'logger', console );
-} );
-
 it( 'exceptions', async() => {
     expect.assertions( 10 );
     const errorMock = jest.fn();

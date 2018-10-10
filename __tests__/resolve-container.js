@@ -1,7 +1,6 @@
 import { DI, Widget } from '../src/shamUI';
 import { renderWidget, renderApp } from './helpers';
 
-
 it( 'bindEvents', async() => {
     expect.assertions( 1 );
     class Dummy extends Widget {

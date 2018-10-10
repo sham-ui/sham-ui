@@ -1,10 +1,6 @@
 import { Widget, DI } from '../src/shamUI';
 import { renderWidget } from './helpers';
 
-afterEach( () => {
-    document.querySelector( 'body' ).innerHTML = '';
-} );
-
 it( 'querySelector', async() => {
     expect.assertions( 1 );
     class Dummy extends Widget {

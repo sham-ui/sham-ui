@@ -1,4 +1,5 @@
 import { State } from '../../utils/fsm';
+import callWithHook from '../../utils/call-with-hooks';
 
 /**
  * Класс для состояния "Готов к работе"
@@ -17,14 +18,10 @@ export default class ReadyState extends State {
      */
     clear() {
         for ( let i = 0; i < this._fsm.widgets.length; i++ ) {
-            if ( this._fsm.widgets[ i ].destroy ) {
-                if ( this._fsm.widgets[ i ].options.beforeDestroy ) {
-                    this._fsm.widgets[ i ].options.beforeDestroy.call( this._fsm.widgets[ i ] );
-                }
-                this._fsm.widgets[ i ].destroy();
-                if ( this._fsm.widgets[ i ].options.afterDestroy ) {
-                    this._fsm.widgets[ i ].options.afterDestroy.call( this._fsm.widgets[ i ] );
-                }
+            const widget = this._fsm.widgets[ i ];
+            const destroy = widget.destroy;
+            if ( 'function' === typeof destroy ) {
+                callWithHook( widget, 'Destroy', widget.destroy.bind( widget ) );
             }
         }
         this._fsm.widgets = [];
@@ -56,6 +53,7 @@ export default class ReadyState extends State {
      * @param {Array} needRenderingWidgetsWithType Список типов, которые нужно отрисовать
      */
     onlyTypes( needRenderingWidgetsWithType ) {
+        this._fsm.changeWidgets = [];
         let argsTypes = needRenderingWidgetsWithType.slice( 0 ),
             widgetID,
             widgetsWithType,
@@ -71,7 +69,9 @@ export default class ReadyState extends State {
                 }
             }
         }
-        this.transition( 'rendering' );
+        if ( this._fsm.changeWidgets.length > 0 ) {
+            this.transition( 'rendering' );
+        }
     }
 
     /**
@@ -103,13 +103,7 @@ export default class ReadyState extends State {
         widget = this._fsm.byId[ widgetId ];
 
         if ( widget.destroy  ) {
-            if ( widget.options.beforeDestroy ) {
-                widget.options.beforeDestroy.call( widget );
-            }
-            widget.destroy();
-            if ( widget.options.afterDestroy ) {
-                widget.options.afterDestroy.call( widget );
-            }
+            callWithHook( widget, 'Destroy', widget.destroy.bind( widget ) );
         }
 
         // Если есть типы, то удаляем ссылки на этот виджет

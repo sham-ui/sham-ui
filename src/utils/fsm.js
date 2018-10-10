@@ -247,24 +247,22 @@ export class Fsm {
     off( eventName, callback, callbackID ) {
         if ( !eventName ) {
             this.eventListeners = {};
-        } else {
-            if ( this.eventListeners[ eventName ] ) {
-                if ( callback ) {
-                    let index = 0,
-                        counter = -1,
-                        length = this.eventListeners[ eventName ].length,
-                        item;
-                    while ( ++counter < length ) {
-                        item = this.eventListeners[ eventName ][ counter - index ];
-                        if ( callback === item.callback && (
-                            callbackID === undefined || callbackID === item.callbackID
-                        ) ) {
-                            this.eventListeners[ eventName ].splice( counter - index++, 1 );
-                        }
+        } else if ( this.eventListeners[ eventName ] ) {
+            if ( callback ) {
+                let index = 0,
+                    counter = -1,
+                    length = this.eventListeners[ eventName ].length,
+                    item;
+                while ( ++counter < length ) {
+                    item = this.eventListeners[ eventName ][ counter - index ];
+                    if ( callback === item.callback && (
+                        callbackID === undefined || callbackID === item.callbackID
+                    ) ) {
+                        this.eventListeners[ eventName ].splice( counter - index++, 1 );
                     }
-                } else {
-                    this.eventListeners[ eventName ] = [];
                 }
+            } else {
+                this.eventListeners[ eventName ] = [];
             }
         }
     }
@@ -315,7 +313,7 @@ export class State {
      * @param {String} newState
      */
     transition( newState, ...rest ) {
-        this._fsm.transition(  newState, ...rest );
+        this._fsm.transition( newState, ...rest );
     }
 
     deferUntilTransition() {

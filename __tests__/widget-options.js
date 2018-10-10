@@ -1,10 +1,6 @@
 import { Widget, options, DI } from '../src/shamUI';
 import { renderWidget, expectRenderedText, onRenderComplete } from './helpers';
 
-afterEach( () => {
-    document.querySelector( 'body' ).innerHTML = '';
-} );
-
 class Label extends Widget {
     @options
     text() {

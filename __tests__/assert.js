@@ -1,9 +1,5 @@
 import { DI, assertError, assertWarn, assertDeprecate } from '../src/shamUI';
 
-afterEach( () => {
-    jest.restoreAllMocks();
-} );
-
 function spyLogger( methodName ) {
     return jest
         .spyOn( DI.resolve( 'logger' ), methodName )
@@ -17,6 +13,7 @@ it( 'assertError (throw)', () => {
     expect( spy.mock.calls[ 0 ] ).toMatchInlineSnapshot( `
 Array [
   [AssertError: sham-ui: Test message],
+  Object {},
 ]
 ` );
     expect( typeof spy.mock.calls[ 0 ][ 0 ].stack ).toBe( 'string' );
@@ -35,6 +32,7 @@ it( 'assertWarn (throw)', () => {
     expect( spy.mock.calls[ 0 ] ).toMatchInlineSnapshot( `
 Array [
   [AssertError: sham-ui: Test message],
+  Object {},
 ]
 ` );
     expect( typeof spy.mock.calls[ 0 ][ 0 ].stack ).toBe( 'string' );
@@ -53,6 +51,7 @@ it( 'assertDeprecate (throw)', () => {
     expect( spy.mock.calls[ 0 ] ).toMatchInlineSnapshot( `
 Array [
   [AssertError: sham-ui: [DEPRECATION]: Test message],
+  Object {},
 ]
 ` );
     expect( typeof spy.mock.calls[ 0 ][ 0 ].stack ).toBe( 'string' );

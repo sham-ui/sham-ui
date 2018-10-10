@@ -1,4 +1,5 @@
 import { State } from '../../utils/fsm';
+import callWithHook from '../../utils/call-with-hooks';
 
 export default class BaseRegistrationState extends State {
     /**
@@ -21,30 +22,25 @@ export default class BaseRegistrationState extends State {
      * @see Widget#defaultOptions
      */
     register( widget ) {
-
-        // Добавляем только те, которых еще нет
-        if ( this._fsm.idArray.indexOf( widget.ID ) === -1 ) {
-            if ( widget.options.beforeRegister ) {
-                widget.options.beforeRegister.call( widget );
-            }
+        if ( this._fsm.idArray.includes( widget.ID ) ) {
+            return;
+        }
+        callWithHook( widget, 'Register', () => {
             this._fsm.idArray.push( widget.ID );
             this._fsm.byId[ widget.ID ] = widget;
 
             // Если есть типы
             if ( widget.options.types ) {
                 for ( let i = 0; i < widget.options.types.length; i++ ) {
-                    if ( this.byType[ widget.options.types[ i ] ] === undefined ) {
-                        this.byType[ widget.options.types[ i ] ] = [];
+                    const type = widget.options.types[ i ];
+                    if ( this._fsm.byType[ type ] === undefined ) {
+                        this._fsm.byType[ type ] = [];
                     }
-                    this.byType[ widget.options.types[ i ] ].push( widget.ID );
+                    this._fsm.byType[ type ].push( widget.ID );
                 }
             }
 
             this._fsm.widgets.push( widget );
-
-            if ( widget.options.afterRegister ) {
-                widget.options.afterRegister.call( widget );
-            }
-        }
+        } );
     }
 }

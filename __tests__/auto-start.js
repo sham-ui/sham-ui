@@ -1,10 +1,6 @@
 import ShamUI, { DI, Widget } from '../src/shamUI';
 import { expectRenderedText } from './helpers';
 
-beforeEach( () => {
-    document.querySelector( 'body' ).textContent = '';
-} );
-
 it( 'autostart', async() => {
     expect.assertions( 2 );
     DI.bind( 'widget-binder', () => {

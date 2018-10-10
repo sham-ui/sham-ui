@@ -2,11 +2,6 @@ import { DI, Widget, FsmStates, Fsm, inject } from '../src/shamUI';
 import { renderApp } from './helpers';
 
 afterEach( () => {
-    DI.bind( 'state:ready', FsmStates.ready );
-    DI.bind( 'state:registration', FsmStates.registration );
-    DI.bind( 'state:rendering', FsmStates.rendering );
-    DI.bind( 'fsm', Fsm );
-    DI.bind( 'logger', console );
     DI.bind( 'service', undefined );
 } );
 

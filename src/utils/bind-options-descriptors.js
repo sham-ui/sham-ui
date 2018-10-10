@@ -7,8 +7,9 @@ function bindProperty( descriptor, name, context ) {
     if ( !descriptor.hasOwnProperty( name ) ) {
         return;
     }
-    if ( 'function' === typeof descriptor[ name ] ) {
-        descriptor[ name ] = descriptor[ name ].bind( context );
+    const property = descriptor[ name ];
+    if ( 'function' === typeof property ) {
+        descriptor[ name ] = property.bind( context );
     }
 }
 

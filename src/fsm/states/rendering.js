@@ -1,4 +1,5 @@
 import BaseRegistrationState from './base-registration';
+import callWithHook from '../../utils/call-with-hooks';
 
 /**
  * Класс для состояния "Отрисовываем виджеты"
@@ -39,11 +40,9 @@ export default class RenderingState extends BaseRegistrationState {
      */
     _bindAndRender( ID ) {
         const widget = this._fsm.byId[ ID ];
-        if ( widget ) {
-            if ( widget.render ) {
-                this.handle( 'renderWidget', widget );
-                this.emit( `RenderComplete[${ID}]`, ID );
-            }
+        if ( widget && widget.render ) {
+            this.handle( 'renderWidget', widget );
+            this.emit( `RenderComplete[${ID}]`, ID );
         }
     }
 
@@ -61,35 +60,20 @@ export default class RenderingState extends BaseRegistrationState {
      * @see Widget
      */
     renderWidget( widget ) {
-        widget.resolveContainer();
-
-        if ( widget.options.beforeRender ) {
-            widget.options.beforeRender.call( widget );
-        }
-
         try {
-            const obj = widget.render();
-            if ( obj ) {
-                const newEl = obj.container.cloneNode( false );
-                newEl.innerHTML = obj.html;
-                obj.container.parentNode.replaceChild( newEl, obj.container );
-                widget.container = newEl;
-            }
-
-            this.rendered.push( widget.ID );
-
-            if ( widget.options.afterRender ) {
-                widget.options.afterRender.call( widget );
-            }
-
+            widget.resolveContainer();
+            callWithHook( widget, 'Render', () => {
+                const obj = widget.render();
+                if ( obj ) {
+                    const newEl = obj.container.cloneNode( false );
+                    newEl.innerHTML = obj.html;
+                    obj.container.parentNode.replaceChild( newEl, obj.container );
+                    widget.container = newEl;
+                }
+                this.rendered.push( widget.ID );
+            } );
             if ( widget.bindEvents ) {
-                if ( widget.options.beforeBindEvents ) {
-                    widget.options.beforeBindEvents.call( widget );
-                }
-                widget.bindEvents();
-                if ( widget.options.afterBindEvents ) {
-                    widget.options.afterBindEvents.call( widget );
-                }
+                callWithHook( widget, 'BindEvents', widget.bindEvents.bind( widget ) );
             }
         } catch ( e ) {
             this.handleException( e );

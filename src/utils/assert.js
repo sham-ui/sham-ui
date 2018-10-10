@@ -23,10 +23,11 @@ function getStack( message ) {
  * Error assertion
  * @param {String} message
  * @param {Boolean} condition
+ * @param {Object} [context]
  */
-export function assertError( message, condition ) {
+export function assertError( message, condition, context = {} ) {
     if ( condition ) {
-        DI.resolve( 'logger' ).error( getStack( `${PREFIX}: ${message}` ) );
+        DI.resolve( 'logger' ).error( getStack( `${PREFIX}: ${message}` ), context );
     }
 }
 
@@ -34,10 +35,11 @@ export function assertError( message, condition ) {
  * Warning assertion
  * @param {String} message
  * @param {Boolean} condition
+ * @param {Object} [context]
  */
-export function assertWarn( message, condition ) {
+export function assertWarn( message, condition, context = {} ) {
     if ( condition ) {
-        DI.resolve( 'logger' ).warn( getStack( `${PREFIX}: ${message}` ) );
+        DI.resolve( 'logger' ).warn( getStack( `${PREFIX}: ${message}` ), context );
     }
 }
 
@@ -45,9 +47,10 @@ export function assertWarn( message, condition ) {
  * Deprecation assertion
  * @param {String} message
  * @param {Boolean} condition
+ * @param {Object} [context]
  */
-export function assertDeprecate( message, condition ) {
+export function assertDeprecate( message, condition, context = {} ) {
     if ( condition ) {
-        DI.resolve( 'logger' ).warn( getStack( `${PREFIX}: [DEPRECATION]: ${message}` ) );
+        DI.resolve( 'logger' ).warn( getStack( `${PREFIX}: [DEPRECATION]: ${message}` ), context );
     }
 }

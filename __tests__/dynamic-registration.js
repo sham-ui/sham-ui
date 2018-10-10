@@ -8,10 +8,6 @@ beforeEach( () => {
     ].join( '\n' );
 } );
 
-afterEach( () => {
-    document.querySelector( 'body' ).innerHTML = '';
-} );
-
 function onWidgetRenderComplete( widgetId, callback ) {
     return new Promise( resolve => {
         DI.resolve( 'sham-ui' ).render.one( `RenderComplete[${widgetId}]`, () => {
