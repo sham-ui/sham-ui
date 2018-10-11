@@ -1,27 +1,18 @@
-import { default as DIContainer, inject as DIInject } from './DI';
+import DIContainer from './DI';
 import { FSM, states } from './fsm/fsm';
-import BaseWidget from './widget';
 
-import decoratorOptions from './decorators/options';
-import { Fsm as DefaultFsm, State } from './utils/fsm';
+export { inject } from './DI';
+export { default as Widget } from './widget';
+export { default as options } from './decorators/options';
+export { Fsm as FsmDefault, State as FsmState } from './utils/fsm';
 export * from './utils/assert';
 
 export const DI = DIContainer;
-export const inject = DIInject;
-
-/** @link {Widget} */
-export const Widget = BaseWidget;
-
-export const FsmDefault = DefaultFsm;
-export const FsmState = State;
-
 export const Fsm = FSM;
 export const FsmStates = states;
 
-export const options = decoratorOptions;
-
 // Default fsm binding
-DI.bind( 'fsm', FSM );
+DI.bind( 'fsm', Fsm );
 
 // Default state binding
 DI.bind( 'state:ready', states.ready );
