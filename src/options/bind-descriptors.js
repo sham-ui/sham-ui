@@ -19,7 +19,7 @@ function bindProperty( descriptor, name, context ) {
  * @param {Object} options
  * @return {Object}
  */
-export default function bindOptionsDescriptors( widgetContext, options ) {
+export default function bindDescriptors( widgetContext, options ) {
     const descriptors = Object.getOwnPropertyDescriptors( options );
     for ( let name in descriptors ) {
         const descriptor = descriptors[ name ];

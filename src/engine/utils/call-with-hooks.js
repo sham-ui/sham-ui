@@ -1,4 +1,4 @@
-import { assertError } from './assert';
+import { assertError } from '../../utils/assert';
 
 /**
  * @param {Function|undefined} hook

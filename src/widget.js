@@ -1,7 +1,7 @@
-import options from './decorators/options';
+import options from './options/decorator';
+import bindOptionsDescriptors from './options/bind-descriptors';
 import { inject } from './DI';
 import { assertError } from './utils/assert';
-import bindOptionsDescriptors from './utils/bind-options-descriptors';
 
 /**
  * Базовый класс для виджетов

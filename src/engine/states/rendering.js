@@ -1,5 +1,5 @@
 import BaseRegistrationState from './base-registration';
-import callWithHook from '../../utils/call-with-hooks';
+import callWithHook from '../utils/call-with-hooks';
 
 /**
  * Класс для состояния "Отрисовываем виджеты"

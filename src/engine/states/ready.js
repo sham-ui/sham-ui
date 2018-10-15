@@ -1,5 +1,5 @@
-import { State } from '../../utils/fsm';
-import callWithHook from '../../utils/call-with-hooks';
+import State from '../../fsm/state';
+import callWithHook from '../utils/call-with-hooks';
 
 /**
  * Класс для состояния "Готов к работе"

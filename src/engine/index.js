@@ -1,5 +1,5 @@
 import { inject } from '../DI';
-import { Fsm } from '../utils/fsm';
+import { Fsm } from '../fsm';
 import ReadyState from './states/ready';
 import RegistrationState from './states/registration';
 import RenderingState from './states/rendering';

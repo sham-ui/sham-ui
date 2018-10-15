@@ -1,10 +1,11 @@
 import DIContainer from './DI';
-import { FSM, states } from './fsm/fsm';
+import { FSM, states } from './engine';
 
 export { inject } from './DI';
 export { default as Widget } from './widget';
-export { default as options } from './decorators/options';
-export { Fsm as FsmDefault, State as FsmState } from './utils/fsm';
+export { default as options } from './options/decorator';
+export { Fsm as FsmDefault } from './fsm';
+export { default as FsmState } from './fsm/state';
 export * from './utils/assert';
 
 export const DI = DIContainer;
