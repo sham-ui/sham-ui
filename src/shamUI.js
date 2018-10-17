@@ -1,5 +1,6 @@
 import DIContainer from './DI';
 import { FSM, states } from './engine';
+import Store from './engine/store';
 
 export { inject } from './DI';
 export { default as Widget } from './widget';
@@ -9,8 +10,12 @@ export { default as FsmState } from './fsm/state';
 export * from './utils/assert';
 
 export const DI = DIContainer;
+export const WidgetStore = Store;
 export const Fsm = FSM;
 export const FsmStates = states;
+
+// Default widget store
+new WidgetStore();
 
 // Default fsm binding
 DI.bind( 'fsm', Fsm );
@@ -24,9 +29,7 @@ DI.bind( 'state:rendering', states.rendering );
 DI.bind( 'logger', console );
 
 /**
- * Фабрика для создания экземляров библиотеки
- *
- * @property {Object} render Доступ к конечному автомату {@link module:shamUI/fsm}
+ * @property {Object} render
  */
 export default class ShamUI {
 

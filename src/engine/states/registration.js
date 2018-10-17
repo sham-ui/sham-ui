@@ -1,6 +1,7 @@
 import { inject } from '../../DI';
 import BaseRegistrationState from './base-registration';
 
+
 /**
  * Класс для состояния "Регистрация виджетов"
  */
@@ -28,7 +29,11 @@ export default class RegistrationState extends BaseRegistrationState {
      */
     registrationComplete() {
         this.emit( 'RegistrationComplete' );
-        this._fsm.changeWidgets = this._fsm.idArray.slice( 0 );
-        this.transition( 'rendering' );
+        this.store.forEach(
+            widget => this.store.changedWidgets.add( widget )
+        );
+        if ( this.store.changedWidgets.size > 0 ) {
+            this.transition( 'rendering' );
+        }
     }
 }

@@ -37,7 +37,7 @@ it( 'render (ONLY_IDS)', async() => {
 } );
 
 it( 'first render (ONLY_TYPES)', async() => {
-    expect.assertions( 1 );
+    expect.assertions( 2 );
     const mock = jest
         .fn()
         .mockReturnValueOnce( 'dummy (first render)' )
@@ -45,6 +45,7 @@ it( 'first render (ONLY_TYPES)', async() => {
     await renderWidget( Label, {
         text: mock
     } );
+    expectRenderedText( 'dummy (first render)' );
     await onRenderComplete( UI => UI.render.ONLY_TYPES( 'label' ) );
     expectRenderedText( 'dummy (second render)' );
 } );

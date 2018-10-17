@@ -17,12 +17,12 @@ export default class RenderingState extends BaseRegistrationState {
      * Вызывается при входе в это состояние
      */
     _onEnter() {
-        this.rendered = [];
-
-        this._fsm.changeWidgets.forEach( this._bindAndRender.bind( this ) );
+        const { store } = this;
+        store.renderedIds = [];
+        store.changedWidgets.forEach( this._bindAndRender.bind( this ) );
 
         // Все области отрисовались
-        this.emit( 'RenderComplete', this.rendered.slice( 0 ) );
+        this.emit( 'RenderComplete', store.renderedIds.slice( 0 ) );
         this.transition( 'ready' );
     }
 
@@ -30,28 +30,28 @@ export default class RenderingState extends BaseRegistrationState {
      * Вызывается при выходе из этого состояни
      */
     _onExit() {
-        this.rendered = [];
-        this._fsm.changeWidgets = [];
+        const { store } = this;
+        store.renderedIds = [];
+        store.changedWidgets.clear();
     }
 
     /**
-     * @param {String} ID
+     * @param {Widget} widget
      * @private
      */
-    _bindAndRender( ID ) {
-        const widget = this._fsm.byId[ ID ];
-        if ( widget && widget.render ) {
+    _bindAndRender( widget ) {
+        if ( widget.render ) {
             this.handle( 'renderWidget', widget );
-            this.emit( `RenderComplete[${ID}]`, ID );
+            this.emit( `RenderComplete[${widget.ID}]`, widget.ID );
         }
     }
 
     /**
      * Отрисовать только указанные виджеты. Просто отрисовывает, не вызывает destroy
-     * @param {Array} needRenderingWidgets Список виджетов, которые нужно отрисовать
+     * @param {Array.<String>} needRenderingWidgets Список виджетов, которые нужно отрисовать
      */
-    onlyIds( ...needRenderingWidgets ) {
-        needRenderingWidgets.forEach( this._bindAndRender.bind( this ) );
+    onlyIds( needRenderingWidgets ) {
+        this.store.forEachId( needRenderingWidgets, this._bindAndRender.bind( this ) );
     }
 
     /**
@@ -70,7 +70,7 @@ export default class RenderingState extends BaseRegistrationState {
                     obj.container.parentNode.replaceChild( newEl, obj.container );
                     widget.container = newEl;
                 }
-                this.rendered.push( widget.ID );
+                this.store.renderedIds.push( widget.ID );
             } );
             if ( widget.bindEvents ) {
                 callWithHook( widget, 'BindEvents', widget.bindEvents.bind( widget ) );

@@ -7,6 +7,6 @@ it( 'querySelector', async() => {
         html = '<span class="inner-label">test</span>';
     }
     await renderWidget( Dummy );
-    const widget = DI.resolve( 'sham-ui' ).render.byId.dummy;
+    const widget = DI.resolve( 'sham-ui:store' ).findById( 'dummy' );
     expect( widget.querySelector( '.inner-label' ).textContent ).toBe( 'test' );
 } );

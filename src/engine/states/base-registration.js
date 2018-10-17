@@ -1,7 +1,11 @@
 import State from '../../fsm/state';
 import callWithHook from '../utils/call-with-hooks';
+import { inject } from '../../DI';
 
 export default class BaseRegistrationState extends State {
+    /** @type Store */
+    @inject( 'sham-ui:store' ) store;
+
     /**
      * Зарегистрировать виджет
      * @param {*}         widget.ID                      Идентификатор
@@ -22,25 +26,10 @@ export default class BaseRegistrationState extends State {
      * @see Widget#defaultOptions
      */
     register( widget ) {
-        if ( this._fsm.idArray.includes( widget.ID ) ) {
+        const { store } = this;
+        if ( store.byId.has( widget.ID ) ) {
             return;
         }
-        callWithHook( widget, 'Register', () => {
-            this._fsm.idArray.push( widget.ID );
-            this._fsm.byId[ widget.ID ] = widget;
-
-            // Если есть типы
-            if ( widget.options.types ) {
-                for ( let i = 0; i < widget.options.types.length; i++ ) {
-                    const type = widget.options.types[ i ];
-                    if ( this._fsm.byType[ type ] === undefined ) {
-                        this._fsm.byType[ type ] = [];
-                    }
-                    this._fsm.byType[ type ].push( widget.ID );
-                }
-            }
-
-            this._fsm.widgets.push( widget );
-        } );
+        callWithHook( widget, 'Register', () => store.registry( widget ) );
     }
 }

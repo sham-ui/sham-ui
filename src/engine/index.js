@@ -29,14 +29,6 @@ export class FSM extends Fsm {
     @inject( 'state:rendering' ) rendering ;
     @inject logger;
 
-    constructor() {
-        super( ...arguments );
-        this.widgets = [];
-        this.idArray = [];
-        this.byType = {};
-        this.byId = {};
-    }
-
     static initialState = 'ready';
 
     /**

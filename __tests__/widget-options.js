@@ -179,7 +179,7 @@ it( 'getter & setter together', async() => {
     }
     await renderWidget( Dummy );
     expectRenderedText( '' );
-    const widget = DI.resolve( 'sham-ui' ).render.byId.dummy;
+    const widget = DI.resolve( 'sham-ui:store' ).findById( 'dummy' );
     widget.options.text = 'test text';
     expect( widget._text ).toBe( 'test text' );
     expect( widget.options.text ).toBe( 'test text' );
