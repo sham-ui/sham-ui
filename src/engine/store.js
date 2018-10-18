@@ -68,10 +68,13 @@ export default class Store {
 
     /**
      * @param {String} type
-     * @return {Set.<Widget>}
+     * @return {Array.<Widget>}
      */
     filterByType( type ) {
-        return this.byType.get( type ) || new Set();
+        if ( this.byType.has( type ) ) {
+            return Array.from( this.byType.get( type ) );
+        }
+        return [];
     }
 
     /**
