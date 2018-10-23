@@ -49,3 +49,31 @@ it( 'first render (ONLY_TYPES)', async() => {
     await onRenderComplete( UI => UI.render.ONLY_TYPES( 'label' ) );
     expectRenderedText( 'dummy (second render)' );
 } );
+
+it( 'render (not exists type)', async() => {
+    expect.assertions( 2 );
+    const mock = jest
+        .fn()
+        .mockReturnValueOnce( 'dummy (first render)' )
+        .mockReturnValueOnce( 'dummy (second render)' );
+    await renderWidget( Label, {
+        text: mock
+    } );
+    expectRenderedText( 'dummy (first render)' );
+    await onRenderComplete( UI => UI.render.ONLY_TYPES( 'non-exits' ) );
+    expectRenderedText( 'dummy (first render)' );
+} );
+
+it( 'render (not exists id)', async() => {
+    expect.assertions( 2 );
+    const mock = jest
+        .fn()
+        .mockReturnValueOnce( 'dummy (first render)' )
+        .mockReturnValueOnce( 'dummy (second render)' );
+    await renderWidget( Label, {
+        text: mock
+    } );
+    expectRenderedText( 'dummy (first render)' );
+    await onRenderComplete( UI => UI.render.ONLY_IDS( 'non-exits' ) );
+    expectRenderedText( 'dummy (first render)' );
+} );

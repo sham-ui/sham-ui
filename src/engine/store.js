@@ -28,11 +28,9 @@ export default class Store {
     /**
      * @param {Widget} widget
      */
-    unregistry( widget ) {
-        widget.options.types.forEach( type => {
-            if ( this.byType.has( type ) ) {
-                this.byType.get( type ).delete( widget );
-            }
+    unregister( widget ) {
+        this.byType.forEach( widgets => {
+            widgets.delete( widget );
         } );
         this.byId.delete( widget.ID );
     }

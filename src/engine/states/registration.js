@@ -32,8 +32,6 @@ export default class RegistrationState extends BaseRegistrationState {
         this.store.forEach(
             widget => this.store.changedWidgets.add( widget )
         );
-        if ( this.store.changedWidgets.size > 0 ) {
-            this.transition( 'rendering' );
-        }
+        this.transition( 'rendering' );
     }
 }

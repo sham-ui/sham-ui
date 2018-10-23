@@ -19,18 +19,9 @@ export default class ReadyState extends BaseRegistrationState {
     clear() {
         const { store } = this;
         store.forEach( widget => {
-            const destroy = widget.destroy;
-            if ( 'function' === typeof destroy ) {
-                callWithHook( widget, 'Destroy', destroy.bind( widget ) );
-            }
+            callWithHook( widget, 'Destroy', () => {} );
         } );
         store.clear();
-    }
-
-    _renderIfHasChanged() {
-        if ( this.store.changedWidgets.size > 0 ) {
-            this.transition( 'rendering' );
-        }
     }
 
     /**
@@ -51,7 +42,7 @@ export default class ReadyState extends BaseRegistrationState {
             needRenderingWidgets,
             this.store.changedWidgets.add.bind( this.store.changedWidgets )
         );
-        this._renderIfHasChanged();
+        this.transition( 'rendering' );
     }
 
     /**
@@ -63,7 +54,7 @@ export default class ReadyState extends BaseRegistrationState {
             needRenderingWidgetsWithType,
             this.store.changedWidgets.add.bind( this.store.changedWidgets )
         );
-        this._renderIfHasChanged();
+        this.transition( 'rendering' );
     }
 
     /**
@@ -73,9 +64,10 @@ export default class ReadyState extends BaseRegistrationState {
     unregister( widgetId ) {
         const { store } = this;
         const widget = store.findById( widgetId );
-        if ( null !== widget && widget.destroy ) {
-            callWithHook( widget, 'Destroy', widget.destroy.bind( widget ) );
+        if ( undefined !== widget ) {
+            callWithHook( widget, 'Destroy', () => {
+                store.unregister( widget );
+            } );
         }
-        store.unregistry( widget );
     }
 }

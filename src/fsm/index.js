@@ -21,7 +21,6 @@ export class Fsm {
         this._priorAction = '';
         this._currentAction = '';
         this.eventListeners = {
-            _anyEvents: [],
             __listenerUniqueIndex: 0
         };
         this.eventQueue = [];
@@ -60,12 +59,6 @@ export class Fsm {
      * @param args
      */
     emit( eventName, ...args ) {
-        if ( this.eventListeners._anyEvents ) {
-            this.eventListeners._anyEvents.forEach(
-                ( { callback } ) => callback( eventName, ...args )
-            );
-        }
-
         if ( this.eventListeners[ eventName ] ) {
             this.eventListeners[ eventName ].forEach(
                 ( { callback } ) => callback( ...args )
@@ -78,54 +71,50 @@ export class Fsm {
      * @param {string} inputType
      */
     handle( inputType ) {
-        if ( !this.inExitHandler ) {
-            const states = this._states,
-                current = this.state;
+        const states = this._states,
+            current = this.state;
 
-            const args = Array.prototype.slice.call( arguments, 0 );
-            this.currentActionArgs = args;
+        let args = Array.prototype.slice.call( arguments, 0 );
+        this.currentActionArgs = args;
 
-            if ( states[ current ][ inputType ] ||
-                states[ current ]._anyEvents ||
-                this._anyEvents
-            ) {
-                const handlerName = states[ current ][ inputType ] ? inputType : '_anyEvents';
-                const catchAll = '_anyEvents' === handlerName;
-
-                let handler, action;
-                if ( states[ current ][ handlerName ] ) {
-                    handler = states[ current ][ handlerName ];
-                    action = `${current}.${handlerName}`;
-                } else {
-                    handler = this._anyEvents;
-                    action = '_anyEvents';
-                }
-                if ( !this._currentAction ) {
-                    this._currentAction = action;
-                }
-
-                this.emit( HANDLING, {
-                    inputType,
-                    args
-                } );
-                handler.apply( states[ current ], catchAll ? args : args.slice( 1 ) );
-                this.emit( HANDLED, {
-                    inputType,
-                    args
-                } );
-
-                this._priorAction = this._currentAction;
-                this._currentAction = '';
-                this.processQueue( NEXT_HANDLER );
-            } else {
-                this.emit( NO_HANDLER, {
-                    inputType,
-                    args
-                } );
-            }
-
-            this.currentActionArgs = undefined;
+        let handler = states[ current ][ inputType ];
+        let hasHandler = true;
+        let action;
+        if ( 'function' === typeof handler ) {
+            action = `${current}.${inputType}`;
+            args = args.slice( 1 );
+        } else if ( 'function' === typeof states[ current ]._anyEvents ) {
+            handler = states[ current ]._anyEvents;
+            action = '_anyEvents';
+        } else {
+            hasHandler = false;
         }
+
+        if ( hasHandler ) {
+            if ( !this._currentAction ) {
+                this._currentAction = action;
+            }
+            this.emit( HANDLING, {
+                inputType,
+                args
+            } );
+            handler.apply( states[ current ], args );
+            this.emit( HANDLED, {
+                inputType,
+                args
+            } );
+
+            this._priorAction = this._currentAction;
+            this._currentAction = '';
+            this.processQueue( NEXT_HANDLER );
+        } else {
+            this.emit( NO_HANDLER, {
+                inputType,
+                args
+            } );
+        }
+
+        this.currentActionArgs = undefined;
     }
 
     /**
@@ -133,13 +122,11 @@ export class Fsm {
      * @param {String} newState
      */
     transition( newState ) {
-        if ( !this.inExitHandler && newState !== this.state ) {
+        if ( newState !== this.state ) {
             const curState = this.state;
             if ( this._states[ newState ] ) {
                 if ( curState && this._states[ curState ] && this._states[ curState ]._onExit ) {
-                    this.inExitHandler = true;
                     this._states[ curState ]._onExit();
-                    this.inExitHandler = false;
                 }
                 this.targetReplayState = newState;
                 this.priorState = curState;
@@ -155,12 +142,12 @@ export class Fsm {
                 if ( this.targetReplayState === newState ) {
                     this.processQueue( NEXT_TRANSITION );
                 }
-                return;
+            } else {
+                this.emit( INVALID_STATE, {
+                    state: this.state,
+                    attemptedState: newState
+                } );
             }
-            this.emit( INVALID_STATE, {
-                state: this.state,
-                attemptedState: newState
-            } );
         }
     }
 
@@ -170,13 +157,7 @@ export class Fsm {
      */
     processQueue( type ) {
         const filterFn = NEXT_TRANSITION === type ?
-            item => NEXT_TRANSITION === item.type && (
-                (
-                    !item.untilState
-                ) || (
-                    item.untilState === this.state
-                )
-            ) : item => NEXT_HANDLER === item.type;
+            item => NEXT_TRANSITION === item.type : item => NEXT_HANDLER === item.type;
 
         let toProcess = [];
 
@@ -198,21 +179,17 @@ export class Fsm {
 
     /**
      * Defer current action from current state to destination state
-     * @param {string} stateName Destination state
      */
-    deferUntilTransition( stateName ) {
-        if ( this.currentActionArgs ) {
-            const queued = {
-                type: NEXT_TRANSITION,
-                untilState: stateName,
-                args: this.currentActionArgs
-            };
-            this.eventQueue.push( queued );
-            this.emit.call( this, DEFERRED, {
-                state: this.state,
-                queuedArgs: queued
-            } );
-        }
+    deferUntilTransition() {
+        const queued = {
+            type: NEXT_TRANSITION,
+            args: this.currentActionArgs
+        };
+        this.eventQueue.push( queued );
+        this.emit.call( this, DEFERRED, {
+            state: this.state,
+            queuedArgs: queued
+        } );
     }
 
     /**
@@ -242,14 +219,12 @@ export class Fsm {
 
     /**
      * Un-subscribe listener
-     * @param {=string}   eventName
+     * @param {string}   eventName
      * @param {=Function} callback
      * @param {=Number} callbackID
      */
     off( eventName, callback, callbackID ) {
-        if ( !eventName ) {
-            this.eventListeners = {};
-        } else if ( this.eventListeners[ eventName ] ) {
+        if ( this.eventListeners[ eventName ] ) {
             if ( callback ) {
                 let index = 0,
                     counter = -1,

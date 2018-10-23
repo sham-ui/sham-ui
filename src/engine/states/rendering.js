@@ -40,10 +40,8 @@ export default class RenderingState extends BaseRegistrationState {
      * @private
      */
     _bindAndRender( widget ) {
-        if ( widget.render ) {
-            this.handle( 'renderWidget', widget );
-            this.emit( `RenderComplete[${widget.ID}]`, widget.ID );
-        }
+        this.handle( 'renderWidget', widget );
+        this.emit( `RenderComplete[${widget.ID}]`, widget.ID );
     }
 
     /**
@@ -72,9 +70,9 @@ export default class RenderingState extends BaseRegistrationState {
                 }
                 this.store.renderedIds.push( widget.ID );
             } );
-            if ( widget.bindEvents ) {
-                callWithHook( widget, 'BindEvents', widget.bindEvents.bind( widget ) );
-            }
+
+            // Default widget always has bindEvents method
+            callWithHook( widget, 'BindEvents', widget.bindEvents.bind( widget ) );
         } catch ( e ) {
             this.handleException( e );
         }

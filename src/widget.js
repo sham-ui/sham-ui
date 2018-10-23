@@ -59,7 +59,9 @@ export default class Widget {
     /**
      * Функция вызывающая при уничтожениии виджета
      */
-    destroy() {}
+    destroy() {
+        this.UI.render.unregister( this.ID );
+    }
 
     /**
      * Query current container by this.containerSelector and save node as this.container
