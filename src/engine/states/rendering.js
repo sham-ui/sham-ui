@@ -17,13 +17,7 @@ export default class RenderingState extends BaseRegistrationState {
      * Вызывается при входе в это состояние
      */
     _onEnter() {
-        const { store } = this;
-        store.renderedIds = [];
-        store.changedWidgets.forEach( this._bindAndRender.bind( this ) );
-
-        // Все области отрисовались
-        this.emit( 'RenderComplete', store.renderedIds.slice( 0 ) );
-        this.transition( 'ready' );
+        this.handle( 'renderChangedWidgets' );
     }
 
     /**
@@ -35,12 +29,22 @@ export default class RenderingState extends BaseRegistrationState {
         store.changedWidgets.clear();
     }
 
+    renderChangedWidgets() {
+        const { store } = this;
+        store.renderedIds = [];
+        store.changedWidgets.forEach( this._bindAndRender.bind( this ) );
+
+        // Все области отрисовались
+        this.emit( 'RenderComplete', store.renderedIds.slice( 0 ) );
+        this.transition( 'ready' );
+    }
+
     /**
      * @param {Widget} widget
      * @private
      */
     _bindAndRender( widget ) {
-        this.handle( 'renderWidget', widget );
+        this.renderWidget( widget );
         this.emit( `RenderComplete[${widget.ID}]`, widget.ID );
     }
 

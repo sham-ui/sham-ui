@@ -2,7 +2,7 @@ import { DI, Widget, options } from '../src/shamUI';
 import { onEvent } from './helpers';
 
 it( 'exceptions', async() => {
-    expect.assertions( 10 );
+    expect.assertions( 9 );
     const errorMock = jest.fn();
     class Dummy extends Widget {
         @options
@@ -28,9 +28,8 @@ it( 'exceptions', async() => {
     expect( error.exception.message ).toBe( 'Test error' );
     expect( error.state ).toBe( 'rendering' );
     expect( error.priorState ).toBe( 'registration' );
-    expect( error._currentAction ).toBe( 'registration.registrationComplete' );
-    expect( error._priorAction ).toBe( 'registration.register' );
-    expect( error.currentActionArgs ).toHaveLength( 2 );
-    expect( error.currentActionArgs[ 0 ] ).toEqual( 'renderWidget' );
-    expect( error.currentActionArgs[ 1 ] ).toBeInstanceOf( Dummy );
+    expect( error._currentAction ).toBe( 'rendering.renderChangedWidgets' );
+    expect( error._priorAction ).toBe( 'ready.all' );
+    expect( error.currentActionArgs ).toHaveLength( 1 );
+    expect( error.currentActionArgs[ 0 ] ).toEqual( 'renderChangedWidgets' );
 } );

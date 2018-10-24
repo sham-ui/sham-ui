@@ -29,7 +29,7 @@ export default class ReadyState extends BaseRegistrationState {
      * переходит к регистрации
      */
     all() {
-        this.handle( 'clear' );
+        this.clear();
         this.transition( 'registration' );
     }
 

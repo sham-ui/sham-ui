@@ -20,7 +20,7 @@ export default class RegistrationState extends BaseRegistrationState {
      */
     _onEnter() {
         this.widgetBinder();
-        this.handle( 'registrationComplete' );
+        this.registrationComplete();
     }
 
     /**

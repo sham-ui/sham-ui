@@ -88,7 +88,7 @@ export class FSM extends Fsm {
     }
 
     /**
-     * Hook for handle exception
+     * Handle exception
      * @param {Object} exception
      * @private
      */

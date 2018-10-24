@@ -42,7 +42,7 @@ it( 'transition emit', () => {
     const firstCallArgs = transition.mock.calls[ 0 ];
     expect( firstCallArgs ).toHaveLength( 1 );
     expect( firstCallArgs[ 0 ] ).toEqual( {
-        action: '',
+        action: 'ready.all',
         fromState: 'ready',
         toState: 'registration'
     } );
