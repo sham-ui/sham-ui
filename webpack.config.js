@@ -1,38 +1,31 @@
-var webpack = require( 'webpack' );
-var UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
-var env = process.env.WEBPACK_ENV;
+const path = require( 'path' );
+const webpack = require( 'webpack' );
 
-var libraryName = 'shamUI';
-var plugins = [], outputFile;
-
-if ( env === 'build' ) {
-    plugins.push( new UglifyJsPlugin( { minimize: true } ) );
-    outputFile = libraryName + '.min.js';
-} else {
-    outputFile = libraryName + '.js';
-}
+const plugins = [
+    new webpack.NoEmitOnErrorsPlugin()
+];
 
 module.exports = {
-    entry: __dirname + '/src/shamUI.js',
-    devtool: 'source-map',
+    entry: {
+        'sham-ui': './src/shamUI.js'
+    },
     output: {
-        path: __dirname + '/lib',
-        filename: outputFile,
-        library: libraryName,
-        libraryTarget: 'umd',
-        umdNamedDefine: true
+        path: path.join( __dirname, 'lib' ),
+        filename: '[name].js',
+        publicPath: '/',
+        library: [ 'sham-ui', 'sham-ui/[name]' ],
+        libraryTarget: 'umd'
     },
+    externals: [
+        'sham-ui'
+    ],
+    plugins: plugins,
     module: {
-        loaders: [
-            {
-                test: /(\.js)$/,
-                loader: 'babel-loader',
-                exclude: /(node_modules|bower_components)/
-            }
-        ]
-    },
-    resolve: {
-        extensions: [ '.js' ]
-    },
-    plugins: plugins
+        rules: [ {
+            test: /(\.js)$/,
+            loader: 'babel-loader',
+            exclude: /(node_modules)/,
+            include: __dirname
+        } ]
+    }
 };
