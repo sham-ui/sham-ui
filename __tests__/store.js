@@ -5,7 +5,10 @@ it( 'find', async() => {
     expect.assertions( 2 );
     let foo;
     DI.bind( 'widget-binder', () => {
-        foo = new Widget( 'body', 'foo' );
+        foo = new Widget( {
+            ID: 'foo',
+            containerSelector: 'body'
+        } );
     } );
     await renderApp();
     const store = DI.resolve( 'sham-ui:store' );
@@ -17,7 +20,10 @@ it( 'filter', async() => {
     expect.assertions( 2 );
     let foo;
     DI.bind( 'widget-binder', () => {
-        foo = new Widget( 'body', 'foo' );
+        foo = new Widget( {
+            ID: 'foo',
+            containerSelector: 'body'
+        } );
     } );
     await renderApp();
     const store = DI.resolve( 'sham-ui:store' );
@@ -30,10 +36,14 @@ it( 'filterByType', async() => {
     expect.assertions( 6 );
     let foo, bar;
     DI.bind( 'widget-binder', () => {
-        foo = new Widget( 'body', 'foo', {
+        foo = new Widget( {
+            ID: 'foo',
+            containerSelector: 'body',
             types: [ 'label' ]
         } );
-        bar = new Widget( 'body', 'bar', {
+        bar = new Widget( {
+            ID: 'bar',
+            containerSelector: 'body',
             types: [ 'label', 'link' ]
         } );
     } );
@@ -52,7 +62,10 @@ it( 'filterByType', async() => {
 it( 'map', async() => {
     expect.assertions( 2 );
     DI.bind( 'widget-binder', () => {
-        new Widget( 'body', 'foo' );
+        new Widget( {
+            ID: 'foo',
+            containerSelector: 'body'
+        } );
     } );
     await renderApp();
     const store = DI.resolve( 'sham-ui:store' );
@@ -65,8 +78,14 @@ it( 'forEachId', async() => {
     expect.assertions( 6 );
     let foo, bar;
     DI.bind( 'widget-binder', () => {
-        foo = new Widget( 'body', 'foo' );
-        bar = new Widget( 'body', 'bar' );
+        foo = new Widget( {
+            ID: 'foo',
+            containerSelector: 'body'
+        } );
+        bar = new Widget( {
+            ID: 'bar',
+            containerSelector: 'body'
+        } );
     } );
     await renderApp();
     const allWidgets = jest.fn();
@@ -87,10 +106,14 @@ it( 'forEachType', async() => {
     expect.assertions( 10 );
     let foo, bar;
     DI.bind( 'widget-binder', () => {
-        foo = new Widget( 'body', 'foo', {
+        foo = new Widget( {
+            ID: 'foo',
+            containerSelector: 'body',
             types: [ 'label' ]
         } );
-        bar = new Widget( 'body', 'bar', {
+        bar = new Widget( {
+            ID: 'bar',
+            containerSelector: 'body',
             types: [ 'label', 'link' ]
         } );
     } );

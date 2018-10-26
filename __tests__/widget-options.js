@@ -186,3 +186,24 @@ it( 'getter & setter together', async() => {
     await onRenderComplete( UI => UI.render.ONLY_IDS( 'dummy' ) );
     expect( document.querySelector( 'body' ).textContent ).toBe( 'test text' );
 } );
+
+
+it( 'container', async() => {
+    expect.assertions( 1 );
+    await renderWidget( Label, {
+        container: document.querySelector( 'body' ),
+        text: 'text for container'
+    } );
+    expectRenderedText( 'text for container' );
+} );
+
+it( 'generated id', async() => {
+    expect.assertions( 2 );
+    await renderWidget( Label, {
+        types: [ 'label' ],
+        ID: null
+    } );
+    const ID = DI.resolve( 'sham-ui:store' ).filterByType( 'label' )[ 0 ].ID;
+    expect( typeof ID ).toBe( 'string' );
+    expectRenderedText( ID );
+} );

@@ -30,9 +30,14 @@ class Label extends Widget {
 it( 'dynamic widget rendered', async() => {
     expect.assertions( 2 );
     DI.bind( 'widget-binder', () => {
-        new Label( '#label-1', 'label-1' );
+        new Label( {
+            ID: 'label-1',
+            containerSelector: '#label-1'
+        } );
         setTimeout( () => {
-            new Label( '#label-2', 'label-2', {
+            new Label( {
+                ID: 'label-2',
+                containerSelector: '#label-2',
                 afterRegister() {
                     this.UI.render.ONLY_IDS( this.ID );
                 }
@@ -49,7 +54,9 @@ it( 'registration on rendering', async() => {
     DI.bind( 'widget-binder', () => {
         class Container extends Widget {
             html() {
-                new Label( '#label-2', 'label-2', {
+                new Label( {
+                    ID: 'label-2',
+                    containerSelector: '#label-2',
                     afterRegister() {
                         this.UI.render.ONLY_IDS( this.ID );
                     }
@@ -57,7 +64,10 @@ it( 'registration on rendering', async() => {
                 return this.ID;
             }
         }
-        new Container( '#label-1', 'label-1' );
+        new Container( {
+            ID: 'label-1',
+            containerSelector: '#label-1'
+        } );
     } );
     const UI = new ShamUI();
     const label1Rendered = onWidgetRenderComplete( 'label-1', () => {
@@ -86,7 +96,9 @@ it( 'registration on rendering (render text from options)', async() => {
                 return this.options.uniqID;
             }
             html() {
-                new InnerLabel( '#label-2', 'label-2', {
+                new InnerLabel( {
+                    ID: 'label-2',
+                    containerSelector: '#label-2',
                     parentWidgetId: this.options.widgetID,
                     afterRegister() {
                         this.UI.render.ONLY_IDS( this.ID );
@@ -95,7 +107,9 @@ it( 'registration on rendering (render text from options)', async() => {
                 return this.ID;
             }
         }
-        new Container( '#label-1', 'label-1', {
+        new Container( {
+            ID: 'label-1',
+            containerSelector: '#label-1',
             uniqID: 'label-1'
         } );
     } );

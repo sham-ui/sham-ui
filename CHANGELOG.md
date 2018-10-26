@@ -1,4 +1,7 @@
 ## master
+* Generate ID by default (if not passed from options) 
+* Change widget constructor signature (move ID & containerSelector to options)
+* [#16](https://github.com/sham-ui/sham-ui/issues/16) Support `options.container`
 * [#26](https://github.com/sham-ui/sham-ui/issues/26) Upgrade webpack & babel
 * [#24](https://github.com/sham-ui/sham-ui/issues/25) Widget storage
 * [#23](https://github.com/sham-ui/sham-ui/issues/23) Auto start render (optional)

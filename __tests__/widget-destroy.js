@@ -27,7 +27,9 @@ it( 'destroy one', async() => {
     const afterDestroyFirst = jest.fn();
     const afterDestroySecond = jest.fn();
     DI.bind( 'widget-binder', () => {
-        new Widget( 'body', 'first', {
+        new Widget( {
+            ID: 'first',
+            containerSelector: 'body',
             types: [ 'label' ],
             beforeDestroy: beforeDestroyFirst,
             afterDestroy: afterDestroyFirst,
@@ -35,7 +37,9 @@ it( 'destroy one', async() => {
                 this.destroy();
             }
         } );
-        new Widget( 'body', 'second', {
+        new Widget( {
+            ID: 'second',
+            containerSelector: 'body',
             types: [ 'link', 'label' ],
             beforeDestroy: beforeDestroySecond,
             afterDestroy: afterDestroySecond

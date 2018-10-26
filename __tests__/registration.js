@@ -7,10 +7,14 @@ it( 'registration two widgets with same id', async() => {
     const afterRegisterSecond = jest.fn();
     let first, second;
     DI.bind( 'widget-binder', () => {
-        first = new Widget( 'body', 'dummy', {
+        first = new Widget( {
+            ID: 'dummy',
+            containerSelector: 'body',
             afterRegister: afterRegisterFirst
         } );
-        second = new Widget( 'body', 'dummy', {
+        second = new Widget( {
+            ID: 'dummy',
+            containerSelector: 'body',
             afterRegister: afterRegisterSecond
         } );
     } );

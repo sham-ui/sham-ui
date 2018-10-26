@@ -28,7 +28,11 @@ export function onEvent( eventName ) {
 
 export function renderWidget( widgetConstructor, options = {} ) {
     DI.bind( 'widget-binder', function() {
-        new widgetConstructor( 'body', 'dummy', options );
+        new widgetConstructor( {
+            ID: 'dummy',
+            containerSelector: 'body',
+            ...options
+        } );
     } );
     return renderApp();
 }

@@ -26,7 +26,10 @@ it( 'empty widget', async() => {
     class Dummy extends Widget {}
     let widget;
     DI.bind( 'widget-binder', () => {
-        widget = new Dummy( 'body', 'dummy' );
+        widget = new Dummy( {
+            ID: 'dummy',
+            containerSelector: 'body'
+        } );
     } );
     await renderApp();
     expect( widget.container ).toBeInstanceOf( Element );

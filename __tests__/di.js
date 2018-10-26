@@ -15,7 +15,10 @@ function makeBinding( onRender ) {
                 this.container.innerHTML = 'label text';
             }
         }
-        new Label( 'body', 'simple-label-widget-text' );
+        new Label( {
+            ID: 'simple-label-widget-text',
+            containerSelector: 'body'
+        } );
     };
 }
 

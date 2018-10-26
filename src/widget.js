@@ -1,3 +1,4 @@
+import nanoid from 'nanoid';
 import options from './options/decorator';
 import bindOptionsDescriptors from './options/bind-descriptors';
 import { inject } from './DI';
@@ -10,29 +11,29 @@ export default class Widget {
     @inject( 'sham-ui' ) UI; // inject shamUI instance as this.UI
 
     /**
-     * @param {String}  containerSelector CSS-селектор элемента, в который будет
-     *                                    происходить отрисовка
-     * @param {String}  ID                Уникальный идентификтор
-     * @param {Object} [options]          Опции
-     */
-    constructor( containerSelector, ID, options ) {
-
-        this.ID = ID;
-        /**
-         * @type {null|Node} Container of this widget
-         */
-        this.container = null;
-        this.containerSelector = containerSelector;
-        this.constructorOptions = options;
-        this.configureOptions();
-        this.UI.render.register( this );
-    }
-
-    /**
      * Тип виджета
      * @type {Array}
      */
     @options types = [];
+
+    /**
+     * @param {Object} [options] Options
+     */
+    constructor( options ) {
+        /**
+         * @type {null|Node} Container of this widget
+         */
+        this.container = null;
+        this.constructorOptions = options;
+        this.configureOptions();
+        this.resolveID();
+        this.UI.render.register( this );
+    }
+
+    resolveID() {
+        const ID = this.options.ID;
+        this.ID = 'string' === typeof ID ? ID : nanoid();
+    }
 
     configureOptions() {
         const defaultOptions = Object.create(
@@ -43,7 +44,7 @@ export default class Widget {
         );
         this.options = Object.create(
             defaultOptions,
-            Object.getOwnPropertyDescriptors( this.constructorOptions || {} )
+            Object.getOwnPropertyDescriptors( this.constructorOptions )
         );
     }
 
@@ -67,7 +68,11 @@ export default class Widget {
      * Query current container by this.containerSelector and save node as this.container
      */
     resolveContainer() {
-        this.container = document.querySelector( this.containerSelector );
+        if ( undefined === this.options.container ) {
+            this.container = document.querySelector( this.options.containerSelector );
+        } else {
+            this.container = this.options.container;
+        }
         assertError(
             `Widget ${this.ID} doesn't resolve container. Check container selector`,
             undefined === this.container

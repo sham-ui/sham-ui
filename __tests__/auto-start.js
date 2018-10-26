@@ -9,7 +9,10 @@ it( 'autostart', async() => {
                 this.container.textContent = this.ID;
             }
         }
-        new Dummy( 'body', 'dummy' );
+        new Dummy( {
+            ID: 'dummy',
+            containerSelector: 'body'
+        } );
     } );
     expectRenderedText( '' );
     new ShamUI( true );

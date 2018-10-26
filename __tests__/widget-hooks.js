@@ -20,7 +20,11 @@ function makeBinding( calledHooks ) {
                 options[ key ] = () => calledHooks.push( key );
             } )
         );
-        new Dummy( 'body', 'dummy', options );
+        new Dummy( {
+            ID: 'dummy',
+            containerSelector: 'body',
+            ...options
+        } );
     };
 }
 

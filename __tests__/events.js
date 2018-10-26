@@ -3,7 +3,10 @@ import { onEvent } from './helpers';
 
 beforeEach( () => {
     DI.bind( 'widget-binder', () => {
-        new Widget( 'body', 'dummy' );
+        new Widget( {
+            ID: 'dummy',
+            containerSelector: 'body'
+        } );
     } );
 } );
 

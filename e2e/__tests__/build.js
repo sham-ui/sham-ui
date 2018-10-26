@@ -8,7 +8,10 @@ it( 'dummy label', async() => {
         }
     }
     DI.bind( 'widget-binder', function() {
-        new Label( 'body', 'dummy' );
+        new Label( {
+            ID: 'dummy',
+            containerSelector: 'body'
+        } );
     } );
     await new Promise( resolve => {
         const UI = new ShamUI();
