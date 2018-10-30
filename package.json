@@ -8,7 +8,6 @@
     "test": "jest --coverage",
     "test:watch": "jest --watchAll",
     "test:e2e": "jest --projects ./e2e/",
-    "dev": "WEBPACK_ENV=dev webpack --progress --colors",
     "build": "webpack --mode=production --progress",
     "prepublish": "yarn test:e2e && yarn build"
   },

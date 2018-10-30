@@ -10,7 +10,7 @@ it( 'destroy', async() => {
         beforeDestroy,
         afterDestroy,
         afterRender() {
-            this.destroy();
+            this.UI.render.unregister( this.ID );
         }
     } );
     expect( beforeDestroy ).toHaveBeenCalled();
@@ -34,7 +34,7 @@ it( 'destroy one', async() => {
             beforeDestroy: beforeDestroyFirst,
             afterDestroy: afterDestroyFirst,
             afterRender() {
-                this.destroy();
+                this.UI.render.unregister( this.ID );
             }
         } );
         new Widget( {
@@ -66,7 +66,7 @@ it( 'destroy after Registry', async() => {
         beforeDestroy,
         afterDestroy,
         afterRegister() {
-            this.destroy();
+            this.UI.render.unregister( this.ID );
         }
     } );
     expect( beforeDestroy ).toHaveBeenCalled();
@@ -95,7 +95,7 @@ it( 'modify type after registry', async() => {
             return typesMock();
         },
         afterRegister() {
-            this.destroy();
+            this.UI.render.unregister( this.ID );
         }
     } );
     const store = DI.resolve( 'sham-ui:store' );
