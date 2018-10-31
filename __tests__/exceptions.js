@@ -12,7 +12,10 @@ it( 'exceptions', async() => {
     }
     DI.bind( 'logger', { error: errorMock } );
     DI.bind( 'widget-binder', () => {
-        new Dummy( 'body', 'dummy' );
+        new Dummy( {
+            ID: 'dummy',
+            containerSelector: 'body'
+        } );
     } );
     const args = await onEvent( 'error' );
     expect( args ).toHaveLength( 1 );

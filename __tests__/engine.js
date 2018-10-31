@@ -16,9 +16,9 @@ it( 'raf for rendering', async() => {
     class Label extends Widget {
         @options text = '';
 
-        html() {
-            stackWatcher( 'html' );
-            return this.options.text;
+        render() {
+            stackWatcher( 'render' );
+            this.container.innerHTML = this.options.text;
         }
     }
     await renderWidget( Label, { text: 'label text' } );
@@ -26,5 +26,5 @@ it( 'raf for rendering', async() => {
     expect( stackWatcher ).toHaveBeenCalledTimes( 3 );
     expect( stackWatcher ).toHaveBeenNthCalledWith( 1, 'before' );
     expect( stackWatcher ).toHaveBeenNthCalledWith( 2, 'after' );
-    expect( stackWatcher ).toHaveBeenNthCalledWith( 3, 'html' );
+    expect( stackWatcher ).toHaveBeenNthCalledWith( 3, 'render' );
 } );

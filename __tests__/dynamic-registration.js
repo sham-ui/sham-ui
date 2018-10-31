@@ -22,8 +22,8 @@ function expectLabelText( selector, expected ) {
 }
 
 class Label extends Widget {
-    html() {
-        return this.ID;
+    render() {
+        this.container.innerHTML = this.ID;
     }
 }
 
@@ -53,7 +53,7 @@ it( 'registration on rendering', async() => {
     expect.assertions( 4 );
     DI.bind( 'widget-binder', () => {
         class Container extends Widget {
-            html() {
+            render() {
                 new Label( {
                     ID: 'label-2',
                     containerSelector: '#label-2',
@@ -61,7 +61,7 @@ it( 'registration on rendering', async() => {
                         this.UI.render.ONLY_IDS( this.ID );
                     }
                 } );
-                return this.ID;
+                this.container.innerHTML = this.ID;
             }
         }
         new Container( {
@@ -87,15 +87,15 @@ it( 'registration on rendering (render text from options)', async() => {
     DI.bind( 'widget-binder', () => {
         class InnerLabel extends Widget {
             @options parentWidgetId = null;
-            html() {
-                return `${this.options.parentWidgetId} => ${this.ID}`;
+            render() {
+                this.container.innerHTML = `${this.options.parentWidgetId} => ${this.ID}`;
             }
         }
         class Container extends Widget {
             @options get widgetID() {
                 return this.options.uniqID;
             }
-            html() {
+            render() {
                 new InnerLabel( {
                     ID: 'label-2',
                     containerSelector: '#label-2',
@@ -104,7 +104,7 @@ it( 'registration on rendering (render text from options)', async() => {
                         this.UI.render.ONLY_IDS( this.ID );
                     }
                 } );
-                return this.ID;
+                this.container.innerHTML = this.ID;
             }
         }
         new Container( {

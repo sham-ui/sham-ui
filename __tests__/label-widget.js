@@ -8,8 +8,8 @@ afterEach( () => {
 class Label extends Widget {
     @options types = [ 'label' ];
 
-    html() {
-        return this.options.text();
+    render() {
+        this.container.innerHTML = this.options.text();
     }
 }
 

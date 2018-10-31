@@ -11,7 +11,7 @@ export default class BaseRegistrationState extends State {
      * @param {*}         widget.ID                      Идентификатор
      * @param {Function} [widget.bind]                   Функция навешивающая обработчики
      * @param {Function} [widget.render]                 Функция отрисовки.
-     * @param {Function} [widget.destroy]                Функция отвязывающая обработчики
+     * @param {Function} [widget.remove]                Функция отвязывающая обработчики
      * @param {Object}   [widget.options]                Опции виджета
      * @param {Array}    [widget.options.types]          Массив типов
      * @param {Function} [widget.options.beforeRegister] До регистрации
@@ -20,8 +20,8 @@ export default class BaseRegistrationState extends State {
      * @param {Function} [widget.options.afterBind]      После навешивания обработчиков
      * @param {Function} [widget.options.beforeRender]   До отрисовки этого элемента
      * @param {Function} [widget.options.afterRender]    После отрисовки этого элемента
-     * @param {Function} [widget.options.beforeDestroy]  До отвязки обработчиков
-     * @param {Function} [widget.options.afterDestroy]   После отвязки обработчиков
+     * @param {Function} [widget.options.beforeRemove]  До отвязки обработчиков
+     * @param {Function} [widget.options.afterRemove]   После отвязки обработчиков
      * @see Widget
      * @see Widget#defaultOptions
      */

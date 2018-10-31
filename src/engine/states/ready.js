@@ -19,13 +19,13 @@ export default class ReadyState extends BaseRegistrationState {
     clear() {
         const { store } = this;
         store.forEach( widget => {
-            callWithHook( widget, 'Destroy', () => {} );
+            callWithHook( widget, 'Remove', widget.remove.bind( widget ) );
         } );
         store.clear();
     }
 
     /**
-     * Отрисовать все виджеты. Вызывает destroy, очищает список известных виджетов,
+     * Отрисовать все виджеты. Вызывает remove, очищает список известных виджетов,
      * переходит к регистрации
      */
     all() {
@@ -34,7 +34,7 @@ export default class ReadyState extends BaseRegistrationState {
     }
 
     /**
-     * Отрисовать только указанные виджеты. Просто отрисовывает, не вызывает destroy
+     * Отрисовать только указанные виджеты. Просто отрисовывает, не вызывает remove
      * @param {Array} needRenderingWidgets Список виджетов, которые нужно отрисовать
      */
     onlyIds( needRenderingWidgets ) {
@@ -65,7 +65,8 @@ export default class ReadyState extends BaseRegistrationState {
         const { store } = this;
         const widget = store.findById( widgetId );
         if ( undefined !== widget ) {
-            callWithHook( widget, 'Destroy', () => {
+            callWithHook( widget, 'Remove', () => {
+                widget.remove();
                 store.unregister( widget );
             } );
         }

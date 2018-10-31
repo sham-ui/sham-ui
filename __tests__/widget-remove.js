@@ -1,38 +1,38 @@
 import { Widget, DI } from '../src/shamUI';
 import { renderWidget, renderApp } from './helpers';
 
-it( 'destroy', async() => {
+it( 'remove', async() => {
     expect.assertions( 4 );
-    const beforeDestroy = jest.fn();
-    const afterDestroy = jest.fn();
+    const beforeRemove = jest.fn();
+    const afterRemove = jest.fn();
     await renderWidget( Widget, {
         types: [ 'label' ],
-        beforeDestroy,
-        afterDestroy,
+        beforeRemove,
+        afterRemove,
         afterRender() {
             this.UI.render.unregister( this.ID );
         }
     } );
-    expect( beforeDestroy ).toHaveBeenCalled();
-    expect( afterDestroy ).toHaveBeenCalled();
+    expect( beforeRemove ).toHaveBeenCalled();
+    expect( afterRemove ).toHaveBeenCalled();
     const store = DI.resolve( 'sham-ui:store' );
     expect( store.findById( 'dummy' ) ).toBe( undefined );
     expect( store.filterByType( 'label' ) ).toHaveLength( 0 );
 } );
 
-it( 'destroy one', async() => {
+it( 'remove one', async() => {
     expect.assertions( 8 );
-    const beforeDestroyFirst = jest.fn();
-    const beforeDestroySecond = jest.fn();
-    const afterDestroyFirst = jest.fn();
-    const afterDestroySecond = jest.fn();
+    const beforeRemoveFirst = jest.fn();
+    const beforeRemoveSecond = jest.fn();
+    const afterRemoveFirst = jest.fn();
+    const afterRemoveSecond = jest.fn();
     DI.bind( 'widget-binder', () => {
         new Widget( {
             ID: 'first',
             containerSelector: 'body',
             types: [ 'label' ],
-            beforeDestroy: beforeDestroyFirst,
-            afterDestroy: afterDestroyFirst,
+            beforeRemove: beforeRemoveFirst,
+            afterRemove: afterRemoveFirst,
             afterRender() {
                 this.UI.render.unregister( this.ID );
             }
@@ -41,15 +41,15 @@ it( 'destroy one', async() => {
             ID: 'second',
             containerSelector: 'body',
             types: [ 'link', 'label' ],
-            beforeDestroy: beforeDestroySecond,
-            afterDestroy: afterDestroySecond
+            beforeRemove: beforeRemoveSecond,
+            afterRemove: afterRemoveSecond
         } );
     } );
     await renderApp();
-    expect( beforeDestroyFirst ).toHaveBeenCalled();
-    expect( afterDestroyFirst ).toHaveBeenCalled();
-    expect( beforeDestroySecond ).toHaveBeenCalledTimes( 0 );
-    expect( afterDestroySecond ).toHaveBeenCalledTimes( 0 );
+    expect( beforeRemoveFirst ).toHaveBeenCalled();
+    expect( afterRemoveFirst ).toHaveBeenCalled();
+    expect( beforeRemoveSecond ).toHaveBeenCalledTimes( 0 );
+    expect( afterRemoveSecond ).toHaveBeenCalledTimes( 0 );
     const store = DI.resolve( 'sham-ui:store' );
     expect( store.findById( 'first' ) ).toBeUndefined();
     expect( store.findById( 'second' ).ID ).toBe( 'second' );
@@ -57,26 +57,26 @@ it( 'destroy one', async() => {
     expect( store.filterByType( 'link' ) ).toHaveLength( 1 );
 } );
 
-it( 'destroy after Registry', async() => {
+it( 'remove after Registry', async() => {
     expect.assertions( 4 );
-    const beforeDestroy = jest.fn();
-    const afterDestroy = jest.fn();
+    const beforeRemove = jest.fn();
+    const afterRemove = jest.fn();
     await renderWidget( Widget, {
         types: [ 'label' ],
-        beforeDestroy,
-        afterDestroy,
+        beforeRemove,
+        afterRemove,
         afterRegister() {
             this.UI.render.unregister( this.ID );
         }
     } );
-    expect( beforeDestroy ).toHaveBeenCalled();
-    expect( afterDestroy ).toHaveBeenCalled();
+    expect( beforeRemove ).toHaveBeenCalled();
+    expect( afterRemove ).toHaveBeenCalled();
     const store = DI.resolve( 'sham-ui:store' );
     expect( store.findById( 'dummy' ) ).toBe( undefined );
     expect( store.filterByType( 'label' ) ).toHaveLength( 0 );
 } );
 
-it( 'destroy non exists widget', async() => {
+it( 'remove non exists widget', async() => {
     expect.assertions( 1 );
     await renderWidget( Widget );
     DI.resolve( 'sham-ui' ).render.unregister( 'non-exists' );

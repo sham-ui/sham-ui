@@ -1,4 +1,5 @@
 ## master
+* Rename `destroy` to `remove`
 * Generate ID by default (if not passed from options) 
 * Change widget constructor signature (move ID & containerSelector to options)
 * [#16](https://github.com/sham-ui/sham-ui/issues/16) Support `options.container`

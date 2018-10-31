@@ -49,7 +49,7 @@ export default class RenderingState extends BaseRegistrationState {
     }
 
     /**
-     * Отрисовать только указанные виджеты. Просто отрисовывает, не вызывает destroy
+     * Отрисовать только указанные виджеты. Просто отрисовывает, не вызывает remove
      * @param {Array.<String>} needRenderingWidgets Список виджетов, которые нужно отрисовать
      */
     onlyIds( needRenderingWidgets ) {
@@ -65,13 +65,7 @@ export default class RenderingState extends BaseRegistrationState {
         try {
             widget.resolveContainer();
             callWithHook( widget, 'Render', () => {
-                const obj = widget.render();
-                if ( obj ) {
-                    const newEl = obj.container.cloneNode( false );
-                    newEl.innerHTML = obj.html;
-                    obj.container.parentNode.replaceChild( newEl, obj.container );
-                    widget.container = newEl;
-                }
+                widget.render();
                 this.store.renderedIds.push( widget.ID );
             } );
 

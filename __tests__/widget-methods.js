@@ -4,7 +4,9 @@ import { renderWidget } from './helpers';
 it( 'querySelector', async() => {
     expect.assertions( 1 );
     class Dummy extends Widget {
-        html = '<span class="inner-label">test</span>';
+        render() {
+            this.container.innerHTML = '<span class="inner-label">test</span>';
+        }
     }
     await renderWidget( Dummy );
     const widget = DI.resolve( 'sham-ui:store' ).findById( 'dummy' );

@@ -27,6 +27,16 @@ export default class Widget {
         this.constructorOptions = options;
         this.configureOptions();
         this.resolveID();
+        this.nested = [];
+        this.nodes = [];
+        this.unbind = null;
+        this.onRender = null;
+        this.onUpdate = null;
+        this.onRemove = null;
+        this.filters = this.options.filters || null;
+        this.context = this.options.context || null;
+        this.parent = this.options.parent || null;
+        this.directives = this.options.directives || null;
         this.UI.render.register( this );
     }
 
@@ -48,20 +58,6 @@ export default class Widget {
         );
     }
 
-    querySelector( selector ) {
-        return this.container.querySelector( selector );
-    }
-
-    /**
-     * Добавить обработчики событий
-     */
-    bindEvents() {}
-
-    /**
-     * Функция вызывающая при уничтожениии виджета
-     */
-    destroy() {}
-
     /**
      * Query current container by this.containerSelector and save node as this.container
      */
@@ -73,25 +69,121 @@ export default class Widget {
         }
         assertError(
             `Widget ${this.ID} doesn't resolve container. Check container selector`,
-            undefined === this.container
+            null === this.container || undefined === this.container
         );
     }
 
     /**
-     * Отрисовать виджет в контейнер
-     * @returns {{container: *, html: *}}
+     * @param {String} selector
+     * @return {Element|null}
+     */
+    querySelector( selector ) {
+        for ( let i = 0; i < this.nodes.length; i++ ) {
+            if ( this.nodes[ i ].matches && this.nodes[ i ].matches( selector ) ) {
+                return this.nodes[ i ];
+            }
+            assertError(
+                'Can not use querySelector with non-element nodes on first level.',
+                this.nodes[ i ].nodeType === 8 // COMMENT_NODE
+            );
+            if ( this.nodes[ i ].querySelector ) {
+                const element = this.nodes[ i ].querySelector( selector );
+                if ( element ) {
+                    return element;
+                }
+            }
+        }
+        return this.container.querySelector( selector );
+    }
+
+    /**
+     * Добавить обработчики событий
+     */
+    bindEvents() {}
+
+    /**
+     * Update widget state
+     */
+    update() {}
+
+    /**
+     * Render widget to container
      */
     render() {
-        if ( undefined === this.html ) {
-            return null;
+        const node = this.container;
+
+        // COMMENT_NODE
+        if ( node.nodeType === 8 ) {
+            this.insertBefore( node );
+        } else {
+            this.appendTo( node );
         }
-        let html = this.html;
-        if ( typeof html === 'function' ) {
-            html = this.html();
+
+        if ( this.onRender ) {
+            this.onRender();
         }
-        return {
-            container: this.container,
-            html
-        };
+
+        this.update();
+    }
+
+    /**
+     * @param {Element} toNode
+     */
+    appendTo( toNode ) {
+        for ( let i = 0, len = this.nodes.length; i < len; i++ ) {
+            toNode.appendChild( this.nodes[ i ] );
+        }
+    }
+
+    /**
+     * @param {Element} toNode
+     */
+    insertBefore( toNode ) {
+        const parentNode = toNode.parentNode;
+        assertError(
+            'Can not insert child view into parent node. ' +
+            'You need append your view first and then update.',
+            null === parentNode
+        );
+        for ( let i = 0, len = this.nodes.length; i < len; i++ ) {
+            parentNode.insertBefore( this.nodes[ i ], toNode );
+        }
+    }
+
+    remove() {
+
+        // Remove appended nodes.
+        let i = this.nodes.length;
+        while ( i-- ) {
+            this.nodes[ i ].parentNode.removeChild( this.nodes[ i ] );
+        }
+
+        // Remove self from parent's children map or child ref.
+        if ( this.unbind ) {
+            this.unbind();
+        }
+
+        // Remove all nested views.
+        i = this.nested.length;
+        while ( i-- ) {
+            this.UI.render.unregister( this.nested[ i ].ID );
+        }
+
+        // Remove this view from parent's nested views.
+        if ( this.parent ) {
+            i = this.parent.nested.indexOf( this );
+            this.parent.nested.splice( i, 1 );
+            this.parent = null;
+        }
+
+        // Call on remove callback.
+        if ( this.onRemove ) {
+            this.onRemove();
+        }
+    }
+
+    resetAndUpdate( data ) {
+        this.configureOptions();
+        this.update( data );
     }
 }

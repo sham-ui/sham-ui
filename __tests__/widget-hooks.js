@@ -6,14 +6,14 @@ function makeBinding( calledHooks ) {
         class Dummy extends Widget {
             render() {}
             bindEvents() {}
-            destroy() {}
+            remove() {}
         }
         const options = {};
         [
             'Register',
             'Render',
             'BindEvents',
-            'Destroy'
+            'Remove'
         ].forEach(
             action => [ 'before', 'after' ].forEach( moment => {
                 const key = `${moment}${action}`;
@@ -56,8 +56,8 @@ it( 're-registry', async() => {
         'afterRender',
         'beforeBindEvents',
         'afterBindEvents',
-        'beforeDestroy',
-        'afterDestroy',
+        'beforeRemove',
+        'afterRemove',
         'beforeRegister',
         'afterRegister',
         'beforeRender',
