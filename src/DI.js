@@ -32,7 +32,6 @@ const DIContainer = {
 
 // Cross lib support
 const DI = window.DI || DIContainer;
-window.DI = DI;
 
 export default DI;
 

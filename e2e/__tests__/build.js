@@ -3,8 +3,8 @@ import ShamUI, { DI, Widget } from 'sham-ui';
 it( 'dummy label', async() => {
     expect.assertions( 1 );
     class Label extends Widget {
-        html() {
-            return this.ID;
+        render() {
+            this.container.textContent = this.ID;
         }
     }
     DI.bind( 'widget-binder', function() {

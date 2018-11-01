@@ -84,7 +84,6 @@ it( 'remove non exists widget', async() => {
     expect( store.findById( 'dummy' ) ).toBeInstanceOf( Widget );
 } );
 
-
 it( 'modify type after registry', async() => {
     expect.assertions( 3 );
     const typesMock = jest.fn()
