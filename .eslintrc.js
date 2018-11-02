@@ -15,6 +15,9 @@ module.exports = {
         "sourceType": "module"
     },
     "plugins": [ "jest" ],
+    "globals": {
+        "__UI__": true
+    },
     "rules": {
         "indent": [
             "error",

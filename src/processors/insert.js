@@ -14,7 +14,7 @@ export default function insert( parent, node, child/*.ref*/, template, data ) {
             directives: parent.directives,
             container: node
         } );
-        view.UI.render.ONLY( view.ID );
+        view.UI.render.ONLY_IDS( view.ID );
 
         // Set view hierarchy.
         parent.nested.push( view );

@@ -40,3 +40,8 @@ export function renderWidget( widgetConstructor, options = {} ) {
 export function expectRenderedText( expected ) {
     expect( document.querySelector( 'body' ).textContent ).toBe( expected );
 }
+
+
+export function expectRenderedHTML( expected ) {
+    expect( document.querySelector( 'body' ).innerHTML ).toBe( expected );
+}

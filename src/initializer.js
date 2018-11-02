@@ -5,6 +5,7 @@ import Store from './engine/store';
 import insert from './processors/insert';
 import cond from './processors/cond';
 import loop, { Map } from './processors/loop';
+import Widget from './widget';
 
 window.DI = DI;
 
@@ -30,6 +31,7 @@ if ( !window.hasOwnProperty( exportKey ) ) {
         insert,
         cond,
         loop,
-        Map
+        Map,
+        Widget
     };
 }

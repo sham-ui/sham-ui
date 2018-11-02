@@ -82,7 +82,7 @@ export default function loop( parent, node, map, template, array, options ) {
     len = childrenSize - arrayLength;
     for ( i in map.items ) {
         if ( len-- > 0 ) {
-            map.items[ i ].remove();
+            map.items[ i ].UI.render.unregister( map.items[ i ].ID );
         } else {
             break;
         }
@@ -106,7 +106,7 @@ export default function loop( parent, node, map, template, array, options ) {
             directives: parent.directives,
             container: node
         } );
-        view.UI.render.ONLY( view.ID );
+        view.UI.render.ONLY_IDS( view.ID );
 
         // Set view hierarchy.
         parent.nested.push( view );

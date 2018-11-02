@@ -4,7 +4,7 @@
 export default function cond( parent, node, child/*.ref*/, template, test ) {
     if ( child.ref ) { // If view was already inserted, update or remove it.
         if ( !test ) {
-            child.ref.remove();
+            child.ref.UI.render.unregister( child.ref.ID );
         }
     } else if ( test ) {
 
@@ -16,7 +16,7 @@ export default function cond( parent, node, child/*.ref*/, template, test ) {
             directives: parent.directives,
             container: node
         } );
-        view.UI.render.ONLY( view.ID );
+        view.UI.render.ONLY_IDS( view.ID );
 
         // Set view hierarchy.
         parent.nested.push( view );
