@@ -1,4 +1,5 @@
 import { renderWidget, expectRenderedHTML } from '../helpers';
+import { DI } from '../../src/shamUI';
 
 /**
  * Widget for
@@ -90,3 +91,20 @@ it( 'render', async() => {
     expectRenderedHTML( '<h1>string</h1><div>text</div><!--CustomPanel-->' );
 } );
 
+it( 're-render', async() => {
+    expect.assertions( 1 );
+    await renderWidget( custom, {
+        ID: 'custom'
+    } );
+    DI.resolve( 'sham-ui' ).render.ONLY_IDS( 'custom' );
+    expectRenderedHTML( '<h1>string</h1><div>text</div><!--CustomPanel-->' );
+} );
+
+it( 'destroy', async() => {
+    expect.assertions( 1 );
+    await renderWidget( custom, {
+        ID: 'custom'
+    } );
+    DI.resolve( 'sham-ui' ).render.unregister( 'custom' );
+    expectRenderedHTML( '' );
+} );

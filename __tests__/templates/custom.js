@@ -1,4 +1,5 @@
 import { renderWidget, expectRenderedHTML } from '../helpers';
+import { DI } from '../../src/shamUI';
 
 /**
  * Widget for template
@@ -54,4 +55,16 @@ it( 'render', async() => {
         content: 'Text for content'
     } );
     expectRenderedHTML( '<h1>Text for title</h1><div>Text for content</div>' );
+} );
+
+it( 'querySelector', async() => {
+    expect.assertions( 2 );
+    await renderWidget( custom, {
+        ID: 'custom',
+        title: 'Text for title',
+        content: 'Text for content'
+    } );
+    const widget = DI.resolve( 'sham-ui:store' ).findById( 'custom' );
+    expect( widget.querySelector( 'h1' ).textContent ).toBe( 'Text for title' );
+    expect( widget.querySelector( '.not-exists' ) ).toBe( null );
 } );

@@ -181,9 +181,4 @@ export default class Widget {
             this.onRemove();
         }
     }
-
-    resetAndUpdate( data ) {
-        this.configureOptions();
-        this.update( data );
-    }
 }
