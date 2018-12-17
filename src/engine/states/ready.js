@@ -1,5 +1,4 @@
 import BaseRegistrationState from './base-registration';
-import callWithHook from '../utils/call-with-hooks';
 
 /**
  * Класс для состояния "Готов к работе"
@@ -18,9 +17,7 @@ export default class ReadyState extends BaseRegistrationState {
      */
     clear() {
         const { store } = this;
-        store.forEach( widget => {
-            callWithHook( widget, 'Remove', widget.remove.bind( widget ) );
-        } );
+        store.forEach( widget => widget.remove() );
         store.clear();
     }
 
@@ -65,10 +62,8 @@ export default class ReadyState extends BaseRegistrationState {
         const { store } = this;
         const widget = store.findById( widgetId );
         if ( undefined !== widget ) {
-            callWithHook( widget, 'Remove', () => {
-                widget.remove();
-                store.unregister( widget );
-            } );
+            widget.remove();
+            store.unregister( widget );
         }
     }
 }

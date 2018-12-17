@@ -37,11 +37,9 @@ it( 'dynamic widget rendered', async() => {
         setTimeout( () => {
             new Label( {
                 ID: 'label-2',
-                containerSelector: '#label-2',
-                afterRegister() {
-                    this.UI.render.ONLY_IDS( this.ID );
-                }
+                containerSelector: '#label-2'
             } );
+            DI.resolve( 'sham-ui' ).render.ONLY_IDS( 'label-2' );
         }, 20 );
     } );
     await onEvent( 'RenderComplete[label-2]' );
@@ -56,11 +54,9 @@ it( 'registration on rendering', async() => {
             render() {
                 new Label( {
                     ID: 'label-2',
-                    containerSelector: '#label-2',
-                    afterRegister() {
-                        this.UI.render.ONLY_IDS( this.ID );
-                    }
+                    containerSelector: '#label-2'
                 } );
+                DI.resolve( 'sham-ui' ).render.ONLY_IDS( 'label-2' );
                 this.container.innerHTML = this.ID;
             }
         }
@@ -99,11 +95,9 @@ it( 'registration on rendering (render text from options)', async() => {
                 new InnerLabel( {
                     ID: 'label-2',
                     containerSelector: '#label-2',
-                    parentWidgetId: this.options.widgetID,
-                    afterRegister() {
-                        this.UI.render.ONLY_IDS( this.ID );
-                    }
+                    parentWidgetId: this.options.widgetID
                 } );
+                DI.resolve( 'sham-ui' ).render.ONLY_IDS( 'label-2' );
                 this.container.innerHTML = this.ID;
             }
         }

@@ -1,5 +1,4 @@
 import State from '../../fsm/state';
-import callWithHook from '../utils/call-with-hooks';
 import { inject } from '../../DI';
 
 export default class BaseRegistrationState extends State {
@@ -30,6 +29,6 @@ export default class BaseRegistrationState extends State {
         if ( store.byId.has( widget.ID ) ) {
             return;
         }
-        callWithHook( widget, 'Register', () => store.registry( widget ) );
+        store.registry( widget );
     }
 }

@@ -1,5 +1,4 @@
 import BaseRegistrationState from './base-registration';
-import callWithHook from '../utils/call-with-hooks';
 
 /**
  * Класс для состояния "Отрисовываем виджеты"
@@ -64,13 +63,11 @@ export default class RenderingState extends BaseRegistrationState {
     renderWidget( widget ) {
         try {
             widget.resolveContainer();
-            callWithHook( widget, 'Render', () => {
-                widget.render();
-                this.store.renderedIds.push( widget.ID );
-            } );
+            widget.render();
+            this.store.renderedIds.push( widget.ID );
 
             // Default widget always has bindEvents method
-            callWithHook( widget, 'BindEvents', widget.bindEvents.bind( widget ) );
+            widget.bindEvents();
         } catch ( e ) {
             this.handleException( e );
         }

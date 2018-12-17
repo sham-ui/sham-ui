@@ -1,12 +1,12 @@
-import { DI, Widget, options } from '../src/shamUI';
+import { DI, Widget } from '../src/shamUI';
 import { onEvent } from './helpers';
 
 it( 'exceptions', async() => {
     expect.assertions( 9 );
     const errorMock = jest.fn();
     class Dummy extends Widget {
-        @options
-        afterRender() {
+        render() {
+            super.render( ...arguments );
             throw new Error( 'Test error' );
         }
     }
