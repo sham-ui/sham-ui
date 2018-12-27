@@ -65,7 +65,7 @@ export class Map {
 /**
  * Main loops processor.
  */
-export default function loop( parent, node, map, template, array, options ) {
+export default function loop( parent, node, map, template, array, options, owner ) {
     let i, j, len, keys, transform, arrayLength, childrenSize = map.length;
 
     // Get array length, and convert object to array if needed.
@@ -101,6 +101,7 @@ export default function loop( parent, node, map, template, array, options ) {
         // Render new view.
         const view = new template( {
             parent,
+            owner,
             context: parent.context,
             filters: parent.filters,
             directives: parent.directives,

@@ -1,7 +1,7 @@
 /**
  * Main custom tags processor.
  */
-export default function insert( parent, node, child/*.ref*/, template, data ) {
+export default function insert( parent, node, child/*.ref*/, template, data, owner ) {
     if ( child.ref ) { // If view was already inserted, update or remove it.
         child.ref.update( data );
     } else {
@@ -9,6 +9,7 @@ export default function insert( parent, node, child/*.ref*/, template, data ) {
         // Render new view.
         const view = new template( {
             parent,
+            owner,
             context: parent.context,
             filters: parent.filters,
             directives: parent.directives,
