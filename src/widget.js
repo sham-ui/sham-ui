@@ -34,7 +34,6 @@ export default class Widget {
         this.onUpdate = null;
         this.onRemove = null;
         this.filters = this.options.filters || null;
-        this.context = this.options.context || null;
         this.parent = this.options.parent || null;
         this.owner = this.options.owner || null;
         this.directives = this.options.directives || null;

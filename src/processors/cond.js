@@ -12,7 +12,6 @@ export default function cond( parent, node, child/*.ref*/, template, test, owner
         const view = new template( {
             parent,
             owner,
-            context: parent.context,
             filters: parent.filters,
             directives: parent.directives,
             container: node

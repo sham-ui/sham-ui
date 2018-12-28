@@ -10,7 +10,6 @@ export default function insert( parent, node, child/*.ref*/, template, data, own
         const view = new template( {
             parent,
             owner,
-            context: parent.context,
             filters: parent.filters,
             directives: parent.directives,
             container: node

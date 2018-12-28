@@ -102,7 +102,6 @@ export default function loop( parent, node, map, template, array, options, owner
         const view = new template( {
             parent,
             owner,
-            context: parent.context,
             filters: parent.filters,
             directives: parent.directives,
             container: node
