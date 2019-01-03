@@ -1,3 +1,6 @@
+## 2.0.3
+* Update `.npmignore`
+
 ## 2.0.2
 * Update `.npmignore`
 
