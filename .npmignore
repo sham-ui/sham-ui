@@ -7,5 +7,5 @@
 .eslintignore
 .esdoc.json
 .idea
-.webpack.config.js
+webpack.config.js
 yarn-error.log
