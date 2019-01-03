@@ -1,3 +1,6 @@
+## 2.0.1
+* Update `.npmignore`
+
 ## 2.0.0
 * Remove `context` from processors & widget constructor 
 * [#28](https://github.com/sham-ui/sham-ui/issues/28) Remove before & after hooks
