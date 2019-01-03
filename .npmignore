@@ -1,3 +1,11 @@
 /src/
-/test/
+/__tests/
+/e2e/
+/coverage/
+.travis.yml
+.eslintrc.js
+.eslintignore
+.esdoc.json
 .idea
+.webpack.config.js
+yarn-error.log
