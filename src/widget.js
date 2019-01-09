@@ -46,16 +46,14 @@ export default class Widget {
     }
 
     configureOptions() {
-        const defaultOptions = Object.create(
-            null,
+        const descriptors = Object.assign(
+            {},
 
             // this._options always set, because base Widget class has `types` option
-            bindOptionsDescriptors( this, this._options )
-        );
-        this.options = Object.create(
-            defaultOptions,
+            bindOptionsDescriptors( this, this._options ),
             Object.getOwnPropertyDescriptors( this.constructorOptions )
         );
+        this.options = Object.create( null, descriptors );
     }
 
     /**

@@ -1,3 +1,6 @@
+## 2.0.4
+* Fix override options in `sham-ui-templates`
+
 ## 2.0.3
 * Update `.npmignore`
 

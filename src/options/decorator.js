@@ -39,5 +39,7 @@ export default function( target, name, descriptor ) {
         descriptor.value = descriptor.initializer();
         delete descriptor.initializer;
     }
+    descriptor.enumerable = true;
+    descriptor.configurable = true;
     Object.defineProperty( target._options, name, descriptor );
 }
