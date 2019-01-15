@@ -53,17 +53,4 @@ export default class ReadyState extends BaseRegistrationState {
         );
         this.transition( 'rendering' );
     }
-
-    /**
-     * Разрегистрировать виджет
-     * @param {String} widgetId Идентификатор виджета, который нужно разрегистрировать
-     */
-    unregister( widgetId ) {
-        const { store } = this;
-        const widget = store.findById( widgetId );
-        if ( undefined !== widget ) {
-            widget.remove();
-            store.unregister( widget );
-        }
-    }
 }

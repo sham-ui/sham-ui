@@ -1,4 +1,4 @@
-import ShamUI, { DI, Widget, options } from '../src/shamUI';
+import ShamUI, { DI, Widget, options, FsmStates } from '../src/shamUI';
 import { onEvent } from './helpers';
 
 beforeEach( () => {
@@ -6,6 +6,12 @@ beforeEach( () => {
         '<span id="label-1"></span>',
         '<span id="label-2"></span>'
     ].join( '\n' );
+    DI.bind( 'state:rendering', class extends FsmStates.rendering {
+        renderWidget( widget ) {
+            super.renderWidget( ...arguments );
+            this.emit( `RenderComplete[${widget.ID}]`, widget.ID );
+        }
+    } );
 } );
 
 function onWidgetRenderComplete( widgetId, callback ) {

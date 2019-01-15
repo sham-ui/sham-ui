@@ -24,6 +24,28 @@ export default class RegistrationState extends BaseRegistrationState {
     }
 
     /**
+     * Отрисовать только указанные виджеты. Просто отрисовывает, не вызывает remove
+     * @param {Array.<String>} needRenderingWidgets Список виджетов, которые нужно отрисовать
+     */
+    onlyIds( needRenderingWidgets ) {
+        this.store.forEachId(
+            needRenderingWidgets,
+            widget => this.store.changedWidgets.add( widget )
+        );
+    }
+
+    /**
+     * Отрисовать виджеты с указанным типом
+     * @param {Array} needRenderingWidgetsWithType Список типов, которые нужно отрисовать
+     */
+    onlyTypes( needRenderingWidgetsWithType ) {
+        this.store.forEachType(
+            needRenderingWidgetsWithType,
+            widget => this.store.changedWidgets.add( widget )
+        );
+    }
+
+    /**
      * Все виджеты зарегисрированы
      * Если нужно, то сначала биндим обработчики событий, а потом отрисовываем
      */

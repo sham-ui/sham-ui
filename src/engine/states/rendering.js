@@ -31,20 +31,9 @@ export default class RenderingState extends BaseRegistrationState {
     renderChangedWidgets() {
         const { store } = this;
         store.renderedIds = [];
-        store.changedWidgets.forEach( this._bindAndRender.bind( this ) );
-
-        // Все области отрисовались
+        store.changedWidgets.forEach( this.renderWidget.bind( this ) );
         this.emit( 'RenderComplete', store.renderedIds.slice( 0 ) );
         this.transition( 'ready' );
-    }
-
-    /**
-     * @param {Widget} widget
-     * @private
-     */
-    _bindAndRender( widget ) {
-        this.renderWidget( widget );
-        this.emit( `RenderComplete[${widget.ID}]`, widget.ID );
     }
 
     /**
@@ -52,7 +41,15 @@ export default class RenderingState extends BaseRegistrationState {
      * @param {Array.<String>} needRenderingWidgets Список виджетов, которые нужно отрисовать
      */
     onlyIds( needRenderingWidgets ) {
-        this.store.forEachId( needRenderingWidgets, this._bindAndRender.bind( this ) );
+        this.store.forEachId( needRenderingWidgets, this.renderWidget.bind( this ) );
+    }
+
+    /**
+     * Отрисовать виджеты с указанным типом
+     * @param {Array} needRenderingWidgetsWithType Список типов, которые нужно отрисовать
+     */
+    onlyTypes( needRenderingWidgetsWithType ) {
+        this.store.forEachType( needRenderingWidgetsWithType, this.renderWidget.bind( this ) );
     }
 
     /**

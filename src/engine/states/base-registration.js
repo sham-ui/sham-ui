@@ -31,4 +31,17 @@ export default class BaseRegistrationState extends State {
         }
         store.registry( widget );
     }
+
+    /**
+     * Разрегистрировать виджет
+     * @param {String} widgetId Идентификатор виджета, который нужно разрегистрировать
+     */
+    unregister( widgetId ) {
+        const { store } = this;
+        const widget = store.findById( widgetId );
+        if ( undefined !== widget ) {
+            widget.remove();
+            store.unregister( widget );
+        }
+    }
 }

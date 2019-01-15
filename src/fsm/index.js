@@ -1,11 +1,6 @@
 import State from './state';
 
-const NEXT_TRANSITION = 'transition';
-const NEXT_HANDLER = 'handler';
-const HANDLING = 'handling';
-const HANDLED = 'handled';
 const NO_HANDLER = 'nohandler';
-const TRANSITION = 'transition';
 const INVALID_STATE = 'invalidstate';
 const DEFERRED = 'deferred';
 const ERROR = 'error';
@@ -94,19 +89,9 @@ export class Fsm {
             if ( !this._currentAction ) {
                 this._currentAction = action;
             }
-            this.emit( HANDLING, {
-                inputType,
-                args
-            } );
             handler.apply( states[ current ], args );
-            this.emit( HANDLED, {
-                inputType,
-                args
-            } );
-
             this._priorAction = this._currentAction;
             this._currentAction = '';
-            this.processQueue( NEXT_HANDLER );
         } else {
             this.emit( NO_HANDLER, {
                 inputType,
@@ -131,16 +116,16 @@ export class Fsm {
                 this.targetReplayState = newState;
                 this.priorState = curState;
                 this.state = newState;
-                this.emit( TRANSITION, {
-                    fromState: this.priorState,
-                    action: this._currentAction,
-                    toState: newState
-                } );
+
                 if ( this._states[ newState ]._onEnter ) {
                     this._states[ newState ]._onEnter();
                 }
-                if ( this.targetReplayState === newState ) {
-                    this.processQueue( NEXT_TRANSITION );
+                if ( this.targetReplayState === newState && this.eventQueue.length > 0 ) {
+                    this.eventQueue
+                        .splice( 0, this.eventQueue.length )
+                        .forEach(
+                            args => this.handle( ...args )
+                        );
                 }
             } else {
                 this.emit( INVALID_STATE, {
@@ -152,39 +137,10 @@ export class Fsm {
     }
 
     /**
-     * Process events queue by type
-     * @param {String} type
-     */
-    processQueue( type ) {
-        const filterFn = NEXT_TRANSITION === type ?
-            item => NEXT_TRANSITION === item.type : item => NEXT_HANDLER === item.type;
-
-        let toProcess = [];
-
-        let counter = -1,
-            length = this.eventQueue.length,
-            index = 0,
-            item;
-        while ( ++counter < length ) {
-            item = this.eventQueue[ counter - index ];
-            if ( filterFn( item ) ) {
-                toProcess.push( this.eventQueue.splice( counter - index++ )[ 0 ] );
-            }
-        }
-
-        toProcess.forEach( item => {
-            this.handle( ...item.args );
-        } );
-    }
-
-    /**
      * Defer current action from current state to destination state
      */
     deferUntilTransition() {
-        const queued = {
-            type: NEXT_TRANSITION,
-            args: this.currentActionArgs
-        };
+        const queued = this.currentActionArgs;
         this.eventQueue.push( queued );
         this.emit.call( this, DEFERRED, {
             state: this.state,

@@ -31,21 +31,14 @@ it( 'invalidState', () => {
     } );
 } );
 
-it( 'transition emit', () => {
-    expect.assertions( 3 );
+it( 'transition not emit', () => {
+    expect.assertions( 1 );
     const transition = jest.fn();
     DI.bind( 'widget-binder', () => {} );
     const UI = new ShamUI();
     UI.render.one( 'transition', transition );
     UI.render.ALL();
-    expect( transition ).toHaveBeenCalled();
-    const firstCallArgs = transition.mock.calls[ 0 ];
-    expect( firstCallArgs ).toHaveLength( 1 );
-    expect( firstCallArgs[ 0 ] ).toEqual( {
-        action: 'ready.all',
-        fromState: 'ready',
-        toState: 'registration'
-    } );
+    expect( transition ).toHaveBeenCalledTimes( 0 );
 } );
 
 it( 'transition to current state', () => {
@@ -88,7 +81,8 @@ it( 'on/off (non exist event)', () => {
     UI.render.on( 'transition', transition );
     UI.render.off( 'transition-non-exist-event' );
     UI.render.ALL();
-    expect( transition ).toHaveBeenCalledTimes( 3 );
+    UI.render.emit( 'transition' );
+    expect( transition ).toHaveBeenCalledTimes( 1 );
 } );
 
 
@@ -100,5 +94,6 @@ it( 'on/off (another callback)', () => {
     UI.render.on( 'transition', transition );
     UI.render.off( 'transition', () => {} );
     UI.render.ALL();
-    expect( transition ).toHaveBeenCalledTimes( 3 );
+    UI.render.emit( 'transition' );
+    expect( transition ).toHaveBeenCalledTimes( 1 );
 } );

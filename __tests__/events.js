@@ -33,9 +33,3 @@ it( 'RegistrationComplete', async() => {
     expect( args ).toHaveLength( 0 );
 } );
 
-it( 'RenderComplete (only once widget)', async() => {
-    expect.assertions( 2 );
-    const args = await onEvent( 'RenderComplete[dummy]' );
-    expect( args ).toHaveLength( 1 );
-    expect( args[ 0 ] ).toBe( 'dummy' );
-} );

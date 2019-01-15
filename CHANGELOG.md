@@ -1,3 +1,7 @@
+## 2.0.5
+* Simplify fsm 
+* Optimize defer rendering
+
 ## 2.0.4
 * Fix override options in `sham-ui-templates`
 
