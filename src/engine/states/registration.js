@@ -2,57 +2,42 @@ import { inject } from '../../DI';
 import BaseRegistrationState from './base-registration';
 
 
-/**
- * Класс для состояния "Регистрация виджетов"
- */
 export default class RegistrationState extends BaseRegistrationState {
-    @inject( 'widget-binder' ) widgetBinder;
+    @inject( 'component-binder' ) componentBinder;
 
-    /**
-     * Что делать с необрабатываемыми в этом состояния хэндлерами
-     */
     _anyEvents() {
         this.deferUntilTransition();
     }
 
-    /**
-     * Вызывается при входе в состояние
-     */
     _onEnter() {
-        this.widgetBinder();
+        this.componentBinder();
         this.registrationComplete();
     }
 
     /**
-     * Отрисовать только указанные виджеты. Просто отрисовывает, не вызывает remove
-     * @param {Array.<String>} needRenderingWidgets Список виджетов, которые нужно отрисовать
+     * @param {Array.<String>} needRenderingComponents
      */
-    onlyIds( needRenderingWidgets ) {
+    onlyIds( needRenderingComponents ) {
         this.store.forEachId(
-            needRenderingWidgets,
-            widget => this.store.changedWidgets.add( widget )
+            needRenderingComponents,
+            component => this.store.changedComponents.add( component )
         );
     }
 
     /**
-     * Отрисовать виджеты с указанным типом
-     * @param {Array} needRenderingWidgetsWithType Список типов, которые нужно отрисовать
+     * @param {String[]} needRenderingComponentsWithType
      */
-    onlyTypes( needRenderingWidgetsWithType ) {
+    onlyTypes( needRenderingComponentsWithType ) {
         this.store.forEachType(
-            needRenderingWidgetsWithType,
-            widget => this.store.changedWidgets.add( widget )
+            needRenderingComponentsWithType,
+            component => this.store.changedComponents.add( component )
         );
     }
 
-    /**
-     * Все виджеты зарегисрированы
-     * Если нужно, то сначала биндим обработчики событий, а потом отрисовываем
-     */
     registrationComplete() {
         this.emit( 'RegistrationComplete' );
         this.store.forEach(
-            widget => this.store.changedWidgets.add( widget )
+            component => this.store.changedComponents.add( component )
         );
         this.transition( 'rendering' );
     }

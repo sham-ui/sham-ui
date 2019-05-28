@@ -1,9 +1,9 @@
 import './initializer';
 
 export { FSM as Fsm, states as FsmStates } from './engine';
-export { default as WidgetStore } from './engine/store';
+export { default as ComponentStore } from './engine/store';
 export { default as DI, inject } from './DI';
-export { default as Widget } from './widget';
+export { default as Component } from './component';
 export { default as options } from './options/decorator';
 export { Fsm as FsmDefault } from './fsm';
 export { default as FsmState } from './fsm/state';

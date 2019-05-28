@@ -1,9 +1,9 @@
 import DI from '../DI';
 
 /**
- * @property {Map<String, Widget>} byId
- * @property {Map<String, Set<Widget>>} byType
- * @property {Set<Widget>} changedWidgets
+ * @property {Map<String, Component>} byId
+ * @property {Map<String, Set<Component>>} byType
+ * @property {Set<Component>} changedComponents
  * @property {Array<String>} renderedIds
  */
 export default class Store {
@@ -13,44 +13,44 @@ export default class Store {
     }
 
     /**
-     * @param {Widget} widget
+     * @param {Component} component
      */
-    registry( widget ) {
-        this.byId.set( widget.ID, widget );
-        widget.options.types.forEach( type => {
+    registry( component ) {
+        this.byId.set( component.ID, component );
+        component.options.types.forEach( type => {
             if ( !this.byType.has( type ) ) {
                 this.byType.set( type, new Set() );
             }
-            this.byType.get( type ).add( widget );
+            this.byType.get( type ).add( component );
         } );
     }
 
     /**
-     * @param {Widget} widget
+     * @param {Component} component
      */
-    unregister( widget ) {
-        this.byType.forEach( widgets => {
-            widgets.delete( widget );
+    unregister( component ) {
+        this.byType.forEach( components => {
+            components.delete( component );
         } );
-        this.byId.delete( widget.ID );
+        this.byId.delete( component.ID );
     }
 
     /**
-     * @param {String} widgetId
-     * @return {Widget}
+     * @param {String} componentId
+     * @return {Component}
      */
-    findById( widgetId ) {
-        return this.byId.get( widgetId );
+    findById( componentId ) {
+        return this.byId.get( componentId );
     }
 
     /**
      * @param {Function} callback
-     * @return {Widget}
+     * @return {Component}
      */
     find( callback ) {
-        for ( let widget of this.byId.values() ) {
-            if ( callback( widget ) ) {
-                return widget;
+        for ( let component of this.byId.values() ) {
+            if ( callback( component ) ) {
+                return component;
             }
         }
         return null;
@@ -58,7 +58,7 @@ export default class Store {
 
     /**
      * @param {Function} callback
-     * @return {Array.<Widget>}
+     * @return {Array.<Component>}
      */
     filter( callback ) {
         return Array.from( this.byId.values() ).filter( callback );
@@ -66,7 +66,7 @@ export default class Store {
 
     /**
      * @param {String} type
-     * @return {Array.<Widget>}
+     * @return {Array.<Component>}
      */
     filterByType( type ) {
         if ( this.byType.has( type ) ) {
@@ -117,7 +117,7 @@ export default class Store {
     clear() {
         this.byId = new Map();
         this.byType = new Map();
-        this.changedWidgets = new Set();
+        this.changedComponents = new Set();
         this.renderedIds = [];
     }
 }

@@ -1,8 +1,8 @@
-import { renderWidget, expectRenderedText } from '../helpers';
+import { renderComponent, expectRenderedText } from '../helpers';
 import { DI } from '../../src/shamUI';
 
 /**
- * Widget for
+ * Component for
  * {% if test %}
  *    then
  * {% else %}
@@ -11,7 +11,7 @@ import { DI } from '../../src/shamUI';
  * @class
  */
 function cond() {
-    __UI__.Widget.apply( this, arguments );
+    __UI__.Component.apply( this, arguments );
     var _this = this;
 
     // Create elements
@@ -41,7 +41,7 @@ function cond() {
     // Set root nodes
     this.nodes = [ for0 ];
 }
-cond.prototype = Object.create( __UI__.Widget.prototype );
+cond.prototype = Object.create( __UI__.Component.prototype );
 cond.prototype.constructor = cond;
 cond.prototype.name = 'cond';
 cond.prototype.update = function( __currentData__ ) {
@@ -58,12 +58,12 @@ cond.prototype.update = function( __currentData__ ) {
  */
 // eslint-disable-next-line camelcase
 function cond_if0() {
-    __UI__.Widget.apply( this, arguments );
+    __UI__.Component.apply( this, arguments );
 
     // Set root nodes
     this.nodes = [ document.createTextNode( ' then ' ) ];
 }
-cond_if0.prototype = Object.create( __UI__.Widget.prototype );
+cond_if0.prototype = Object.create( __UI__.Component.prototype );
 // eslint-disable-next-line camelcase
 cond_if0.prototype.constructor = cond_if0;
 cond_if0.prototype.name = 'cond_if0';
@@ -77,12 +77,12 @@ cond_if0.prototype.update = function( __currentData__ ) {
  */
 // eslint-disable-next-line camelcase
 function cond_else1() {
-    __UI__.Widget.apply( this, arguments );
+    __UI__.Component.apply( this, arguments );
 
     // Set root nodes
     this.nodes = [ document.createTextNode( ' else ' ) ];
 }
-cond_else1.prototype = Object.create( __UI__.Widget.prototype );
+cond_else1.prototype = Object.create( __UI__.Component.prototype );
 // eslint-disable-next-line camelcase
 cond_else1.prototype.constructor = cond_else1;
 cond_else1.prototype.name = 'cond_else1';
@@ -93,7 +93,7 @@ cond_else1.prototype.update = function( __currentData__ ) {
 
 it( 'render', async() => {
     expect.assertions( 1 );
-    await renderWidget( cond, {
+    await renderComponent( cond, {
         test: true
     } );
     expectRenderedText( ' then ' );
@@ -101,23 +101,23 @@ it( 'render', async() => {
 
 it( 'update', async() => {
     expect.assertions( 4 );
-    await renderWidget( cond, {
+    await renderComponent( cond, {
         ID: 'cond',
         test: true
     } );
     expectRenderedText( ' then ' );
-    const widget = DI.resolve( 'sham-ui:store' ).findById( 'cond' );
-    widget.update( { test: false } );
+    const component = DI.resolve( 'sham-ui:store' ).findById( 'cond' );
+    component.update( { test: false } );
     expectRenderedText( ' else ' );
-    widget.update( { test: true } );
+    component.update( { test: true } );
     expectRenderedText( ' then ' );
-    widget.update( { test: true } );
+    component.update( { test: true } );
     expectRenderedText( ' then ' );
 } );
 
 it( 'render (default false)', async() => {
     expect.assertions( 1 );
-    await renderWidget( cond, {
+    await renderComponent( cond, {
         test: false
     } );
     expectRenderedText( ' else ' );

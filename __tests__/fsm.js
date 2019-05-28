@@ -34,7 +34,7 @@ it( 'invalidState', () => {
 it( 'transition not emit', () => {
     expect.assertions( 1 );
     const transition = jest.fn();
-    DI.bind( 'widget-binder', () => {} );
+    DI.bind( 'component-binder', () => {} );
     const UI = new ShamUI();
     UI.render.one( 'transition', transition );
     UI.render.ALL();
@@ -53,7 +53,7 @@ it( 'transition to current state', () => {
 it( 'on/off (with callback)', () => {
     expect.assertions( 1 );
     const transition = jest.fn();
-    DI.bind( 'widget-binder', () => {} );
+    DI.bind( 'component-binder', () => {} );
     const UI = new ShamUI();
     UI.render.on( 'transition', transition );
     UI.render.off( 'transition', transition );
@@ -65,7 +65,7 @@ it( 'on/off (with callback)', () => {
 it( 'on/off (without callback)', () => {
     expect.assertions( 1 );
     const transition = jest.fn();
-    DI.bind( 'widget-binder', () => {} );
+    DI.bind( 'component-binder', () => {} );
     const UI = new ShamUI();
     UI.render.on( 'transition', transition );
     UI.render.off( 'transition' );
@@ -76,7 +76,7 @@ it( 'on/off (without callback)', () => {
 it( 'on/off (non exist event)', () => {
     expect.assertions( 1 );
     const transition = jest.fn();
-    DI.bind( 'widget-binder', () => {} );
+    DI.bind( 'component-binder', () => {} );
     const UI = new ShamUI();
     UI.render.on( 'transition', transition );
     UI.render.off( 'transition-non-exist-event' );
@@ -89,7 +89,7 @@ it( 'on/off (non exist event)', () => {
 it( 'on/off (another callback)', () => {
     expect.assertions( 1 );
     const transition = jest.fn();
-    DI.bind( 'widget-binder', () => {} );
+    DI.bind( 'component-binder', () => {} );
     const UI = new ShamUI();
     UI.render.on( 'transition', transition );
     UI.render.off( 'transition', () => {} );

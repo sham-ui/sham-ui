@@ -26,9 +26,9 @@ export function onEvent( eventName ) {
     } );
 }
 
-export function renderWidget( widgetConstructor, options = {} ) {
-    DI.bind( 'widget-binder', function() {
-        new widgetConstructor( {
+export function renderComponent( componentConstructor, options = {} ) {
+    DI.bind( 'component-binder', function() {
+        new componentConstructor( {
             ID: 'dummy',
             containerSelector: 'body',
             ...options

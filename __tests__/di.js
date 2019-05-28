@@ -1,4 +1,4 @@
-import { DI, Widget, FsmStates, Fsm, inject } from '../src/shamUI';
+import { DI, Component, FsmStates, Fsm, inject } from '../src/shamUI';
 import { renderApp } from './helpers';
 
 afterEach( () => {
@@ -7,7 +7,7 @@ afterEach( () => {
 
 function makeBinding( onRender ) {
     return function() {
-        class Label extends Widget {
+        class Label extends Component {
             render() {
                 if ( undefined !== onRender ) {
                     onRender();
@@ -16,16 +16,16 @@ function makeBinding( onRender ) {
             }
         }
         new Label( {
-            ID: 'simple-label-widget-text',
+            ID: 'simple-label-component-text',
             containerSelector: 'body'
         } );
     };
 }
 
-it( 'widget-binder', async() => {
+it( 'component-binder', async() => {
     expect.assertions( 2 );
     const render = jest.fn();
-    DI.bind( 'widget-binder', makeBinding( render ) );
+    DI.bind( 'component-binder', makeBinding( render ) );
     await renderApp();
     expect( document.querySelector( 'body' ).innerHTML ).toBe( 'label text' );
     expect( render ).toHaveBeenCalledTimes( 1 );
@@ -41,17 +41,17 @@ it( 'state:ready', async() => {
             onEnterMock();
         }
     } );
-    DI.bind( 'widget-binder', makeBinding() );
+    DI.bind( 'component-binder', makeBinding() );
     await renderApp();
     expect( onEnterMock ).toHaveBeenCalledTimes( 2 );
 } );
 
 it( 'state:registration', async() => {
     expect.assertions( 1 );
-    DI.bind( 'widget-binder', makeBinding() );
+    DI.bind( 'component-binder', makeBinding() );
     DI.bind( 'state:registration', class extends FsmStates.registration {
-        register( widget ) {
-            expect( widget.ID ).toBe( 'simple-label-widget-text' );
+        register( component ) {
+            expect( component.ID ).toBe( 'simple-label-component-text' );
             super.register( ...arguments );
         }
     } );
@@ -60,11 +60,11 @@ it( 'state:registration', async() => {
 
 it( 'state:rendering', async() => {
     expect.assertions( 1 );
-    DI.bind( 'widget-binder', makeBinding() );
+    DI.bind( 'component-binder', makeBinding() );
     DI.bind( 'state:rendering', class extends FsmStates.rendering {
-        renderWidget( widget ) {
-            expect( widget.ID ).toBe( 'simple-label-widget-text' );
-            super.renderWidget( ...arguments );
+        renderComponent( component ) {
+            expect( component.ID ).toBe( 'simple-label-component-text' );
+            super.renderComponent( ...arguments );
         }
     } );
     await renderApp();
@@ -72,7 +72,7 @@ it( 'state:rendering', async() => {
 
 it( 'fsm', async() => {
     expect.assertions( 1 );
-    DI.bind( 'widget-binder', makeBinding() );
+    DI.bind( 'component-binder', makeBinding() );
     const mock = jest.fn();
     class ExtendedFSM extends Fsm {
         ALL() {
@@ -87,7 +87,10 @@ it( 'fsm', async() => {
 
 it( 'logger', async() => {
     expect.assertions( 1 );
-    DI.bind( 'widget-binder', makeBinding( () => DI.resolve( 'logger' ).log( 'Logged message' ) ) );
+    DI.bind(
+        'component-binder',
+        makeBinding( () => DI.resolve( 'logger' ).log( 'Logged message' ) )
+    );
     DI.bind( 'logger', {
         log( message ) {
             expect( message ).toBe( 'Logged message' );

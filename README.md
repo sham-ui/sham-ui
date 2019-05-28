@@ -1,4 +1,4 @@
-# Library management UI widgets
+# Library management UI components
 
 ### Documentation
 http://shamcode.github.io/shamUI/docs/index.html

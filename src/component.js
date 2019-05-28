@@ -5,14 +5,13 @@ import { inject } from './DI';
 import { assertError } from './utils/assert';
 
 /**
- * Базовый класс для виджетов
+ * Base component class
  */
-export default class Widget {
+export default class Component {
     @inject( 'sham-ui' ) UI; // inject shamUI instance as this.UI
 
     /**
-     * Тип виджета
-     * @type {Array}
+     * @type {String[]}
      */
     @options types = [];
 
@@ -21,7 +20,7 @@ export default class Widget {
      */
     constructor( options ) {
         /**
-         * @type {null|Node} Container of this widget
+         * @type {null|Node} Container of this component
          */
         this.container = null;
         this.constructorOptions = options;
@@ -37,6 +36,7 @@ export default class Widget {
         this.parent = this.options.parent || null;
         this.owner = this.options.owner || null;
         this.directives = this.options.directives || null;
+        this.needUpdateAfterRender = this.options.needUpdateAfterRender || true;
         this.UI.render.register( this );
     }
 
@@ -49,7 +49,7 @@ export default class Widget {
         const descriptors = Object.assign(
             {},
 
-            // this._options always set, because base Widget class has `types` option
+            // this._options always set, because base Component class has `types` option
             bindOptionsDescriptors( this, this._options ),
             Object.getOwnPropertyDescriptors( this.constructorOptions )
         );
@@ -66,7 +66,7 @@ export default class Widget {
             this.container = this.options.container;
         }
         assertError(
-            `Widget ${this.ID} doesn't resolve container. Check container selector`,
+            `Component ${this.ID} doesn't resolve container. Check container selector`,
             null === this.container || undefined === this.container
         );
     }
@@ -100,12 +100,12 @@ export default class Widget {
     bindEvents() {}
 
     /**
-     * Update widget state
+     * Update component state
      */
     update() {}
 
     /**
-     * Render widget to container
+     * Render component to container
      */
     render() {
         const node = this.container;
@@ -120,8 +120,9 @@ export default class Widget {
         if ( this.onRender ) {
             this.onRender();
         }
-
-        this.update();
+        if ( this.needUpdateAfterRender ) {
+            this.update();
+        }
     }
 
     /**

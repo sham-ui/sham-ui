@@ -1,17 +1,17 @@
-import { DI, Widget } from '../src/shamUI';
+import { DI, Component } from '../src/shamUI';
 import { onEvent } from './helpers';
 
 it( 'exceptions', async() => {
     expect.assertions( 9 );
     const errorMock = jest.fn();
-    class Dummy extends Widget {
+    class Dummy extends Component {
         render() {
             super.render( ...arguments );
             throw new Error( 'Test error' );
         }
     }
     DI.bind( 'logger', { error: errorMock } );
-    DI.bind( 'widget-binder', () => {
+    DI.bind( 'component-binder', () => {
         new Dummy( {
             ID: 'dummy',
             containerSelector: 'body'
@@ -31,8 +31,8 @@ it( 'exceptions', async() => {
     expect( error.exception.message ).toBe( 'Test error' );
     expect( error.state ).toBe( 'rendering' );
     expect( error.priorState ).toBe( 'registration' );
-    expect( error._currentAction ).toBe( 'rendering.renderChangedWidgets' );
+    expect( error._currentAction ).toBe( 'rendering.renderChangedComponents' );
     expect( error._priorAction ).toBe( 'ready.all' );
     expect( error.currentActionArgs ).toHaveLength( 1 );
-    expect( error.currentActionArgs[ 0 ] ).toEqual( 'renderChangedWidgets' );
+    expect( error.currentActionArgs[ 0 ] ).toEqual( 'renderChangedComponents' );
 } );

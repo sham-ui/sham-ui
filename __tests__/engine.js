@@ -1,19 +1,19 @@
-import { renderWidget, expectRenderedText } from './helpers';
-import { DI, Widget, options } from '../src/shamUI';
+import { renderComponent, expectRenderedText } from './helpers';
+import { DI, Component, options } from '../src/shamUI';
 import RenderingState from '../src/engine/states/rendering';
 
 it( 'raf for rendering', async() => {
     expect.assertions( 5 );
     const stackWatcher = jest.fn();
     class RAFRenderingState extends RenderingState {
-        renderChangedWidgets() {
+        renderChangedComponents() {
             stackWatcher( 'before' );
-            window.requestAnimationFrame( super.renderChangedWidgets.bind( this ) );
+            window.requestAnimationFrame( super.renderChangedComponents.bind( this ) );
             stackWatcher( 'after' );
         }
     }
     DI.bind( 'state:rendering', RAFRenderingState );
-    class Label extends Widget {
+    class Label extends Component {
         @options text = '';
 
         render() {
@@ -21,7 +21,7 @@ it( 'raf for rendering', async() => {
             this.container.innerHTML = this.options.text;
         }
     }
-    await renderWidget( Label, { text: 'label text' } );
+    await renderComponent( Label, { text: 'label text' } );
     expectRenderedText( 'label text' );
     expect( stackWatcher ).toHaveBeenCalledTimes( 3 );
     expect( stackWatcher ).toHaveBeenNthCalledWith( 1, 'before' );

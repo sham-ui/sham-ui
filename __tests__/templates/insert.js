@@ -1,8 +1,8 @@
-import { renderWidget, expectRenderedHTML } from '../helpers';
+import { renderComponent, expectRenderedHTML } from '../helpers';
 import { DI } from '../../src/shamUI';
 
 /**
- * Widget for
+ * Component for
  * <h1>{{ title }}</h1>
  * <div>
  *   {{ content }}
@@ -10,7 +10,7 @@ import { DI } from '../../src/shamUI';
  * @class
  */
 function CustomPanel() {
-    __UI__.Widget.apply( this, arguments );
+    __UI__.Component.apply( this, arguments );
     this.__data__ = {};
 
     // Create elements
@@ -36,7 +36,7 @@ function CustomPanel() {
     // Set root nodes
     this.nodes = [ h10, div2 ];
 }
-CustomPanel.prototype = Object.create( __UI__.Widget.prototype );
+CustomPanel.prototype = Object.create( __UI__.Component.prototype );
 CustomPanel.prototype.constructor = CustomPanel;
 CustomPanel.prototype.name = 'CustomPanel';
 CustomPanel.prototype.update = function( __currentData__ ) {
@@ -52,11 +52,11 @@ CustomPanel.prototype.update = function( __currentData__ ) {
 
 
 /**
- * Widget for <CustomPanel title="string" content="text"/>
+ * Component for <CustomPanel title="string" content="text"/>
  * @class
  */
 function custom() {
-    __UI__.Widget.apply( this, arguments );
+    __UI__.Component.apply( this, arguments );
     this.__data__ = {};
     var _this = this;
 
@@ -76,7 +76,7 @@ function custom() {
     // Set root nodes
     this.nodes = [ custom0 ];
 }
-custom.prototype = Object.create( __UI__.Widget.prototype );
+custom.prototype = Object.create( __UI__.Component.prototype );
 custom.prototype.constructor = custom;
 custom.prototype.name = 'custom';
 custom.prototype.update = function( __currentData__ ) {
@@ -87,13 +87,13 @@ custom.prototype.update = function( __currentData__ ) {
 
 it( 'render', async() => {
     expect.assertions( 1 );
-    await renderWidget( custom );
+    await renderComponent( custom );
     expectRenderedHTML( '<h1>string</h1><div>text</div><!--CustomPanel-->' );
 } );
 
 it( 're-render', async() => {
     expect.assertions( 1 );
-    await renderWidget( custom, {
+    await renderComponent( custom, {
         ID: 'custom'
     } );
     DI.resolve( 'sham-ui' ).render.ONLY_IDS( 'custom' );
@@ -102,7 +102,7 @@ it( 're-render', async() => {
 
 it( 'destroy', async() => {
     expect.assertions( 1 );
-    await renderWidget( custom, {
+    await renderComponent( custom, {
         ID: 'custom'
     } );
     DI.resolve( 'sham-ui' ).render.unregister( 'custom' );

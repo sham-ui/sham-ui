@@ -1,14 +1,14 @@
-import { renderWidget, expectRenderedHTML } from '../helpers';
+import { renderComponent, expectRenderedHTML } from '../helpers';
 import { DI } from '../../src/shamUI';
 
 /**
- * Widget for template
+ * Component for template
  * <h1>{{ title }}</h1>
  * <div>{{ content }}</div>
  * @class
  */
 function custom() {
-    __UI__.Widget.apply( this, arguments );
+    __UI__.Component.apply( this, arguments );
 
     // Create elements
     var h10 = document.createElement( 'h1' );
@@ -33,7 +33,7 @@ function custom() {
     // Set root nodes
     this.nodes = [ h10, div2 ];
 }
-custom.prototype = Object.create( __UI__.Widget.prototype );
+custom.prototype = Object.create( __UI__.Component.prototype );
 custom.prototype.constructor = custom;
 custom.prototype.name = 'custom';
 custom.prototype.update = function( __currentData__ ) {
@@ -50,7 +50,7 @@ custom.prototype.update = function( __currentData__ ) {
 
 it( 'render', async() => {
     expect.assertions( 1 );
-    await renderWidget( custom, {
+    await renderComponent( custom, {
         title: 'Text for title',
         content: 'Text for content'
     } );
@@ -59,12 +59,12 @@ it( 'render', async() => {
 
 it( 'querySelector', async() => {
     expect.assertions( 2 );
-    await renderWidget( custom, {
+    await renderComponent( custom, {
         ID: 'custom',
         title: 'Text for title',
         content: 'Text for content'
     } );
-    const widget = DI.resolve( 'sham-ui:store' ).findById( 'custom' );
-    expect( widget.querySelector( 'h1' ).textContent ).toBe( 'Text for title' );
-    expect( widget.querySelector( '.not-exists' ) ).toBe( null );
+    const component = DI.resolve( 'sham-ui:store' ).findById( 'custom' );
+    expect( component.querySelector( 'h1' ).textContent ).toBe( 'Text for title' );
+    expect( component.querySelector( '.not-exists' ) ).toBe( null );
 } );

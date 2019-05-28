@@ -12,7 +12,8 @@ export default function insert( parent, node, child/*.ref*/, template, data, own
             owner,
             filters: parent.filters,
             directives: parent.directives,
-            container: node
+            container: node,
+            needUpdateAfterRender: false
         } );
         view.UI.render.ONLY_IDS( view.ID );
 

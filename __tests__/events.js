@@ -1,9 +1,9 @@
-import { DI, Widget } from '../src/shamUI';
+import { DI, Component } from '../src/shamUI';
 import { onEvent } from './helpers';
 
 beforeEach( () => {
-    DI.bind( 'widget-binder', () => {
-        new Widget( {
+    DI.bind( 'component-binder', () => {
+        new Component( {
             ID: 'dummy',
             containerSelector: 'body'
         } );
@@ -11,7 +11,7 @@ beforeEach( () => {
 } );
 
 afterEach( () => {
-    DI.bind( 'widget-binder', () => {} );
+    DI.bind( 'component-binder', () => {} );
 } );
 
 it( 'RenderComplete', async() => {

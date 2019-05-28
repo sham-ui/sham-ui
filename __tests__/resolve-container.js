@@ -1,36 +1,36 @@
-import { DI, Widget } from '../src/shamUI';
-import { renderWidget, renderApp } from './helpers';
+import { DI, Component } from '../src/shamUI';
+import { renderComponent, renderApp } from './helpers';
 
 it( 'bindEvents', async() => {
     expect.assertions( 1 );
-    class Dummy extends Widget {
+    class Dummy extends Component {
         bindEvents() {
             expect( this.container ).toBeInstanceOf( Element );
         }
     }
-    await renderWidget( Dummy );
+    await renderComponent( Dummy );
 } );
 
 it( 'render', async() => {
     expect.assertions( 1 );
-    class Dummy extends Widget {
+    class Dummy extends Component {
         render() {
             expect( this.container ).toBeInstanceOf( Element );
         }
     }
-    await renderWidget( Dummy );
+    await renderComponent( Dummy );
 } );
 
-it( 'empty widget', async() => {
+it( 'empty component', async() => {
     expect.assertions( 1 );
-    class Dummy extends Widget {}
-    let widget;
-    DI.bind( 'widget-binder', () => {
-        widget = new Dummy( {
+    class Dummy extends Component {}
+    let component;
+    DI.bind( 'component-binder', () => {
+        component = new Dummy( {
             ID: 'dummy',
             containerSelector: 'body'
         } );
     } );
     await renderApp();
-    expect( widget.container ).toBeInstanceOf( Element );
+    expect( component.container ).toBeInstanceOf( Element );
 } );

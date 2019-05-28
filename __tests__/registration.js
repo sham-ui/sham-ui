@@ -1,15 +1,15 @@
-import { DI, Widget } from '../src/shamUI';
+import { DI, Component } from '../src/shamUI';
 import { renderApp } from './helpers';
 
-it( 'registration two widgets with same id', async() => {
+it( 'registration two components with same id', async() => {
     expect.assertions( 2 );
     let first, second;
-    DI.bind( 'widget-binder', () => {
-        first = new Widget( {
+    DI.bind( 'component-binder', () => {
+        first = new Component( {
             ID: 'dummy',
             containerSelector: 'body'
         } );
-        second = new Widget( {
+        second = new Component( {
             ID: 'dummy',
             containerSelector: 'body'
         } );

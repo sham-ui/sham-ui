@@ -104,7 +104,8 @@ export default function loop( parent, node, map, template, array, options, owner
             owner,
             filters: parent.filters,
             directives: parent.directives,
-            container: node
+            container: node,
+            needUpdateAfterRender: false
         } );
         view.UI.render.ONLY_IDS( view.ID );
 

@@ -1,13 +1,13 @@
-import ShamUI, { DI, Widget } from 'sham-ui';
+import ShamUI, { DI, Component } from 'sham-ui';
 
 it( 'dummy label', async() => {
     expect.assertions( 1 );
-    class Label extends Widget {
+    class Label extends Component {
         render() {
             this.container.textContent = this.ID;
         }
     }
-    DI.bind( 'widget-binder', function() {
+    DI.bind( 'component-binder', function() {
         new Label( {
             ID: 'dummy',
             containerSelector: 'body'

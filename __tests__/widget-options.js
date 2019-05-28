@@ -1,7 +1,7 @@
-import { Widget, options, DI } from '../src/shamUI';
-import { renderWidget, expectRenderedText, onRenderComplete } from './helpers';
+import { Component, options, DI } from '../src/shamUI';
+import { renderComponent, expectRenderedText, onRenderComplete } from './helpers';
 
-class Label extends Widget {
+class Label extends Component {
     @options
     text() {
         return this.ID;
@@ -24,13 +24,13 @@ class OverrideDefaultOptions extends Label {
 
 it( 'override default options', async() => {
     expect.assertions( 1 );
-    await renderWidget( OverrideDefaultOptions );
+    await renderComponent( OverrideDefaultOptions );
     expectRenderedText( 'override' );
 } );
 
-it( 'override widget options in params', async() => {
+it( 'override component options in params', async() => {
     expect.assertions( 1 );
-    await renderWidget( OverrideDefaultOptions, {
+    await renderComponent( OverrideDefaultOptions, {
         text() {
             return 'override-from-constructor-args';
         }
@@ -39,15 +39,15 @@ it( 'override widget options in params', async() => {
 } );
 
 
-it( 'extend widget without override options', async() => {
+it( 'extend component without override options', async() => {
     expect.assertions( 1 );
     class ExtendWithoutOverride extends Label {}
-    await renderWidget( ExtendWithoutOverride );
+    await renderComponent( ExtendWithoutOverride );
     expectRenderedText( 'dummy' );
 } );
 
 
-it( 'extend widget (two level)', async() => {
+it( 'extend component (two level)', async() => {
     expect.assertions( 1 );
     class ExtendTwoLevel extends OverrideDefaultOptions {
         @options
@@ -55,7 +55,7 @@ it( 'extend widget (two level)', async() => {
             return 'two level';
         }
     }
-    await renderWidget( ExtendTwoLevel );
+    await renderComponent( ExtendTwoLevel );
     expectRenderedText( 'two level' );
 } );
 
@@ -67,20 +67,20 @@ it( 'call super (two level)', async() => {
             return super.text() + ' and extend';
         }
     }
-    await renderWidget( ExtendTwoLevel );
+    await renderComponent( ExtendTwoLevel );
     expectRenderedText( 'override and extend' );
 } );
 
 it( 'throw error on static', async() => {
     expect.assertions( 1 );
     try {
-        class ThrowError extends Widget {
+        class ThrowError extends Component {
             @options
             static text() {
                 return 'text';
             }
         }
-        await renderWidget( ThrowError );
+        await renderComponent( ThrowError );
     } catch ( e ) {
         expect( e.message ).toEqual(
             expect.stringContaining( 'static options don\'t allow. Name: text, target:' )
@@ -93,13 +93,13 @@ it( 'ovveride method with instance prop', async() => {
     class Dummy extends Label {
         @options text = 'instance text';
     }
-    await renderWidget( Dummy );
+    await renderComponent( Dummy );
     expectRenderedText( 'instance text' );
 } );
 
-it( 'context is a widget (getter)', async() => {
+it( 'context is a component (getter)', async() => {
     expect.assertions( 1 );
-    class Dummy extends Widget {
+    class Dummy extends Component {
         get age() {
             return 27;
         }
@@ -114,13 +114,13 @@ it( 'context is a widget (getter)', async() => {
             this.container.textContent = this.options.fullName;
         }
     }
-    await renderWidget( Dummy );
+    await renderComponent( Dummy );
     expectRenderedText( 'John Smith (27)' );
 } );
 
-it( 'context is a widget (method)', async() => {
+it( 'context is a component (method)', async() => {
     expect.assertions( 1 );
-    class Dummy extends Widget {
+    class Dummy extends Component {
         age() {
             return 27;
         }
@@ -135,14 +135,14 @@ it( 'context is a widget (method)', async() => {
             this.container.textContent = this.options.fullName();
         }
     }
-    await renderWidget( Dummy );
+    await renderComponent( Dummy );
     expectRenderedText( 'John Smith (27)' );
 } );
 
 
-it( 'context is a not widget (pass as constructor argument)', async() => {
+it( 'context is a not component (pass as constructor argument)', async() => {
     expect.assertions( 2 );
-    class Dummy extends Widget {
+    class Dummy extends Component {
         @options firstName = 'John';
         @options lastName ='Smith';
         @options fullName() {}
@@ -151,7 +151,7 @@ it( 'context is a not widget (pass as constructor argument)', async() => {
             this.container.textContent = this.options.fullName();
         }
     }
-    await renderWidget( Dummy, {
+    await renderComponent( Dummy, {
         fullName() {
             expect( this instanceof Dummy ).toBe( false );
             return 'Test';
@@ -162,7 +162,7 @@ it( 'context is a not widget (pass as constructor argument)', async() => {
 
 it( 'getter & setter together', async() => {
     expect.assertions( 4 );
-    class Dummy extends Widget {
+    class Dummy extends Component {
         @options
         get text() {
             return this._text;
@@ -177,12 +177,12 @@ it( 'getter & setter together', async() => {
             this.container.textContent = this.options.text;
         }
     }
-    await renderWidget( Dummy );
+    await renderComponent( Dummy );
     expectRenderedText( '' );
-    const widget = DI.resolve( 'sham-ui:store' ).findById( 'dummy' );
-    widget.options.text = 'test text';
-    expect( widget._text ).toBe( 'test text' );
-    expect( widget.options.text ).toBe( 'test text' );
+    const component = DI.resolve( 'sham-ui:store' ).findById( 'dummy' );
+    component.options.text = 'test text';
+    expect( component._text ).toBe( 'test text' );
+    expect( component.options.text ).toBe( 'test text' );
     await onRenderComplete( UI => UI.render.ONLY_IDS( 'dummy' ) );
     expect( document.querySelector( 'body' ).textContent ).toBe( 'test text' );
 } );
@@ -190,7 +190,7 @@ it( 'getter & setter together', async() => {
 
 it( 'container', async() => {
     expect.assertions( 1 );
-    await renderWidget( Label, {
+    await renderComponent( Label, {
         container: document.querySelector( 'body' ),
         text: 'text for container'
     } );
@@ -199,7 +199,7 @@ it( 'container', async() => {
 
 it( 'generated id', async() => {
     expect.assertions( 2 );
-    await renderWidget( Label, {
+    await renderComponent( Label, {
         types: [ 'label' ],
         ID: null
     } );

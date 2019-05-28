@@ -58,33 +58,18 @@ export class FSM extends Fsm {
     }
 
     /**
-     * Зарегистрировать виджет
-     * @param {*}         widget.ID                     Идентификатор
-     * @param {Function} [widget.bind]                   Функция навешивающая обработчики
-     * @param {Function} [widget.render]                 Функция отрисовки.
-     * @param {Function} [widget.remove]                Функция отвязывающая обработчики
-     * @param {Object}   [widget.options]                Опции виджета
-     * @param {Array}    [widget.options.types]          Массив типов
-     * @param {Function} [widget.options.beforeRegister] До регистрации
-     * @param {Function} [widget.options.afterRegister]  После регистрации
-     * @param {Function} [widget.options.beforeBind]     До навешивания обработчиков
-     * @param {Function} [widget.options.afterBind]      После навешивания обработчиков
-     * @param {Function} [widget.options.beforeRender]   До отрисовки этого элемента
-     * @param {Function} [widget.options.afterRender]    После отрисовки этого элемента
-     * @param {Function} [widget.options.beforeRemove]  До отвязки обработчиков
-     * @param {Function} [widget.options.afterRemove]   После отвязки обработчиков
+     * @param {Component} component
      * @see {@link RegistrationState#register}
      */
-    register( widget ) {
-        this.handle( 'register', widget );
+    register( component ) {
+        this.handle( 'register', component );
     }
 
     /**
-     * Разрегистрировать виджет
-     * @param {String} widgetId Идентификатор виджета
+     * @param {String} componentId
      */
-    unregister( widgetId ) {
-        this.handle( 'unregister', widgetId );
+    unregister( componentId ) {
+        this.handle( 'unregister', componentId );
     }
 
     /**

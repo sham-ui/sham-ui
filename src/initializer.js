@@ -5,11 +5,11 @@ import Store from './engine/store';
 import insert from './processors/insert';
 import cond from './processors/cond';
 import loop, { Map } from './processors/loop';
-import Widget from './widget';
+import Component from './component';
 
 window.DI = DI;
 
-// Default widget store
+// Default component store
 new Store();
 
 // Default fsm binding
@@ -32,6 +32,6 @@ if ( !window.hasOwnProperty( exportKey ) ) {
         cond,
         loop,
         Map,
-        Widget
+        Component
     };
 }

@@ -15,17 +15,17 @@ function bindProperty( descriptor, name, context ) {
 
 /**
  *
- * @param {Object} widgetContext
+ * @param {Object} componentContext
  * @param {Object} options
  * @return {Object}
  */
-export default function bindDescriptors( widgetContext, options ) {
+export default function bindDescriptors( componentContext, options ) {
     const descriptors = Object.getOwnPropertyDescriptors( options );
     for ( let name in descriptors ) {
         const descriptor = descriptors[ name ];
-        bindProperty( descriptor, 'get', widgetContext );
-        bindProperty( descriptor, 'set', widgetContext );
-        bindProperty( descriptor, 'value', widgetContext );
+        bindProperty( descriptor, 'get', componentContext );
+        bindProperty( descriptor, 'set', componentContext );
+        bindProperty( descriptor, 'value', componentContext );
     }
     return descriptors;
 }

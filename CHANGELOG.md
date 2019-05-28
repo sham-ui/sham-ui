@@ -1,3 +1,7 @@
+## 3.0.0
+* Rename widget to component
+* Remove extra component update in processors
+
 ## 2.0.5
 * Simplify fsm 
 * Optimize defer rendering

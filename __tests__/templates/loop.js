@@ -1,8 +1,8 @@
-import { renderWidget, expectRenderedHTML } from '../helpers';
+import { renderComponent, expectRenderedHTML } from '../helpers';
 import { DI } from '../../src/shamUI';
 
 /**
- * Widget for
+ * Component for
  * <ul>
  *   {% for key, value of list %}
  *     <li>{{ key }}:{{ value }}</li>
@@ -11,7 +11,7 @@ import { DI } from '../../src/shamUI';
  * @class
  */
 function loop() {
-    __UI__.Widget.apply( this, arguments );
+    __UI__.Component.apply( this, arguments );
     this.__data__ = {};
     var _this = this;
 
@@ -43,7 +43,7 @@ function loop() {
     // Set root nodes
     this.nodes = [ ul0 ];
 }
-loop.prototype = Object.create( __UI__.Widget.prototype );
+loop.prototype = Object.create( __UI__.Component.prototype );
 loop.prototype.constructor = loop;
 loop.prototype.name = 'loop';
 loop.prototype.update = function( __currentData__ ) {
@@ -60,7 +60,7 @@ loop.prototype.update = function( __currentData__ ) {
  */
 // eslint-disable-next-line camelcase
 function loop_for0() {
-    __UI__.Widget.apply( this, arguments );
+    __UI__.Component.apply( this, arguments );
     this.__data__ = {};
     this.__state__ = {};
 
@@ -87,7 +87,7 @@ function loop_for0() {
     // Set root nodes
     this.nodes = [ li0 ];
 }
-loop_for0.prototype = Object.create( __UI__.Widget.prototype );
+loop_for0.prototype = Object.create( __UI__.Component.prototype );
 // eslint-disable-next-line camelcase
 loop_for0.prototype.constructor = loop_for0;
 loop_for0.prototype.name = 'loop_for0';
@@ -105,7 +105,7 @@ loop_for0.prototype.update = function( __currentData__ ) {
 
 it( 'render (array)', async() => {
     expect.assertions( 1 );
-    await renderWidget( loop, {
+    await renderComponent( loop, {
         list: [ 'one', 'two', 'three' ]
     } );
     expectRenderedHTML( '<ul><li>0:one</li><li>1:two</li><li>2:three</li></ul>' );
@@ -113,7 +113,7 @@ it( 'render (array)', async() => {
 
 it( 'render (object)', async() => {
     expect.assertions( 1 );
-    await renderWidget( loop, {
+    await renderComponent( loop, {
         list: {
             one: 'I',
             two: 'II',
@@ -126,18 +126,18 @@ it( 'render (object)', async() => {
 it( 'update', async() => {
     expect.assertions( 5 );
     const list = [ 'one', 'two', 'three' ];
-    await renderWidget( loop, {
+    await renderComponent( loop, {
         list,
         ID: 'loop'
     } );
     expectRenderedHTML( '<ul><li>0:one</li><li>1:two</li><li>2:three</li></ul>' );
-    const widget = DI.resolve( 'sham-ui:store' ).findById( 'loop' );
-    widget.update( { list: [ ...list, 'four' ] } );
+    const component = DI.resolve( 'sham-ui:store' ).findById( 'loop' );
+    component.update( { list: [ ...list, 'four' ] } );
     expectRenderedHTML( '<ul><li>0:one</li><li>1:two</li><li>2:three</li><li>3:four</li></ul>' );
-    widget.update( { list: [ 'one', 'two' ] } );
+    component.update( { list: [ 'one', 'two' ] } );
     expectRenderedHTML( '<ul><li>0:one</li><li>1:two</li></ul>' );
-    widget.update( { list: [ ...list ] } );
+    component.update( { list: [ ...list ] } );
     expectRenderedHTML( '<ul><li>0:one</li><li>1:two</li><li>2:three</li></ul>' );
-    widget.update( { list: [ 'one', 'three' ] } );
+    component.update( { list: [ 'one', 'three' ] } );
     expectRenderedHTML( '<ul><li>0:one</li><li>1:three</li></ul>' );
 } );

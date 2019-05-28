@@ -1,11 +1,11 @@
-import { Widget, options } from '../src/shamUI';
-import { renderWidget, expectRenderedText, onRenderComplete } from './helpers';
+import { Component, options } from '../src/shamUI';
+import { renderComponent, expectRenderedText, onRenderComplete } from './helpers';
 
 afterEach( () => {
     document.querySelector( 'body' ).innerHTML = '';
 } );
 
-class Label extends Widget {
+class Label extends Component {
     @options types = [ 'label' ];
 
     render() {
@@ -15,7 +15,7 @@ class Label extends Widget {
 
 it( 'first render (ALL)', async() => {
     expect.assertions( 1 );
-    await renderWidget( Label, {
+    await renderComponent( Label, {
         text() {
             return 'dummy (all)';
         }
@@ -29,7 +29,7 @@ it( 'render (ONLY_IDS)', async() => {
         .fn()
         .mockReturnValueOnce( 'dummy (first render)' )
         .mockReturnValueOnce( 'dummy (second render)' );
-    await renderWidget( Label, {
+    await renderComponent( Label, {
         text: mock
     } );
     await onRenderComplete( UI => UI.render.ONLY_IDS( 'dummy' ) );
@@ -42,7 +42,7 @@ it( 'first render (ONLY_TYPES)', async() => {
         .fn()
         .mockReturnValueOnce( 'dummy (first render)' )
         .mockReturnValueOnce( 'dummy (second render)' );
-    await renderWidget( Label, {
+    await renderComponent( Label, {
         text: mock
     } );
     expectRenderedText( 'dummy (first render)' );
@@ -56,7 +56,7 @@ it( 'render (not exists type)', async() => {
         .fn()
         .mockReturnValueOnce( 'dummy (first render)' )
         .mockReturnValueOnce( 'dummy (second render)' );
-    await renderWidget( Label, {
+    await renderComponent( Label, {
         text: mock
     } );
     expectRenderedText( 'dummy (first render)' );
@@ -70,7 +70,7 @@ it( 'render (not exists id)', async() => {
         .fn()
         .mockReturnValueOnce( 'dummy (first render)' )
         .mockReturnValueOnce( 'dummy (second render)' );
-    await renderWidget( Label, {
+    await renderComponent( Label, {
         text: mock
     } );
     expectRenderedText( 'dummy (first render)' );

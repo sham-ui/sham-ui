@@ -1,9 +1,9 @@
-import { Widget, DI } from '../src/shamUI';
-import { renderWidget, renderApp } from './helpers';
+import { Component, DI } from '../src/shamUI';
+import { renderComponent, renderApp } from './helpers';
 
 it( 'remove', async() => {
     expect.assertions( 2 );
-    await renderWidget( Widget, {
+    await renderComponent( Component, {
         types: [ 'label' ]
     } );
     DI.resolve( 'sham-ui' ).render.unregister( 'dummy' );
@@ -14,19 +14,19 @@ it( 'remove', async() => {
 
 it( 'remove one', async() => {
     expect.assertions( 4 );
-    DI.bind( 'widget-binder', () => {
-        class SelfDestroyedWidget extends Widget {
+    DI.bind( 'component-binder', () => {
+        class SelfDestroyedComponent extends Component {
             render() {
                 super.render( ...arguments );
                 this.UI.render.unregister( this.ID );
             }
         }
-        new SelfDestroyedWidget( {
+        new SelfDestroyedComponent( {
             ID: 'first',
             containerSelector: 'body',
             types: [ 'label' ]
         } );
-        new Widget( {
+        new Component( {
             ID: 'second',
             containerSelector: 'body',
             types: [ 'link', 'label' ]
@@ -40,12 +40,12 @@ it( 'remove one', async() => {
     expect( store.filterByType( 'link' ) ).toHaveLength( 1 );
 } );
 
-it( 'remove non exists widget', async() => {
+it( 'remove non exists component', async() => {
     expect.assertions( 1 );
-    await renderWidget( Widget );
+    await renderComponent( Component );
     DI.resolve( 'sham-ui' ).render.unregister( 'non-exists' );
     const store = DI.resolve( 'sham-ui:store' );
-    expect( store.findById( 'dummy' ) ).toBeInstanceOf( Widget );
+    expect( store.findById( 'dummy' ) ).toBeInstanceOf( Component );
 } );
 
 it( 'modify type after registry', async() => {
@@ -53,7 +53,7 @@ it( 'modify type after registry', async() => {
     const typesMock = jest.fn()
         .mockReturnValueOnce( [ 'label' ] )
         .mockReturnValueOnce( [ 'link' ] );
-    await renderWidget( Widget, {
+    await renderComponent( Component, {
         get types() {
             return typesMock();
         }

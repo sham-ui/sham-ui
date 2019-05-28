@@ -1,10 +1,10 @@
-import ShamUI, { DI, Widget } from '../src/shamUI';
+import ShamUI, { DI, Component } from '../src/shamUI';
 import { expectRenderedText } from './helpers';
 
 it( 'autostart', async() => {
     expect.assertions( 2 );
-    DI.bind( 'widget-binder', () => {
-        class Dummy extends Widget {
+    DI.bind( 'component-binder', () => {
+        class Dummy extends Component {
             render() {
                 this.container.textContent = this.ID;
             }

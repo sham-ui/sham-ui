@@ -6,42 +6,25 @@ export default class BaseRegistrationState extends State {
     @inject( 'sham-ui:store' ) store;
 
     /**
-     * Зарегистрировать виджет
-     * @param {*}         widget.ID                      Идентификатор
-     * @param {Function} [widget.bind]                   Функция навешивающая обработчики
-     * @param {Function} [widget.render]                 Функция отрисовки.
-     * @param {Function} [widget.remove]                Функция отвязывающая обработчики
-     * @param {Object}   [widget.options]                Опции виджета
-     * @param {Array}    [widget.options.types]          Массив типов
-     * @param {Function} [widget.options.beforeRegister] До регистрации
-     * @param {Function} [widget.options.afterRegister]  После регистрации
-     * @param {Function} [widget.options.beforeBind]     До навешивания обработчиков
-     * @param {Function} [widget.options.afterBind]      После навешивания обработчиков
-     * @param {Function} [widget.options.beforeRender]   До отрисовки этого элемента
-     * @param {Function} [widget.options.afterRender]    После отрисовки этого элемента
-     * @param {Function} [widget.options.beforeRemove]  До отвязки обработчиков
-     * @param {Function} [widget.options.afterRemove]   После отвязки обработчиков
-     * @see Widget
-     * @see Widget#defaultOptions
+     * @param {Component} component
      */
-    register( widget ) {
+    register( component ) {
         const { store } = this;
-        if ( store.byId.has( widget.ID ) ) {
+        if ( store.byId.has( component.ID ) ) {
             return;
         }
-        store.registry( widget );
+        store.registry( component );
     }
 
     /**
-     * Разрегистрировать виджет
-     * @param {String} widgetId Идентификатор виджета, который нужно разрегистрировать
+     * @param {String} componentId
      */
-    unregister( widgetId ) {
+    unregister( componentId ) {
         const { store } = this;
-        const widget = store.findById( widgetId );
-        if ( undefined !== widget ) {
-            widget.remove();
-            store.unregister( widget );
+        const component = store.findById( componentId );
+        if ( undefined !== component ) {
+            component.remove();
+            store.unregister( component );
         }
     }
 }
