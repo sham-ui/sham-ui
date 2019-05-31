@@ -45,14 +45,11 @@ function loop() {
 }
 loop.prototype = Object.create( __UI__.Component.prototype );
 loop.prototype.constructor = loop;
-loop.prototype.name = 'loop';
-loop.prototype.update = function( __currentData__ ) {
-    var __data__ = Object.assign( {}, this.options, __currentData__ );
+loop.prototype.updateSpots = function( __data__ ) {
     if ( __data__.list !== undefined ) {
         this.__update__.list( __data__.list );
     }
     this.onUpdate( __data__ );
-    this.options = __data__;
 };
 
 /**
@@ -90,16 +87,13 @@ function loop_for0() {
 loop_for0.prototype = Object.create( __UI__.Component.prototype );
 // eslint-disable-next-line camelcase
 loop_for0.prototype.constructor = loop_for0;
-loop_for0.prototype.name = 'loop_for0';
-loop_for0.prototype.update = function( __currentData__ ) {
-    var __data__ = Object.assign( {}, this.options, __currentData__ );
+loop_for0.prototype.updateSpots = function( __data__ ) {
     if ( __data__.key !== undefined && __data__.__index__ !== undefined ) {
         this.__update__.key( __data__.key );
     }
     if ( __data__.value !== undefined && __data__.__index__ !== undefined ) {
         this.__update__.value( __data__.value );
     }
-    this.options = __data__;
 };
 
 

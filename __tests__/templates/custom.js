@@ -35,16 +35,13 @@ function custom() {
 }
 custom.prototype = Object.create( __UI__.Component.prototype );
 custom.prototype.constructor = custom;
-custom.prototype.name = 'custom';
-custom.prototype.update = function( __currentData__ ) {
-    var __data__ = Object.assign( {}, this.options, __currentData__ );
+custom.prototype.updateSpots = function( __data__ ) {
     if ( __data__.title !== undefined ) {
         this.__update__.title( __data__.title );
     }
     if ( __data__.content !== undefined ) {
         this.__update__.content( __data__.content );
     }
-    this.options = __data__;
 };
 
 

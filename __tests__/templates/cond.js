@@ -43,14 +43,11 @@ function cond() {
 }
 cond.prototype = Object.create( __UI__.Component.prototype );
 cond.prototype.constructor = cond;
-cond.prototype.name = 'cond';
-cond.prototype.update = function( __currentData__ ) {
-    var __data__ = Object.assign( {}, this.options, __currentData__ );
+cond.prototype.updateSpots = function( __data__ ) {
     if ( __data__.test !== undefined ) {
         this.__update__.test( __data__.test );
     }
     this.onUpdate( __data__ );
-    this.options = __data__;
 };
 
 /**
@@ -66,11 +63,6 @@ function cond_if0() {
 cond_if0.prototype = Object.create( __UI__.Component.prototype );
 // eslint-disable-next-line camelcase
 cond_if0.prototype.constructor = cond_if0;
-cond_if0.prototype.name = 'cond_if0';
-cond_if0.prototype.update = function( __currentData__ ) {
-    var __data__ = Object.assign( {}, this.options, __currentData__ );
-    this.options = __data__;
-};
 
 /**
  * @class
@@ -85,11 +77,6 @@ function cond_else1() {
 cond_else1.prototype = Object.create( __UI__.Component.prototype );
 // eslint-disable-next-line camelcase
 cond_else1.prototype.constructor = cond_else1;
-cond_else1.prototype.name = 'cond_else1';
-cond_else1.prototype.update = function( __currentData__ ) {
-    var __data__ = Object.assign( {}, this.options, __currentData__ );
-    this.options = __data__;
-};
 
 it( 'render', async() => {
     expect.assertions( 1 );

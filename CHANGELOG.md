@@ -1,3 +1,6 @@
+## 3.1.0
+* Move common parts for `update` from `sham-ui-templates` to `sham-ui` 
+
 ## 3.0.0
 * Rename widget to component
 * Remove extra component update in processors

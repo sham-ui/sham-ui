@@ -99,10 +99,49 @@ export default class Component {
      */
     bindEvents() {}
 
+
     /**
      * Update component state
+     * @param {Object}  currentData
      */
-    update() {}
+    update( currentData ) {
+        const data = this.buildDataForUpdate( currentData );
+        this.updateSpots( data );
+        this.refineOptions( currentData );
+        delete this.__data__;
+    }
+
+    /**
+     * Build & save internal state
+     * @protected
+     * @param {*} currentData
+     * @return {Object}
+     */
+    buildDataForUpdate( currentData ) {
+        this.__data__ = Object.assign( {}, this.options, currentData );
+        return this.__data__;
+    }
+
+    /**
+     * Update spots & call onUpdate. Generate in sham-ui-templates
+     * @protected
+     * @param {Object} data
+     */
+    updateSpots() {}
+
+    /**
+     * Update options with data
+     * @protected
+     * @param {*} currentData
+     */
+    refineOptions( currentData ) {
+        if ( currentData ) {
+            Object.defineProperties(
+                this.options,
+                Object.getOwnPropertyDescriptors( currentData )
+            );
+        }
+    }
 
     /**
      * Render component to container
