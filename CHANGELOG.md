@@ -1,3 +1,6 @@
+### 3.1.1
+* Update dependencies
+
 ## 3.1.0
 * Move common parts for `update` from `sham-ui-templates` to `sham-ui` 
 
