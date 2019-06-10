@@ -9,3 +9,4 @@
 .idea
 webpack.config.js
 yarn-error.log
+.travis.yml
