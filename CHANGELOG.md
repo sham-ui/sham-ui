@@ -1,3 +1,6 @@
+## 3.1.3
+* Update dependencies
+
 ## 3.1.2
 * Add `.travis.yml` to `.npmignore` 
 
