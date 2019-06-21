@@ -36,7 +36,9 @@ export default class Component {
         this.parent = this.options.parent || null;
         this.owner = this.options.owner || null;
         this.directives = this.options.directives || null;
-        this.needUpdateAfterRender = this.options.needUpdateAfterRender || true;
+        this.needUpdateAfterRender = 'needUpdateAfterRender' in this.options ?
+            this.options.needUpdateAfterRender :
+            true;
         this.UI.render.register( this );
     }
 

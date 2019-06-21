@@ -1,3 +1,6 @@
+## 3.2.0
+* [#42](https://github.com/sham-ui/sham-ui/issues/16) fix `needUpdateAfterRender`
+
 ## 3.1.3
 * Update dependencies
 

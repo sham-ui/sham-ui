@@ -100,3 +100,20 @@ it( 'destroy', async() => {
     DI.resolve( 'sham-ui' ).render.unregister( 'custom' );
     expectRenderedHTML( '' );
 } );
+
+it( 'needUpdateAfterRender (issue #42)', async() => {
+    expect.assertions( 2 );
+    const originalUpdateSpots = CustomPanel.prototype.updateSpots;
+    const updateFn = jest.fn();
+    CustomPanel.prototype.updateSpots = function() {
+        updateFn();
+        originalUpdateSpots.apply( this, arguments );
+    };
+    await renderComponent( custom, {
+        ID: 'custom'
+    } );
+    expect( updateFn ).toHaveBeenCalledTimes( 1 );
+    DI.resolve( 'sham-ui' ).render.ONLY_IDS( 'custom' );
+    expect( updateFn ).toHaveBeenCalledTimes( 2 );
+    CustomPanel.prototype.updateSpots = originalUpdateSpots;
+} );
