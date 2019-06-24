@@ -163,6 +163,8 @@ export default class Component {
         }
         if ( this.needUpdateAfterRender ) {
             this.update();
+        } else {
+            this.needUpdateAfterRender = true;
         }
     }
 

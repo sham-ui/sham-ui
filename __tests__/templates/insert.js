@@ -117,3 +117,22 @@ it( 'needUpdateAfterRender (issue #42)', async() => {
     expect( updateFn ).toHaveBeenCalledTimes( 2 );
     CustomPanel.prototype.updateSpots = originalUpdateSpots;
 } );
+
+
+it( 'needUpdateAfterRender work with UI.render', async() => {
+    expect.assertions( 2 );
+    const originalUpdateSpots = CustomPanel.prototype.updateSpots;
+    const updateFn = jest.fn();
+    CustomPanel.prototype.updateSpots = function() {
+        updateFn( this.ID );
+        originalUpdateSpots.apply( this, arguments );
+    };
+    await renderComponent( custom, {
+        ID: 'custom'
+    } );
+    const customPanelID = updateFn.mock.calls[ 0 ][ 0 ];
+    expect( updateFn ).toHaveBeenCalledTimes( 1 );
+    DI.resolve( 'sham-ui' ).render.ONLY_IDS( customPanelID );
+    expect( updateFn ).toHaveBeenCalledTimes( 2 );
+    CustomPanel.prototype.updateSpots = originalUpdateSpots;
+} );
