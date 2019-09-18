@@ -25,6 +25,7 @@ export default class Component {
         this.container = null;
         this.constructorOptions = options;
         this.configureOptions();
+        this.applyOptions();
         this.resolveID();
         this.nested = [];
         this.nodes = [];
@@ -42,12 +43,12 @@ export default class Component {
         this.UI.render.register( this );
     }
 
-    resolveID() {
-        const ID = this.options.ID;
-        this.ID = 'string' === typeof ID ? ID : nanoid();
-    }
+    /**
+     *  Hook for configure options without decorator
+     */
+    configureOptions() {}
 
-    configureOptions() {
+    applyOptions() {
         const descriptors = Object.assign(
             {},
 
@@ -56,6 +57,11 @@ export default class Component {
             Object.getOwnPropertyDescriptors( this.constructorOptions )
         );
         this.options = Object.create( null, descriptors );
+    }
+
+    resolveID() {
+        const ID = this.options.ID;
+        this.ID = 'string' === typeof ID ? ID : nanoid();
     }
 
     /**

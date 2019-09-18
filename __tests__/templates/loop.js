@@ -8,94 +8,92 @@ import { DI } from '../../src/shamUI';
  *     <li>{{ key }}:{{ value }}</li>
  *   {% endfor %}
  * </ul>
- * @class
  */
-function loop() {
-    __UI__.Component.apply( this, arguments );
-    this.__data__ = {};
-    var _this = this;
+class loop extends __UI__.Component {
+    constructor() {
+        super( ...arguments );
 
-    // Create elements
-    var ul0 = document.createElement( 'ul' );
-    var children0 = new __UI__.Map();
+        this.__data__ = {};
+        const _this = this;
 
-    // Update functions
-    this.__update__ = {
-        list: function( list ) {
-            __UI__.loop( _this,
-                ul0,
-                children0,
-                loop_for0,
-                list,
-                { 'key': 'key', 'value': 'value' } );
+        // Create elements
+        const ul0 = document.createElement( 'ul' );
+        const children0 = new __UI__.Map();
+
+        // Update functions
+        this.__update__ = {
+            list( list ) {
+                __UI__.loop( _this,
+                    ul0,
+                    children0,
+                    loop_for0,
+                    list,
+                    { 'key': 'key', 'value': 'value' } );
+            }
+        };
+
+        // On update actions
+        this.onUpdate = function( __data__ ) {
+            children0.forEach( function( view ) {
+                view.update( view.__state__ );
+                view.update( __data__ );
+                view.update( view.__state__ );
+            } );
+        };
+
+        // Set root nodes
+        this.nodes = [ ul0 ];
+    }
+
+    updateSpots( __data__ ) {
+        if ( __data__.list !== undefined ) {
+            this.__update__.list( __data__.list );
         }
-    };
-
-    // On update actions
-    this.onUpdate = function( __data__ ) {
-        children0.forEach( function( view ) {
-            view.update( view.__state__ );
-            view.update( __data__ );
-            view.update( view.__state__ );
-        } );
-    };
-
-    // Set root nodes
-    this.nodes = [ ul0 ];
-}
-loop.prototype = Object.create( __UI__.Component.prototype );
-loop.prototype.constructor = loop;
-loop.prototype.updateSpots = function( __data__ ) {
-    if ( __data__.list !== undefined ) {
-        this.__update__.list( __data__.list );
+        this.onUpdate( __data__ );
     }
-    this.onUpdate( __data__ );
-};
+}
 
-/**
- * @class
- */
 // eslint-disable-next-line camelcase
-function loop_for0() {
-    __UI__.Component.apply( this, arguments );
-    this.__data__ = {};
-    this.__state__ = {};
+class loop_for0 extends __UI__.Component {
+    constructor() {
+        super( ...arguments );
 
-    // Create elements
-    var li0 = document.createElement( 'li' );
-    var text1 = document.createTextNode( '' );
-    var text2 = document.createTextNode( '' );
+        this.__data__ = {};
+        this.__state__ = {};
 
-    // Construct dom
-    li0.appendChild( text1 );
-    li0.appendChild( document.createTextNode( ':' ) );
-    li0.appendChild( text2 );
+        // Create elements
+        var li0 = document.createElement( 'li' );
+        var text1 = document.createTextNode( '' );
+        var text2 = document.createTextNode( '' );
 
-    // Update functions
-    this.__update__ = {
-        key: function( key ) {
-            text1.textContent = key;
-        },
-        value: function( value ) {
-            text2.textContent = value;
+        // Construct dom
+        li0.appendChild( text1 );
+        li0.appendChild( document.createTextNode( ':' ) );
+        li0.appendChild( text2 );
+
+        // Update functions
+        this.__update__ = {
+            key: function( key ) {
+                text1.textContent = key;
+            },
+            value: function( value ) {
+                text2.textContent = value;
+            }
+        };
+
+        // Set root nodes
+        this.nodes = [ li0 ];
+    }
+
+    updateSpots( __data__ ) {
+        if ( __data__.key !== undefined && __data__.__index__ !== undefined ) {
+            this.__update__.key( __data__.key );
         }
-    };
-
-    // Set root nodes
-    this.nodes = [ li0 ];
+        if ( __data__.value !== undefined && __data__.__index__ !== undefined ) {
+            this.__update__.value( __data__.value );
+        }
+    }
 }
-loop_for0.prototype = Object.create( __UI__.Component.prototype );
-// eslint-disable-next-line camelcase
-loop_for0.prototype.constructor = loop_for0;
-loop_for0.prototype.updateSpots = function( __data__ ) {
-    if ( __data__.key !== undefined && __data__.__index__ !== undefined ) {
-        this.__update__.key( __data__.key );
-    }
-    if ( __data__.value !== undefined && __data__.__index__ !== undefined ) {
-        this.__update__.value( __data__.value );
-    }
-};
-
 
 it( 'render (array)', async() => {
     expect.assertions( 1 );

@@ -7,75 +7,76 @@ import { DI } from '../../src/shamUI';
  * <div>
  *   {{ content }}
  * </div>
- * @class
  */
-function CustomPanel() {
-    __UI__.Component.apply( this, arguments );
-    this.__data__ = {};
+class CustomPanel extends __UI__.Component {
+    constructor() {
+        super( ...arguments );
 
-    // Create elements
-    var h10 = document.createElement( 'h1' );
-    var text1 = document.createTextNode( '' );
-    var div2 = document.createElement( 'div' );
-    var text3 = document.createTextNode( '' );
+        this.__data__ = {};
 
-    // Construct dom
-    h10.appendChild( text1 );
-    div2.appendChild( text3 );
+        // Create elements
+        const h10 = document.createElement( 'h1' );
+        const text1 = document.createTextNode( '' );
+        const div2 = document.createElement( 'div' );
+        const text3 = document.createTextNode( '' );
 
-    // Update functions
-    this.__update__ = {
-        title: function( title ) {
-            text1.textContent = title;
-        },
-        content: function( content ) {
-            text3.textContent = content;
+        // Construct dom
+        h10.appendChild( text1 );
+        div2.appendChild( text3 );
+
+        // Update functions
+        this.__update__ = {
+            title( title ) {
+                text1.textContent = title;
+            },
+            content( content ) {
+                text3.textContent = content;
+            }
+        };
+
+        // Set root nodes
+        this.nodes = [ h10, div2 ];
+    }
+
+    updateSpots( __data__ ) {
+        if ( __data__.title !== undefined ) {
+            this.__update__.title( __data__.title );
         }
-    };
-
-    // Set root nodes
-    this.nodes = [ h10, div2 ];
+        if ( __data__.content !== undefined ) {
+            this.__update__.content( __data__.content );
+        }
+    }
 }
-CustomPanel.prototype = Object.create( __UI__.Component.prototype );
-CustomPanel.prototype.constructor = CustomPanel;
-CustomPanel.prototype.updateSpots = function( __data__ ) {
-    if ( __data__.title !== undefined ) {
-        this.__update__.title( __data__.title );
-    }
-    if ( __data__.content !== undefined ) {
-        this.__update__.content( __data__.content );
-    }
-};
 
 
 /**
  * Component for <CustomPanel title="string" content="text"/>
  * @class
  */
-function custom() {
-    __UI__.Component.apply( this, arguments );
-    this.__data__ = {};
-    var _this = this;
+class custom extends __UI__.Component {
+    constructor() {
+        super( ...arguments );
 
-    // Create elements
-    var custom0 = document.createComment( 'CustomPanel' );
-    var child0 = {};
+        this.__data__ = {};
+        const _this = this;
 
-    // Extra render actions
-    this.onRender = function() {
-        __UI__.insert( _this,
-            custom0,
-            child0,
-            CustomPanel,
-            { 'title': 'string', 'content': 'text' } );
-    };
+        // Create elements
+        const custom0 = document.createComment( 'CustomPanel' );
+        const child0 = {};
 
-    // Set root nodes
-    this.nodes = [ custom0 ];
+        // Extra render actions
+        this.onRender = function() {
+            __UI__.insert( _this,
+                custom0,
+                child0,
+                CustomPanel,
+                { 'title': 'string', 'content': 'text' } );
+        };
+
+        // Set root nodes
+        this.nodes = [ custom0 ];
+    }
 }
-custom.prototype = Object.create( __UI__.Component.prototype );
-custom.prototype.constructor = custom;
-
 
 it( 'render', async() => {
     expect.assertions( 1 );

@@ -1,3 +1,8 @@
+## master
+* Add `size-limit`
+* Add `browserlist`
+* Add `configureOptions` helper
+
 ## 3.3.0
 * Fix `needUpdateAfterRender`
 

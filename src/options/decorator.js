@@ -42,4 +42,5 @@ export default function( target, name, descriptor ) {
     descriptor.enumerable = true;
     descriptor.configurable = true;
     Object.defineProperty( target._options, name, descriptor );
+    return descriptor;
 }

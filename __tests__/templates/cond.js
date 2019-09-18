@@ -8,75 +8,68 @@ import { DI } from '../../src/shamUI';
  * {% else %}
  *    else
  * {% endif %}
- * @class
  */
-function cond() {
-    __UI__.Component.apply( this, arguments );
-    var _this = this;
+class cond extends __UI__.Component {
+    constructor() {
+        super( ...arguments );
 
-    // Create elements
-    var for0 = document.createComment( 'if' );
-    var child0 = {};
-    var child1 = {};
+        const _this = this;
 
-    // Update functions
-    this.__update__ = {
-        test: function( test ) {
-            var result;
-            result = __UI__.cond( _this, for0, child0, cond_if0, test );
-            __UI__.cond( _this, for0, child1, cond_else1, !result );
-        }
-    };
+        // Create elements
+        const for0 = document.createComment( 'if' );
+        const child0 = {};
+        const child1 = {};
 
-    // On update actions
-    this.onUpdate = function( __data__ ) {
-        if ( child0.ref ) {
-            child0.ref.update( __data__ );
-        }
-        if ( child1.ref ) {
-            child1.ref.update( __data__ );
-        }
-    };
+        // Update functions
+        this.__update__ = {
+            test( test ) {
+                let result;
+                result = __UI__.cond( _this, for0, child0, cond_if0, test );
+                __UI__.cond( _this, for0, child1, cond_else1, !result );
+            }
+        };
 
-    // Set root nodes
-    this.nodes = [ for0 ];
-}
-cond.prototype = Object.create( __UI__.Component.prototype );
-cond.prototype.constructor = cond;
-cond.prototype.updateSpots = function( __data__ ) {
-    if ( __data__.test !== undefined ) {
-        this.__update__.test( __data__.test );
+        // On update actions
+        this.onUpdate = function( __data__ ) {
+            if ( child0.ref ) {
+                child0.ref.update( __data__ );
+            }
+            if ( child1.ref ) {
+                child1.ref.update( __data__ );
+            }
+        };
+
+        // Set root nodes
+        this.nodes = [ for0 ];
     }
-    this.onUpdate( __data__ );
-};
 
-/**
- * @class
- */
-// eslint-disable-next-line camelcase
-function cond_if0() {
-    __UI__.Component.apply( this, arguments );
-
-    // Set root nodes
-    this.nodes = [ document.createTextNode( ' then ' ) ];
+    updateSpots( __data__ ) {
+        if ( __data__.test !== undefined ) {
+            this.__update__.test( __data__.test );
+        }
+        this.onUpdate( __data__ );
+    }
 }
-cond_if0.prototype = Object.create( __UI__.Component.prototype );
-// eslint-disable-next-line camelcase
-cond_if0.prototype.constructor = cond_if0;
 
-/**
- * @class
- */
 // eslint-disable-next-line camelcase
-function cond_else1() {
-    __UI__.Component.apply( this, arguments );
+class cond_if0 extends __UI__.Component {
+    constructor() {
+        super( ...arguments );
 
-    // Set root nodes
-    this.nodes = [ document.createTextNode( ' else ' ) ];
+        // Set root nodes
+        this.nodes = [ document.createTextNode( ' then ' ) ];
+    }
 }
-cond_else1.prototype = Object.create( __UI__.Component.prototype );
+
 // eslint-disable-next-line camelcase
-cond_else1.prototype.constructor = cond_else1;
+class cond_else1 extends __UI__.Component {
+    constructor() {
+        super( ...arguments );
+
+        // Set root nodes
+        this.nodes = [ document.createTextNode( ' else ' ) ];
+    }
+}
 
 it( 'render', async() => {
     expect.assertions( 1 );
