@@ -61,6 +61,6 @@ it( 'querySelector', async() => {
         content: 'Text for content'
     } );
     const component = DI.resolve( 'sham-ui:store' ).findById( 'custom' );
-    expect( component.querySelector( 'h1' ).textContent ).toBe( 'Text for title' );
-    expect( component.querySelector( '.not-exists' ) ).toBe( null );
+    expect( component.container.querySelector( 'h1' ).textContent ).toBe( 'Text for title' );
+    expect( component.container.querySelector( '.not-exists' ) ).toBe( null );
 } );

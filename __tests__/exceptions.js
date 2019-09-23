@@ -14,7 +14,7 @@ it( 'exceptions', async() => {
     DI.bind( 'component-binder', () => {
         new Dummy( {
             ID: 'dummy',
-            containerSelector: 'body'
+            container: document.querySelector( 'body' )
         } );
     } );
     const args = await onEvent( 'error' );

@@ -11,7 +11,7 @@ it( 'autostart', async() => {
         }
         new Dummy( {
             ID: 'dummy',
-            containerSelector: 'body'
+            container: document.querySelector( 'body' )
         } );
     } );
     expectRenderedText( '' );

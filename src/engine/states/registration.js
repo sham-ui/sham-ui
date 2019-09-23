@@ -24,16 +24,6 @@ export default class RegistrationState extends BaseRegistrationState {
         );
     }
 
-    /**
-     * @param {String[]} needRenderingComponentsWithType
-     */
-    onlyTypes( needRenderingComponentsWithType ) {
-        this.store.forEachType(
-            needRenderingComponentsWithType,
-            component => this.store.changedComponents.add( component )
-        );
-    }
-
     registrationComplete() {
         this.emit( 'RegistrationComplete' );
         this.store.forEach(

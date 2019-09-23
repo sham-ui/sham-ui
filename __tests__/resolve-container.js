@@ -28,7 +28,7 @@ it( 'empty component', async() => {
     DI.bind( 'component-binder', () => {
         component = new Dummy( {
             ID: 'dummy',
-            containerSelector: 'body'
+            container: document.querySelector( 'body' )
         } );
     } );
     await renderApp();

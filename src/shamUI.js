@@ -8,7 +8,6 @@ export { default as options } from './options/decorator';
 export { default as configureOptions } from './options/helper';
 export { Fsm as FsmDefault } from './fsm';
 export { default as FsmState } from './fsm/state';
-export * from './utils/assert';
 
 import DI from './DI';
 

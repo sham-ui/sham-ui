@@ -10,7 +10,7 @@ it( 'dummy label', async() => {
     DI.bind( 'component-binder', function() {
         new Label( {
             ID: 'dummy',
-            containerSelector: 'body'
+            container: document.querySelector( 'body' )
         } );
     } );
     await new Promise( resolve => {

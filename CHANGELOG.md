@@ -2,6 +2,9 @@
 * Add `size-limit`
 * Add `browserlist`
 * Add `configureOptions` helper
+* Remove `containerSelector` 
+* Remove component `type` options
+* Remove `querySelector`
 
 ## 3.3.0
 * Fix `needUpdateAfterRender`

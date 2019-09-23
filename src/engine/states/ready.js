@@ -27,15 +27,4 @@ export default class ReadyState extends BaseRegistrationState {
         );
         this.transition( 'rendering' );
     }
-
-    /**
-     * @param {Array} needRenderingComponentsWithType
-     */
-    onlyTypes( needRenderingComponentsWithType ) {
-        this.store.forEachType(
-            needRenderingComponentsWithType,
-            this.store.changedComponents.add.bind( this.store.changedComponents )
-        );
-        this.transition( 'rendering' );
-    }
 }

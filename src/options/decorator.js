@@ -2,7 +2,7 @@
  * Hoisting options in prototype chain
  * @param {Object} target
  */
-function hoistingOptions( target ) {
+export function hoistingOptions( target ) {
     if ( !target.hasOwnProperty( '_options' ) ) {
         let options;
         if ( undefined === target._options ) {

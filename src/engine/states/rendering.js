@@ -28,19 +28,11 @@ export default class RenderingState extends BaseRegistrationState {
         this.store.forEachId( needRenderingComponents, this.renderComponent.bind( this ) );
     }
 
-    onlyTypes( needRenderingComponentsWithType ) {
-        this.store.forEachType(
-            needRenderingComponentsWithType,
-            this.renderComponent.bind( this )
-        );
-    }
-
     /**
      * @param {Component} component
      */
     renderComponent( component ) {
         try {
-            component.resolveContainer();
             component.render();
             this.store.renderedIds.push( component.ID );
 

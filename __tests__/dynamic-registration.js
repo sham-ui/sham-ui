@@ -38,12 +38,12 @@ it( 'dynamic component rendered', async() => {
     DI.bind( 'component-binder', () => {
         new Label( {
             ID: 'label-1',
-            containerSelector: '#label-1'
+            container: document.querySelector( '#label-1' )
         } );
         setTimeout( () => {
             new Label( {
                 ID: 'label-2',
-                containerSelector: '#label-2'
+                container: document.querySelector( '#label-2' )
             } );
             DI.resolve( 'sham-ui' ).render.ONLY_IDS( 'label-2' );
         }, 20 );
@@ -60,7 +60,7 @@ it( 'registration on rendering', async() => {
             render() {
                 new Label( {
                     ID: 'label-2',
-                    containerSelector: '#label-2'
+                    container: document.querySelector( '#label-2' )
                 } );
                 DI.resolve( 'sham-ui' ).render.ONLY_IDS( 'label-2' );
                 this.container.innerHTML = this.ID;
@@ -68,7 +68,7 @@ it( 'registration on rendering', async() => {
         }
         new Container( {
             ID: 'label-1',
-            containerSelector: '#label-1'
+            container: document.querySelector( '#label-1' )
         } );
     } );
     const UI = new ShamUI();
@@ -100,7 +100,7 @@ it( 'registration on rendering (render text from options)', async() => {
             render() {
                 new InnerLabel( {
                     ID: 'label-2',
-                    containerSelector: '#label-2',
+                    container: document.querySelector( '#label-2' ),
                     parentComponentId: this.options.componentID
                 } );
                 DI.resolve( 'sham-ui' ).render.ONLY_IDS( 'label-2' );
@@ -109,7 +109,7 @@ it( 'registration on rendering (render text from options)', async() => {
         }
         new Container( {
             ID: 'label-1',
-            containerSelector: '#label-1',
+            container: document.querySelector( '#label-1' ),
             uniqID: 'label-1'
         } );
     } );

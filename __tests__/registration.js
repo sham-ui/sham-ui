@@ -7,14 +7,14 @@ it( 'registration two components with same id', async() => {
     DI.bind( 'component-binder', () => {
         first = new Component( {
             ID: 'dummy',
-            containerSelector: 'body'
+            container: document.querySelector( 'body' )
         } );
         second = new Component( {
             ID: 'dummy',
-            containerSelector: 'body'
+            container: document.querySelector( 'body' )
         } );
     } );
     await renderApp();
-    expect( DI.resolve( 'sham-ui:store' ).findById( 'dummy' ) ).toEqual( first );
-    expect( DI.resolve( 'sham-ui:store' ).findById( 'dummy' ) ).not.toEqual( second );
+    expect( DI.resolve( 'sham-ui:store' ).findById( 'dummy' ) ).toBe( first );
+    expect( DI.resolve( 'sham-ui:store' ).findById( 'dummy' ) ).not.toBe( second );
 } );

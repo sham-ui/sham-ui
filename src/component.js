@@ -1,31 +1,27 @@
 import nanoid from 'nanoid';
-import options from './options/decorator';
+import { hoistingOptions } from './options/decorator';
 import bindOptionsDescriptors from './options/bind-descriptors';
-import { inject } from './DI';
-import { assertError } from './utils/assert';
+import DI from './DI';
 
 /**
  * Base component class
  */
 export default class Component {
-    @inject( 'sham-ui' ) UI; // inject shamUI instance as this.UI
 
     /**
-     * @type {String[]}
+     * Inject shamUI instance as this.UI
+     * @return {ShamUI}
      */
-    @options types = [];
+    get UI() {
+        return DI.resolve( 'sham-ui' );
+    }
 
     /**
      * @param {Object} [options] Options
      */
     constructor( options ) {
-        /**
-         * @type {null|Node} Container of this component
-         */
-        this.container = null;
-        this.constructorOptions = options;
         this.configureOptions();
-        this.applyOptions();
+        this.applyOptions( options );
         this.resolveID();
         this.nested = [];
         this.nodes = [];
@@ -33,10 +29,15 @@ export default class Component {
         this.onRender = null;
         this.onUpdate = null;
         this.onRemove = null;
-        this.filters = this.options.filters || null;
-        this.parent = this.options.parent || null;
-        this.owner = this.options.owner || null;
-        this.directives = this.options.directives || null;
+        this.filters = options.filters || null;
+        this.parent = options.parent || null;
+        this.owner = options.owner || null;
+        this.directives = options.directives || null;
+
+        /**
+         * @type {null|Node} Container of this component
+         */
+        this.container = options.container;
         this.needUpdateAfterRender = 'needUpdateAfterRender' in this.options ?
             this.options.needUpdateAfterRender :
             true;
@@ -48,13 +49,13 @@ export default class Component {
      */
     configureOptions() {}
 
-    applyOptions() {
+    applyOptions( options ) {
+        hoistingOptions( this );
+
         const descriptors = Object.assign(
             {},
-
-            // this._options always set, because base Component class has `types` option
             bindOptionsDescriptors( this, this._options ),
-            Object.getOwnPropertyDescriptors( this.constructorOptions )
+            Object.getOwnPropertyDescriptors( options )
         );
         this.options = Object.create( null, descriptors );
     }
@@ -62,44 +63,6 @@ export default class Component {
     resolveID() {
         const ID = this.options.ID;
         this.ID = 'string' === typeof ID ? ID : nanoid();
-    }
-
-    /**
-     * Query current container by this.containerSelector and save node as this.container
-     */
-    resolveContainer() {
-        if ( undefined === this.options.container ) {
-            this.container = document.querySelector( this.options.containerSelector );
-        } else {
-            this.container = this.options.container;
-        }
-        assertError(
-            `Component ${this.ID} doesn't resolve container. Check container selector`,
-            null === this.container || undefined === this.container
-        );
-    }
-
-    /**
-     * @param {String} selector
-     * @return {Element|null}
-     */
-    querySelector( selector ) {
-        for ( let i = 0; i < this.nodes.length; i++ ) {
-            if ( this.nodes[ i ].matches && this.nodes[ i ].matches( selector ) ) {
-                return this.nodes[ i ];
-            }
-            assertError(
-                'Can not use querySelector with non-element nodes on first level.',
-                this.nodes[ i ].nodeType === 8 // COMMENT_NODE
-            );
-            if ( this.nodes[ i ].querySelector ) {
-                const element = this.nodes[ i ].querySelector( selector );
-                if ( element ) {
-                    return element;
-                }
-            }
-        }
-        return this.container.querySelector( selector );
     }
 
     /**
@@ -188,11 +151,12 @@ export default class Component {
      */
     insertBefore( toNode ) {
         const parentNode = toNode.parentNode;
-        assertError(
-            'Can not insert child view into parent node. ' +
-            'You need append your view first and then update.',
-            null === parentNode
-        );
+        if ( null === parentNode ) {
+            throw new Error(
+                'Can not insert child view into parent node. ' +
+                'You need append your view first and then update.'
+            );
+        }
         for ( let i = 0, len = this.nodes.length; i < len; i++ ) {
             parentNode.insertBefore( this.nodes[ i ], toNode );
         }

@@ -17,7 +17,7 @@ function makeBinding( onRender ) {
         }
         new Label( {
             ID: 'simple-label-component-text',
-            containerSelector: 'body'
+            container: document.querySelector( 'body' )
         } );
     };
 }

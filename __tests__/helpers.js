@@ -30,7 +30,7 @@ export function renderComponent( componentConstructor, options = {} ) {
     DI.bind( 'component-binder', function() {
         new componentConstructor( {
             ID: 'dummy',
-            containerSelector: 'body',
+            container: document.querySelector( 'body' ),
             ...options
         } );
     } );

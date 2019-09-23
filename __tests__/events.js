@@ -5,7 +5,7 @@ beforeEach( () => {
     DI.bind( 'component-binder', () => {
         new Component( {
             ID: 'dummy',
-            containerSelector: 'body'
+            container: document.querySelector( 'body' )
         } );
     } );
 } );

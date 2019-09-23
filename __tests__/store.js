@@ -7,7 +7,7 @@ it( 'find', async() => {
     DI.bind( 'component-binder', () => {
         foo = new Component( {
             ID: 'foo',
-            containerSelector: 'body'
+            container: document.querySelector( 'body' )
         } );
     } );
     await renderApp();
@@ -22,7 +22,7 @@ it( 'filter', async() => {
     DI.bind( 'component-binder', () => {
         foo = new Component( {
             ID: 'foo',
-            containerSelector: 'body'
+            container: document.querySelector( 'body' )
         } );
     } );
     await renderApp();
@@ -32,39 +32,12 @@ it( 'filter', async() => {
     expect( components[ 0 ] ).toEqual( foo );
 } );
 
-it( 'filterByType', async() => {
-    expect.assertions( 6 );
-    let foo, bar;
-    DI.bind( 'component-binder', () => {
-        foo = new Component( {
-            ID: 'foo',
-            containerSelector: 'body',
-            types: [ 'label' ]
-        } );
-        bar = new Component( {
-            ID: 'bar',
-            containerSelector: 'body',
-            types: [ 'label', 'link' ]
-        } );
-    } );
-    await renderApp();
-    const store = DI.resolve( 'sham-ui:store' );
-    const labels = store.filterByType( 'label' );
-    expect( labels ).toHaveLength( 2 );
-    expect( labels[ 0 ] ).toEqual( foo );
-    expect( labels[ 1 ] ).toEqual( bar );
-    const links = store.filterByType( 'link' );
-    expect( links ).toHaveLength( 1 );
-    expect( links[ 0 ] ).toEqual( bar );
-    expect( store.filterByType( 'non-exist-type' ) ).toHaveLength( 0 );
-} );
-
 it( 'map', async() => {
     expect.assertions( 2 );
     DI.bind( 'component-binder', () => {
         new Component( {
             ID: 'foo',
-            containerSelector: 'body'
+            container: document.querySelector( 'body' )
         } );
     } );
     await renderApp();
@@ -80,11 +53,11 @@ it( 'forEachId', async() => {
     DI.bind( 'component-binder', () => {
         foo = new Component( {
             ID: 'foo',
-            containerSelector: 'body'
+            container: document.querySelector( 'body' )
         } );
         bar = new Component( {
             ID: 'bar',
-            containerSelector: 'body'
+            container: document.querySelector( 'body' )
         } );
     } );
     await renderApp();
@@ -100,40 +73,4 @@ it( 'forEachId', async() => {
     const dummyComponents = jest.fn();
     DI.resolve( 'sham-ui:store' ).forEachId( [ 'dummy' ], dummyComponents );
     expect( dummyComponents ).toHaveBeenCalledTimes( 0 );
-} );
-
-it( 'forEachType', async() => {
-    expect.assertions( 10 );
-    let foo, bar;
-    DI.bind( 'component-binder', () => {
-        foo = new Component( {
-            ID: 'foo',
-            containerSelector: 'body',
-            types: [ 'label' ]
-        } );
-        bar = new Component( {
-            ID: 'bar',
-            containerSelector: 'body',
-            types: [ 'label', 'link' ]
-        } );
-    } );
-    await renderApp();
-    const allTypes = jest.fn();
-    DI.resolve( 'sham-ui:store' ).forEachType( [ 'label', 'link' ], allTypes );
-    expect( allTypes ).toHaveBeenCalledTimes( 3 );
-    expect( allTypes.mock.calls[ 0 ][ 0 ] ).toEqual( foo );
-    expect( allTypes.mock.calls[ 1 ][ 0 ] ).toEqual( bar );
-    expect( allTypes.mock.calls[ 2 ][ 0 ] ).toEqual( bar );
-    const labelCallback = jest.fn();
-    DI.resolve( 'sham-ui:store' ).forEachType( [ 'label' ], labelCallback );
-    expect( labelCallback ).toHaveBeenCalledTimes( 2 );
-    expect( allTypes.mock.calls[ 0 ][ 0 ] ).toEqual( foo );
-    expect( allTypes.mock.calls[ 2 ][ 0 ] ).toEqual( bar );
-    const linkCallback = jest.fn();
-    DI.resolve( 'sham-ui:store' ).forEachType( [ 'link' ], linkCallback );
-    expect( linkCallback ).toHaveBeenCalledTimes( 1 );
-    expect( linkCallback.mock.calls[ 0 ][ 0 ] ).toEqual( bar );
-    const nonExistsCallback = jest.fn();
-    DI.resolve( 'sham-ui:store' ).forEachType( [ 'non-exists' ], nonExistsCallback );
-    expect( nonExistsCallback ).toHaveBeenCalledTimes( 0 );
 } );

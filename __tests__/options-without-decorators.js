@@ -225,10 +225,9 @@ it( 'container', async() => {
 it( 'generated id', async() => {
     expect.assertions( 2 );
     await renderComponent( Label, {
-        types: [ 'label' ],
         ID: null
     } );
-    const ID = DI.resolve( 'sham-ui:store' ).filterByType( 'label' )[ 0 ].ID;
+    const ID = DI.resolve( 'sham-ui:store' ).find( () => true ).ID;
     expect( typeof ID ).toBe( 'string' );
     expectRenderedText( ID );
 } );

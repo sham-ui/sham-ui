@@ -2,7 +2,6 @@ import DI from '../DI';
 
 /**
  * @property {Map<String, Component>} byId
- * @property {Map<String, Set<Component>>} byType
  * @property {Set<Component>} changedComponents
  * @property {Array<String>} renderedIds
  */
@@ -17,21 +16,12 @@ export default class Store {
      */
     registry( component ) {
         this.byId.set( component.ID, component );
-        component.options.types.forEach( type => {
-            if ( !this.byType.has( type ) ) {
-                this.byType.set( type, new Set() );
-            }
-            this.byType.get( type ).add( component );
-        } );
     }
 
     /**
      * @param {Component} component
      */
     unregister( component ) {
-        this.byType.forEach( components => {
-            components.delete( component );
-        } );
         this.byId.delete( component.ID );
     }
 
@@ -65,17 +55,6 @@ export default class Store {
     }
 
     /**
-     * @param {String} type
-     * @return {Array.<Component>}
-     */
-    filterByType( type ) {
-        if ( this.byType.has( type ) ) {
-            return Array.from( this.byType.get( type ) );
-        }
-        return [];
-    }
-
-    /**
      * @param {Function} callback
      */
     forEach( callback ) {
@@ -95,18 +74,6 @@ export default class Store {
     }
 
     /**
-     * @param {Array<String>} types
-     * @param {Function} callback
-     */
-    forEachType( types, callback ) {
-        types.forEach( type => {
-            if ( this.byType.has( type ) ) {
-                this.byType.get( type ).forEach( callback );
-            }
-        } );
-    }
-
-    /**
      * @param {Function} callback
      * @return {Array}
      */
@@ -116,7 +83,6 @@ export default class Store {
 
     clear() {
         this.byId = new Map();
-        this.byType = new Map();
         this.changedComponents = new Set();
         this.renderedIds = [];
     }

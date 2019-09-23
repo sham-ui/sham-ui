@@ -49,15 +49,6 @@ export class FSM extends Fsm {
     }
 
     /**
-     * Перерисовать только с указанными типами
-     * @param {...String} args Список типов виджетов, которые нужно отрисовать
-     * @see {@link ReadyState#onlyTypes}
-     */
-    ONLY_TYPES( ...args ) {
-        this.handle( 'onlyTypes', args );
-    }
-
-    /**
      * @param {Component} component
      * @see {@link RegistrationState#register}
      */
