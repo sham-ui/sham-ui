@@ -82,7 +82,7 @@ export default function loop( parent, node, map, template, array, options, owner
     len = childrenSize - arrayLength;
     for ( i in map.items ) {
         if ( len-- > 0 ) {
-            map.items[ i ].UI.render.unregister( map.items[ i ].ID );
+            map.items[ i ].remove();
         } else {
             break;
         }

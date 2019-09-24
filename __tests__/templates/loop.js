@@ -95,17 +95,15 @@ class loop_for0 extends __UI__.Component {
     }
 }
 
-it( 'render (array)', async() => {
-    expect.assertions( 1 );
-    await renderComponent( loop, {
+it( 'render (array)', () => {
+    renderComponent( loop, {
         list: [ 'one', 'two', 'three' ]
     } );
     expectRenderedHTML( '<ul><li>0:one</li><li>1:two</li><li>2:three</li></ul>' );
 } );
 
-it( 'render (object)', async() => {
-    expect.assertions( 1 );
-    await renderComponent( loop, {
+it( 'render (object)', () => {
+    renderComponent( loop, {
         list: {
             one: 'I',
             two: 'II',
@@ -115,10 +113,9 @@ it( 'render (object)', async() => {
     expectRenderedHTML( '<ul><li>one:I</li><li>two:II</li><li>three:III</li></ul>' );
 } );
 
-it( 'update', async() => {
-    expect.assertions( 5 );
+it( 'update', () => {
     const list = [ 'one', 'two', 'three' ];
-    await renderComponent( loop, {
+    renderComponent( loop, {
         list,
         ID: 'loop'
     } );

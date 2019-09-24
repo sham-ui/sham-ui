@@ -71,17 +71,15 @@ class cond_else1 extends __UI__.Component {
     }
 }
 
-it( 'render', async() => {
-    expect.assertions( 1 );
-    await renderComponent( cond, {
+it( 'render', () => {
+    renderComponent( cond, {
         test: true
     } );
     expectRenderedText( ' then ' );
 } );
 
-it( 'update', async() => {
-    expect.assertions( 4 );
-    await renderComponent( cond, {
+it( 'update', () => {
+    renderComponent( cond, {
         ID: 'cond',
         test: true
     } );
@@ -95,9 +93,8 @@ it( 'update', async() => {
     expectRenderedText( ' then ' );
 } );
 
-it( 'render (default false)', async() => {
-    expect.assertions( 1 );
-    await renderComponent( cond, {
+it( 'render (default false)', () => {
+    renderComponent( cond, {
         test: false
     } );
     expectRenderedText( ' else ' );

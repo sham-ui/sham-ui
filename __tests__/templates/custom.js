@@ -44,18 +44,16 @@ class custom extends __UI__.Component {
     }
 }
 
-it( 'render', async() => {
-    expect.assertions( 1 );
-    await renderComponent( custom, {
+it( 'render', () => {
+    renderComponent( custom, {
         title: 'Text for title',
         content: 'Text for content'
     } );
     expectRenderedHTML( '<h1>Text for title</h1><div>Text for content</div>' );
 } );
 
-it( 'querySelector', async() => {
-    expect.assertions( 2 );
-    await renderComponent( custom, {
+it( 'querySelector', () => {
+    renderComponent( custom, {
         ID: 'custom',
         title: 'Text for title',
         content: 'Text for content'

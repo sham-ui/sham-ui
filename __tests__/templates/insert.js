@@ -78,39 +78,36 @@ class custom extends __UI__.Component {
     }
 }
 
-it( 'render', async() => {
-    expect.assertions( 1 );
-    await renderComponent( custom );
+it( 'render', () => {
+    renderComponent( custom );
     expectRenderedHTML( '<h1>string</h1><div>text</div><!--CustomPanel-->' );
 } );
 
-it( 're-render', async() => {
-    expect.assertions( 1 );
-    await renderComponent( custom, {
+it( 're-render', () => {
+    renderComponent( custom, {
         ID: 'custom'
     } );
     DI.resolve( 'sham-ui' ).render.ONLY_IDS( 'custom' );
     expectRenderedHTML( '<h1>string</h1><div>text</div><!--CustomPanel-->' );
 } );
 
-it( 'destroy', async() => {
-    expect.assertions( 1 );
-    await renderComponent( custom, {
+it( 'destroy', () => {
+    renderComponent( custom, {
         ID: 'custom'
     } );
-    DI.resolve( 'sham-ui' ).render.unregister( 'custom' );
+    const { store } = DI.resolve( 'sham-ui' );
+    store.findById( 'custom' ).remove();
     expectRenderedHTML( '' );
 } );
 
-it( 'needUpdateAfterRender (issue #42)', async() => {
-    expect.assertions( 2 );
+it( 'needUpdateAfterRender (issue #42)', () => {
     const originalUpdateSpots = CustomPanel.prototype.updateSpots;
     const updateFn = jest.fn();
     CustomPanel.prototype.updateSpots = function() {
         updateFn();
         originalUpdateSpots.apply( this, arguments );
     };
-    await renderComponent( custom, {
+    renderComponent( custom, {
         ID: 'custom'
     } );
     expect( updateFn ).toHaveBeenCalledTimes( 1 );
@@ -120,15 +117,14 @@ it( 'needUpdateAfterRender (issue #42)', async() => {
 } );
 
 
-it( 'needUpdateAfterRender work with UI.render', async() => {
-    expect.assertions( 2 );
+it( 'needUpdateAfterRender work with UI.render', () => {
     const originalUpdateSpots = CustomPanel.prototype.updateSpots;
     const updateFn = jest.fn();
     CustomPanel.prototype.updateSpots = function() {
         updateFn( this.ID );
         originalUpdateSpots.apply( this, arguments );
     };
-    await renderComponent( custom, {
+    renderComponent( custom, {
         ID: 'custom'
     } );
     const customPanelID = updateFn.mock.calls[ 0 ][ 0 ];

@@ -5,6 +5,12 @@
 * Remove `containerSelector` 
 * Remove component `type` options
 * Remove `querySelector`
+* Remove auto start render (optional)
+* Remove `component-binder`
+* Remove FSM
+* Remove logger
+* Remove `inject` decorator
+* Injection `sham-ui:store` to `sham-ui` as `store`
 
 ## 3.3.0
 * Fix `needUpdateAfterRender`

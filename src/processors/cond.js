@@ -4,7 +4,7 @@
 export default function cond( parent, node, child/*.ref*/, template, test, owner ) {
     if ( child.ref ) { // If view was already inserted, update or remove it.
         if ( !test ) {
-            child.ref.UI.render.unregister( child.ref.ID );
+            child.ref.remove();
         }
     } else if ( test ) {
 

@@ -1,43 +1,21 @@
-import { inject } from '../DI';
-import { Fsm } from '../fsm';
-import ReadyState from './states/ready';
-import RegistrationState from './states/registration';
-import RenderingState from './states/rendering';
+import DI from '../DI';
 
-/**
- * Default states
- * @type {
- *  {
- *    ready:         ReadyState,
- *    registration:  RegistrationState,
- *    rendering:     RenderingState
- *  }
- * }
- */
-export const states = {
-    ready:         ReadyState,
-    registration:  RegistrationState,
-    rendering:     RenderingState
-};
+export default class Render {
 
-/**
- * Класс основного конечного атомата
- */
-export class FSM extends Fsm {
-    @inject( 'state:ready' ) ready;
-    @inject( 'state:registration' ) registration;
-    @inject( 'state:rendering' ) rendering ;
-    @inject logger;
-
-    static initialState = 'ready';
+    /**
+     * @type {Store}
+     */
+    get store() {
+        return DI.resolve( 'sham-ui:store' );
+    }
 
     /**
      * Перерисовать только те, ID которых переданны в аргументах
      * @see {@link ReadyState#onlyIds}
      * @param {...String} args Список ID виджетов, которые нужно отрисовать
      */
-    ONLY_IDS( ...args ) {
-        this.handle( 'onlyIds', args );
+    ONLY_IDS( ...needRenderingComponents ) {
+        this.store.forEachId( needRenderingComponents, this.renderComponent.bind( this ) );
     }
 
     /**
@@ -45,31 +23,23 @@ export class FSM extends Fsm {
      * @see {@link ReadyState#all}
      */
     ALL() {
-        this.handle( 'all' );
+        const { store } = this;
+
+        // TODO: remove componentsForRendering
+        const componentsForRendering = new Set();
+        store.forEach(
+            component => componentsForRendering.add( component )
+        );
+        componentsForRendering.forEach( this.renderComponent.bind( this ) );
     }
 
     /**
      * @param {Component} component
-     * @see {@link RegistrationState#register}
      */
-    register( component ) {
-        this.handle( 'register', component );
-    }
+    renderComponent( component ) {
+        component.render();
 
-    /**
-     * @param {String} componentId
-     */
-    unregister( componentId ) {
-        this.handle( 'unregister', componentId );
-    }
-
-    /**
-     * Handle exception
-     * @param {Object} exception
-     * @private
-     */
-    handleException( exception ) {
-        this.logger.error( exception );
-        super.handleException( ...arguments );
+        // Default component always has bindEvents method
+        component.bindEvents();
     }
 }

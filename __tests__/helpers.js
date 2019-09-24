@@ -1,40 +1,19 @@
-import ShamUI, { DI } from '../src/shamUI';
+import ShamUI from '../src/shamUI';
 
-export function renderApp() {
-    return new Promise( resolve => {
-        const UI = new ShamUI();
-        UI.render.one( 'RenderComplete', resolve );
-        UI.render.ALL();
-    } );
-}
-
-export function onRenderComplete( callback = () => {} ) {
-    return new Promise( resolve => {
-        const UI = DI.resolve( 'sham-ui' );
-        UI.render.one( 'RenderComplete', resolve );
-        callback( UI );
-    } );
-}
-
-export function onEvent( eventName ) {
-    return new Promise( resolve => {
-        const UI = new ShamUI();
-        UI.render.one( eventName, function() {
-            resolve( arguments );
-        } );
-        UI.render.ALL();
-    } );
+export function renderApp( initializer ) {
+    const UI = new ShamUI();
+    initializer();
+    UI.render.ALL();
 }
 
 export function renderComponent( componentConstructor, options = {} ) {
-    DI.bind( 'component-binder', function() {
+    return renderApp( () => {
         new componentConstructor( {
             ID: 'dummy',
             container: document.querySelector( 'body' ),
             ...options
         } );
     } );
-    return renderApp();
 }
 
 export function expectRenderedText( expected ) {

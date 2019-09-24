@@ -23,9 +23,13 @@ export default function bindDescriptors( componentContext, options ) {
     const descriptors = Object.getOwnPropertyDescriptors( options );
     for ( let name in descriptors ) {
         const descriptor = descriptors[ name ];
-        bindProperty( descriptor, 'get', componentContext );
-        bindProperty( descriptor, 'set', componentContext );
-        bindProperty( descriptor, 'value', componentContext );
+        [
+            'get',
+            'set',
+            'value'
+        ].forEach(
+            item => bindProperty( descriptor, item, componentContext )
+        );
     }
     return descriptors;
 }

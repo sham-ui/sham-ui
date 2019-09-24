@@ -1,5 +1,5 @@
-import { Component } from '../src/shamUI';
-import { renderComponent, expectRenderedText, onRenderComplete } from './helpers';
+import { Component, DI } from '../src/shamUI';
+import { renderComponent, expectRenderedText } from './helpers';
 
 afterEach( () => {
     document.querySelector( 'body' ).innerHTML = '';
@@ -11,9 +11,8 @@ class Label extends Component {
     }
 }
 
-it( 'first render (ALL)', async() => {
-    expect.assertions( 1 );
-    await renderComponent( Label, {
+it( 'first render (ALL)', () => {
+    renderComponent( Label, {
         text() {
             return 'dummy (all)';
         }
@@ -21,29 +20,27 @@ it( 'first render (ALL)', async() => {
     expectRenderedText( 'dummy (all)' );
 } );
 
-it( 'render (ONLY_IDS)', async() => {
-    expect.assertions( 1 );
+it( 'render (ONLY_IDS)', () => {
     const mock = jest
         .fn()
         .mockReturnValueOnce( 'dummy (first render)' )
         .mockReturnValueOnce( 'dummy (second render)' );
-    await renderComponent( Label, {
+    renderComponent( Label, {
         text: mock
     } );
-    await onRenderComplete( UI => UI.render.ONLY_IDS( 'dummy' ) );
+    DI.resolve( 'sham-ui' ).render.ONLY_IDS( 'dummy' );
     expectRenderedText( 'dummy (second render)' );
 } );
 
-it( 'render (not exists id)', async() => {
-    expect.assertions( 2 );
+it( 'render (not exists id)', () => {
     const mock = jest
         .fn()
         .mockReturnValueOnce( 'dummy (first render)' )
         .mockReturnValueOnce( 'dummy (second render)' );
-    await renderComponent( Label, {
+    renderComponent( Label, {
         text: mock
     } );
     expectRenderedText( 'dummy (first render)' );
-    await onRenderComplete( UI => UI.render.ONLY_IDS( 'non-exits' ) );
+    DI.resolve( 'sham-ui' ).render.ONLY_IDS( 'non-exits' );
     expectRenderedText( 'dummy (first render)' );
 } );

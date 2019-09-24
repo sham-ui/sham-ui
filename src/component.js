@@ -23,16 +23,9 @@ export default class Component {
         this.configureOptions();
         this.applyOptions( options );
         this.resolveID();
+        this.copyFromConstructorArgument();
         this.nested = [];
         this.nodes = [];
-        this.unbind = null;
-        this.onRender = null;
-        this.onUpdate = null;
-        this.onRemove = null;
-        this.filters = options.filters || null;
-        this.parent = options.parent || null;
-        this.owner = options.owner || null;
-        this.directives = options.directives || null;
 
         /**
          * @type {null|Node} Container of this component
@@ -41,7 +34,7 @@ export default class Component {
         this.needUpdateAfterRender = 'needUpdateAfterRender' in this.options ?
             this.options.needUpdateAfterRender :
             true;
-        this.UI.render.register( this );
+        this.UI.store.registry( this );
     }
 
     /**
@@ -63,6 +56,23 @@ export default class Component {
     resolveID() {
         const ID = this.options.ID;
         this.ID = 'string' === typeof ID ? ID : nanoid();
+    }
+
+    /**
+     * Copy some keys from constructor argument to instance
+     * @param [options]
+     */
+    copyFromConstructorArgument( options ) {
+        if ( options ) {
+            [
+                'filters',
+                'parent',
+                'owner',
+                'directives'
+            ].forEach(
+                key => this[ key ] = options[ key ]
+            );
+        }
     }
 
     /**
@@ -163,6 +173,7 @@ export default class Component {
     }
 
     remove() {
+        this.UI.store.unregistry( this );
 
         // Remove appended nodes.
         let i = this.nodes.length;
@@ -178,7 +189,7 @@ export default class Component {
         // Remove all nested views.
         i = this.nested.length;
         while ( i-- ) {
-            this.UI.render.unregister( this.nested[ i ].ID );
+            this.nested[ i ].remove();
         }
 
         // Remove this view from parent's nested views.

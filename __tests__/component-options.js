@@ -1,5 +1,5 @@
 import { Component, options, DI } from '../src/shamUI';
-import { renderComponent, expectRenderedText, onRenderComplete } from './helpers';
+import { renderComponent, expectRenderedText } from './helpers';
 
 class Label extends Component {
     @options
@@ -22,15 +22,13 @@ class OverrideDefaultOptions extends Label {
     }
 }
 
-it( 'override default options', async() => {
-    expect.assertions( 1 );
-    await renderComponent( OverrideDefaultOptions );
+it( 'override default options', () => {
+    renderComponent( OverrideDefaultOptions );
     expectRenderedText( 'override' );
 } );
 
-it( 'override component options in params', async() => {
-    expect.assertions( 1 );
-    await renderComponent( OverrideDefaultOptions, {
+it( 'override component options in params', () => {
+    renderComponent( OverrideDefaultOptions, {
         text() {
             return 'override-from-constructor-args';
         }
@@ -39,40 +37,36 @@ it( 'override component options in params', async() => {
 } );
 
 
-it( 'extend component without override options', async() => {
-    expect.assertions( 1 );
+it( 'extend component without override options', () => {
     class ExtendWithoutOverride extends Label {}
-    await renderComponent( ExtendWithoutOverride );
+    renderComponent( ExtendWithoutOverride );
     expectRenderedText( 'dummy' );
 } );
 
 
-it( 'extend component (two level)', async() => {
-    expect.assertions( 1 );
+it( 'extend component (two level)', () => {
     class ExtendTwoLevel extends OverrideDefaultOptions {
         @options
         text() {
             return 'two level';
         }
     }
-    await renderComponent( ExtendTwoLevel );
+    renderComponent( ExtendTwoLevel );
     expectRenderedText( 'two level' );
 } );
 
-it( 'call super (two level)', async() => {
-    expect.assertions( 1 );
+it( 'call super (two level)', () => {
     class ExtendTwoLevel extends OverrideDefaultOptions {
         @options
         text() {
             return super.text() + ' and extend';
         }
     }
-    await renderComponent( ExtendTwoLevel );
+    renderComponent( ExtendTwoLevel );
     expectRenderedText( 'override and extend' );
 } );
 
-it( 'throw error on static', async() => {
-    expect.assertions( 1 );
+it( 'throw error on static', () => {
     try {
         class ThrowError extends Component {
             @options
@@ -80,7 +74,7 @@ it( 'throw error on static', async() => {
                 return 'text';
             }
         }
-        await renderComponent( ThrowError );
+        renderComponent( ThrowError );
     } catch ( e ) {
         expect( e.message ).toEqual(
             expect.stringContaining( 'static options don\'t allow. Name: text, target:' )
@@ -88,17 +82,15 @@ it( 'throw error on static', async() => {
     }
 } );
 
-it( 'ovveride method with instance prop', async() => {
-    expect.assertions( 1 );
+it( 'ovveride method with instance prop', () => {
     class Dummy extends Label {
         @options text = 'instance text';
     }
-    await renderComponent( Dummy );
+    renderComponent( Dummy );
     expectRenderedText( 'instance text' );
 } );
 
-it( 'context is a component (getter)', async() => {
-    expect.assertions( 1 );
+it( 'context is a component (getter)', () => {
     class Dummy extends Component {
         get age() {
             return 27;
@@ -114,12 +106,11 @@ it( 'context is a component (getter)', async() => {
             this.container.textContent = this.options.fullName;
         }
     }
-    await renderComponent( Dummy );
+    renderComponent( Dummy );
     expectRenderedText( 'John Smith (27)' );
 } );
 
-it( 'context is a component (method)', async() => {
-    expect.assertions( 1 );
+it( 'context is a component (method)', () => {
     class Dummy extends Component {
         age() {
             return 27;
@@ -135,12 +126,12 @@ it( 'context is a component (method)', async() => {
             this.container.textContent = this.options.fullName();
         }
     }
-    await renderComponent( Dummy );
+    renderComponent( Dummy );
     expectRenderedText( 'John Smith (27)' );
 } );
 
 
-it( 'context is a not component (pass as constructor argument)', async() => {
+it( 'context is a not component (pass as constructor argument)', () => {
     expect.assertions( 2 );
     class Dummy extends Component {
         @options firstName = 'John';
@@ -151,7 +142,7 @@ it( 'context is a not component (pass as constructor argument)', async() => {
             this.container.textContent = this.options.fullName();
         }
     }
-    await renderComponent( Dummy, {
+    renderComponent( Dummy, {
         fullName() {
             expect( this instanceof Dummy ).toBe( false );
             return 'Test';
@@ -160,8 +151,7 @@ it( 'context is a not component (pass as constructor argument)', async() => {
     expectRenderedText( 'Test' );
 } );
 
-it( 'getter & setter together', async() => {
-    expect.assertions( 4 );
+it( 'getter & setter together', () => {
     class Dummy extends Component {
         @options
         get text() {
@@ -177,29 +167,27 @@ it( 'getter & setter together', async() => {
             this.container.textContent = this.options.text;
         }
     }
-    await renderComponent( Dummy );
+    renderComponent( Dummy );
     expectRenderedText( '' );
     const component = DI.resolve( 'sham-ui:store' ).findById( 'dummy' );
     component.options.text = 'test text';
     expect( component._text ).toBe( 'test text' );
     expect( component.options.text ).toBe( 'test text' );
-    await onRenderComplete( UI => UI.render.ONLY_IDS( 'dummy' ) );
+    DI.resolve( 'sham-ui' ).render.ONLY_IDS( 'dummy' );
     expect( document.querySelector( 'body' ).textContent ).toBe( 'test text' );
 } );
 
 
-it( 'container', async() => {
-    expect.assertions( 1 );
-    await renderComponent( Label, {
+it( 'container', () => {
+    renderComponent( Label, {
         container: document.querySelector( 'body' ),
         text: 'text for container'
     } );
     expectRenderedText( 'text for container' );
 } );
 
-it( 'generated id', async() => {
-    expect.assertions( 2 );
-    await renderComponent( Label, {
+it( 'generated id', () => {
+    renderComponent( Label, {
         ID: null
     } );
     const ID = DI.resolve( 'sham-ui:store' ).find( () => true ).ID;

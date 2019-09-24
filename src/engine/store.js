@@ -2,7 +2,6 @@ import DI from '../DI';
 
 /**
  * @property {Map<String, Component>} byId
- * @property {Set<Component>} changedComponents
  * @property {Array<String>} renderedIds
  */
 export default class Store {
@@ -21,7 +20,7 @@ export default class Store {
     /**
      * @param {Component} component
      */
-    unregister( component ) {
+    unregistry( component ) {
         this.byId.delete( component.ID );
     }
 
@@ -83,8 +82,6 @@ export default class Store {
 
     clear() {
         this.byId = new Map();
-        this.changedComponents = new Set();
-        this.renderedIds = [];
     }
 }
 

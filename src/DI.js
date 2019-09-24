@@ -34,32 +34,3 @@ const DIContainer = {
 const DI = window.DI || DIContainer;
 
 export default DI;
-
-/**
- * Inject item by name
- */
-export function inject() {
-    if ( 1 === arguments.length ) {
-        const name = arguments[ 0 ];
-        return function() {
-            return _inject( name );
-        };
-    } else {
-        return _inject( arguments[ 1 ] );
-    }
-
-}
-
-/**
- * @param {String} name
- * @private
- */
-function _inject( name ) {
-    return {
-        enumerable: true,
-        configurable: true,
-        get() {
-            return DI.resolve( name );
-        }
-    };
-}

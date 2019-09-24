@@ -1,22 +1,16 @@
-import ShamUI, { DI, Component } from 'sham-ui';
+import ShamUI, { Component } from 'sham-ui';
 
-it( 'dummy label', async() => {
-    expect.assertions( 1 );
+it( 'dummy label', () => {
     class Label extends Component {
         render() {
             this.container.textContent = this.ID;
         }
     }
-    DI.bind( 'component-binder', function() {
-        new Label( {
-            ID: 'dummy',
-            container: document.querySelector( 'body' )
-        } );
+    const UI = new ShamUI();
+    new Label( {
+        ID: 'dummy',
+        container: document.querySelector( 'body' )
     } );
-    await new Promise( resolve => {
-        const UI = new ShamUI();
-        UI.render.one( 'RenderComplete', resolve );
-        UI.render.ALL();
-    } );
+    UI.render.ALL();
     expect( document.querySelector( 'body' ).textContent ).toBe( 'dummy' );
 } );
