@@ -104,10 +104,9 @@ export default function loop( parent, node, map, template, array, options, owner
             owner,
             filters: parent.filters,
             directives: parent.directives,
-            container: node,
-            needUpdateAfterRender: false
+            container: node
         } );
-        view.UI.render.ONLY_IDS( view.ID );
+        view.render();
 
         // Set view hierarchy.
         parent.nested.push( view );
@@ -124,5 +123,8 @@ export default function loop( parent, node, map, template, array, options, owner
 
         // Set view state for later update in onUpdate.
         view.__state__ = transform( array, keys, j, options );
+
+        // Call hook
+        view.didMount();
     }
 }

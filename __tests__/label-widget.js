@@ -1,4 +1,4 @@
-import { Component, DI } from '../src/shamUI';
+import { Component, DI } from '../src/index';
 import { renderComponent, expectRenderedText } from './helpers';
 
 afterEach( () => {
@@ -20,7 +20,7 @@ it( 'first render (ALL)', () => {
     expectRenderedText( 'dummy (all)' );
 } );
 
-it( 'render (ONLY_IDS)', () => {
+it( 'render after already rendered', () => {
     const mock = jest
         .fn()
         .mockReturnValueOnce( 'dummy (first render)' )
@@ -28,7 +28,7 @@ it( 'render (ONLY_IDS)', () => {
     renderComponent( Label, {
         text: mock
     } );
-    DI.resolve( 'sham-ui' ).render.ONLY_IDS( 'dummy' );
+    DI.resolve( 'sham-ui:store' ).findById( 'dummy' ).render();
     expectRenderedText( 'dummy (second render)' );
 } );
 
@@ -40,7 +40,5 @@ it( 'render (not exists id)', () => {
     renderComponent( Label, {
         text: mock
     } );
-    expectRenderedText( 'dummy (first render)' );
-    DI.resolve( 'sham-ui' ).render.ONLY_IDS( 'non-exits' );
     expectRenderedText( 'dummy (first render)' );
 } );

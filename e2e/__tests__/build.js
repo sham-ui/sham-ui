@@ -1,4 +1,4 @@
-import ShamUI, { Component } from 'sham-ui';
+import { Component, start } from 'sham-ui';
 
 it( 'dummy label', () => {
     class Label extends Component {
@@ -6,11 +6,10 @@ it( 'dummy label', () => {
             this.container.textContent = this.ID;
         }
     }
-    const UI = new ShamUI();
     new Label( {
         ID: 'dummy',
         container: document.querySelector( 'body' )
     } );
-    UI.render.ALL();
+    start();
     expect( document.querySelector( 'body' ).textContent ).toBe( 'dummy' );
 } );

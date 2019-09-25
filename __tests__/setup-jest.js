@@ -1,8 +1,6 @@
-import { DI, Fsm } from '../src/shamUI';
+import { DI } from '../src/index';
 
 global.afterEach( () => {
-    DI.bind( 'fsm', Fsm );
-    DI.bind( 'logger', console );
     DI.resolve( 'sham-ui:store' ).clear();
     document.querySelector( 'body' ).innerHTML = '';
     jest.restoreAllMocks();

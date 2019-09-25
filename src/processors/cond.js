@@ -14,10 +14,9 @@ export default function cond( parent, node, child/*.ref*/, template, test, owner
             owner,
             filters: parent.filters,
             directives: parent.directives,
-            container: node,
-            needUpdateAfterRender: false
+            container: node
         } );
-        view.UI.render.ONLY_IDS( view.ID );
+        view.render();
 
         // Set view hierarchy.
         parent.nested.push( view );
@@ -27,6 +26,9 @@ export default function cond( parent, node, child/*.ref*/, template, test, owner
         view.unbind = function() {
             child.ref = null;
         };
+
+        // Call hook
+        view.didMount();
     }
     return test;
 }

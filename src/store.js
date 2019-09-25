@@ -1,12 +1,9 @@
-import DI from '../DI';
-
 /**
  * @property {Map<String, Component>} byId
  * @property {Array<String>} renderedIds
  */
 export default class Store {
     constructor() {
-        DI.bind( 'sham-ui:store', this );
         this.clear();
     }
 
@@ -42,7 +39,6 @@ export default class Store {
                 return component;
             }
         }
-        return null;
     }
 
     /**
@@ -50,7 +46,7 @@ export default class Store {
      * @return {Array.<Component>}
      */
     filter( callback ) {
-        return Array.from( this.byId.values() ).filter( callback );
+        return this.toArray().filter( callback );
     }
 
     /**
@@ -77,11 +73,17 @@ export default class Store {
      * @return {Array}
      */
     map( callback ) {
-        return Array.from( this.byId.values() ).map( callback );
+        return this.toArray().map( callback );
+    }
+
+    /**
+     * @return {Array.<Component>}}
+     */
+    toArray() {
+        return Array.from( this.byId.values() );
     }
 
     clear() {
         this.byId = new Map();
     }
 }
-

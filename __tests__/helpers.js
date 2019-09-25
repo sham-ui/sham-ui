@@ -1,19 +1,12 @@
-import ShamUI from '../src/shamUI';
-
-export function renderApp( initializer ) {
-    const UI = new ShamUI();
-    initializer();
-    UI.render.ALL();
-}
+import { start } from '../src/index';
 
 export function renderComponent( componentConstructor, options = {} ) {
-    return renderApp( () => {
-        new componentConstructor( {
-            ID: 'dummy',
-            container: document.querySelector( 'body' ),
-            ...options
-        } );
+    new componentConstructor( {
+        ID: 'dummy',
+        container: document.querySelector( 'body' ),
+        ...options
     } );
+    start();
 }
 
 export function expectRenderedText( expected ) {

@@ -1,5 +1,5 @@
 import { renderComponent, expectRenderedText } from '../helpers';
-import { DI } from '../../src/shamUI';
+import { DI } from '../../src/index';
 
 /**
  * Component for

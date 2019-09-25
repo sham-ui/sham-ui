@@ -11,6 +11,11 @@
 * Remove logger
 * Remove `inject` decorator
 * Injection `sham-ui:store` to `sham-ui` as `store`
+* Remove `ONLY_IDS` & `ALL`
+* Remove `needUpdateAfterRender`
+* Remove `update` from `render`
+* Rename `bindEvents` to `didMount`
+* Call `didMount` after component rendered & updated
 
 ## 3.3.0
 * Fix `needUpdateAfterRender`

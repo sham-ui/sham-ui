@@ -1,7 +1,7 @@
 import nanoid from 'nanoid';
 import { hoistingOptions } from './options/decorator';
 import bindOptionsDescriptors from './options/bind-descriptors';
-import DI from './DI';
+import DI from './di';
 
 /**
  * Base component class
@@ -9,11 +9,10 @@ import DI from './DI';
 export default class Component {
 
     /**
-     * Inject shamUI instance as this.UI
-     * @return {ShamUI}
+     * @return {Store}
      */
     get UI() {
-        return DI.resolve( 'sham-ui' );
+        return DI.resolve( 'sham-ui:store' );
     }
 
     /**
@@ -23,18 +22,15 @@ export default class Component {
         this.configureOptions();
         this.applyOptions( options );
         this.resolveID();
-        this.copyFromConstructorArgument();
+        this.copyFromConstructorArgument( options );
         this.nested = [];
         this.nodes = [];
 
         /**
-         * @type {null|Node} Container of this component
+         * @type {null|Element} Container of this component
          */
         this.container = options.container;
-        this.needUpdateAfterRender = 'needUpdateAfterRender' in this.options ?
-            this.options.needUpdateAfterRender :
-            true;
-        this.UI.store.registry( this );
+        this.UI.registry( this );
     }
 
     /**
@@ -76,9 +72,9 @@ export default class Component {
     }
 
     /**
-     * Добавить обработчики событий
+     * Hook for extra data after render & update
      */
-    bindEvents() {}
+    didMount() {}
 
 
     /**
@@ -125,7 +121,7 @@ export default class Component {
     }
 
     /**
-     * Render component to container
+     * Mount component to container element
      */
     render() {
         const node = this.container;
@@ -139,11 +135,6 @@ export default class Component {
 
         if ( this.onRender ) {
             this.onRender();
-        }
-        if ( this.needUpdateAfterRender ) {
-            this.update();
-        } else {
-            this.needUpdateAfterRender = true;
         }
     }
 
@@ -173,7 +164,7 @@ export default class Component {
     }
 
     remove() {
-        this.UI.store.unregistry( this );
+        this.UI.unregistry( this );
 
         // Remove appended nodes.
         let i = this.nodes.length;

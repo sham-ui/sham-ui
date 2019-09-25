@@ -1,5 +1,5 @@
 import { renderComponent, expectRenderedHTML } from '../helpers';
-import { DI } from '../../src/shamUI';
+import { DI } from '../../src/index';
 
 /**
  * Component for
@@ -87,7 +87,7 @@ it( 're-render', () => {
     renderComponent( custom, {
         ID: 'custom'
     } );
-    DI.resolve( 'sham-ui' ).render.ONLY_IDS( 'custom' );
+    DI.resolve( 'sham-ui:store' ).findById( 'custom' ).render();
     expectRenderedHTML( '<h1>string</h1><div>text</div><!--CustomPanel-->' );
 } );
 
@@ -95,8 +95,7 @@ it( 'destroy', () => {
     renderComponent( custom, {
         ID: 'custom'
     } );
-    const { store } = DI.resolve( 'sham-ui' );
-    store.findById( 'custom' ).remove();
+    DI.resolve( 'sham-ui:store' ).findById( 'custom' ).remove();
     expectRenderedHTML( '' );
 } );
 
@@ -111,13 +110,13 @@ it( 'needUpdateAfterRender (issue #42)', () => {
         ID: 'custom'
     } );
     expect( updateFn ).toHaveBeenCalledTimes( 1 );
-    DI.resolve( 'sham-ui' ).render.ONLY_IDS( 'custom' );
-    expect( updateFn ).toHaveBeenCalledTimes( 2 );
+    DI.resolve( 'sham-ui:store' ).findById( 'custom' ).update();
+    expect( updateFn ).toHaveBeenCalledTimes( 1 );
     CustomPanel.prototype.updateSpots = originalUpdateSpots;
 } );
 
 
-it( 'needUpdateAfterRender work with UI.render', () => {
+it( 'needUpdateAfterRender work with UI', () => {
     const originalUpdateSpots = CustomPanel.prototype.updateSpots;
     const updateFn = jest.fn();
     CustomPanel.prototype.updateSpots = function() {
@@ -129,7 +128,7 @@ it( 'needUpdateAfterRender work with UI.render', () => {
     } );
     const customPanelID = updateFn.mock.calls[ 0 ][ 0 ];
     expect( updateFn ).toHaveBeenCalledTimes( 1 );
-    DI.resolve( 'sham-ui' ).render.ONLY_IDS( customPanelID );
+    DI.resolve( 'sham-ui:store' ).findById( customPanelID ).update();
     expect( updateFn ).toHaveBeenCalledTimes( 2 );
     CustomPanel.prototype.updateSpots = originalUpdateSpots;
 } );

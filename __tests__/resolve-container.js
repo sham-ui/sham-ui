@@ -1,14 +1,5 @@
-import { Component } from '../src/shamUI';
-import { renderComponent, renderApp } from './helpers';
-
-it( 'bindEvents', () => {
-    class Dummy extends Component {
-        bindEvents() {
-            expect( this.container ).toBeInstanceOf( Element );
-        }
-    }
-    renderComponent( Dummy );
-} );
+import { Component, start } from '../src/index';
+import { renderComponent } from './helpers';
 
 it( 'render', () => {
     class Dummy extends Component {
@@ -21,12 +12,10 @@ it( 'render', () => {
 
 it( 'empty component', () => {
     class Dummy extends Component {}
-    let component;
-    renderApp( () => {
-        component = new Dummy( {
-            ID: 'dummy',
-            container: document.querySelector( 'body' )
-        } );
+    let component = new Dummy( {
+        ID: 'dummy',
+        container: document.querySelector( 'body' )
     } );
+    start();
     expect( component.container ).toBeInstanceOf( Element );
 } );

@@ -7,7 +7,7 @@ const plugins = [
 
 module.exports = {
     entry: {
-        'sham-ui': './src/shamUI.js'
+        'sham-ui': './src/index.js'
     },
     output: {
         path: path.join( __dirname, 'lib' ),

@@ -1,4 +1,4 @@
-import { Component, options, DI } from '../src/shamUI';
+import { Component, options, DI } from '../src/index';
 import { renderComponent, expectRenderedText } from './helpers';
 
 class Label extends Component {
@@ -173,7 +173,7 @@ it( 'getter & setter together', () => {
     component.options.text = 'test text';
     expect( component._text ).toBe( 'test text' );
     expect( component.options.text ).toBe( 'test text' );
-    DI.resolve( 'sham-ui' ).render.ONLY_IDS( 'dummy' );
+    component.render();
     expect( document.querySelector( 'body' ).textContent ).toBe( 'test text' );
 } );
 

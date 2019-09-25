@@ -12,10 +12,9 @@ export default function insert( parent, node, child/*.ref*/, template, data, own
             owner,
             filters: parent.filters,
             directives: parent.directives,
-            container: node,
-            needUpdateAfterRender: false
+            container: node
         } );
-        view.UI.render.ONLY_IDS( view.ID );
+        view.render();
 
         // Set view hierarchy.
         parent.nested.push( view );
@@ -28,5 +27,8 @@ export default function insert( parent, node, child/*.ref*/, template, data, own
 
         // Set view data (note what it must be after adding nodes to DOM).
         view.update( data );
+
+        // Call hook
+        view.didMount();
     }
 }

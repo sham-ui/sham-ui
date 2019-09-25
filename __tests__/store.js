@@ -1,27 +1,22 @@
-import { DI, Component } from '../src/shamUI';
-import { renderApp } from './helpers';
+import { DI, Component, start } from '../src/index';
 
 it( 'find', () => {
-    let foo;
-    renderApp( () => {
-        foo = new Component( {
-            ID: 'foo',
-            container: document.querySelector( 'body' )
-        } );
+    let foo = new Component( {
+        ID: 'foo',
+        container: document.querySelector( 'body' )
     } );
+    start();
     const store = DI.resolve( 'sham-ui:store' );
     expect( store.find( component => component.ID === 'foo' ) ).toEqual( foo );
-    expect( store.find( component => component.ID === 'bar' ) ).toBe( null );
+    expect( store.find( component => component.ID === 'bar' ) ).toBe( undefined );
 } );
 
 it( 'filter', () => {
-    let foo;
-    renderApp( () => {
-        foo = new Component( {
-            ID: 'foo',
-            container: document.querySelector( 'body' )
-        } );
+    let foo = new Component( {
+        ID: 'foo',
+        container: document.querySelector( 'body' )
     } );
+    start();
     const store = DI.resolve( 'sham-ui:store' );
     const components = store.filter( component => component.ID === 'foo' );
     expect( components ).toHaveLength( 1 );
@@ -29,12 +24,11 @@ it( 'filter', () => {
 } );
 
 it( 'map', () => {
-    renderApp( () => {
-        new Component( {
-            ID: 'foo',
-            container: document.querySelector( 'body' )
-        } );
+    new Component( {
+        ID: 'foo',
+        container: document.querySelector( 'body' )
     } );
+    start();
     const store = DI.resolve( 'sham-ui:store' );
     const ids = store.map( component => component.ID );
     expect( ids ).toHaveLength( 1 );
@@ -42,17 +36,15 @@ it( 'map', () => {
 } );
 
 it( 'forEachId', () => {
-    let foo, bar;
-    renderApp( () => {
-        foo = new Component( {
-            ID: 'foo',
-            container: document.querySelector( 'body' )
-        } );
-        bar = new Component( {
-            ID: 'bar',
-            container: document.querySelector( 'body' )
-        } );
+    const foo = new Component( {
+        ID: 'foo',
+        container: document.querySelector( 'body' )
     } );
+    const bar = new Component( {
+        ID: 'bar',
+        container: document.querySelector( 'body' )
+    } );
+    start();
     const allComponents = jest.fn();
     DI.resolve( 'sham-ui:store' ).forEachId( [ 'foo', 'bar' ], allComponents );
     expect( allComponents ).toHaveBeenCalledTimes( 2 );
