@@ -1,7 +1,6 @@
-# Library management UI components
+# Runtime lib for sham-ui
 
-### Documentation
-http://shamcode.github.io/shamUI/docs/index.html
+[![Build Status](https://travis-ci.com/sham-ui/sham-ui.svg?branch=master)](https://travis-ci.com/sham-ui/sham-ui)
 
 ### License
 The MIT License (MIT)
