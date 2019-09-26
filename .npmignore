@@ -5,7 +5,6 @@
 .travis.yml
 .eslintrc.js
 .eslintignore
-.esdoc.json
 .idea
 webpack.config.js
 yarn-error.log

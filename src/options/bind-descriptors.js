@@ -1,7 +1,8 @@
 /**
  * @param {Object} descriptor
- * @param {String} name
+ * @param {string} name
  * @param {Object} context
+ * @inner
  */
 function bindProperty( descriptor, name, context ) {
     if ( !descriptor.hasOwnProperty( name ) ) {
@@ -18,6 +19,7 @@ function bindProperty( descriptor, name, context ) {
  * @param {Object} componentContext
  * @param {Object} options
  * @return {Object}
+ * @inner
  */
 export default function bindDescriptors( componentContext, options ) {
     const descriptors = Object.getOwnPropertyDescriptors( options );

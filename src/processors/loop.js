@@ -31,14 +31,22 @@ function transformObject( array, keys, i, options ) {
 
 /**
  * Simple Map implementation with length property.
+ * @property {Object} items
+ * @property {number} length
+ * @property {number} next
  */
 export class Map {
     constructor() {
+
         this.items = Object.create( null );
         this.length = 0;
         this.next = 0;
     }
 
+    /**
+     * @param {*} element
+     * @return {number}
+     */
     push( element ) {
         this.items[ this.next ] = element;
         this.length += 1;
@@ -46,6 +54,9 @@ export class Map {
         return this.next - 1;
     }
 
+    /**
+     * @param {number} i
+     */
     remove( i ) {
         if ( i in this.items ) {
             delete this.items[ i ];
@@ -55,6 +66,9 @@ export class Map {
         }
     }
 
+    /**
+     * @param {Function} callback
+     */
     forEach( callback ) {
         for ( var i in this.items ) {
             callback( this.items[ i ] );
@@ -63,7 +77,14 @@ export class Map {
 }
 
 /**
- * Main loops processor.
+ * Loops processor
+ * @param {Component|null} parent Parent component
+ * @param {Element} node Container node
+ * @param {Map} map Map with length property
+ * @param {Class<Component>} template Component class for insert, if test true
+ * @param {Array|Object} array Iterated object or array
+ * @param {Object} options Options for component
+ * @param {Component} owner Owner of inserting component
  */
 export default function loop( parent, node, map, template, array, options, owner ) {
     let i, j, len, keys, transform, arrayLength, childrenSize = map.length;

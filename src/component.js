@@ -5,6 +5,8 @@ import DI from './di';
 
 /**
  * Base component class
+ * @param {Object} [options] Options
+ * @property {string} ID Component unique ID
  */
 export default class Component {
 
@@ -15,19 +17,24 @@ export default class Component {
         return DI.resolve( 'sham-ui:store' );
     }
 
-    /**
-     * @param {Object} [options] Options
-     */
     constructor( options ) {
         this.configureOptions();
         this.applyOptions( options );
         this.resolveID();
         this.copyFromConstructorArgument( options );
+
+        /**
+         * @type {Array<Component>} Array of child components
+         */
         this.nested = [];
+
+        /**
+         * @type {Array<Element>} Component elements
+         */
         this.nodes = [];
 
         /**
-         * @type {null|Element} Container of this component
+         * @type {Element} Container of this component
          */
         this.container = options.container;
         this.UI.registry( this );
@@ -38,6 +45,10 @@ export default class Component {
      */
     configureOptions() {}
 
+    /**
+     * @private
+     * @param options
+     */
     applyOptions( options ) {
         hoistingOptions( this );
 
@@ -49,6 +60,9 @@ export default class Component {
         this.options = Object.create( null, descriptors );
     }
 
+    /**
+     * @private
+     */
     resolveID() {
         const ID = this.options.ID;
         this.ID = 'string' === typeof ID ? ID : nanoid();
@@ -90,7 +104,7 @@ export default class Component {
 
     /**
      * Build & save internal state
-     * @protected
+     * @private
      * @param {*} currentData
      * @return {Object}
      */
@@ -101,14 +115,14 @@ export default class Component {
 
     /**
      * Update spots & call onUpdate. Generate in sham-ui-templates
-     * @protected
+     * @private
      * @param {Object} data
      */
     updateSpots() {}
 
     /**
      * Update options with data
-     * @protected
+     * @private
      * @param {*} currentData
      */
     refineOptions( currentData ) {
@@ -140,6 +154,7 @@ export default class Component {
 
     /**
      * @param {Element} toNode
+     * @private
      */
     appendTo( toNode ) {
         for ( let i = 0, len = this.nodes.length; i < len; i++ ) {
@@ -149,6 +164,7 @@ export default class Component {
 
     /**
      * @param {Element} toNode
+     * @private
      */
     insertBefore( toNode ) {
         const parentNode = toNode.parentNode;
@@ -163,6 +179,9 @@ export default class Component {
         }
     }
 
+    /**
+     * Remove & destroy component
+     */
     remove() {
         this.UI.unregistry( this );
 

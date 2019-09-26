@@ -2,9 +2,9 @@ import options from './decorator';
 
 /**
  * Helper for configure options without decorators syntax
- * @param {Object} prototype
- * @param {Object} instance
- * @param {Object} props
+ * @param {Object} prototype Component prototype
+ * @param {Component} instance Component instance
+ * @param {Object<string,*>} props Options mapping
  */
 export default function configureOptions( prototype, instance, props ) {
     const propsWithDescriptors = {};

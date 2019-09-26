@@ -1,6 +1,7 @@
 /**
  * Hoisting options in prototype chain
  * @param {Object} target
+ * @inner
  */
 export function hoistingOptions( target ) {
     if ( !target.hasOwnProperty( '_options' ) ) {
@@ -25,10 +26,10 @@ export function hoistingOptions( target ) {
 
 /**
  * Decorator for mark property as default value of options
- * @param target
- * @param name
- * @param descriptor
- * @return {*}
+ * @param {Component} target
+ * @param {string} name
+ * @param {Object} descriptor
+ * @return {Object}
  */
 export default function( target, name, descriptor ) {
     if ( 'function' === typeof target ) {

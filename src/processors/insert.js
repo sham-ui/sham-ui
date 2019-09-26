@@ -1,5 +1,11 @@
 /**
- * Main custom tags processor.
+ * Custom tags processor.
+ * @param {Component|null} parent Parent component
+ * @param {Element} node Container node
+ * @param {Object} child Reference to this component
+ * @param {Class<Component>} template Component class for insert, if test true
+ * @param {Object} data Options for component
+ * @param {Component} owner Owner of inserting component
  */
 export default function insert( parent, node, child/*.ref*/, template, data, owner ) {
     if ( child.ref ) { // If view was already inserted, update or remove it.

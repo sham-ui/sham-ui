@@ -1,6 +1,11 @@
 /**
- * @property {Map<String, Component>} byId
- * @property {Array<String>} renderedIds
+ * @callback storeCallback
+ * @param {Component} component
+ */
+
+/**
+ * Components store
+ * @property {Map<string, Component>} byId Inner store
  */
 export default class Store {
     constructor() {
@@ -22,7 +27,7 @@ export default class Store {
     }
 
     /**
-     * @param {String} componentId
+     * @param {string} componentId
      * @return {Component}
      */
     findById( componentId ) {
@@ -30,7 +35,7 @@ export default class Store {
     }
 
     /**
-     * @param {Function} callback
+     * @param {storeCallback} callback
      * @return {Component}
      */
     find( callback ) {
@@ -42,7 +47,7 @@ export default class Store {
     }
 
     /**
-     * @param {Function} callback
+     * @param {storeCallback} callback
      * @return {Array.<Component>}
      */
     filter( callback ) {
@@ -50,15 +55,15 @@ export default class Store {
     }
 
     /**
-     * @param {Function} callback
+     * @param {storeCallback} callback
      */
     forEach( callback ) {
         this.byId.forEach( callback );
     }
 
     /**
-     * @param {Array<String>} ids
-     * @param {Function} callback
+     * @param {Array<string>} ids
+     * @param {storeCallback} callback
      */
     forEachId( ids, callback ) {
         ids.forEach( id => {
@@ -69,7 +74,7 @@ export default class Store {
     }
 
     /**
-     * @param {Function} callback
+     * @param {storeCallback} callback
      * @return {Array}
      */
     map( callback ) {
@@ -83,6 +88,9 @@ export default class Store {
         return Array.from( this.byId.values() );
     }
 
+    /**
+     * Clear store
+     */
     clear() {
         this.byId = new Map();
     }

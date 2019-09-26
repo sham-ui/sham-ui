@@ -1,23 +1,25 @@
 /**
  * Bindings map
  * @type {Map}
+ * @inner
  */
 const bindings = new Map();
 
 /**
  * Factories
  * @type {Map}
+ * @inner
  */
 const factories = new Map();
 
 /**
  * Simple DI implementation
  */
-const DIContainer = {
+const DI = {
 
     /**
      * Bind item by name
-     * @param {String} name
+     * @param {string} name
      * @param {*} item
      */
     bind( name, item ) {
@@ -26,7 +28,7 @@ const DIContainer = {
 
     /**
      * Lazy bind item factory by name
-     * @param {String} name
+     * @param {string} name
      * @param {*} factory
      */
     bindLazy( name, factory ) {
@@ -35,7 +37,7 @@ const DIContainer = {
 
     /**
      * Get item from container by name
-     * @param {String} name
+     * @param {string} name
      * @return {*}
      */
     resolve( name ) {
@@ -60,8 +62,5 @@ const DIContainer = {
         }
     }
 };
-
-// Cross lib support
-const DI = window.DI || DIContainer;
 
 export default DI;
