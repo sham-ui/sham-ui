@@ -1,4 +1,4 @@
-## master
+## 4.0.0
 * Add `size-limit`
 * Add `browserlist`
 * Add `configureOptions` helper
