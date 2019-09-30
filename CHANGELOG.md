@@ -17,6 +17,7 @@
 * Rename `bindEvents` to `didMount`
 * Call `didMount` after component rendered & updated
 * Add `doc:generate` script & add docs to `README.md`
+* Block mapping options
 
 ## 3.3.0
 * Fix `needUpdateAfterRender`

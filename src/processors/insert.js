@@ -6,8 +6,9 @@
  * @param {Class<Component>} template Component class for insert, if test true
  * @param {Object} data Options for component
  * @param {Component} owner Owner of inserting component
+ * @param {Object} [blocks] Object with block mountings map
  */
-export default function insert( parent, node, child/*.ref*/, template, data, owner ) {
+export default function insert( parent, node, child/*.ref*/, template, data, owner, blocks ) {
     if ( child.ref ) { // If view was already inserted, update or remove it.
         child.ref.update( data );
     } else {
@@ -16,6 +17,7 @@ export default function insert( parent, node, child/*.ref*/, template, data, own
         const view = new template( {
             parent,
             owner,
+            blocks,
             filters: parent.filters,
             directives: parent.directives,
             container: node
