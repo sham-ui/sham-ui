@@ -88,6 +88,7 @@ Custom tags processor.
 -   `template` **Class&lt;[Component](#component)>** Component class for insert, if test true
 -   `data` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options for component
 -   `owner` **[Component](#component)** Owner of inserting component
+-   `blocks` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Object with block mountings map
 
 #### cond
 
