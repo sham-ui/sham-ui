@@ -82,6 +82,11 @@ export default class Component {
             ].forEach(
                 key => this[ key ] = options[ key ]
             );
+            this.blocks = options.blocks || (
+                this.parent ? this.parent.blocks : {}
+            );
+        } else {
+            this.blocks = {};
         }
     }
 
