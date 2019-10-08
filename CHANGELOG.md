@@ -1,3 +1,6 @@
+## master
+* Update `size-limit`
+
 ## 4.0.0
 * Add `size-limit`
 * Add `browserlist`
