@@ -1,5 +1,6 @@
-## master
+## 4.0.1
 * Update `size-limit`
+* Fix `null` options with `configureOptions` helper
 
 ## 4.0.0
 * Add `size-limit`

@@ -12,7 +12,7 @@ export default function configureOptions( prototype, instance, props ) {
         const value = props[ name ];
 
         // eslint-disable-next-line no-nested-ternary
-        const descriptor = 'object' === typeof value ? (
+        const descriptor = 'object' === typeof value && null !== value ? (
 
             // Value is valid descriptor?
             'get' in value || 'set' in value ?

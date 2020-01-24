@@ -239,3 +239,20 @@ it( 'wrap array to getter', () => {
     renderComponent( Dummy );
     expectRenderedText( '' );
 } );
+
+it( 'options is null', () => {
+    class Dummy extends Component {
+        configureOptions() {
+            super.configureOptions( ...arguments );
+            configureOptions( Dummy.prototype, this, {
+                form: null
+            } );
+        }
+
+        render() {
+            this.container.textContent = `form: ${this.form}`;
+        }
+    }
+    renderComponent( Dummy );
+    expectRenderedText( 'form: null' );
+} );
