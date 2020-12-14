@@ -20,8 +20,8 @@ class cond extends __UI__.Component {
         const child0 = {};
         const child1 = {};
 
-        // Update functions
-        this.__update__ = {
+        // Update spot functions
+        this.spots = {
             test( test ) {
                 let result;
                 result = __UI__.cond( _this, for0, child0, cond_if0, test );
@@ -41,13 +41,6 @@ class cond extends __UI__.Component {
 
         // Set root nodes
         this.nodes = [ for0 ];
-    }
-
-    updateSpots( __data__ ) {
-        if ( __data__.test !== undefined ) {
-            this.__update__.test( __data__.test );
-        }
-        this.onUpdate( __data__ );
     }
 }
 

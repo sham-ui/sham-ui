@@ -50,6 +50,7 @@
           "shippedProposals": true,
           "exclude": [
             "web.dom-collections.iterator",
+            "es.string.split",
             "es.array.iterator"
           ]
         }

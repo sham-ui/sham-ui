@@ -24,8 +24,8 @@ class CustomPanel extends __UI__.Component {
         h10.appendChild( text1 );
         div2.appendChild( text3 );
 
-        // Update functions
-        this.__update__ = {
+        // Update spot functions
+        this.spots = {
             title( title ) {
                 text1.textContent = title;
             },
@@ -38,14 +38,7 @@ class CustomPanel extends __UI__.Component {
         this.nodes = [ h10, div2 ];
     }
 
-    updateSpots( __data__ ) {
-        if ( __data__.title !== undefined ) {
-            this.__update__.title( __data__.title );
-        }
-        if ( __data__.content !== undefined ) {
-            this.__update__.content( __data__.content );
-        }
-    }
+    onUpdate() {}
 }
 
 
@@ -100,11 +93,11 @@ it( 'destroy', () => {
 } );
 
 it( 'needUpdateAfterRender (issue #42)', () => {
-    const originalUpdateSpots = CustomPanel.prototype.updateSpots;
+    const originalOnUpdate = CustomPanel.prototype.onUpdate;
     const updateFn = jest.fn();
-    CustomPanel.prototype.updateSpots = function() {
+    CustomPanel.prototype.onUpdate = function() {
         updateFn();
-        originalUpdateSpots.apply( this, arguments );
+        originalOnUpdate.apply( this, arguments );
     };
     renderComponent( custom, {
         ID: 'custom'
@@ -112,16 +105,16 @@ it( 'needUpdateAfterRender (issue #42)', () => {
     expect( updateFn ).toHaveBeenCalledTimes( 1 );
     DI.resolve( 'sham-ui:store' ).findById( 'custom' ).update();
     expect( updateFn ).toHaveBeenCalledTimes( 1 );
-    CustomPanel.prototype.updateSpots = originalUpdateSpots;
+    CustomPanel.prototype.onUpdate = originalOnUpdate;
 } );
 
 
 it( 'needUpdateAfterRender work with UI', () => {
-    const originalUpdateSpots = CustomPanel.prototype.updateSpots;
+    const originalOnUpdate = CustomPanel.prototype.onUpdate;
     const updateFn = jest.fn();
-    CustomPanel.prototype.updateSpots = function() {
+    CustomPanel.prototype.onUpdate = function() {
         updateFn( this.ID );
-        originalUpdateSpots.apply( this, arguments );
+        originalOnUpdate.apply( this, arguments );
     };
     renderComponent( custom, {
         ID: 'custom'
@@ -130,5 +123,5 @@ it( 'needUpdateAfterRender work with UI', () => {
     expect( updateFn ).toHaveBeenCalledTimes( 1 );
     DI.resolve( 'sham-ui:store' ).findById( customPanelID ).update();
     expect( updateFn ).toHaveBeenCalledTimes( 2 );
-    CustomPanel.prototype.updateSpots = originalUpdateSpots;
+    CustomPanel.prototype.onUpdate = originalOnUpdate;
 } );

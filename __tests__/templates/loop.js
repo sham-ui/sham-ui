@@ -20,8 +20,8 @@ class loop extends __UI__.Component {
         const ul0 = document.createElement( 'ul' );
         const children0 = new __UI__.Map();
 
-        // Update functions
-        this.__update__ = {
+        // Update spot functions
+        this.spots = {
             list( list ) {
                 __UI__.loop( _this,
                     ul0,
@@ -44,13 +44,6 @@ class loop extends __UI__.Component {
         // Set root nodes
         this.nodes = [ ul0 ];
     }
-
-    updateSpots( __data__ ) {
-        if ( __data__.list !== undefined ) {
-            this.__update__.list( __data__.list );
-        }
-        this.onUpdate( __data__ );
-    }
 }
 
 // eslint-disable-next-line camelcase
@@ -71,27 +64,24 @@ class loop_for0 extends __UI__.Component {
         li0.appendChild( document.createTextNode( ':' ) );
         li0.appendChild( text2 );
 
-        // Update functions
-        this.__update__ = {
-            key: function( key ) {
-                text1.textContent = key;
+        // Update spot functions
+        this.spots = {
+            key:  {
+                loop: true,
+                op( key ) {
+                    text1.textContent = key;
+                }
             },
-            value: function( value ) {
-                text2.textContent = value;
+            value: {
+                loop: true,
+                op( value ) {
+                    text2.textContent = value;
+                }
             }
         };
 
         // Set root nodes
         this.nodes = [ li0 ];
-    }
-
-    updateSpots( __data__ ) {
-        if ( __data__.key !== undefined && __data__.__index__ !== undefined ) {
-            this.__update__.key( __data__.key );
-        }
-        if ( __data__.value !== undefined && __data__.__index__ !== undefined ) {
-            this.__update__.value( __data__.value );
-        }
     }
 }
 

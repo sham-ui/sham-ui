@@ -1,3 +1,9 @@
+## master
+* Set default empty directives & filters in component for simple add directives on component level
+* Add inner `dataForBlock` helper for render blocks
+* Set inner properties `__cache__` && `__data__` in constructore
+* Move `updateSpots` logic from template compiler to runtime 
+
 ## 4.0.1
 * Update `size-limit`
 * Fix `null` options with `configureOptions` helper

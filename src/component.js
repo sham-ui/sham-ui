@@ -3,6 +3,26 @@ import { hoistingOptions } from './options/decorator';
 import bindOptionsDescriptors from './options/bind-descriptors';
 import DI from './di';
 
+
+/**
+ * Spot definition from template compiler
+ * Spot it's dynamic part of template: {{a}}, {{a + b}}, variables in {% if %}, {% for %} etc
+ * @inner
+ * @typedef {Function|ComplexSpot} Spot
+ */
+
+/**
+ * Complex spot with options
+ * @inner
+ * @typedef {Object} ComplexSpot
+ * @property {Boolean|undefined} loop Spot dependent on data.__index__
+ * @property {Boolean|undefined} cache Add variable to cache
+ * @property {Boolean|undefined} multiple Spot dependent ov several variables. If undefined, then
+ *                                        spot dependent on once variable with same name as this spot
+ * @property {Function|undefined} op Operation for update spot
+ */
+
+
 /**
  * Base component class
  * @param {Object} [options] Options
@@ -22,6 +42,10 @@ export default class Component {
         this.applyOptions( options );
         this.resolveID();
         this.copyFromConstructorArgument( options );
+
+        // Set inner props:
+        this.__cache__ = {};
+        this.__data__ = {};
 
         /**
          * @type {Array<Component>} Array of child components
@@ -74,18 +98,28 @@ export default class Component {
      */
     copyFromConstructorArgument( options ) {
         if ( options ) {
+
+            // Just copy from options
             [
-                'filters',
                 'parent',
-                'owner',
-                'directives'
+                'owner'
             ].forEach(
                 key => this[ key ] = options[ key ]
             );
+
+            // Copy from options or set default
+            [
+                'directives',
+                'filters'
+            ].forEach( key => this[ key ] = options[ key ] || {} );
+
+            // Copy from options or parent or default
             this.blocks = options.blocks || (
                 this.parent ? this.parent.blocks : {}
             );
         } else {
+            this.directives = {};
+            this.filters = {};
             this.blocks = {};
         }
     }
@@ -95,48 +129,110 @@ export default class Component {
      */
     didMount() {}
 
-
     /**
      * Update component state
      * @param {Object}  currentData
      */
     update( currentData ) {
-        const data = this.buildDataForUpdate( currentData );
-        this.updateSpots( data );
-        this.refineOptions( currentData );
-        delete this.__data__;
-    }
+        const data = Object.assign( {}, this.options, currentData );
+        this.__data__ = data;
 
-    /**
-     * Build & save internal state
-     * @private
-     * @param {*} currentData
-     * @return {Object}
-     */
-    buildDataForUpdate( currentData ) {
-        this.__data__ = Object.assign( {}, this.options, currentData );
-        return this.__data__;
-    }
+        const spots = this.spots;
+        if ( spots ) {
 
-    /**
-     * Update spots & call onUpdate. Generate in sham-ui-templates
-     * @private
-     * @param {Object} data
-     */
-    updateSpots() {}
+            // Template compliler provide spots, process
+            for ( let name in spots ) {
+                this._updateSpot( name, spots[ name ], data );
+            }
+        }
 
-    /**
-     * Update options with data
-     * @private
-     * @param {*} currentData
-     */
-    refineOptions( currentData ) {
+        // Call on update callback.
+        if ( this.onUpdate ) {
+            this.onUpdate( data );
+        }
+
         if ( currentData ) {
             Object.defineProperties(
                 this.options,
                 Object.getOwnPropertyDescriptors( currentData )
             );
         }
+        delete this.__data__;
+    }
+
+    /**
+     * Update one spot
+     * @param {string} name
+     * @param {Spot} spot
+     * @param {Object} data
+     * @private
+     */
+    _updateSpot( name, spot, data ) {
+        if ( 'function' === typeof spot ) {
+
+            // Simple spot with function as update function and without any extra params.
+            // Transform to ComplexSpot
+            spot = { op: spot };
+        }
+        this._updateComplexSpot( name, spot, data );
+    }
+
+    /**
+     * Update complex spot: with cache or loop etc
+     * @param {string} name
+     * @param {ComplexSpot} spot
+     * @param {Object} data
+     * @private
+     */
+    _updateComplexSpot( name, spot, data ) {
+        if ( spot.multiple ) {
+
+            // Spot dependents on several variables: {{a + b}} for example
+            const vars = name.split( '_' );
+            const params = [];
+            for ( let variableName of vars ) {
+                const variableValue = this.__cache__[ variableName ];
+                if ( undefined === variableValue ) {
+
+                    // Some variables not in cache, stop iterations and ignore other
+                    return;
+                }
+                params.push( variableValue );
+            }
+
+            // All variable in cache, call update spot operation
+            spot.op.apply( this, params );
+        } else {
+
+            // Spot dependent on once variable: {{foo}} for example
+            const value = data[ name ];
+            if (
+                undefined === value || // Data hasn't value
+                ( spot.loop && undefined === data.__index__ ) // Variable from loop, but loop not created
+            ) {
+                return;
+            }
+
+            if ( spot.cache ) {
+
+                // Caching variable
+                this.__cache__[ name ] = value;
+            }
+
+            if ( spot.op ) {
+                spot.op.call( this, value );
+            }
+        }
+    }
+
+    /**
+     * Helpers for blocks.
+     * Use because this.__data__ can be undefined (after update finished)
+     * @return {any}
+     * @private
+     */
+    dataForBlock() {
+        return this.__data__ || Object.assign( {}, this._options );
     }
 
     /**
@@ -152,6 +248,7 @@ export default class Component {
             this.appendTo( node );
         }
 
+        // Call on render callback.
         if ( this.onRender ) {
             this.onRender();
         }
@@ -173,12 +270,6 @@ export default class Component {
      */
     insertBefore( toNode ) {
         const parentNode = toNode.parentNode;
-        if ( null === parentNode ) {
-            throw new Error(
-                'Can not insert child view into parent node. ' +
-                'You need append your view first and then update.'
-            );
-        }
         for ( let i = 0, len = this.nodes.length; i < len; i++ ) {
             parentNode.insertBefore( this.nodes[ i ], toNode );
         }

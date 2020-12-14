@@ -20,8 +20,8 @@ class custom extends __UI__.Component {
         h10.appendChild( text1 );
         div2.appendChild( text3 );
 
-        // Update functions
-        this.__update__ = {
+        // Update spot functions
+        this.spots = {
             title( title ) {
                 text1.textContent = title;
             },
@@ -32,15 +32,6 @@ class custom extends __UI__.Component {
 
         // Set root nodes
         this.nodes = [ h10, div2 ];
-    }
-
-    updateSpots( __data__ ) {
-        if ( __data__.title !== undefined ) {
-            this.__update__.title( __data__.title );
-        }
-        if ( __data__.content !== undefined ) {
-            this.__update__.content( __data__.content );
-        }
     }
 }
 
