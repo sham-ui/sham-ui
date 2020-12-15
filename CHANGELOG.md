@@ -1,4 +1,4 @@
-## master
+## 4.1.0
 * Set default empty directives & filters in component for simple add directives on component level
 * Add inner `dataForBlock` helper for render blocks
 * Set inner properties `__cache__` && `__data__` in constructore
