@@ -12,12 +12,12 @@
     -   [Parameters](#parameters)
 -   [createDI](#createdi)
 -   [DI](#di)
--   [bind](#bind)
-    -   [Parameters](#parameters-1)
--   [bindLazy](#bindlazy)
-    -   [Parameters](#parameters-2)
--   [resolve](#resolve)
-    -   [Parameters](#parameters-3)
+    -   [bind](#bind)
+        -   [Parameters](#parameters-1)
+    -   [bindLazy](#bindlazy)
+        -   [Parameters](#parameters-2)
+    -   [resolve](#resolve)
+        -   [Parameters](#parameters-3)
 -   [Store](#store)
     -   [Properties](#properties)
 -   [Dom](#dom)
@@ -84,35 +84,33 @@ Returns **[DI](#di)**
 
 #### DI
 
-Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
-
-#### bind
+##### bind
 
 Bind item by name
 
-##### Parameters
+###### Parameters
 
 -   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 -   `item` **any** 
 
 Returns **[DI](#di)** 
 
-#### bindLazy
+##### bindLazy
 
 Lazy bind item factory by name
 
-##### Parameters
+###### Parameters
 
 -   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 -   `factory` **any** 
 
 Returns **[DI](#di)** 
 
-#### resolve
+##### resolve
 
 Get item from container by name
 
-##### Parameters
+###### Parameters
 
 -   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 

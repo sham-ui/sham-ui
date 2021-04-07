@@ -1,3 +1,6 @@
+## 5.0.0-alpha.1
+* Fix a API docs in `README.md`
+
 ## 5.0.0-alpha.0
 * Remove methods from store (unused in real cases)
 * Add `Dom` service for wrap creating DOM nodes

@@ -24,12 +24,13 @@ export function createDI() {
     return bindServices(
 
         /**
-         * @class {Object} DI
+         * @class DI
          */
         {
 
             /**
              * Bind item by name
+             * @memberof DI
              * @param {string} name
              * @param {*} item
              * @return {DI}
@@ -41,6 +42,7 @@ export function createDI() {
 
             /**
              * Lazy bind item factory by name
+             * @memberof DI
              * @param {string} name
              * @param {*} factory
              * @return {DI}
@@ -52,6 +54,7 @@ export function createDI() {
 
             /**
              * Get item from container by name
+             * @memberof DI
              * @param {string} name
              * @return {*}
              */
