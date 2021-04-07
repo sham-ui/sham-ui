@@ -1,12 +1,17 @@
-import { start } from '../src/index';
+import { start, createDI } from '../src/index';
 
 export function renderComponent( componentConstructor, options = {} ) {
+    const DI = 'DI' in options ?
+        options.DI :
+        createDI();
     new componentConstructor( {
         ID: 'dummy',
         container: document.querySelector( 'body' ),
+        DI,
         ...options
     } );
-    start();
+    start( DI );
+    return DI;
 }
 
 export function expectRenderedText( expected ) {

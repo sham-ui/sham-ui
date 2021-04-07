@@ -19,8 +19,6 @@ export default function cond( parent, node, child/*.ref*/, template, test, owner
         const view = new template( {
             parent,
             owner,
-            filters: parent.filters,
-            directives: parent.directives,
             container: node
         } );
         view.render();
@@ -34,8 +32,14 @@ export default function cond( parent, node, child/*.ref*/, template, test, owner
             child.ref = null;
         };
 
+        // Rehydrate component
+        view.hooks.rehydrate();
+
         // Call hook
         view.didMount();
+
+        // Hydrate component
+        view.hooks.hydrate();
     }
     return test;
 }

@@ -1,51 +1,103 @@
-import nanoid from 'nanoid';
-import { hoistingOptions } from './options/decorator';
-import bindOptionsDescriptors from './options/bind-descriptors';
-import DI from './di';
+import setupOptions from './options/setup-for-component';
 
+/**
+ * Wrap service methods for pass component as first argument
+ * @param {string} serviceName
+ * @param {string[]}methods
+ * @param {Component} component
+ * @inner
+ */
+function createProxy( serviceName, methods, component ) {
+    const proxy = {};
+    methods.forEach(
+        name => proxy[ name ] = function() {
+            const service = component.DI.resolve( serviceName );
+            return service[ name ].apply(
+                service,
+
+                // Pass component to service method as first argument
+                [].concat( component, Array.from( arguments ) )
+            );
+        }
+    );
+    return proxy;
+}
+
+/**
+ * Bit mask for spot
+ * @inner
+ * @typedef {number} SpotBitMask
+ */
+
+/**
+ * Add variable to cache
+ * @inner
+ * @type {SpotBitMask}
+ */
+const SPOT_CACHE = 1 << 0;
+
+/**
+ * Spot dependent on data.__index__
+ * @inner
+ * @type {SpotBitMask}
+ */
+const SPOT_LOOP = 1 << 1;
 
 /**
  * Spot definition from template compiler
  * Spot it's dynamic part of template: {{a}}, {{a + b}}, variables in {% if %}, {% for %} etc
  * @inner
- * @typedef {Function|ComplexSpot} Spot
+ * @typedef {Array} Spot
+ * @property {SpotBitMask} 0 Spot options
+ * @property {Array<string>|string} 1 Variables for spots
+ * @property {Function|undefined} 2 Operation for update spot
  */
-
-/**
- * Complex spot with options
- * @inner
- * @typedef {Object} ComplexSpot
- * @property {Boolean|undefined} loop Spot dependent on data.__index__
- * @property {Boolean|undefined} cache Add variable to cache
- * @property {Boolean|undefined} multiple Spot dependent ov several variables. If undefined, then
- *                                        spot dependent on once variable with same name as this spot
- * @property {Function|undefined} op Operation for update spot
- */
-
 
 /**
  * Base component class
- * @param {Object} [options] Options
+ * @param {Object} options Options
  * @property {string} ID Component unique ID
+ * @property {Element} container Container for component
+ * @property {DI} DI
+ * @property {Dom} dom
+ * @property {Store} UI
+ * @property {Hooks} hooks
  */
 export default class Component {
-
-    /**
-     * @return {Store}
-     */
-    get UI() {
-        return DI.resolve( 'sham-ui:store' );
-    }
-
     constructor( options ) {
         this.configureOptions();
-        this.applyOptions( options );
-        this.resolveID();
-        this.copyFromConstructorArgument( options );
+
+        setupOptions( this, options );
+
+        // Create proxy methods for pass current component
+        this.dom = createProxy(
+            'sham-ui:dom',
+            [
+                'build',
+                'el',
+                'text',
+                'comment',
+                'unsafe'
+            ],
+            this
+        );
+        this.hooks = createProxy(
+            'sham-ui:hooks',
+            [
+                'hydrate',
+                'rehydrate',
+                'resolveID'
+            ],
+            this
+        );
+        this.UI = this.DI.resolve( 'sham-ui:store' );
+
+        this.ID = this.hooks.resolveID();
 
         // Set inner props:
         this.__cache__ = {};
         this.__data__ = {};
+        this.isRoot = false;
 
         /**
          * @type {Array<Component>} Array of child components
@@ -57,72 +109,13 @@ export default class Component {
          */
         this.nodes = [];
 
-        /**
-         * @type {Element} Container of this component
-         */
-        this.container = options.container;
-        this.UI.registry( this );
+        this.UI.byId.set( this.ID, this );
     }
 
     /**
      *  Hook for configure options without decorator
      */
     configureOptions() {}
-
-    /**
-     * @private
-     * @param options
-     */
-    applyOptions( options ) {
-        hoistingOptions( this );
-
-        const descriptors = Object.assign(
-            {},
-            bindOptionsDescriptors( this, this._options ),
-            Object.getOwnPropertyDescriptors( options )
-        );
-        this.options = Object.create( null, descriptors );
-    }
-
-    /**
-     * @private
-     */
-    resolveID() {
-        const ID = this.options.ID;
-        this.ID = 'string' === typeof ID ? ID : nanoid();
-    }
-
-    /**
-     * Copy some keys from constructor argument to instance
-     * @param [options]
-     */
-    copyFromConstructorArgument( options ) {
-        if ( options ) {
-
-            // Just copy from options
-            [
-                'parent',
-                'owner'
-            ].forEach(
-                key => this[ key ] = options[ key ]
-            );
-
-            // Copy from options or set default
-            [
-                'directives',
-                'filters'
-            ].forEach( key => this[ key ] = options[ key ] || {} );
-
-            // Copy from options or parent or default
-            this.blocks = options.blocks || (
-                this.parent ? this.parent.blocks : {}
-            );
-        } else {
-            this.directives = {};
-            this.filters = {};
-            this.blocks = {};
-        }
-    }
 
     /**
      * Hook for extra data after render & update
@@ -140,9 +133,26 @@ export default class Component {
         const spots = this.spots;
         if ( spots ) {
 
-            // Template compliler provide spots, process
-            for ( let name in spots ) {
-                this._updateSpot( name, spots[ name ], data );
+            // Template compiler provide spots, process
+            for ( let spot of spots ) {
+                const args = 'number' == typeof spot[ 0 ] ?
+
+                    // Compiler generate bitMask
+                    [
+                        data,
+                        spot[ 0 ],
+                        [].concat( spot[ 1 ] ),
+                        spot[ 2 ]
+                    ] :
+
+                    // Spot without bitMask
+                    [
+                        data,
+                        0,
+                        [].concat( spot[ 0 ] ),
+                        spot[ 1 ]
+                    ];
+                this._updateSpot.apply( this, args );
             }
         }
 
@@ -162,66 +172,45 @@ export default class Component {
 
     /**
      * Update one spot
-     * @param {string} name
-     * @param {Spot} spot
      * @param {Object} data
+     * @param {SpotBitMask} bitMask
+     * @param {Array<string>} variables
+     * @param {Function|undefined} operation
      * @private
      */
-    _updateSpot( name, spot, data ) {
-        if ( 'function' === typeof spot ) {
-
-            // Simple spot with function as update function and without any extra params.
-            // Transform to ComplexSpot
-            spot = { op: spot };
-        }
-        this._updateComplexSpot( name, spot, data );
-    }
-
-    /**
-     * Update complex spot: with cache or loop etc
-     * @param {string} name
-     * @param {ComplexSpot} spot
-     * @param {Object} data
-     * @private
-     */
-    _updateComplexSpot( name, spot, data ) {
-        if ( spot.multiple ) {
+    _updateSpot( data, bitMask, variables, operation ) {
+        let params = [];
+        if ( variables.length > 1 ) {
 
             // Spot dependents on several variables: {{a + b}} for example
-            const vars = name.split( '_' );
-            const params = [];
-            for ( let variableName of vars ) {
-                const variableValue = this.__cache__[ variableName ];
-                if ( undefined === variableValue ) {
-
-                    // Some variables not in cache, stop iterations and ignore other
-                    return;
-                }
-                params.push( variableValue );
-            }
-
-            // All variable in cache, call update spot operation
-            spot.op.apply( this, params );
+            params = variables.map(
+                variableName => this.__cache__[ variableName ]
+            );
         } else {
 
-            // Spot dependent on once variable: {{foo}} for example
-            const value = data[ name ];
+            // Spot dependent on one or zero variable: {{foo}} for example
+            const name = variables[ 0 ];
+            const value = variables.length > 0 ?
+                data[ name ] :
+                null
+            ;
             if (
                 undefined === value || // Data hasn't value
-                ( spot.loop && undefined === data.__index__ ) // Variable from loop, but loop not created
+                ( ( bitMask & SPOT_LOOP ) && undefined === data.__index__ ) // Variable from loop, but loop not created
             ) {
                 return;
             }
 
-            if ( spot.cache ) {
+            if ( bitMask & SPOT_CACHE ) {
 
                 // Caching variable
                 this.__cache__[ name ] = value;
             }
+            params = [ value ];
+        }
 
-            if ( spot.op ) {
-                spot.op.call( this, value );
-            }
+        if ( operation ) {
+            operation.apply( this, params );
         }
     }
 
@@ -239,13 +228,20 @@ export default class Component {
      * Mount component to container element
      */
     render() {
-        const node = this.container;
+        if ( this.dom.build() ) {
+            const node = this.container;
 
-        // COMMENT_NODE
-        if ( node.nodeType === 8 ) {
-            this.insertBefore( node );
-        } else {
-            this.appendTo( node );
+            // COMMENT_NODE
+            if ( node.nodeType === 8 ) {
+                const parentNode = node.parentNode;
+                for ( let i = 0, len = this.nodes.length; i < len; i++ ) {
+                    parentNode.insertBefore( this.nodes[ i ], node );
+                }
+            } else {
+                for ( let i = 0, len = this.nodes.length; i < len; i++ ) {
+                    node.appendChild( this.nodes[ i ] );
+                }
+            }
         }
 
         // Call on render callback.
@@ -255,31 +251,10 @@ export default class Component {
     }
 
     /**
-     * @param {Element} toNode
-     * @private
-     */
-    appendTo( toNode ) {
-        for ( let i = 0, len = this.nodes.length; i < len; i++ ) {
-            toNode.appendChild( this.nodes[ i ] );
-        }
-    }
-
-    /**
-     * @param {Element} toNode
-     * @private
-     */
-    insertBefore( toNode ) {
-        const parentNode = toNode.parentNode;
-        for ( let i = 0, len = this.nodes.length; i < len; i++ ) {
-            parentNode.insertBefore( this.nodes[ i ], toNode );
-        }
-    }
-
-    /**
      * Remove & destroy component
      */
     remove() {
-        this.UI.unregistry( this );
+        this.UI.byId.delete( this.ID );
 
         // Remove appended nodes.
         let i = this.nodes.length;
@@ -300,8 +275,10 @@ export default class Component {
 
         // Remove this view from parent's nested views.
         if ( this.parent ) {
-            i = this.parent.nested.indexOf( this );
-            this.parent.nested.splice( i, 1 );
+            this.parent.nested.splice(
+                this.parent.nested.indexOf( this ),
+                1
+            );
             this.parent = null;
         }
 

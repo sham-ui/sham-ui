@@ -1,4 +1,4 @@
-import { Component, DI } from '../src/index';
+import { Component } from '../src/index';
 import { renderComponent, expectRenderedText } from './helpers';
 
 afterEach( () => {
@@ -25,10 +25,10 @@ it( 'render after already rendered', () => {
         .fn()
         .mockReturnValueOnce( 'dummy (first render)' )
         .mockReturnValueOnce( 'dummy (second render)' );
-    renderComponent( Label, {
+    const DI = renderComponent( Label, {
         text: mock
     } );
-    DI.resolve( 'sham-ui:store' ).findById( 'dummy' ).render();
+    DI.resolve( 'sham-ui:store' ).byId.get( 'dummy' ).render();
     expectRenderedText( 'dummy (second render)' );
 } );
 

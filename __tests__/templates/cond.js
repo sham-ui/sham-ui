@@ -1,5 +1,5 @@
 import { renderComponent, expectRenderedText } from '../helpers';
-import { DI } from '../../src/index';
+import { Component, cond } from '../../src/index';
 
 /**
  * Component for
@@ -9,28 +9,37 @@ import { DI } from '../../src/index';
  *    else
  * {% endif %}
  */
-class cond extends __UI__.Component {
-    constructor() {
-        super( ...arguments );
+class condition extends Component {
+    constructor( options ) {
+        super( options );
+
+        this.isRoot = true;
 
         const _this = this;
 
+        const dom = this.dom;
+
         // Create elements
-        const for0 = document.createComment( 'if' );
+        const for0 = dom.comment( 'if' );
         const child0 = {};
         const child1 = {};
 
+
         // Update spot functions
-        this.spots = {
-            test( test ) {
-                let result;
-                result = __UI__.cond( _this, for0, child0, cond_if0, test );
-                __UI__.cond( _this, for0, child1, cond_else1, !result );
-            }
-        };
+        this.spots = [
+            [
+                'test',
+                ( test ) => {
+                    let result;
+                    result = cond( _this, for0, child0, cond_if0, test, _this );
+                    cond( _this, for0, child1, cond_else1, !result, _this );
+                }
+            ]
+        ];
+
 
         // On update actions
-        this.onUpdate = function( __data__ ) {
+        this.onUpdate = ( __data__ ) => {
             if ( child0.ref ) {
                 child0.ref.update( __data__ );
             }
@@ -39,45 +48,46 @@ class cond extends __UI__.Component {
             }
         };
 
+
         // Set root nodes
         this.nodes = [ for0 ];
     }
 }
 
 // eslint-disable-next-line camelcase
-class cond_if0 extends __UI__.Component {
+class cond_if0 extends Component {
     constructor() {
         super( ...arguments );
 
         // Set root nodes
-        this.nodes = [ document.createTextNode( ' then ' ) ];
+        this.nodes = [ this.dom.text( ' then ' ) ];
     }
 }
 
 // eslint-disable-next-line camelcase
-class cond_else1 extends __UI__.Component {
+class cond_else1 extends Component {
     constructor() {
         super( ...arguments );
 
         // Set root nodes
-        this.nodes = [ document.createTextNode( ' else ' ) ];
+        this.nodes = [ this.dom.text( ' else ' ) ];
     }
 }
 
 it( 'render', () => {
-    renderComponent( cond, {
+    renderComponent( condition, {
         test: true
     } );
     expectRenderedText( ' then ' );
 } );
 
 it( 'update', () => {
-    renderComponent( cond, {
+    const DI = renderComponent( condition, {
         ID: 'cond',
         test: true
     } );
     expectRenderedText( ' then ' );
-    const component = DI.resolve( 'sham-ui:store' ).findById( 'cond' );
+    const component = DI.resolve( 'sham-ui:store' ).byId.get( 'cond' );
     component.update( { test: false } );
     expectRenderedText( ' else ' );
     component.update( { test: true } );
@@ -87,7 +97,7 @@ it( 'update', () => {
 } );
 
 it( 'render (default false)', () => {
-    renderComponent( cond, {
+    renderComponent( condition, {
         test: false
     } );
     expectRenderedText( ' else ' );

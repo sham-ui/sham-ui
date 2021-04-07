@@ -9,72 +9,282 @@
 ##### Table of Contents
 
 -   [start](#start)
--   [insert](#insert)
     -   [Parameters](#parameters)
--   [cond](#cond)
-    -   [Parameters](#parameters-1)
--   [Map](#map)
-    -   [Properties](#properties)
-    -   [push](#push)
-        -   [Parameters](#parameters-2)
-    -   [remove](#remove)
-        -   [Parameters](#parameters-3)
-    -   [forEach](#foreach)
-        -   [Parameters](#parameters-4)
--   [loop](#loop)
-    -   [Parameters](#parameters-5)
--   [storeCallback](#storecallback)
-    -   [Parameters](#parameters-6)
--   [Store](#store)
-    -   [Properties](#properties-1)
-    -   [registry](#registry)
-        -   [Parameters](#parameters-7)
-    -   [unregistry](#unregistry)
-        -   [Parameters](#parameters-8)
-    -   [findById](#findbyid)
-        -   [Parameters](#parameters-9)
-    -   [find](#find)
-        -   [Parameters](#parameters-10)
-    -   [filter](#filter)
-        -   [Parameters](#parameters-11)
-    -   [forEach](#foreach-1)
-        -   [Parameters](#parameters-12)
-    -   [forEachId](#foreachid)
-        -   [Parameters](#parameters-13)
-    -   [map](#map-1)
-        -   [Parameters](#parameters-14)
-    -   [toArray](#toarray)
-    -   [clear](#clear)
+-   [createDI](#createdi)
 -   [DI](#di)
-    -   [bind](#bind)
-        -   [Parameters](#parameters-15)
-    -   [bindLazy](#bindlazy)
-        -   [Parameters](#parameters-16)
-    -   [resolve](#resolve)
-        -   [Parameters](#parameters-17)
+-   [bind](#bind)
+    -   [Parameters](#parameters-1)
+-   [bindLazy](#bindlazy)
+    -   [Parameters](#parameters-2)
+-   [resolve](#resolve)
+    -   [Parameters](#parameters-3)
+-   [Store](#store)
+    -   [Properties](#properties)
+-   [Dom](#dom)
+    -   [build](#build)
+        -   [Parameters](#parameters-4)
+    -   [el](#el)
+        -   [Parameters](#parameters-5)
+    -   [text](#text)
+        -   [Parameters](#parameters-6)
+    -   [comment](#comment)
+        -   [Parameters](#parameters-7)
+    -   [unsafe](#unsafe)
+        -   [Parameters](#parameters-8)
+-   [Hooks](#hooks)
+    -   [hydrate](#hydrate)
+        -   [Parameters](#parameters-9)
+    -   [rehydrate](#rehydrate)
+        -   [Parameters](#parameters-10)
+    -   [resolveID](#resolveid)
+        -   [Parameters](#parameters-11)
 -   [Component](#component)
-    -   [Parameters](#parameters-18)
-    -   [Properties](#properties-2)
-    -   [UI](#ui)
+    -   [Parameters](#parameters-12)
+    -   [Properties](#properties-1)
     -   [nested](#nested)
     -   [nodes](#nodes)
-    -   [container](#container)
     -   [configureOptions](#configureoptions)
-    -   [copyFromConstructorArgument](#copyfromconstructorargument)
-        -   [Parameters](#parameters-19)
     -   [didMount](#didmount)
     -   [update](#update)
-        -   [Parameters](#parameters-20)
+        -   [Parameters](#parameters-13)
     -   [render](#render)
-    -   [remove](#remove-1)
+    -   [remove](#remove)
 -   [decorator](#decorator)
-    -   [Parameters](#parameters-21)
+    -   [Parameters](#parameters-14)
 -   [configureOptions](#configureoptions-1)
-    -   [Parameters](#parameters-22)
+    -   [Parameters](#parameters-15)
+-   [insert](#insert)
+    -   [Parameters](#parameters-16)
+-   [cond](#cond)
+    -   [Parameters](#parameters-17)
+-   [Map](#map)
+    -   [Properties](#properties-2)
+    -   [push](#push)
+        -   [Parameters](#parameters-18)
+    -   [remove](#remove-1)
+        -   [Parameters](#parameters-19)
+    -   [forEach](#foreach)
+        -   [Parameters](#parameters-20)
+-   [loop](#loop)
+    -   [Parameters](#parameters-21)
 
 #### start
 
 Render root components
+
+##### Parameters
+
+-   `DI` **[DI](#di)** 
+
+#### createDI
+
+Create new instance of DI
+
+Returns **[DI](#di)** 
+
+#### DI
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### bind
+
+Bind item by name
+
+##### Parameters
+
+-   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `item` **any** 
+
+Returns **[DI](#di)** 
+
+#### bindLazy
+
+Lazy bind item factory by name
+
+##### Parameters
+
+-   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `factory` **any** 
+
+Returns **[DI](#di)** 
+
+#### resolve
+
+Get item from container by name
+
+##### Parameters
+
+-   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **any** 
+
+#### Store
+
+Components store
+
+##### Properties
+
+-   `byId` **[Map](#map)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), [Component](#component)>** Inner store
+
+#### Dom
+
+Inner service for wrap document's methods (create elements, text nodes & comments)
+
+##### build
+
+Construct dom enabled
+
+###### Parameters
+
+-   `component` **[Component](#component)** 
+
+Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 
+
+##### el
+
+Create element
+
+###### Parameters
+
+-   `component` **[Component](#component)** 
+-   `tagName` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **[HTMLElement](https://developer.mozilla.org/docs/Web/HTML/Element)** 
+
+##### text
+
+Create a text node
+
+###### Parameters
+
+-   `component` **[Component](#component)** 
+-   `data` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **[Text](https://developer.mozilla.org/docs/Web/HTML)** 
+
+##### comment
+
+Create comment node
+
+###### Parameters
+
+-   `component` **[Component](#component)** 
+-   `data` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **[Comment](https://developer.mozilla.org/docs/Web/API/Comment/Comment)** 
+
+##### unsafe
+
+This function is being used for unsafe `innerHTML` insertion of HTML into DOM.
+Code looks strange. I know. But it is possible minimalistic implementation of.
+
+###### Parameters
+
+-   `component` **[Comment](https://developer.mozilla.org/docs/Web/API/Comment/Comment)** 
+-   `root`  {Element} Node there to insert unsafe html.
+-   `nodes`  {Array} List of already inserted html nodes for remove.
+-   `html`  {string} Unsafe html to insert.
+
+#### Hooks
+
+Inner service for hydrate/rehydrate hooks
+
+##### hydrate
+
+Hook for mark component as ready for hydrating
+
+###### Parameters
+
+-   `component` **[Component](#component)** 
+
+##### rehydrate
+
+Hook for mark rehydrating component
+
+###### Parameters
+
+-   `component` **[Component](#component)** 
+
+##### resolveID
+
+Hook for resolve ID for component
+
+###### Parameters
+
+-   `component` **[Component](#component)** 
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+#### Component
+
+Base component class
+
+##### Parameters
+
+-   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options
+
+##### Properties
+
+-   `ID` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Component unique ID
+-   `container` **[Element](https://developer.mozilla.org/docs/Web/API/Element)** Container for component
+-   `DI` **[DI](#di)** 
+-   `dom` **[Dom](#dom)** 
+-   `UI` **[Store](#store)** 
+-   `hooks` **[Hooks](#hooks)** 
+
+##### nested
+
+Type: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Component](#component)>
+
+##### nodes
+
+Type: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Element](https://developer.mozilla.org/docs/Web/API/Element)>
+
+##### configureOptions
+
+Hook for configure options without decorator
+
+##### didMount
+
+Hook for extra data after render & update
+
+##### update
+
+Update component state
+
+###### Parameters
+
+-   `currentData` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+##### render
+
+Mount component to container element
+
+##### remove
+
+Remove & destroy component
+
+#### decorator
+
+Decorator for mark property as default value of options
+
+##### Parameters
+
+-   `target` **[Component](#component)** 
+-   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `descriptor` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+#### configureOptions
+
+Helper for configure options without decorators syntax
+
+##### Parameters
+
+-   `prototype` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Component prototype
+-   `instance` **[Component](#component)** Component instance
+-   `props` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), any>** Options mapping
 
 #### insert
 
@@ -148,201 +358,6 @@ Loops processor
 -   `array` **([Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array) \| [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))** Iterated object or array
 -   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options for component
 -   `owner` **[Component](#component)** Owner of inserting component
-
-#### storeCallback
-
-Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)
-
-##### Parameters
-
--   `component` **[Component](#component)** 
-
-#### Store
-
-Components store
-
-##### Properties
-
--   `byId` **[Map](#map)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), [Component](#component)>** Inner store
-
-##### registry
-
-###### Parameters
-
--   `component` **[Component](#component)** 
-
-##### unregistry
-
-###### Parameters
-
--   `component` **[Component](#component)** 
-
-##### findById
-
-###### Parameters
-
--   `componentId` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-Returns **[Component](#component)** 
-
-##### find
-
-###### Parameters
-
--   `callback` **[storeCallback](#storecallback)** 
-
-Returns **[Component](#component)** 
-
-##### filter
-
-###### Parameters
-
--   `callback` **[storeCallback](#storecallback)** 
-
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Component](#component)>** 
-
-##### forEach
-
-###### Parameters
-
--   `callback` **[storeCallback](#storecallback)** 
-
-##### forEachId
-
-###### Parameters
-
--   `ids` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** 
--   `callback` **[storeCallback](#storecallback)** 
-
-##### map
-
-###### Parameters
-
--   `callback` **[storeCallback](#storecallback)** 
-
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** 
-
-##### toArray
-
-Returns **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Component](#component)>** }
-
-##### clear
-
-Clear store
-
-#### DI
-
-Simple DI implementation
-
-##### bind
-
-Bind item by name
-
-###### Parameters
-
--   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `item` **any** 
-
-##### bindLazy
-
-Lazy bind item factory by name
-
-###### Parameters
-
--   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `factory` **any** 
-
-##### resolve
-
-Get item from container by name
-
-###### Parameters
-
--   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-Returns **any** 
-
-#### Component
-
-Base component class
-
-##### Parameters
-
--   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Options
-
-##### Properties
-
--   `ID` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Component unique ID
-
-##### UI
-
-Returns **[Store](#store)** 
-
-##### nested
-
-Type: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Component](#component)>
-
-##### nodes
-
-Type: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Element](https://developer.mozilla.org/docs/Web/API/Element)>
-
-##### container
-
-Type: [Element](https://developer.mozilla.org/docs/Web/API/Element)
-
-##### configureOptions
-
-Hook for configure options without decorator
-
-##### copyFromConstructorArgument
-
-Copy some keys from constructor argument to instance
-
-###### Parameters
-
--   `options`  
-
-##### didMount
-
-Hook for extra data after render & update
-
-##### update
-
-Update component state
-
-###### Parameters
-
--   `currentData` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-##### render
-
-Mount component to container element
-
-##### remove
-
-Remove & destroy component
-
-#### decorator
-
-Decorator for mark property as default value of options
-
-##### Parameters
-
--   `target` **[Component](#component)** 
--   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `descriptor` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-#### configureOptions
-
-Helper for configure options without decorators syntax
-
-##### Parameters
-
--   `prototype` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Component prototype
--   `instance` **[Component](#component)** Component instance
--   `props` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), any>** Options mapping
 
 ### License
 

@@ -1,3 +1,14 @@
+## 5.0.0-alpha.0
+* Remove methods from store (unused in real cases)
+* Add `Dom` service for wrap creating DOM nodes
+* Remove exception from loop processor (unused in real cases)
+* Move services to `services`
+* Remove patching `window`
+* Add `Hooks` service
+* Change internal spots format
+* Move `resolveID` to `Hooks` service
+* Some refactoring & reduce size
+
 ## 4.1.0
 * Set default empty directives & filters in component for simple add directives on component level
 * Add inner `dataForBlock` helper for render blocks

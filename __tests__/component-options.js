@@ -1,4 +1,4 @@
-import { Component, options, DI } from '../src/index';
+import { Component, options } from '../src/index';
 import { renderComponent, expectRenderedText } from './helpers';
 
 class Label extends Component {
@@ -77,7 +77,7 @@ it( 'throw error on static', () => {
         renderComponent( ThrowError );
     } catch ( e ) {
         expect( e.message ).toEqual(
-            expect.stringContaining( 'static options don\'t allow. Name: text, target:' )
+            expect.stringContaining( 'Static options don\'t allow' )
         );
     }
 } );
@@ -167,9 +167,9 @@ it( 'getter & setter together', () => {
             this.container.textContent = this.options.text;
         }
     }
-    renderComponent( Dummy );
+    const DI = renderComponent( Dummy );
     expectRenderedText( '' );
-    const component = DI.resolve( 'sham-ui:store' ).findById( 'dummy' );
+    const component = DI.resolve( 'sham-ui:store' ).byId.get( 'dummy' );
     component.options.text = 'test text';
     expect( component._text ).toBe( 'test text' );
     expect( component.options.text ).toBe( 'test text' );
@@ -187,10 +187,13 @@ it( 'container', () => {
 } );
 
 it( 'generated id', () => {
-    renderComponent( Label, {
+    const DI = renderComponent( Label, {
         ID: null
     } );
-    const ID = DI.resolve( 'sham-ui:store' ).find( () => true ).ID;
+    const firstComponent = Array.from(
+        DI.resolve( 'sham-ui:store' ).byId.values()
+    )[ 0 ];
+    const ID = firstComponent.ID;
     expect( typeof ID ).toBe( 'string' );
     expectRenderedText( ID );
 } );

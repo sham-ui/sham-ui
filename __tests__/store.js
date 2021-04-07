@@ -1,60 +1,45 @@
-import { DI, Component, start } from '../src/index';
+import { Component, start, createDI } from '../src/index';
+
+const components = ( DI ) => Array.from(
+    DI.resolve( 'sham-ui:store' ).byId.values()
+);
 
 it( 'find', () => {
+    const DI = createDI();
     let foo = new Component( {
+        DI,
         ID: 'foo',
         container: document.querySelector( 'body' )
     } );
-    start();
-    const store = DI.resolve( 'sham-ui:store' );
-    expect( store.find( component => component.ID === 'foo' ) ).toEqual( foo );
-    expect( store.find( component => component.ID === 'bar' ) ).toBe( undefined );
+    start( DI );
+    const all = components( DI );
+    expect( all.find( component => component.ID === 'foo' ) ).toEqual( foo );
+    expect( all.find( component => component.ID === 'bar' ) ).toBe( undefined );
 } );
 
 it( 'filter', () => {
+    const DI = createDI();
     let foo = new Component( {
+        DI,
         ID: 'foo',
         container: document.querySelector( 'body' )
     } );
-    start();
-    const store = DI.resolve( 'sham-ui:store' );
-    const components = store.filter( component => component.ID === 'foo' );
-    expect( components ).toHaveLength( 1 );
-    expect( components[ 0 ] ).toEqual( foo );
+    start( DI );
+    const all = components( DI ).filter( component => component.ID === 'foo' );
+    expect( all ).toHaveLength( 1 );
+    expect( all[ 0 ] ).toEqual( foo );
 } );
 
 it( 'map', () => {
+    const DI = createDI();
     new Component( {
+        DI,
         ID: 'foo',
         container: document.querySelector( 'body' )
     } );
-    start();
-    const store = DI.resolve( 'sham-ui:store' );
-    const ids = store.map( component => component.ID );
+    start( DI );
+    const ids = components( DI ).map( component => component.ID );
     expect( ids ).toHaveLength( 1 );
     expect( ids[ 0 ] ).toEqual( 'foo' );
 } );
 
-it( 'forEachId', () => {
-    const foo = new Component( {
-        ID: 'foo',
-        container: document.querySelector( 'body' )
-    } );
-    const bar = new Component( {
-        ID: 'bar',
-        container: document.querySelector( 'body' )
-    } );
-    start();
-    const allComponents = jest.fn();
-    DI.resolve( 'sham-ui:store' ).forEachId( [ 'foo', 'bar' ], allComponents );
-    expect( allComponents ).toHaveBeenCalledTimes( 2 );
-    expect( allComponents ).toHaveBeenNthCalledWith( 1, foo );
-    expect( allComponents ).toHaveBeenNthCalledWith( 2, bar );
-    const fooComponents = jest.fn();
-    DI.resolve( 'sham-ui:store' ).forEachId( [ 'foo' ], fooComponents );
-    expect( fooComponents ).toHaveBeenCalledTimes( 1 );
-    expect( fooComponents ).toHaveBeenNthCalledWith( 1, foo );
-    const dummyComponents = jest.fn();
-    DI.resolve( 'sham-ui:store' ).forEachId( [ 'dummy' ], dummyComponents );
-    expect( dummyComponents ).toHaveBeenCalledTimes( 0 );
-} );

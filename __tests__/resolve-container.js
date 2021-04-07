@@ -1,4 +1,4 @@
-import { Component, start } from '../src/index';
+import { Component, start, createDI } from '../src/index';
 import { renderComponent } from './helpers';
 
 it( 'render', () => {
@@ -11,11 +11,13 @@ it( 'render', () => {
 } );
 
 it( 'empty component', () => {
+    const DI = createDI();
     class Dummy extends Component {}
     let component = new Dummy( {
+        DI,
         ID: 'dummy',
         container: document.querySelector( 'body' )
     } );
-    start();
+    start( DI );
     expect( component.container ).toBeInstanceOf( Element );
 } );

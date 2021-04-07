@@ -1,66 +1,81 @@
-/**
- * Bindings map
- * @type {Map}
- * @inner
- */
-const bindings = new Map();
+import bindServices from './initializer';
+
 
 /**
- * Factories
- * @type {Map}
- * @inner
+ * Create new instance of DI
+ * @return {DI}
  */
-const factories = new Map();
-
-/**
- * Simple DI implementation
- */
-const DI = {
+export function createDI() {
 
     /**
-     * Bind item by name
-     * @param {string} name
-     * @param {*} item
+     * Bindings map
+     * @type {Map}
+     * @inner
      */
-    bind( name, item ) {
-        bindings.set( name, item );
-    },
+    const bindings = new Map();
 
     /**
-     * Lazy bind item factory by name
-     * @param {string} name
-     * @param {*} factory
+     * Factories
+     * @type {Map}
+     * @inner
      */
-    bindLazy( name, factory ) {
-        factories.set( name, factory );
-    },
+    const factories = new Map();
 
-    /**
-     * Get item from container by name
-     * @param {string} name
-     * @return {*}
-     */
-    resolve( name ) {
+    return bindServices(
 
-        // If name already resolved
-        if ( bindings.has( name ) ) {
-            return bindings.get( name );
+        /**
+         * @class {Object} DI
+         */
+        {
+
+            /**
+             * Bind item by name
+             * @param {string} name
+             * @param {*} item
+             * @return {DI}
+             */
+            bind( name, item ) {
+                bindings.set( name, item );
+                return this;
+            },
+
+            /**
+             * Lazy bind item factory by name
+             * @param {string} name
+             * @param {*} factory
+             * @return {DI}
+             */
+            bindLazy( name, factory ) {
+                factories.set( name, factory );
+                return this;
+            },
+
+            /**
+             * Get item from container by name
+             * @param {string} name
+             * @return {*}
+             */
+            resolve( name ) {
+
+                // If name already resolved
+                if ( bindings.has( name ) ) {
+                    return bindings.get( name );
+                }
+
+                // Lazy resolve
+                if ( factories.has( name ) ) {
+
+                    // Create
+                    const item = new( factories.get( name ) );
+
+                    // Save
+                    bindings.set( name, item );
+
+                    // Remove from lazy factories mapping
+                    factories.delete( name );
+                    return item;
+                }
+            }
         }
-
-        // Lazy resolve
-        if ( factories.has( name ) ) {
-
-            // Create
-            const item = new( factories.get( name ) );
-
-            // Save
-            bindings.set( name, item );
-
-            // Remove from lazy factories mapping
-            factories.delete( name );
-            return item;
-        }
-    }
-};
-
-export default DI;
+    );
+}

@@ -1,4 +1,4 @@
-import { DI, Component, start } from '../src/index';
+import { Component, start, createDI } from '../src/index';
 
 it( 'without component-binder', () => {
     const render = jest.fn();
@@ -8,15 +8,17 @@ it( 'without component-binder', () => {
             this.container.innerHTML = 'label text';
         }
     }
+    const DI = createDI();
     new Label( {
+        DI,
         ID: 'simple-label-component-text',
         container: document.querySelector( 'body' )
     } );
-    start();
+    start( DI );
     expect( document.querySelector( 'body' ).innerHTML ).toBe( 'label text' );
     expect( render ).toHaveBeenCalledTimes( 1 );
 } );
 
 it( 'container hasn\t item', () => {
-    expect( DI.resolve( 'foo' ) ).toBeUndefined();
+    expect( createDI().resolve( 'foo' ) ).toBeUndefined();
 } );

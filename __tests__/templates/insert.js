@@ -1,5 +1,5 @@
 import { renderComponent, expectRenderedHTML } from '../helpers';
-import { DI } from '../../src/index';
+import { Component, insert } from '../../src/index';
 
 /**
  * Component for
@@ -8,31 +8,44 @@ import { DI } from '../../src/index';
  *   {{ content }}
  * </div>
  */
-class CustomPanel extends __UI__.Component {
-    constructor() {
-        super( ...arguments );
+class CustomPanel extends Component {
+    constructor( options ) {
+        super( options );
 
-        this.__data__ = {};
+        this.isRoot = true;
+
+        const dom = this.dom;
 
         // Create elements
-        const h10 = document.createElement( 'h1' );
-        const text1 = document.createTextNode( '' );
-        const div2 = document.createElement( 'div' );
-        const text3 = document.createTextNode( '' );
+        const h10 = dom.el( 'h1' );
+        const text1 = dom.text( '' );
+        const div2 = dom.el( 'div' );
+        const text3 = dom.text( '' );
 
-        // Construct dom
-        h10.appendChild( text1 );
-        div2.appendChild( text3 );
+        if ( dom.build() ) {
+
+            // Construct dom
+            h10.appendChild( text1 );
+            div2.appendChild( text3 );
+        }
 
         // Update spot functions
-        this.spots = {
-            title( title ) {
-                text1.textContent = title;
-            },
-            content( content ) {
-                text3.textContent = content;
-            }
-        };
+        this.spots = [
+            [
+                0,
+                'title',
+                ( title ) => {
+                    text1.textContent = title;
+                }
+            ],
+            [
+                0,
+                'content',
+                ( content ) => {
+                    text3.textContent = content;
+                }
+            ]
+        ];
 
         // Set root nodes
         this.nodes = [ h10, div2 ];
@@ -46,24 +59,34 @@ class CustomPanel extends __UI__.Component {
  * Component for <CustomPanel title="string" content="text"/>
  * @class
  */
-class custom extends __UI__.Component {
-    constructor() {
-        super( ...arguments );
+class custom extends Component {
+    constructor( options ) {
+        super( options );
 
-        this.__data__ = {};
+        this.isRoot = true;
+
         const _this = this;
 
+        const dom = this.dom;
+
         // Create elements
-        const custom0 = document.createComment( 'CustomPanel' );
+        const custom0 = dom.comment( 'CustomPanel' );
         const child0 = {};
 
+        // Blocks
+        const child0Blocks = {};
+
         // Extra render actions
-        this.onRender = function() {
-            __UI__.insert( _this,
+        this.onRender = () => {
+            insert(
+                _this,
                 custom0,
                 child0,
                 CustomPanel,
-                { 'title': 'string', 'content': 'text' } );
+                { 'title': 'string', 'content': 'text' },
+                _this,
+                child0Blocks
+            );
         };
 
         // Set root nodes
@@ -77,18 +100,18 @@ it( 'render', () => {
 } );
 
 it( 're-render', () => {
-    renderComponent( custom, {
+    const DI = renderComponent( custom, {
         ID: 'custom'
     } );
-    DI.resolve( 'sham-ui:store' ).findById( 'custom' ).render();
+    DI.resolve( 'sham-ui:store' ).byId.get( 'custom' ).render();
     expectRenderedHTML( '<h1>string</h1><div>text</div><!--CustomPanel-->' );
 } );
 
 it( 'destroy', () => {
-    renderComponent( custom, {
+    const DI = renderComponent( custom, {
         ID: 'custom'
     } );
-    DI.resolve( 'sham-ui:store' ).findById( 'custom' ).remove();
+    DI.resolve( 'sham-ui:store' ).byId.get( 'custom' ).remove();
     expectRenderedHTML( '' );
 } );
 
@@ -99,11 +122,11 @@ it( 'needUpdateAfterRender (issue #42)', () => {
         updateFn();
         originalOnUpdate.apply( this, arguments );
     };
-    renderComponent( custom, {
+    const DI = renderComponent( custom, {
         ID: 'custom'
     } );
     expect( updateFn ).toHaveBeenCalledTimes( 1 );
-    DI.resolve( 'sham-ui:store' ).findById( 'custom' ).update();
+    DI.resolve( 'sham-ui:store' ).byId.get( 'custom' ).update();
     expect( updateFn ).toHaveBeenCalledTimes( 1 );
     CustomPanel.prototype.onUpdate = originalOnUpdate;
 } );
@@ -116,12 +139,12 @@ it( 'needUpdateAfterRender work with UI', () => {
         updateFn( this.ID );
         originalOnUpdate.apply( this, arguments );
     };
-    renderComponent( custom, {
+    const DI = renderComponent( custom, {
         ID: 'custom'
     } );
     const customPanelID = updateFn.mock.calls[ 0 ][ 0 ];
     expect( updateFn ).toHaveBeenCalledTimes( 1 );
-    DI.resolve( 'sham-ui:store' ).findById( customPanelID ).update();
+    DI.resolve( 'sham-ui:store' ).byId.get( customPanelID ).update();
     expect( updateFn ).toHaveBeenCalledTimes( 2 );
     CustomPanel.prototype.onUpdate = originalOnUpdate;
 } );

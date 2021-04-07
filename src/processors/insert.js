@@ -18,8 +18,6 @@ export default function insert( parent, node, child/*.ref*/, template, data, own
             parent,
             owner,
             blocks,
-            filters: parent.filters,
-            directives: parent.directives,
             container: node
         } );
         view.render();
@@ -33,10 +31,16 @@ export default function insert( parent, node, child/*.ref*/, template, data, own
             child.ref = null;
         };
 
+        // Rehydrate component
+        view.hooks.rehydrate();
+
         // Set view data (note what it must be after adding nodes to DOM).
         view.update( data );
 
         // Call hook
         view.didMount();
+
+        // Hydrate component
+        view.hooks.hydrate();
     }
 }

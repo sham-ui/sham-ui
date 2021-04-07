@@ -1,22 +1,16 @@
-import insert from './processors/insert';
-import cond from './processors/cond';
-import loop, { Map } from './processors/loop';
-import Component from './component';
-import DI from './di';
-import Store from './store';
+import Store from './services/store';
+import Dom from './services/dom';
+import Hooks from './services/hooks';
 
-// Lazy registry Store
-DI.bindLazy( 'sham-ui:store', Store );
-
-// Save template processors in window
-const exportKey = '__UI__';
-
-if ( !window.hasOwnProperty( exportKey ) ) {
-    window[ exportKey ] = {
-        insert,
-        cond,
-        loop,
-        Map,
-        Component
-    };
+/**
+ * @inner
+ * @param {DI} DI
+ * @return {DI}
+ */
+export default function bindServices( DI ) {
+    return DI
+        .bindLazy( 'sham-ui:store', Store )
+        .bindLazy( 'sham-ui:dom', Dom )
+        .bindLazy( 'sham-ui:hooks', Hooks )
+    ;
 }

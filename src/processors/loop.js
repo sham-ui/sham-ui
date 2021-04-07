@@ -61,8 +61,6 @@ export class Map {
         if ( i in this.items ) {
             delete this.items[ i ];
             this.length -= 1;
-        } else {
-            throw new Error( `You are trying to delete not existing element "${i}" form map.` );
         }
     }
 
@@ -70,7 +68,7 @@ export class Map {
      * @param {Function} callback
      */
     forEach( callback ) {
-        for ( var i in this.items ) {
+        for ( let i in this.items ) {
             callback( this.items[ i ] );
         }
     }
@@ -123,8 +121,6 @@ export default function loop( parent, node, map, template, array, options, owner
         const view = new template( {
             parent,
             owner,
-            filters: parent.filters,
-            directives: parent.directives,
             container: node
         } );
         view.render();
@@ -135,17 +131,19 @@ export default function loop( parent, node, map, template, array, options, owner
         // Remember to remove from children map on view remove.
         i = map.push( view );
         view.unbind = (
-            function( i ) {
-                return function() {
-                    map.remove( i );
-                };
-            }
+            ( i ) => () => map.remove( i )
         )( i );
 
         // Set view state for later update in onUpdate.
         view.__state__ = transform( array, keys, j, options );
 
+        // Rehydrate component
+        view.hooks.rehydrate();
+
         // Call hook
         view.didMount();
+
+        // Hydrate component
+        view.hooks.hydrate();
     }
 }

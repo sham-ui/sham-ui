@@ -1,4 +1,4 @@
-import { Component, configureOptions, DI } from '../src/index';
+import { Component, configureOptions } from '../src/index';
 import { renderComponent, expectRenderedText } from './helpers';
 
 class Label extends Component {
@@ -193,13 +193,13 @@ it( 'getter & setter together', () => {
             this.container.textContent = this.options.text;
         }
     }
-    renderComponent( Dummy );
+    const DI = renderComponent( Dummy );
     expectRenderedText( '' );
-    const component = DI.resolve( 'sham-ui:store' ).findById( 'dummy' );
+    const component = DI.resolve( 'sham-ui:store' ).byId.get( 'dummy' );
     component.options.text = 'test text';
     expect( component._text ).toBe( 'test text' );
     expect( component.options.text ).toBe( 'test text' );
-    DI.resolve( 'sham-ui:store' ).findById( 'dummy' ).render();
+    DI.resolve( 'sham-ui:store' ).byId.get( 'dummy' ).render();
     expect( document.querySelector( 'body' ).textContent ).toBe( 'test text' );
 } );
 
@@ -212,10 +212,12 @@ it( 'container', () => {
 } );
 
 it( 'generated id', () => {
-    renderComponent( Label, {
+    const DI = renderComponent( Label, {
         ID: null
     } );
-    const ID = DI.resolve( 'sham-ui:store' ).find( () => true ).ID;
+    const ID = Array.from(
+        DI.resolve( 'sham-ui:store' ).byId.values()
+    )[ 0 ].ID;
     expect( typeof ID ).toBe( 'string' );
     expectRenderedText( ID );
 } );
@@ -232,9 +234,9 @@ it( 'wrap array to getter', () => {
             this.container.textContent = this.options.errors;
         }
     }
-    renderComponent( Dummy );
+    const DI = renderComponent( Dummy );
     expectRenderedText( '' );
-    const component = DI.resolve( 'sham-ui:store' ).findById( 'dummy' );
+    const component = DI.resolve( 'sham-ui:store' ).byId.get( 'dummy' );
     component.options.errors.push( '1' );
     renderComponent( Dummy );
     expectRenderedText( '' );
