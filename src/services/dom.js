@@ -55,6 +55,6 @@ export default class Dom {
      */
     // eslint-disable-next-line no-unused-vars
     unsafe( component, root, nodes, html ) {
-
+        throw new Error( 'Require sham-ui-unsafe' );
     }
 }

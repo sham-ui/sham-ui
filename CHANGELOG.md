@@ -1,3 +1,6 @@
+## 5.0.0-alpha.2
+* Throw error for default `Dom.unsafe`
+
 ## 5.0.0-alpha.1
 * Fix a API docs in `README.md`
 
