@@ -6,7 +6,7 @@ const components = ( DI ) => Array.from(
 
 it( 'find', () => {
     const DI = createDI();
-    let foo = new Component( {
+    let foo = new( Component() )( {
         DI,
         ID: 'foo',
         container: document.querySelector( 'body' )
@@ -19,7 +19,7 @@ it( 'find', () => {
 
 it( 'filter', () => {
     const DI = createDI();
-    let foo = new Component( {
+    let foo = new( Component() )( {
         DI,
         ID: 'foo',
         container: document.querySelector( 'body' )
@@ -32,7 +32,7 @@ it( 'filter', () => {
 
 it( 'map', () => {
     const DI = createDI();
-    new Component( {
+    new( Component() )( {
         DI,
         ID: 'foo',
         container: document.querySelector( 'body' )

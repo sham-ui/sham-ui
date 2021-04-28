@@ -1,7 +1,5 @@
 export { createDI } from './di';
 export { default as Component } from './component';
-export { default as options } from './options/decorator';
-export { default as configureOptions } from './options/helper';
 export { default as insert } from './processors/insert';
 export { default as cond } from './processors/cond';
 export { default as loop, Map } from './processors/loop';

@@ -5,7 +5,7 @@ afterEach( () => {
     document.querySelector( 'body' ).innerHTML = '';
 } );
 
-class Label extends Component {
+class Label extends Component() {
     render() {
         this.container.innerHTML = this.options.text();
     }

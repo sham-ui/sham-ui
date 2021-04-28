@@ -9,70 +9,59 @@ import { Component, cond } from '../../src/index';
  *    else
  * {% endif %}
  */
-class condition extends Component {
-    constructor( options ) {
-        super( options );
+const condition = Component( function() {
 
-        this.isRoot = true;
+    this.isRoot = true;
 
-        const _this = this;
+    const dom = this.dom;
 
-        const dom = this.dom;
-
-        // Create elements
-        const for0 = dom.comment( 'if' );
-        const child0 = {};
-        const child1 = {};
+    // Create elements
+    const for0 = dom.comment( 'if' );
+    const child0 = {};
+    const child1 = {};
 
 
-        // Update spot functions
-        this.spots = [
-            [
-                'test',
-                ( test ) => {
-                    let result;
-                    result = cond( _this, for0, child0, cond_if0, test, _this );
-                    cond( _this, for0, child1, cond_else1, !result, _this );
-                }
-            ]
-        ];
-
-
-        // On update actions
-        this.onUpdate = ( __data__ ) => {
-            if ( child0.ref ) {
-                child0.ref.update( __data__ );
+    // Update spot functions
+    this.spots = [
+        [
+            'test',
+            ( test ) => {
+                let result;
+                result = cond( this, for0, child0, cond_if0, test, this );
+                cond( this, for0, child1, cond_else1, !result, this );
             }
-            if ( child1.ref ) {
-                child1.ref.update( __data__ );
-            }
-        };
+        ]
+    ];
 
 
-        // Set root nodes
-        this.nodes = [ for0 ];
-    }
-}
+    // On update actions
+    this.onUpdate = ( __data__ ) => {
+        if ( child0.ref ) {
+            child0.ref.update( __data__ );
+        }
+        if ( child1.ref ) {
+            child1.ref.update( __data__ );
+        }
+    };
+
+
+    // Set root nodes
+    this.nodes = [ for0 ];
+} );
 
 // eslint-disable-next-line camelcase
-class cond_if0 extends Component {
-    constructor() {
-        super( ...arguments );
+const cond_if0 = Component( function() {
 
-        // Set root nodes
-        this.nodes = [ this.dom.text( ' then ' ) ];
-    }
-}
+    // Set root nodes
+    this.nodes = [ this.dom.text( ' then ' ) ];
+} );
 
 // eslint-disable-next-line camelcase
-class cond_else1 extends Component {
-    constructor() {
-        super( ...arguments );
+const cond_else1 = Component( function() {
 
-        // Set root nodes
-        this.nodes = [ this.dom.text( ' else ' ) ];
-    }
-}
+    // Set root nodes
+    this.nodes = [ this.dom.text( ' else ' ) ];
+} );
 
 it( 'render', () => {
     renderComponent( condition, {

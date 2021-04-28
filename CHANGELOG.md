@@ -1,3 +1,7 @@
+## 5.0.0-alpha.3
+* Remove `@options`, `configureOptions`
+* Now `Component` is a factory
+
 ## 5.0.0-alpha.2
 * Throw error for default `Dom.unsafe`
 

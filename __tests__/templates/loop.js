@@ -9,94 +9,84 @@ import { Component, Map, loop } from '../../src/index';
  *   {% endfor %}
  * </ul>
  */
-class LoopComponent extends Component {
-    constructor( options ) {
-        super( options );
+const LoopComponent = Component( function() {
+    this.isRoot = true;
 
-        this.isRoot = true;
+    const dom = this.dom;
 
-        const _this = this;
+    // Create elements
+    const ul0 = dom.el( 'ul' );
+    const children0 = new Map();
 
-        const dom = this.dom;
+    // Update spot functions
+    this.spots = [
+        [
+            'list',
+            ( list ) => {
+                loop(
+                    this,
+                    ul0,
+                    children0,
+                    loop_for0,
+                    list,
+                    { 'key': 'key', 'value': 'value' },
+                    this
+                );
+            },
+            0
+        ]
+    ];
 
-        // Create elements
-        const ul0 = dom.el( 'ul' );
-        const children0 = new Map();
+    // On update actions
+    this.onUpdate = ( __data__ ) => {
+        children0.forEach(
+            ( view ) => view.update( Object.assign( {}, __data__, view.__state__ ) )
+        );
+    };
 
-        // Update spot functions
-        this.spots = [
-            [
-                0,
-                'list',
-                ( list ) => {
-                    loop(
-                        _this,
-                        ul0,
-                        children0,
-                        loop_for0,
-                        list,
-                        { 'key': 'key', 'value': 'value' },
-                        _this
-                    );
-                }
-            ]
-        ];
-
-        // On update actions
-        this.onUpdate = ( __data__ ) => {
-            children0.forEach(
-                ( view ) => view.update( Object.assign( {}, __data__, view.__state__ ) )
-            );
-        };
-
-        // Set root nodes
-        this.nodes = [ ul0 ];
-    }
-}
+    // Set root nodes
+    this.nodes = [ ul0 ];
+} );
 
 // eslint-disable-next-line camelcase
-class loop_for0 extends Component {
-    constructor( options ) {
-        super( options );
+const loop_for0 = Component( function() {
+    const dom = this.dom;
 
-        const dom = this.dom;
+    // Create elements
+    const li0 = dom.el( 'li' );
+    const text1 = dom.text( '' );
+    const text2 = dom.text( ':' );
+    const text3 = dom.text( '' );
 
-        // Create elements
-        const li0 = dom.el( 'li' );
-        const text1 = dom.text( '' );
-        const text2 = dom.text( ':' );
-        const text3 = dom.text( '' );
+    if ( dom.build() ) {
 
-        if ( dom.build() ) {
-
-            // Construct dom
-            li0.appendChild( text1 );
-            li0.appendChild( text2 );
-            li0.appendChild( text3 );
-        }
-
-        // Update spot functions
-        this.spots = [
-            [
-                2, // LOOP
-                'key',
-                ( key ) => {
-                    text1.textContent = key;
-                }
-            ],
-            [
-                2, // LOOP
-                'value',
-                ( value ) => {
-                    text3.textContent = value;
-                }
-            ]
-        ];
-
-        // Set root nodes
-        this.nodes = [ li0 ];
+        // Construct dom
+        li0.appendChild( text1 );
+        li0.appendChild( text2 );
+        li0.appendChild( text3 );
     }
-}
+
+    // Update spot functions
+    this.spots = [
+        [
+            'key',
+            ( key ) => {
+                text1.textContent = key;
+            },
+            2 // LOOP
+        ],
+        [
+            'value',
+            ( value ) => {
+                text3.textContent = value;
+            },
+            2 // LOOP
+        ]
+    ];
+
+    // Set root nodes
+    this.nodes = [ li0 ];
+} );
 
 it( 'render (array)', () => {
     renderComponent( LoopComponent, {

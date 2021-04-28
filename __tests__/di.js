@@ -2,7 +2,7 @@ import { Component, start, createDI } from '../src/index';
 
 it( 'without component-binder', () => {
     const render = jest.fn();
-    class Label extends Component {
+    class Label extends Component() {
         render() {
             render();
             this.container.innerHTML = 'label text';

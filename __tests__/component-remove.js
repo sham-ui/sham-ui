@@ -2,7 +2,7 @@ import { Component, start, createDI } from '../src/index';
 import { renderComponent } from './helpers';
 
 it( 'remove', () => {
-    const DI = renderComponent( Component );
+    const DI = renderComponent( Component() );
     const store = DI.resolve( 'sham-ui:store' );
     store.byId.get( 'dummy' ).remove();
     expect( store.byId.get( 'dummy' ) ).toBe( undefined );
@@ -11,7 +11,7 @@ it( 'remove', () => {
 it( 'remove one', () => {
     const DI = createDI();
 
-    class SelfDestroyedComponent extends Component {
+    class SelfDestroyedComponent extends Component() {
         render() {
             super.render( ...arguments );
             this.remove();
@@ -23,7 +23,7 @@ it( 'remove one', () => {
         ID: 'first',
         container: document.querySelector( 'body' )
     } );
-    new Component( {
+    new( Component() )( {
         DI,
         ID: 'second',
         container: document.querySelector( 'body' )

@@ -8,91 +8,77 @@ import { Component, insert } from '../../src/index';
  *   {{ content }}
  * </div>
  */
-class CustomPanel extends Component {
-    constructor( options ) {
-        super( options );
+const CustomPanel = Component( function() {
+    this.isRoot = true;
 
-        this.isRoot = true;
+    const dom = this.dom;
 
-        const dom = this.dom;
+    // Create elements
+    const h10 = dom.el( 'h1' );
+    const text1 = dom.text( '' );
+    const div2 = dom.el( 'div' );
+    const text3 = dom.text( '' );
 
-        // Create elements
-        const h10 = dom.el( 'h1' );
-        const text1 = dom.text( '' );
-        const div2 = dom.el( 'div' );
-        const text3 = dom.text( '' );
+    if ( dom.build() ) {
 
-        if ( dom.build() ) {
-
-            // Construct dom
-            h10.appendChild( text1 );
-            div2.appendChild( text3 );
-        }
-
-        // Update spot functions
-        this.spots = [
-            [
-                0,
-                'title',
-                ( title ) => {
-                    text1.textContent = title;
-                }
-            ],
-            [
-                0,
-                'content',
-                ( content ) => {
-                    text3.textContent = content;
-                }
-            ]
-        ];
-
-        // Set root nodes
-        this.nodes = [ h10, div2 ];
+        // Construct dom
+        h10.appendChild( text1 );
+        div2.appendChild( text3 );
     }
 
-    onUpdate() {}
-}
+    // Update spot functions
+    this.spots = [
+        [
+            'title',
+            ( title ) => {
+                text1.textContent = title;
+            }
+        ],
+        [
+            'content',
+            ( content ) => {
+                text3.textContent = content;
+            }
+        ]
+    ];
+
+    // Set root nodes
+    this.nodes = [ h10, div2 ];
+} );
 
 
 /**
  * Component for <CustomPanel title="string" content="text"/>
  * @class
  */
-class custom extends Component {
-    constructor( options ) {
-        super( options );
+const custom = Component( function() {
+    this.isRoot = true;
 
-        this.isRoot = true;
+    const dom = this.dom;
 
-        const _this = this;
+    // Create elements
+    const custom0 = dom.comment( 'CustomPanel' );
+    const child0 = {};
 
-        const dom = this.dom;
+    // Blocks
+    const child0Blocks = {};
 
-        // Create elements
-        const custom0 = dom.comment( 'CustomPanel' );
-        const child0 = {};
+    // Extra render actions
+    this.onRender = () => {
+        insert(
+            this,
+            custom0,
+            child0,
+            CustomPanel,
+            { 'title': 'string', 'content': 'text' },
+            this,
+            child0Blocks
+        );
+    };
 
-        // Blocks
-        const child0Blocks = {};
-
-        // Extra render actions
-        this.onRender = () => {
-            insert(
-                _this,
-                custom0,
-                child0,
-                CustomPanel,
-                { 'title': 'string', 'content': 'text' },
-                _this,
-                child0Blocks
-            );
-        };
-
-        // Set root nodes
-        this.nodes = [ custom0 ];
-    }
-}
+    // Set root nodes
+    this.nodes = [ custom0 ];
+} );
 
 it( 'render', () => {
     renderComponent( custom );
@@ -116,28 +102,21 @@ it( 'destroy', () => {
 } );
 
 it( 'needUpdateAfterRender (issue #42)', () => {
-    const originalOnUpdate = CustomPanel.prototype.onUpdate;
     const updateFn = jest.fn();
-    CustomPanel.prototype.onUpdate = function() {
-        updateFn();
-        originalOnUpdate.apply( this, arguments );
-    };
+    CustomPanel.prototype.onUpdate = updateFn;
     const DI = renderComponent( custom, {
         ID: 'custom'
     } );
     expect( updateFn ).toHaveBeenCalledTimes( 1 );
     DI.resolve( 'sham-ui:store' ).byId.get( 'custom' ).update();
     expect( updateFn ).toHaveBeenCalledTimes( 1 );
-    CustomPanel.prototype.onUpdate = originalOnUpdate;
 } );
 
 
 it( 'needUpdateAfterRender work with UI', () => {
-    const originalOnUpdate = CustomPanel.prototype.onUpdate;
     const updateFn = jest.fn();
     CustomPanel.prototype.onUpdate = function() {
         updateFn( this.ID );
-        originalOnUpdate.apply( this, arguments );
     };
     const DI = renderComponent( custom, {
         ID: 'custom'
@@ -146,5 +125,4 @@ it( 'needUpdateAfterRender work with UI', () => {
     expect( updateFn ).toHaveBeenCalledTimes( 1 );
     DI.resolve( 'sham-ui:store' ).byId.get( customPanelID ).update();
     expect( updateFn ).toHaveBeenCalledTimes( 2 );
-    CustomPanel.prototype.onUpdate = originalOnUpdate;
 } );

@@ -77,14 +77,14 @@ export class Map {
 /**
  * Loops processor
  * @param {Component|null} parent Parent component
- * @param {Element} node Container node
+ * @param {Element} container Container node
  * @param {Map} map Map with length property
  * @param {Class<Component>} template Component class for insert, if test true
  * @param {Array|Object} array Iterated object or array
  * @param {Object} options Options for component
  * @param {Component} owner Owner of inserting component
  */
-export default function loop( parent, node, map, template, array, options, owner ) {
+export default function loop( parent, container, map, template, array, options, owner ) {
     let i, j, len, keys, transform, arrayLength, childrenSize = map.length;
 
     // Get array length, and convert object to array if needed.
@@ -121,7 +121,7 @@ export default function loop( parent, node, map, template, array, options, owner
         const view = new template( {
             parent,
             owner,
-            container: node
+            container
         } );
         view.render();
 

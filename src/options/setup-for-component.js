@@ -1,5 +1,4 @@
-import hoistingOptions from './hoisting';
-import bindOptionsDescriptors from './bind-descriptors';
+import setDefault from './set-default';
 
 /**
  * Setup options in component
@@ -8,14 +7,7 @@ import bindOptionsDescriptors from './bind-descriptors';
  * @inner
  */
 export default function setupOptions( component, options ) {
-    hoistingOptions( component );
-
-    const descriptors = Object.assign(
-        {},
-        bindOptionsDescriptors( component, component._options ),
-        Object.getOwnPropertyDescriptors( options )
-    );
-    component.options = Object.create( null, descriptors );
+    component.options = setDefault( {}, options );
 
     // Just copy from options
     [
