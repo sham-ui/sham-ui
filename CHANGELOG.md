@@ -1,3 +1,9 @@
+## 5.0.0-alpha.4
+* Migrate from webpack to rollup
+* Extract config from package.json
+* Update travis CI node.js version to 14
+* Update documentation
+
 ## 5.0.0-alpha.3
 * Remove `@options`, `configureOptions`
 * Now `Component` is a factory

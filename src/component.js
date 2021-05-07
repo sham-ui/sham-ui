@@ -34,8 +34,47 @@ const SPOT_LOOP = 1 << 1;
 
 
 /**
+ * Setup default component state
+ * Return reference to component state
+ * @callback optionsCallback
+ * @param {Object.<string, *>} defaultState
+ * @return {Object.<string, *>}
+ */
+
+/**
+ * Update component state
+ * @callback updateCallback
+ * @param {Object.<string, *>} data
+ */
+
+/**
+ * Registry function on component didMount hook.
+ * Param callback will call after component render & update
+ * @callback didMountCallback
+ * @param {Function} callback
+ */
+
+/**
+ * Registry function on component onRemove hook
+ * Param callback will call after component remove
+ * @callback onRemoveCallback
+ * @param {Function} callback
+ */
+
+/**
+ * Constructor function for component
+ * @callback componentConstructor
+ * @param {optionsCallback} options
+ * @param {updateCallback} update
+ * @param {didMountCallback} didMount
+ * @param {onRemoveCallback} onRemove
+ * @this {Component}
+ */
+
+
+/**
  * Factory for create new component
- * @param {...Function} [constructors]
+ * @param {...componentConstructor} [constructors]
  * @return {Component.constructor}
  */
 export default function ComponentFactory( ...constructors ) {

@@ -38,35 +38,41 @@
         -   [Parameters](#parameters-10)
     -   [resolveID](#resolveid)
         -   [Parameters](#parameters-11)
--   [Component](#component)
+-   [optionsCallback](#optionscallback)
     -   [Parameters](#parameters-12)
+-   [updateCallback](#updatecallback)
+    -   [Parameters](#parameters-13)
+-   [didMountCallback](#didmountcallback)
+    -   [Parameters](#parameters-14)
+-   [onRemoveCallback](#onremovecallback)
+    -   [Parameters](#parameters-15)
+-   [componentConstructor](#componentconstructor)
+    -   [Parameters](#parameters-16)
+-   [ComponentFactory](#componentfactory)
+    -   [Parameters](#parameters-17)
+-   [Component](#component)
+    -   [Parameters](#parameters-18)
     -   [Properties](#properties-1)
     -   [nested](#nested)
     -   [nodes](#nodes)
-    -   [configureOptions](#configureoptions)
-    -   [didMount](#didmount)
-    -   [update](#update)
-        -   [Parameters](#parameters-13)
-    -   [render](#render)
-    -   [remove](#remove)
--   [decorator](#decorator)
-    -   [Parameters](#parameters-14)
--   [configureOptions](#configureoptions-1)
-    -   [Parameters](#parameters-15)
+    -   [onMount](#onmount)
+    -   [onRemove](#onremove)
+-   [setDefaultOptions](#setdefaultoptions)
+    -   [Parameters](#parameters-19)
 -   [insert](#insert)
-    -   [Parameters](#parameters-16)
+    -   [Parameters](#parameters-20)
 -   [cond](#cond)
-    -   [Parameters](#parameters-17)
+    -   [Parameters](#parameters-21)
 -   [Map](#map)
     -   [Properties](#properties-2)
     -   [push](#push)
-        -   [Parameters](#parameters-18)
-    -   [remove](#remove-1)
-        -   [Parameters](#parameters-19)
+        -   [Parameters](#parameters-22)
+    -   [remove](#remove)
+        -   [Parameters](#parameters-23)
     -   [forEach](#foreach)
-        -   [Parameters](#parameters-20)
+        -   [Parameters](#parameters-24)
 -   [loop](#loop)
-    -   [Parameters](#parameters-21)
+    -   [Parameters](#parameters-25)
 
 #### start
 
@@ -213,6 +219,74 @@ Hook for resolve ID for component
 
 Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
+#### optionsCallback
+
+Setup default component state
+Return reference to component state
+
+Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)
+
+##### Parameters
+
+-   `defaultState` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), any>** 
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), any>** 
+
+#### updateCallback
+
+Update component state
+
+Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)
+
+##### Parameters
+
+-   `data` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), any>** 
+
+#### didMountCallback
+
+Registry function on component didMount hook.
+Param callback will call after component render & update
+
+Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)
+
+##### Parameters
+
+-   `callback` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** 
+
+#### onRemoveCallback
+
+Registry function on component onRemove hook
+Param callback will call after component remove
+
+Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)
+
+##### Parameters
+
+-   `callback` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** 
+
+#### componentConstructor
+
+Constructor function for component
+
+Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)
+
+##### Parameters
+
+-   `options` **[optionsCallback](#optionscallback)** 
+-   `update` **[updateCallback](#updatecallback)** 
+-   `didMount` **[didMountCallback](#didmountcallback)** 
+-   `onRemove` **[onRemoveCallback](#onremovecallback)** 
+
+#### ComponentFactory
+
+Factory for create new component
+
+##### Parameters
+
+-   `constructors` **...[componentConstructor](#componentconstructor)?** 
+
+Returns **Component.constructor** 
+
 #### Component
 
 Base component class
@@ -238,51 +312,22 @@ Type: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global
 
 Type: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Element](https://developer.mozilla.org/docs/Web/API/Element)>
 
-##### configureOptions
+##### onMount
 
-Hook for configure options without decorator
+Type: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)>
 
-##### didMount
+##### onRemove
 
-Hook for extra data after render & update
+Type: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)>
 
-##### update
-
-Update component state
-
-###### Parameters
-
--   `currentData` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-##### render
-
-Mount component to container element
-
-##### remove
-
-Remove & destroy component
-
-#### decorator
-
-Decorator for mark property as default value of options
+#### setDefaultOptions
 
 ##### Parameters
 
--   `target` **[Component](#component)** 
--   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `descriptor` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `current` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `newOptions` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-#### configureOptions
-
-Helper for configure options without decorators syntax
-
-##### Parameters
-
--   `prototype` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Component prototype
--   `instance` **[Component](#component)** Component instance
--   `props` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), any>** Options mapping
 
 #### insert
 
@@ -291,7 +336,7 @@ Custom tags processor.
 ##### Parameters
 
 -   `parent` **([Component](#component) | null)** Parent component
--   `node` **[Element](https://developer.mozilla.org/docs/Web/API/Element)** Container node
+-   `container` **[Element](https://developer.mozilla.org/docs/Web/API/Element)** Container node
 -   `child` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Reference to this component
 -   `template` **Class&lt;[Component](#component)>** Component class for insert, if test true
 -   `data` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options for component
@@ -305,7 +350,7 @@ If condition processor.
 ##### Parameters
 
 -   `parent` **([Component](#component) | null)** Parent component
--   `node` **[Element](https://developer.mozilla.org/docs/Web/API/Element)** Container node
+-   `container` **[Element](https://developer.mozilla.org/docs/Web/API/Element)** Container node
 -   `child` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Reference to this component
 -   `template` **Class&lt;[Component](#component)>** Component class for insert, if test true
 -   `test` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Condition test
@@ -350,7 +395,7 @@ Loops processor
 ##### Parameters
 
 -   `parent` **([Component](#component) | null)** Parent component
--   `node` **[Element](https://developer.mozilla.org/docs/Web/API/Element)** Container node
+-   `container` **[Element](https://developer.mozilla.org/docs/Web/API/Element)** Container node
 -   `map` **[Map](#map)** Map with length property
 -   `template` **Class&lt;[Component](#component)>** Component class for insert, if test true
 -   `array` **([Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array) \| [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))** Iterated object or array

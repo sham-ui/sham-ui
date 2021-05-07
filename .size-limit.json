@@ -1,0 +1,9 @@
+[
+  {
+    "path": "lib/index.js",
+    "ignore": [
+      "nanoid"
+    ],
+    "limit": "2 KB"
+  }
+]

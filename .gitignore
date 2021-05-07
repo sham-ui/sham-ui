@@ -17,3 +17,4 @@ Thumbs.db
 /test/*/assets
 /lib/
 /coverage
+yarn-error.log

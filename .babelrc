@@ -1,0 +1,20 @@
+{
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "useBuiltIns": "usage",
+        "corejs": 3,
+        "shippedProposals": true,
+        "exclude": [
+          "web.dom-collections.iterator",
+          "es.array.iterator",
+          "es.array.reverse"
+        ]
+      }
+    ]
+  ],
+  "plugins": [
+    "@babel/plugin-transform-runtime"
+  ]
+}

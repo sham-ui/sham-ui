@@ -6,6 +6,12 @@
 .eslintrc.js
 .eslintignore
 .idea
-webpack.config.js
-yarn-error.log
+.babelrc
+.browserslistrc
+.eslintrc.js
+.eslintignore
 .travis.yml
+.size-limit.json
+jest.config.js
+rollup.config.js
+yarn-error.log

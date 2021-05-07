@@ -7,7 +7,7 @@ module.exports = {
         '^.+\\.js$': 'babel-jest'
     },
     moduleNameMapper: {
-        '^sham-ui$': '<rootDir>/../lib/sham-ui.js'
+        '^sham-ui$': '<rootDir>/../lib/index.js'
     },
     testMatch: [
         '<rootDir>/__tests__/**/*.js'
