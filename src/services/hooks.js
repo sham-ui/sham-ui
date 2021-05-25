@@ -6,6 +6,15 @@ import nanoid from 'nanoid';
 export default class Hooks {
 
     /**
+     * Hook for extra processing after component created
+     * @param {Component} component
+     */
+    //eslint-disable-next-line no-unused-vars
+    create( component ) {
+
+    }
+
+    /**
      * Hook for mark component as ready for hydrating
      * @param {Component} component
      */

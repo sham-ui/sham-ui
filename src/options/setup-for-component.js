@@ -1,4 +1,4 @@
-import setDefault from './set-default';
+import setDefaultOptions from './set-default';
 
 /**
  * Setup options in component
@@ -7,7 +7,7 @@ import setDefault from './set-default';
  * @inner
  */
 export default function setupOptions( component, options ) {
-    component.options = setDefault( {}, options );
+    component.options = setDefaultOptions( {}, options );
 
     // Just copy from options
     [

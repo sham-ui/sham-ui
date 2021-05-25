@@ -20,6 +20,7 @@ export default function setupForComponet( component ) {
     component.hooks = createProxy(
         'sham-ui:hooks',
         [
+            'create',
             'hydrate',
             'rehydrate',
             'resolveID'

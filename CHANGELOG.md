@@ -1,3 +1,7 @@
+## 5.0.0-alpha.5
+* Fix work with _options
+* Add `create` hook
+
 ## 5.0.0-alpha.4
 * Migrate from webpack to rollup
 * Extract config from package.json

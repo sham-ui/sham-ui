@@ -149,6 +149,9 @@ export default function ComponentFactory( ...constructors ) {
                     onRemoveCallback
                 )
             );
+
+            // Call hook for extra processing
+            this.hooks.create();
         }
 
         /**
@@ -252,7 +255,7 @@ export default function ComponentFactory( ...constructors ) {
          * @private
          */
         dataForBlock() {
-            return this.__data__ || Object.assign( {}, this._options );
+            return this.__data__ || Object.assign( {}, this.options );
         }
 
         /**
