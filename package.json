@@ -31,7 +31,7 @@
     "documentation": "^12.1.2",
     "eslint": "^5.16.0",
     "eslint-plugin-jest": "^22.6.4",
-    "jest": "^23.6.0",
+    "jest": "^24.9.0",
     "jest-runner-eslint": "^0.7.4",
     "rollup": "^2.47.0",
     "rollup-plugin-cleaner": "^1.0.0"
