@@ -15,7 +15,7 @@ export default class Hooks {
     }
 
     /**
-     * Hook for mark component as ready for hydrating
+     * Hook for mark root component as ready for hydrating
      * @param {Component} component
      */
     //eslint-disable-next-line no-unused-vars

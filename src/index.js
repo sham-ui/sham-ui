@@ -10,6 +10,7 @@ export { default as loop, Map } from './processors/loop';
  */
 export function start( DI ) {
     const components = DI.resolve( 'sham-ui:store' ).byId.values();
+    const hooks = DI.resolve( 'sham-ui:hooks' );
     Array.from( components ).forEach( component => {
 
         // Mount to dom
@@ -24,7 +25,7 @@ export function start( DI ) {
         // Call hook
         component.didMount();
 
-        // Hydrate component
-        component.hooks.hydrate();
+        // Hydrate root component
+        hooks.hydrate( component );
     } );
 }

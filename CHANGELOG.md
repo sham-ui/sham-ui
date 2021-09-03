@@ -1,3 +1,6 @@
+## 5.0.0-alpha.6
+* Call `hydrate` hook only for root components
+
 ## 5.0.0-alpha.5
 * Fix work with _options
 * Add `create` hook

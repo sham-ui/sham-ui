@@ -142,8 +142,5 @@ export default function loop( parent, container, map, template, array, options, 
 
         // Call hook
         view.didMount();
-
-        // Hydrate component
-        view.hooks.hydrate();
     }
 }

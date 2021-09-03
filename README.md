@@ -32,47 +32,49 @@
     -   [unsafe](#unsafe)
         -   [Parameters](#parameters-8)
 -   [Hooks](#hooks)
-    -   [hydrate](#hydrate)
+    -   [create](#create)
         -   [Parameters](#parameters-9)
-    -   [rehydrate](#rehydrate)
+    -   [hydrate](#hydrate)
         -   [Parameters](#parameters-10)
-    -   [resolveID](#resolveid)
+    -   [rehydrate](#rehydrate)
         -   [Parameters](#parameters-11)
+    -   [resolveID](#resolveid)
+        -   [Parameters](#parameters-12)
 -   [optionsCallback](#optionscallback)
-    -   [Parameters](#parameters-12)
--   [updateCallback](#updatecallback)
     -   [Parameters](#parameters-13)
--   [didMountCallback](#didmountcallback)
+-   [updateCallback](#updatecallback)
     -   [Parameters](#parameters-14)
--   [onRemoveCallback](#onremovecallback)
+-   [didMountCallback](#didmountcallback)
     -   [Parameters](#parameters-15)
--   [componentConstructor](#componentconstructor)
+-   [onRemoveCallback](#onremovecallback)
     -   [Parameters](#parameters-16)
--   [ComponentFactory](#componentfactory)
+-   [componentConstructor](#componentconstructor)
     -   [Parameters](#parameters-17)
--   [Component](#component)
+-   [ComponentFactory](#componentfactory)
     -   [Parameters](#parameters-18)
+-   [Component](#component)
+    -   [Parameters](#parameters-19)
     -   [Properties](#properties-1)
     -   [nested](#nested)
     -   [nodes](#nodes)
     -   [onMount](#onmount)
     -   [onRemove](#onremove)
 -   [setDefaultOptions](#setdefaultoptions)
-    -   [Parameters](#parameters-19)
--   [insert](#insert)
     -   [Parameters](#parameters-20)
--   [cond](#cond)
+-   [insert](#insert)
     -   [Parameters](#parameters-21)
+-   [cond](#cond)
+    -   [Parameters](#parameters-22)
 -   [Map](#map)
     -   [Properties](#properties-2)
     -   [push](#push)
-        -   [Parameters](#parameters-22)
-    -   [remove](#remove)
         -   [Parameters](#parameters-23)
-    -   [forEach](#foreach)
+    -   [remove](#remove)
         -   [Parameters](#parameters-24)
+    -   [forEach](#foreach)
+        -   [Parameters](#parameters-25)
 -   [loop](#loop)
-    -   [Parameters](#parameters-25)
+    -   [Parameters](#parameters-26)
 
 #### start
 
@@ -193,9 +195,17 @@ Code looks strange. I know. But it is possible minimalistic implementation of.
 
 Inner service for hydrate/rehydrate hooks
 
+##### create
+
+Hook for extra processing after component created
+
+###### Parameters
+
+-   `component` **[Component](#component)** 
+
 ##### hydrate
 
-Hook for mark component as ready for hydrating
+Hook for mark root component as ready for hydrating
 
 ###### Parameters
 

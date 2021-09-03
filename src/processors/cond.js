@@ -37,9 +37,6 @@ export default function cond( parent, container, child/*.ref*/, template, test, 
 
         // Call hook
         view.didMount();
-
-        // Hydrate component
-        view.hooks.hydrate();
     }
     return test;
 }

@@ -21,7 +21,6 @@ export default function setupForComponet( component ) {
         'sham-ui:hooks',
         [
             'create',
-            'hydrate',
             'rehydrate',
             'resolveID'
         ],

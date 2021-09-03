@@ -39,8 +39,5 @@ export default function insert( parent, container, child/*.ref*/, template, data
 
         // Call hook
         view.didMount();
-
-        // Hydrate component
-        view.hooks.hydrate();
     }
 }
