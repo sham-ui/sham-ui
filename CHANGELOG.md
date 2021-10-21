@@ -1,3 +1,6 @@
+## 5.0.0-alpha.7
+* Add extra data to `_dataForBlock`
+
 ## 5.0.0-alpha.6
 * Call `hydrate` hook only for root components
 

@@ -251,11 +251,13 @@ export default function ComponentFactory( ...constructors ) {
         /**
          * Helpers for blocks.
          * Use because this.__data__ can be undefined (after update finished)
+         * @param {Object} blockData
          * @return {any}
          * @private
          */
-        dataForBlock() {
-            return this.__data__ || Object.assign( {}, this.options );
+        _dataForBlock( blockData ) {
+            const ownerData = this.__data__ || Object.assign( {}, this.options );
+            return Object.assign( blockData, ownerData );
         }
 
         /**
