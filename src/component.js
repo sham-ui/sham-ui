@@ -122,7 +122,6 @@ export default function ComponentFactory( ...constructors ) {
 
             // Set inner props:
             this.__cache__ = {};
-            this.__data__ = {};
             this.isRoot = false;
 
             this.UI.byId.set( this.ID, this );
@@ -250,7 +249,7 @@ export default function ComponentFactory( ...constructors ) {
 
         /**
          * Helpers for blocks.
-         * Use because this.__data__ can be undefined (after update finished)
+         * Use because this.__data__ can be undefined (before update or after update finished)
          * @param {Object} blockData
          * @return {any}
          * @private
