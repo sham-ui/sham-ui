@@ -1,3 +1,6 @@
+## 5.0.0
+* Release
+
 ## 5.0.0-alpha.8
 * Fix `_dataForBlock` for first render (before set `this.__data__`)
 
