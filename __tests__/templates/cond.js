@@ -1,5 +1,5 @@
 import { renderComponent, expectRenderedText } from '../helpers';
-import { Component, cond } from '../../src/index';
+import { Component, cond, createChildContext } from '../../src/index';
 
 /**
  * Component for
@@ -17,31 +17,27 @@ const condition = Component( function() {
 
     // Create elements
     const for0 = dom.comment( 'if' );
-    const child0 = {};
-    const child1 = {};
+
+    const child0 = createChildContext( this, for0 );
+    const child1 = createChildContext( this, for0 );
 
 
     // Update spot functions
-    this.spots = [
+    this.addSpots(
         [
             'test',
             ( test ) => {
                 let result;
-                result = cond( this, for0, child0, cond_if0, test, this );
-                cond( this, for0, child1, cond_else1, !result, this );
+                result = cond( child0, cond_if0, test );
+                cond( child1, cond_else1, !result );
             }
         ]
-    ];
-
+    );
 
     // On update actions
     this.onUpdate = ( __data__ ) => {
-        if ( child0.ref ) {
-            child0.ref.update( __data__ );
-        }
-        if ( child1.ref ) {
-            child1.ref.update( __data__ );
-        }
+        child0.onUpdate( __data__ );
+        child1.onUpdate( __data__ );
     };
 
 
@@ -72,8 +68,9 @@ it( 'render', () => {
 
 it( 'update', () => {
     const DI = renderComponent( condition, {
-        ID: 'cond',
         test: true
+    }, {
+        ID: 'cond'
     } );
     expectRenderedText( ' then ' );
     const component = DI.resolve( 'sham-ui:store' ).byId.get( 'cond' );

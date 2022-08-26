@@ -25,7 +25,7 @@ const custom  = Component( function() {
     }
 
     // Update spot functions
-    this.spots = [
+    this.addSpots(
         [
             'title',
             ( title ) => {
@@ -38,7 +38,7 @@ const custom  = Component( function() {
                 text3.textContent = content;
             }
         ]
-    ];
+    );
 
     // Set root nodes
     this.nodes = [ h10, div2 ];
@@ -54,11 +54,12 @@ it( 'render', () => {
 
 it( 'querySelector', () => {
     const DI = renderComponent( custom, {
-        ID: 'custom',
         title: 'Text for title',
         content: 'Text for content'
+    }, {
+        ID: 'custom'
     } );
     const component = DI.resolve( 'sham-ui:store' ).byId.get( 'custom' );
-    expect( component.container.querySelector( 'h1' ).textContent ).toBe( 'Text for title' );
-    expect( component.container.querySelector( '.not-exists' ) ).toBe( null );
+    expect( component.ctx.container.querySelector( 'h1' ).textContent ).toBe( 'Text for title' );
+    expect( component.ctx.container.querySelector( '.not-exists' ) ).toBe( null );
 } );

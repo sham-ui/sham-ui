@@ -1,15 +1,16 @@
-import { start, createDI } from '../src/index';
+import { createRootContext, start, createDI } from '../src/index';
 
-export function renderComponent( componentConstructor, options = {} ) {
-    const DI = 'DI' in options ?
-        options.DI :
+export function renderComponent( componentConstructor, options = {}, extraContext = {} ) {
+    const DI = 'DI' in extraContext ?
+        extraContext.DI :
         createDI();
-    new componentConstructor( {
+    const context = createRootContext( {
+        DI,
         ID: 'dummy',
         container: document.querySelector( 'body' ),
-        DI,
-        ...options
+        ...extraContext
     } );
+    new componentConstructor( context, options );
     start( DI );
     return DI;
 }

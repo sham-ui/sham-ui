@@ -5,9 +5,11 @@ afterEach( () => {
     document.querySelector( 'body' ).innerHTML = '';
 } );
 
-class Label extends Component() {
+class Label extends Component( function() {
+    this.isRoot = true;
+} ) {
     render() {
-        this.container.innerHTML = this.options.text();
+        this.ctx.container.innerHTML = this.options.text();
     }
 }
 

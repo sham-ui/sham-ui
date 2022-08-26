@@ -42,11 +42,11 @@
         -   [Parameters](#parameters-12)
 -   [optionsCallback](#optionscallback)
     -   [Parameters](#parameters-13)
--   [updateCallback](#updatecallback)
-    -   [Parameters](#parameters-14)
 -   [didMountCallback](#didmountcallback)
-    -   [Parameters](#parameters-15)
+    -   [Parameters](#parameters-14)
 -   [onRemoveCallback](#onremovecallback)
+    -   [Parameters](#parameters-15)
+-   [didReceiveCallback](#didreceivecallback)
     -   [Parameters](#parameters-16)
 -   [componentConstructor](#componentconstructor)
     -   [Parameters](#parameters-17)
@@ -55,26 +55,28 @@
 -   [Component](#component)
     -   [Parameters](#parameters-19)
     -   [Properties](#properties-1)
+    -   [spots](#spots)
     -   [nested](#nested)
     -   [nodes](#nodes)
     -   [onMount](#onmount)
     -   [onRemove](#onremove)
+    -   [onReceive](#onreceive)
 -   [setDefaultOptions](#setdefaultoptions)
     -   [Parameters](#parameters-20)
 -   [insert](#insert)
     -   [Parameters](#parameters-21)
 -   [cond](#cond)
     -   [Parameters](#parameters-22)
--   [Map](#map)
-    -   [Properties](#properties-2)
-    -   [push](#push)
-        -   [Parameters](#parameters-23)
-    -   [remove](#remove)
-        -   [Parameters](#parameters-24)
-    -   [forEach](#foreach)
-        -   [Parameters](#parameters-25)
 -   [loop](#loop)
+    -   [Parameters](#parameters-23)
+-   [createRootContext](#createrootcontext)
+    -   [Parameters](#parameters-24)
+-   [createChildContext](#createchildcontext)
+    -   [Parameters](#parameters-25)
+-   [createLoopContext](#createloopcontext)
     -   [Parameters](#parameters-26)
+-   [createBlockContext](#createblockcontext)
+    -   [Parameters](#parameters-27)
 
 #### start
 
@@ -130,7 +132,7 @@ Components store
 
 ##### Properties
 
--   `byId` **[Map](#map)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), [Component](#component)>** Inner store
+-   `byId` **[Map](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), [Component](#component)>** Inner store
 
 #### Dom
 
@@ -242,16 +244,6 @@ Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Sta
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), any>** 
 
-#### updateCallback
-
-Update component state
-
-Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)
-
-##### Parameters
-
--   `data` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), any>** 
-
 #### didMountCallback
 
 Registry function on component didMount hook.
@@ -263,10 +255,23 @@ Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Sta
 
 -   `callback` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** 
 
+Returns **([onRemoveCallback](#onremovecallback) \| [undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined))** 
+
 #### onRemoveCallback
 
 Registry function on component onRemove hook
 Param callback will call after component remove
+
+Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)
+
+##### Parameters
+
+-   `callback` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** 
+
+#### didReceiveCallback
+
+Registry function on component didReceive hook.
+Param callback will call after component receive new state update from outer components
 
 Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)
 
@@ -283,9 +288,8 @@ Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Sta
 ##### Parameters
 
 -   `options` **[optionsCallback](#optionscallback)** 
--   `update` **[updateCallback](#updatecallback)** 
 -   `didMount` **[didMountCallback](#didmountcallback)** 
--   `onRemove` **[onRemoveCallback](#onremovecallback)** 
+-   `didReceive` **[didReceiveCallback](#didreceivecallback)** 
 
 #### ComponentFactory
 
@@ -303,16 +307,20 @@ Base component class
 
 ##### Parameters
 
--   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options
+-   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Context
+-   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Default options
 
 ##### Properties
 
+-   `ctx` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Context
 -   `ID` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Component unique ID
--   `container` **[Element](https://developer.mozilla.org/docs/Web/API/Element)** Container for component
--   `DI` **[DI](#di)** 
 -   `dom` **[Dom](#dom)** 
 -   `UI` **[Store](#store)** 
 -   `hooks` **[Hooks](#hooks)** 
+
+##### spots
+
+Type: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;Spot>
 
 ##### nested
 
@@ -330,12 +338,17 @@ Type: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global
 
 Type: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)>
 
+##### onReceive
+
+Type: [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)>
+
 #### setDefaultOptions
 
 ##### Parameters
 
 -   `current` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 -   `newOptions` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `proxy` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** 
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
@@ -345,13 +358,9 @@ Custom tags processor.
 
 ##### Parameters
 
--   `parent` **([Component](#component) | null)** Parent component
--   `container` **[Element](https://developer.mozilla.org/docs/Web/API/Element)** Container node
--   `child` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Reference to this component
+-   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Context
 -   `template` **Class&lt;[Component](#component)>** Component class for insert, if test true
 -   `data` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options for component
--   `owner` **[Component](#component)** Owner of inserting component
--   `blocks` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?** Object with block mountings map
 
 #### cond
 
@@ -359,44 +368,11 @@ If condition processor.
 
 ##### Parameters
 
--   `parent` **([Component](#component) | null)** Parent component
--   `container` **[Element](https://developer.mozilla.org/docs/Web/API/Element)** Container node
--   `child` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Reference to this component
+-   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Context
 -   `template` **Class&lt;[Component](#component)>** Component class for insert, if test true
 -   `test` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** Condition test
--   `owner` **[Component](#component)** Owner of inserting component
 
 Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** test result
-
-#### Map
-
-Simple Map implementation with length property.
-
-##### Properties
-
--   `items` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
--   `length` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
--   `next` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
-
-##### push
-
-###### Parameters
-
--   `element` **any** 
-
-Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
-
-##### remove
-
-###### Parameters
-
--   `i` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
-
-##### forEach
-
-###### Parameters
-
--   `callback` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** 
 
 #### loop
 
@@ -404,13 +380,50 @@ Loops processor
 
 ##### Parameters
 
--   `parent` **([Component](#component) | null)** Parent component
--   `container` **[Element](https://developer.mozilla.org/docs/Web/API/Element)** Container node
--   `map` **[Map](#map)** Map with length property
+-   `context` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Context
 -   `template` **Class&lt;[Component](#component)>** Component class for insert, if test true
 -   `array` **([Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array) \| [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))** Iterated object or array
--   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** Options for component
--   `owner` **[Component](#component)** Owner of inserting component
+-   `options` **(LoopOptions | null)** Options for component
+
+#### createRootContext
+
+##### Parameters
+
+-   `$0` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+    -   `$0.DI` **[DI](#di)** 
+    -   `$0.ID` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** 
+    -   `$0.container` **[Element](https://developer.mozilla.org/docs/Web/API/Element)** 
+    -   `$0.directives` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `{}`)
+    -   `$0.filters` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**  (optional, default `[]`)
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+#### createChildContext
+
+##### Parameters
+
+-   `parent` **[Component](#component)** 
+-   `container` **[Element](https://developer.mozilla.org/docs/Web/API/Element)** 
+-   `blocks` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+#### createLoopContext
+
+##### Parameters
+
+-   `parent` **[Component](#component)** 
+-   `container` **[Element](https://developer.mozilla.org/docs/Web/API/Element)** 
+
+Returns **any** 
+
+#### createBlockContext
+
+##### Parameters
+
+-   `owner` **[Component](#component)** 
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### License
 

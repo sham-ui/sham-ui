@@ -1,4 +1,3 @@
-import setupOptions from './options/setup-for-component';
 import setDefaultOptions from './options/set-default';
 import setupProxy from './proxy/setup-for-component';
 
@@ -42,16 +41,11 @@ const SPOT_LOOP = 1 << 1;
  */
 
 /**
- * Update component state
- * @callback updateCallback
- * @param {Object.<string, *>} data
- */
-
-/**
  * Registry function on component didMount hook.
  * Param callback will call after component render & update
  * @callback didMountCallback
  * @param {Function} callback
+ * @return {onRemoveCallback|undefined}
  */
 
 /**
@@ -62,12 +56,19 @@ const SPOT_LOOP = 1 << 1;
  */
 
 /**
+ * Registry function on component didReceive hook.
+ * Param callback will call after component receive new state update from outer components
+ * @callback didReceiveCallback
+ * @param {Function} callback
+ */
+
+
+/**
  * Constructor function for component
  * @callback componentConstructor
  * @param {optionsCallback} options
- * @param {updateCallback} update
  * @param {didMountCallback} didMount
- * @param {onRemoveCallback} onRemove
+ * @param {didReceiveCallback} didReceive
  * @this {Component}
  */
 
@@ -81,22 +82,34 @@ export default function ComponentFactory( ...constructors ) {
 
     /**
      * Base component class
-     * @param {Object} options Options
+     * @param {Object} context Context
+     * @param {Object} [options] Default options
+     * @property {Object} ctx Context
      * @property {string} ID Component unique ID
-     * @property {Element} container Container for component
-     * @property {DI} DI
      * @property {Dom} dom
      * @property {Store} UI
      * @property {Hooks} hooks
      */
     return class Component {
-        constructor( options ) {
-            setupOptions( this, options );
+        constructor( context, options = {} ) {
+            this.ctx = context;
+
             setupProxy( this );
 
-            this.UI = this.DI.resolve( 'sham-ui:store' );
+            // Create proxy function
+            const stateProxy = newState => this.updateState( newState );
+
+            this.options = setDefaultOptions( {}, options, stateProxy );
+
+            this.UI = this.ctx.DI.resolve( 'sham-ui:store' );
 
             this.ID = this.hooks.resolveID();
+
+            /**
+             * @inner
+             * @type {Array<Spot>}
+             */
+            this.spots = [];
 
             /**
              * @type {Array<Component>} Array of child components
@@ -120,32 +133,35 @@ export default function ComponentFactory( ...constructors ) {
              */
             this.onRemove = [];
 
+            /**
+             * @inner
+             * @type {Array<Function>}
+             */
+            this.onReceive = [];
+
             // Set inner props:
             this.__cache__ = {};
             this.isRoot = false;
 
             this.UI.byId.set( this.ID, this );
 
-            // Callback "options" for pass to constructor
-            const optionsCallback = options => setDefaultOptions( this.options, options || {} );
-
-            // Callback "update" for pass to constructor
-            const updateCallback = this.update.bind( this );
-
-            // Callback "didMount" for pass to constructor
-            const didMountCallback = callback => this.onMount.push( callback );
-
-            // Callback "onRemove" for pass to constructor
-            const onRemoveCallback = callback => this.onRemove.push( callback );
 
             // Call all constructors passed to factory
             constructors.forEach(
                 constructor => constructor.call(
                     this,
-                    optionsCallback,
-                    updateCallback,
-                    didMountCallback,
-                    onRemoveCallback
+
+                    // Callback "options" for pass to constructor
+                    options => {
+                        setDefaultOptions( this.options, options || {}, stateProxy );
+                        return stateProxy;
+                    },
+
+                    // Callback "didMount" for pass to constructor
+                    callback => this.onMount.push( callback ),
+
+                    // Callback "didReceive" for pass to constructor
+                    callback => this.onReceive.push( callback )
                 )
             );
 
@@ -154,39 +170,63 @@ export default function ComponentFactory( ...constructors ) {
         }
 
         /**
-         * Hook for extra data after render & update
+         * Hook for extra processing after render & update
          */
         didMount() {
 
             // Call callbacks from factory
-            this.onMount.forEach( callback => callback() );
+            this.onMount.forEach( callback => {
+                const onRemove = callback();
+
+                // If didMount return function, then registry that as onRemove callback
+                if ( onRemove ) {
+                    this.onRemove.push( onRemove );
+                }
+            } );
+        }
+
+        /**
+         * Add new spot
+         * @inner
+         * @param {...Spot} spots
+         */
+        addSpots( ...spots ) {
+            this.spots.push( ...spots );
+        }
+
+        /**
+         * Update component state & call hooks
+         * @param {Object}  currentData
+         */
+        update( currentData ) {
+            this.updateState( currentData );
+
+            // Call callbacks from factory
+            this.onReceive.forEach( callback => callback() );
         }
 
         /**
          * Update component state
+         * @inner
          * @param {Object}  currentData
          */
-        update( currentData ) {
+        updateState( currentData ) {
             const data = Object.assign( {}, this.options, currentData );
             this.__data__ = data;
 
-            const spots = this.spots;
-            if ( spots ) {
+            // Process spots provided by compiler or manual added
+            for ( let spot of this.spots ) {
 
-                // Template compiler provide spots, process
-                for ( let spot of spots ) {
-
-                    // bitMask must be last
-                    const last = spot[ spot.length - 1 ];
-                    this._updateSpot(
-                        data,
-                        [].concat( spot[ 0 ] ),
-                        spot[ 1 ],
-                        'number' === typeof  last ?
-                            last :
-                            0
-                    );
-                }
+                // bitMask must be last
+                const last = spot[ spot.length - 1 ];
+                this._updateSpot(
+                    data,
+                    [].concat( spot[ 0 ] ),
+                    spot[ 1 ],
+                    'number' === typeof last ?
+                        last :
+                        0
+                );
             }
 
             // Call on update callback.
@@ -264,7 +304,7 @@ export default function ComponentFactory( ...constructors ) {
          */
         render() {
             if ( this.dom.build() ) {
-                const node = this.container;
+                const node = this.ctx.container;
 
                 // COMMENT_NODE
                 if ( node.nodeType === 8 ) {
@@ -309,16 +349,18 @@ export default function ComponentFactory( ...constructors ) {
             }
 
             // Remove this view from parent's nested views.
-            if ( this.parent ) {
-                this.parent.nested.splice(
-                    this.parent.nested.indexOf( this ),
+            const parent = this.ctx.parent;
+            if ( parent ) {
+                parent.nested.splice(
+                    parent.nested.indexOf( this ),
                     1
                 );
-                this.parent = null;
             }
 
             // Call callbacks from factory
             this.onRemove.forEach( callback => callback() );
+
+            this.ctx = null;
         }
     };
 }

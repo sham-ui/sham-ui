@@ -1,5 +1,5 @@
 import { renderComponent, expectRenderedHTML } from '../helpers';
-import { Component, insert } from '../../src/index';
+import { Component, insert, createChildContext } from '../../src/index';
 
 /**
  * Component for
@@ -27,7 +27,7 @@ const CustomPanel = Component( function() {
     }
 
     // Update spot functions
-    this.spots = [
+    this.addSpots(
         [
             'title',
             ( title ) => {
@@ -40,7 +40,7 @@ const CustomPanel = Component( function() {
                 text3.textContent = content;
             }
         ]
-    ];
+    );
 
     // Set root nodes
     this.nodes = [ h10, div2 ];
@@ -58,21 +58,19 @@ const custom = Component( function() {
 
     // Create elements
     const custom0 = dom.comment( 'CustomPanel' );
-    const child0 = {};
 
     // Blocks
     const child0Blocks = {};
 
+    // Create context
+    const child0 = createChildContext( this, custom0, child0Blocks );
+
     // Extra render actions
     this.onRender = () => {
         insert(
-            this,
-            custom0,
             child0,
             CustomPanel,
-            { 'title': 'string', 'content': 'text' },
-            this,
-            child0Blocks
+            { 'title': 'string', 'content': 'text' }
         );
     };
 
@@ -86,7 +84,7 @@ it( 'render', () => {
 } );
 
 it( 're-render', () => {
-    const DI = renderComponent( custom, {
+    const DI = renderComponent( custom, {}, {
         ID: 'custom'
     } );
     DI.resolve( 'sham-ui:store' ).byId.get( 'custom' ).render();
@@ -94,7 +92,7 @@ it( 're-render', () => {
 } );
 
 it( 'destroy', () => {
-    const DI = renderComponent( custom, {
+    const DI = renderComponent( custom, {}, {
         ID: 'custom'
     } );
     DI.resolve( 'sham-ui:store' ).byId.get( 'custom' ).remove();
@@ -104,7 +102,7 @@ it( 'destroy', () => {
 it( 'needUpdateAfterRender (issue #42)', () => {
     const updateFn = jest.fn();
     CustomPanel.prototype.onUpdate = updateFn;
-    const DI = renderComponent( custom, {
+    const DI = renderComponent( custom, {}, {
         ID: 'custom'
     } );
     expect( updateFn ).toHaveBeenCalledTimes( 1 );
@@ -118,7 +116,7 @@ it( 'needUpdateAfterRender work with UI', () => {
     CustomPanel.prototype.onUpdate = function() {
         updateFn( this.ID );
     };
-    const DI = renderComponent( custom, {
+    const DI = renderComponent( custom, {}, {
         ID: 'custom'
     } );
     const customPanelID = updateFn.mock.calls[ 0 ][ 0 ];

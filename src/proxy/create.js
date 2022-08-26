@@ -9,7 +9,7 @@ export default function createProxy( serviceName, methods, component ) {
     const proxy = {};
     methods.forEach(
         name => proxy[ name ] = function() {
-            const service = component.DI.resolve( serviceName );
+            const service = component.ctx.DI.resolve( serviceName );
             return service[ name ].apply(
                 service,
 

@@ -38,7 +38,7 @@ export default class Hooks {
      * @return {string}
      */
     resolveID( component ) {
-        const ID = component.options.ID;
+        const ID = component.ctx.ID;
         return 'string' === typeof ID ?
             ID :
             nanoid()

@@ -4,6 +4,7 @@ import { renderComponent, expectRenderedText } from './helpers';
 
 it( 'state', () => {
     const Dummy = Component( function( options ) {
+        this.isRoot = true;
         const age = 27;
         const state = options( {
             firstName: 'John',
@@ -15,7 +16,7 @@ it( 'state', () => {
     } );
     renderComponent( class extends Dummy {
         render() {
-            this.container.textContent = this.options.fullName();
+            this.ctx.container.textContent = this.options.fullName();
         }
     } );
     expectRenderedText( 'John Smith (27)' );
@@ -23,6 +24,7 @@ it( 'state', () => {
 
 it( 'context is a not component (pass as constructor argument)', () => {
     const Dummy = Component( function( options ) {
+        this.isRoot = true;
         const age = 27;
         const state = options( {
             firstName: 'John',
@@ -34,7 +36,7 @@ it( 'context is a not component (pass as constructor argument)', () => {
     } );
     renderComponent( class extends Dummy {
         render() {
-            this.container.textContent = this.options.fullName();
+            this.ctx.container.textContent = this.options.fullName();
         }
     }, {
         fullName() {
@@ -47,6 +49,7 @@ it( 'context is a not component (pass as constructor argument)', () => {
 
 it( 'getter & setter together', () => {
     const Dummy = Component( function( options ) {
+        this.isRoot = true;
         let text = '';
         options( {
             text: {
@@ -62,7 +65,7 @@ it( 'getter & setter together', () => {
 
     const DI = renderComponent( class extends Dummy {
         render() {
-            this.container.textContent = this.options.text;
+            this.ctx.container.textContent = this.options.text;
         }
     } );
     expectRenderedText( '' );
@@ -75,13 +78,14 @@ it( 'getter & setter together', () => {
 
 it( 'wrap array to getter', () => {
     const Dummy = Component( function( options ) {
+        this.isRoot = true;
         options( {
             errors: []
         } );
     } );
     class DummyWithRender extends Dummy {
         render() {
-            this.container.textContent = this.options.errors;
+            this.ctx.container.textContent = this.options.errors;
         }
     }
     const DI = renderComponent( DummyWithRender );
@@ -94,13 +98,14 @@ it( 'wrap array to getter', () => {
 
 it( 'options is null', () => {
     const Dummy = Component( function( options ) {
+        this.isRoot = true;
         options( {
             form: null
         } );
     } );
     renderComponent( class extends Dummy {
         render() {
-            this.container.textContent = `form: ${this.options.form}`;
+            this.ctx.container.textContent = `form: ${this.options.form}`;
         }
     } );
     expectRenderedText( 'form: null' );

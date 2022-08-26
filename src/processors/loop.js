@@ -1,146 +1,106 @@
-function transformArray( array, keys, i, options ) {
-    if ( options ) {
-        const t = { __index__: i };
-        t[ options.value ] = array[ i ];
-
-        if ( options.key ) {
-            t[ options.key ] = i;
-        }
-
-        return t;
-    } else {
-        return array[ i ];
-    }
-}
-
-function transformObject( array, keys, i, options ) {
-    if ( options ) {
-        const t = { __index__: i };
-        t[ options.value ] = array[ keys[ i ] ];
-
-        if ( options.key ) {
-            t[ options.key ] = keys[ i ];
-        }
-
-        return t;
-    } else {
-        return array[ keys[ i ] ];
-    }
-}
-
+import { createComponent } from './create';
+/**
+ * @inner
+ * @typedef {Object} LoopOptions
+ * @property {String} value
+ * @property {String} key
+ */
 
 /**
- * Simple Map implementation with length property.
- * @property {Object} items
- * @property {number} length
- * @property {number} next
+ * @inner
+ * @param {number} index
+ * @return {number}
  */
-export class Map {
-    constructor() {
+const transformArrayKey = index => index;
 
-        this.items = Object.create( null );
-        this.length = 0;
-        this.next = 0;
-    }
+/**
+ * @inner
+ * @param {string[]} keys
+ * @return {function(number): string}
+ */
+const transformObjectKey = ( keys ) => ( index ) => keys[ index ];
 
-    /**
-     * @param {*} element
-     * @return {number}
-     */
-    push( element ) {
-        this.items[ this.next ] = element;
-        this.length += 1;
-        this.next += 1;
-        return this.next - 1;
-    }
-
-    /**
-     * @param {number} i
-     */
-    remove( i ) {
-        if ( i in this.items ) {
-            delete this.items[ i ];
-            this.length -= 1;
+/**
+ * Build loopItem state
+ * @inner
+ * @param {Object|Array}array
+ * @param {String|Number} key
+ * @param {number} index
+ * @param {LoopOptions|null} options
+ * @return {*}
+ */
+function buildState( array, key, index, options ) {
+    if ( options ) {
+        const item = { __index__: index };
+        item[ options.value ] = array[ key ];
+        if ( options.key ) {
+            item[ options.key ] = key;
         }
+        return item;
     }
-
-    /**
-     * @param {Function} callback
-     */
-    forEach( callback ) {
-        for ( let i in this.items ) {
-            callback( this.items[ i ] );
-        }
-    }
+    return array[ key ];
 }
 
 /**
  * Loops processor
- * @param {Component|null} parent Parent component
- * @param {Element} container Container node
- * @param {Map} map Map with length property
+ * @param {Object} context Context
  * @param {Class<Component>} template Component class for insert, if test true
  * @param {Array|Object} array Iterated object or array
- * @param {Object} options Options for component
- * @param {Component} owner Owner of inserting component
+ * @param {LoopOptions|null} options Options for component
  */
-export default function loop( parent, container, map, template, array, options, owner ) {
-    let i, j, len, keys, transform, arrayLength, childrenSize = map.length;
+export default function loop( context, template, array, options ) {
+    let transformKey, arrayLength;
 
     // Get array length, and convert object to array if needed.
     if ( Array.isArray( array ) ) {
-        transform = transformArray;
+        transformKey = transformArrayKey;
         arrayLength = array.length;
     } else {
-        transform = transformObject;
-        keys = Object.keys( array );
+        const keys = Object.keys( array );
+        transformKey = transformObjectKey( keys );
         arrayLength = keys.length;
     }
 
+    const loopItems = context.ref;
+
+    const childrenSize = loopItems.length;
+
     // If new array contains less items what before, remove surpluses.
-    len = childrenSize - arrayLength;
-    for ( i in map.items ) {
+    let len = childrenSize - arrayLength;
+    for ( let i in loopItems.items ) {
         if ( len-- > 0 ) {
-            map.items[ i ].remove();
+            loopItems.items[ i ].remove();
         } else {
             break;
         }
     }
 
     // If there is already some views, update there loop state.
-    j = 0;
-    for ( i in map.items ) {
-        map.items[ i ].__state__ = transform( array, keys, j, options );
+    let j = 0;
+    for ( let i in loopItems.items ) {
+        loopItems.items[ i ].__state__ = buildState( array, transformKey( j ), j, options );
         j++;
     }
 
     // If new array contains more items when previous, render new views and append them.
-    for ( j = childrenSize, len = arrayLength; j < len; j++ ) {
+    for ( let j = childrenSize; j < arrayLength; j++ ) {
+        createComponent(
+            context.extend( {
+                parent: context.parent,
+                container: context.container
+            } ),
+            template,
+            view => {
 
-        // Render new view.
-        const view = new template( {
-            parent,
-            owner,
-            container
-        } );
-        view.render();
+                // Remember to remove from children loopItems on view remove.
+                let i = loopItems.push( view );
+                view.unbind = (
+                    ( i ) => () => loopItems.remove( i )
+                )( i );
 
-        // Set view hierarchy.
-        parent.nested.push( view );
-
-        // Remember to remove from children map on view remove.
-        i = map.push( view );
-        view.unbind = (
-            ( i ) => () => map.remove( i )
-        )( i );
-
-        // Set view state for later update in onUpdate.
-        view.__state__ = transform( array, keys, j, options );
-
-        // Rehydrate component
-        view.hooks.rehydrate();
-
-        // Call hook
-        view.didMount();
+                // Set view state for later update in onUpdate.
+                view.__state__ = buildState( array, transformKey( j ), j, options );
+            }
+        );
     }
 }

@@ -1,5 +1,5 @@
 import { renderComponent, expectRenderedHTML } from '../helpers';
-import { Component, Map, loop } from '../../src/index';
+import { Component, createLoopContext, loop } from '../../src/index';
 
 /**
  * Component for
@@ -16,32 +16,27 @@ const LoopComponent = Component( function() {
 
     // Create elements
     const ul0 = dom.el( 'ul' );
-    const children0 = new Map();
+    const child0 = createLoopContext( this, ul0 );
 
     // Update spot functions
-    this.spots = [
+    this.addSpots(
         [
             'list',
             ( list ) => {
                 loop(
-                    this,
-                    ul0,
-                    children0,
+                    child0,
                     loop_for0,
                     list,
-                    { 'key': 'key', 'value': 'value' },
-                    this
+                    { 'key': 'key', 'value': 'value' }
                 );
             },
             0
         ]
-    ];
+    );
 
     // On update actions
     this.onUpdate = ( __data__ ) => {
-        children0.forEach(
-            ( view ) => view.update( Object.assign( {}, __data__, view.__state__ ) )
-        );
+        child0.onUpdate( __data__ );
     };
 
     // Set root nodes
@@ -67,7 +62,7 @@ const loop_for0 = Component( function() {
     }
 
     // Update spot functions
-    this.spots = [
+    this.addSpots(
         [
             'key',
             ( key ) => {
@@ -82,7 +77,7 @@ const loop_for0 = Component( function() {
             },
             2 // LOOP
         ]
-    ];
+    );
 
     // Set root nodes
     this.nodes = [ li0 ];
@@ -109,7 +104,8 @@ it( 'render (object)', () => {
 it( 'update', () => {
     const list = [ 'one', 'two', 'three' ];
     const DI = renderComponent( LoopComponent, {
-        list,
+        list
+    }, {
         ID: 'loop'
     } );
     expectRenderedHTML( '<ul><li>0:one</li><li>1:two</li><li>2:three</li></ul>' );

@@ -1,3 +1,19 @@
+## master
+* Rename Map To LoopItems & move to context
+* Update browserslist
+* Move some blueprint codes from `for` compiler to runtime
+* Changes hooks:
+  `function FooComponent( options, didMount, didRecieve )`
+  `didMount` can return function for `onRemove`
+  `didRecieve` should call after new option set from outer component
+  `options` return function with state. Now state will autocall update:
+  ```
+  const state = options( { foo: 42, bar: 56 } );
+  state.foo = 31; // call update inner
+  state( { foo: 78, bar: 93 } ) // call update once for multiple values
+  ```
+* Add new base entity - `context` for decrease compiled templates size & more robust api for directives & filters
+
 ## 5.0.0
 * Release
 
