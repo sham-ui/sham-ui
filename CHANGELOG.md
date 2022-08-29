@@ -1,4 +1,4 @@
-## master
+## 6.0.0-alpha.1
 * Rename Map To LoopItems & move to context
 * Update browserslist
 * Move some blueprint codes from `for` compiler to runtime
