@@ -7,7 +7,7 @@ export function extend( extra ) {
         DI: this.DI,
         directives: this.directives,
         filters: this.filters,
-        blocks: this.blocks,
+        blocks: this.blocks || [],
         appendDirectives( newDirectives ) {
             this.directives = Object.assign( {}, this.directives, newDirectives );
         },

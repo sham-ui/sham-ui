@@ -5,7 +5,7 @@ import createProxy from './create';
  * @param {Component} component
  * @inner
  */
-export default function setupForComponet( component ) {
+export default function setupForComponent( component ) {
     component.dom = createProxy(
         'sham-ui:dom',
         [

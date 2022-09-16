@@ -1,3 +1,7 @@
+## 6.0.0-alpha.2 
+* Fix typo (`setupForComponet` -> `setupForComponent`)
+* Add empty `blocks` to context
+
 ## 6.0.0-alpha.1
 * Rename Map To LoopItems & move to context
 * Update browserslist
