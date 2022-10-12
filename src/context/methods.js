@@ -19,6 +19,9 @@ export function extend( extra ) {
                 this.ref.updateState( data );
             }
         },
+        resetOwner() {
+            this.owner = null;
+        },
         extend,
         ref: null
     }, extra );

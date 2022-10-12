@@ -7,6 +7,7 @@ export function createBlockContext( owner ) {
         owner: owner.isRoot ?
             owner :
             owner.ctx.owner,
+        resetOwner() {},
         setup( parent, container ) {
             return Object.assign( this, { parent, container } );
         }

@@ -13,9 +13,12 @@ export { createBlockContext } from './context/block';
  * @param {DI} DI
  */
 export function start( DI ) {
-    const components = DI.resolve( 'sham-ui:store' ).byId.values();
     const hooks = DI.resolve( 'sham-ui:hooks' );
-    Array.from( components ).forEach( component => {
+    Array.from(
+
+        // Get root components
+        DI.resolve( 'sham-ui:store' ).byId.values()
+    ).forEach( component => {
 
         // Save owner of root component in context
         component.ctx.owner = component;

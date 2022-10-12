@@ -360,6 +360,7 @@ export default function ComponentFactory( ...constructors ) {
             // Call callbacks from factory
             this.onRemove.forEach( callback => callback() );
 
+            this.ctx.resetOwner();
             this.ctx = null;
         }
     };

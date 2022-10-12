@@ -1,3 +1,7 @@
+## master
+* Reset resolved `owner` in context on component remove
+* Increase size limit to `2.5 KB`
+
 ## 6.0.0-alpha.2 
 * Fix typo (`setupForComponet` -> `setupForComponent`)
 * Add empty `blocks` to context
