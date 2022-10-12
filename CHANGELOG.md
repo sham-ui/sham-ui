@@ -1,4 +1,4 @@
-## master
+## 6.0.0-alpha.3
 * Reset resolved `owner` in context on component remove
 * Increase size limit to `2.5 KB`
 * Replace `unbind` with `onRemove` 
