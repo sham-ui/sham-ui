@@ -93,10 +93,10 @@ export default function loop( context, template, array, options ) {
             view => {
 
                 // Remember to remove from children loopItems on view remove.
-                let i = loopItems.push( view );
-                view.unbind = (
-                    ( i ) => () => loopItems.remove( i )
-                )( i );
+                const i = loopItems.push( view );
+                view.onRemove.push(
+                    () => loopItems.remove( i )
+                );
 
                 // Set view state for later update in onUpdate.
                 view.__state__ = buildState( array, transformKey( j ), j, options );

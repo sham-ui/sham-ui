@@ -23,7 +23,7 @@ export function createComponent( context, template, afterInstance, data ) {
     // Set view hierarchy.
     context.parent.nested.push( view );
 
-    // Process extra unbind handler
+    // Process extra after instance handler
     afterInstance( view, context );
 
     // Rehydrate component
@@ -48,7 +48,5 @@ export function saveRef( view, context ) {
 
     // Remember to remove child ref on remove of view.
     context.ref = view;
-    view.unbind = function() {
-        context.ref = null;
-    };
+    view.onRemove.push( () => context.ref = null );
 }

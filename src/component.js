@@ -337,11 +337,6 @@ export default function ComponentFactory( ...constructors ) {
                 this.nodes[ i ].parentNode.removeChild( this.nodes[ i ] );
             }
 
-            // Remove self from parent's children map or child ref.
-            if ( this.unbind ) {
-                this.unbind();
-            }
-
             // Remove all nested views.
             i = this.nested.length;
             while ( i-- ) {
