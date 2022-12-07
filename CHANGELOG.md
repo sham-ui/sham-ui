@@ -1,3 +1,6 @@
+## 6.0.0-alpha.4 
+* Fix resolve block's `owner` 
+
 ## 6.0.0-alpha.3
 * Reset resolved `owner` in context on component remove
 * Increase size limit to `2.5 KB`
