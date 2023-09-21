@@ -32,7 +32,7 @@ export function createComponent( context, template, afterInstance, data ) {
     if ( data ) {
 
         // Set view data (note what it must be after adding nodes to DOM).
-        view.updateState( data );
+        view.update( data );
     }
 
     // Call hook

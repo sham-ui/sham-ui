@@ -2,7 +2,7 @@ import { Component, insert, createChildContext } from '../src/index';
 import { renderComponent, expectRenderedText } from './helpers';
 
 it( 'didReceive', () => {
-    expect.assertions( 5 );
+    expect.assertions( 7 );
     const didReceiveFn = jest.fn();
 
     const Dummy = Component( function Template() {
@@ -16,10 +16,10 @@ it( 'didReceive', () => {
         );
         this.nodes = [ text0 ];
     }, function( options, didMount, didReceive ) {
-        const state = options( {
+        options( {
             content: 'default'
         } );
-        didReceive( () => didReceiveFn( state.content ) );
+        didReceive( ( data ) => didReceiveFn( data ) );
     } );
 
 
@@ -37,18 +37,20 @@ it( 'didReceive', () => {
         this.nodes = [ custom0 ];
     }, function( options ) {
         state = options( {
-            content: ''
+            content: 'usage'
         } );
     } );
 
     renderComponent( DymmyUsage );
-    expectRenderedText( '' );
+    expectRenderedText( 'usage' );
 
     state.content = 'new';
     expectRenderedText( 'new' );
-    expect( didReceiveFn ).toHaveBeenCalledTimes( 1 );
+    expect( didReceiveFn ).toHaveBeenCalledTimes( 2 );
     expect( didReceiveFn.mock.calls[ 0 ].length ).toBe( 1 );
-    expect( didReceiveFn.mock.calls[ 0 ][ 0 ] ).toBe( 'new' );
+    expect( didReceiveFn.mock.calls[ 0 ][ 0 ] ).toEqual( { 'content': 'usage' } );
+    expect( didReceiveFn.mock.calls[ 1 ].length ).toBe( 1 );
+    expect( didReceiveFn.mock.calls[ 1 ][ 0 ] ).toEqual( { 'content': 'new' } );
 } );
 
 

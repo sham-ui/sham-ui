@@ -1,3 +1,6 @@
+## master
+* Hook `didRecieve` now call on insert component
+
 ## 6.0.0-alpha.4 
 * Fix resolve block's `owner` 
 

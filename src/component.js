@@ -202,7 +202,7 @@ export default function ComponentFactory( ...constructors ) {
             this.updateState( currentData );
 
             // Call callbacks from factory
-            this.onReceive.forEach( callback => callback() );
+            this.onReceive.forEach( callback => callback( currentData ) );
         }
 
         /**
