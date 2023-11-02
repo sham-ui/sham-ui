@@ -1,3 +1,6 @@
+## 6.0.0
+* Release
+
 ## 6.0.0-alpha.5 
 * Hook `didRecieve` now call on insert component
 
